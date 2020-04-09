@@ -15,12 +15,12 @@ from . import Conv;
 
 class GasVars:
     def __init__(self):
-        self.pressure = 1;           # pressure in the bars
-        self.volume   = 1;           # current volume. in liters
+        self.pressure = 1.0;           # pressure in the bars
+        self.volume   = 1.0;           # current volume. in liters
         self.temp     = Conv.cToKelvin(21);    # room temperature
         self.pO2      = .21;         # percent 02 (partial pressure is p02*pressure)
         self.pN2      = .79;         # percent N2 (partial pressure is p02*pressure)
-        self.sccm = 0;               # flow in standard cubic centimeters per minute
-        self.resitance = 0;          # resistance to flow...
+        self.flow     = 0.0;           # flow...
+        self.resistance = 0.0;         # resistance to flow...
         self.open = True;            # if this is a valve, state if it is open or closed...
 

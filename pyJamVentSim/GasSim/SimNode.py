@@ -36,12 +36,13 @@ class SimNode:
         self.out = GasVars();        # public attributes
 
         # protetected attributes
-        self._out = GasVars();       # protected attributes
+        self._next_out = GasVars();       # protected attributes
         self._connections = [];
         self.__childNodes = [];
         self._id = SimNode._id;
         SimNode._id += 1;
         self.nodeType = nodeType;
+        self.steps=0;
 
         # should we make an attempt at common inputs and outputs.
         # as an immutable tuple, not all nodes will use these, but...
@@ -58,6 +59,8 @@ class SimNode:
         :dt -- detla time for this time step....
         :return: none
         '''
+        if (self.steps == 0):
+            self._next_out = self.out;      # initialize initial conditions
         for n in self.__childNodes:
             n.step(dt)
 
@@ -67,11 +70,12 @@ class SimNode:
         move new data calculated in the step step to the
         :return: none
         '''
+        self.steps += 1;
         for n in self.__childNodes:
             n.next()
         # make sure we did not make a mistake with the gas mix...
         assert(round(self.out.pO2+self.out.pN2) == 1);
-        self.out = self._out;     # move calculated to public output.
+        self.out = self._next_out;     # move calculated to public output.
 
     def getNumConnections(self):
         return(len(self._connections));
@@ -110,19 +114,19 @@ class SimNode:
         return(self._id)
     # external interface to set values.
     def setPressure(self, pressure):
-        self.out.pressure = pressure;
+        self.out.pressure = float(pressure);
     def setVolume(self, volume):
-        self.out.volume = volume;
+        self.out.volume = float(volume);
     def setTemperature(self, temp):
-        self.out.temp = temp;
+        self.out.temp = float(temp);
     def setMass(self, mass):
-        self.out.mass = mass;
+        self.out.mass = float(mass);
     def setResistance(self,resistance):
-        self.out.resistance = resistance;
+        self.out.resistance = float(resistance);
     def setP02(selfself,pO2):
-        self.out.pO2=pO2;
+        self.out.pO2=float(pO2);
     def setPN2(self, pN2):
-        self.out.pN2=pN2;
+        self.out.pN2=float(pN2);
     def setOpen(self, open):
         self.out.open = open;
 
@@ -135,3 +139,8 @@ class SimNode:
         setTemp(temp);
         for c in self.__childNodes:     # pass it on to the children..
             c.setAllTemp(temp);
+    #
+    # get the pressure drop in a pipe..
+    #
+    def getPressureDrop(self):
+        return(0);      # default is the same as overall pressure.

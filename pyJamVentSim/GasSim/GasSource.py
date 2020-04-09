@@ -20,7 +20,6 @@ class GasSource(SimNode):
 
     def step(self,dt):
         SimNode.step(self,dt);
-        print("{} TBD".format(self.getNodeType()));
         # note nothing changes here, a gas source just
         # is a constant pressure source...
         #

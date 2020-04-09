@@ -34,7 +34,7 @@ avogradoNumber = 6.022e23       # number of molecules in a mol
 cmH20Bar = 1019.7162129779;     # how many cm's in 1 bar
 
 # common resistances for our systems.
-# resistance of 6mm pipe in bar/liters/s
+# resistance of mm pipe in bar/liters/s
 reist6mmPipe=60;
 resist12mmPipe=4.86
 reist18mmPipe=1.43

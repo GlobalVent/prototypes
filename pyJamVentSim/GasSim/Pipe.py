@@ -36,14 +36,33 @@ class Pipe(SimNode):
     def step(self, dt):
         SimNode.step(self,dt)
         assert(self.getNumConnections() == 2)
+        pA = self._connections[0];
+        pB = self._connections[1];
+        if (pA.out.pressure > pB.out.pressure):
+            maxP = pA;
+        else:
+            maxP = pB;
 
-        pA=self._connections[0];
-        pB=self._connections[1];
-        print("{} TBD, {}: pA={}, {}: pB={}".format(self.getNodeType(),
-                                                    pA.getNodeType(), pA.out.pressure,
-                                                    pB.getNodeType(),pB.out.pressure));
+        self._next_out.pN2 = maxP.out.pN2;
+        self._next_out.PO2 = maxP.out.pO2;
+        self._next_out.pressure = maxP.out.pressure;
 
+        if (self.out.open):
+            self._next_out.flow=abs(pA.out.pressure-pB.out.pressure)/self.out.resistance;
+        else:
+            self._next_out.flow = 0;      # valve off, no flow
+        return;
 
+    def getPressureDrop(self):
+        assert(self.getNumConnections() == 2)
+        pdrop = 0;
+        if (self.out.open):
+            pA = self._connections[0];
+            pB = self._connections[1];
+            pdrop = (abs(pA.out.pressure-pB.out.pressure))
+        else:
+            pdrop=0;
+        return(pdrop);
 
 
 
