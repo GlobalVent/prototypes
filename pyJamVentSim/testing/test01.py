@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # ultra simple test of basic gas elements.
 #

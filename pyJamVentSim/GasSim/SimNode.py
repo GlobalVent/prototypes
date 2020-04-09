@@ -70,7 +70,7 @@ class SimNode:
         for n in self.__childNodes:
             n.next()
         # make sure we did not make a mistake with the gas mix...
-        assert(round(self._out.p02+self.out.pN2) == 1);
+        assert(round(self.out.pO2+self.out.pN2) == 1);
         self.out = self._out;     # move calculated to public output.
 
     def getNumConnections(self):
