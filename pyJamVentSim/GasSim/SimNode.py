@@ -71,13 +71,18 @@ class SimNode:
         :dt -- detla time for this time step....
         :return: none
         '''
-        if (self.steps == 0):
-            self.out = self._next_out;      # initialize initial conditions
         # some self checks
+        if (self.steps == 0):
+            self.init();
         assert(self._next_out.pressure > 0);   # should never do 0 or negative pressure
         assert(self._next_out.temp > 0);       # never absolute zero.
         for n in self.__childNodes:
             n.step(dt)
+
+    def init(self):
+        self.out = self._next_out;  # initialize initial conditions
+        for n in self.__childNodes:
+            n.init();
 
     def next(self):
         '''

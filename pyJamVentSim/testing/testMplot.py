@@ -19,7 +19,7 @@ C,S = np.cos(X), np.sin(X)
 
 
 plt.plot(X, C, color="blue", linewidth=2.5, linestyle="-")
-#plt.plot(X, S, color="red", linewidth=2.5, linestyle="-")
+plt.plot(X, S, color="red", linewidth=2.5, linestyle="-")
 
 plt.xlim(X.min()*1.1, X.max()*1.1)
 plt.xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi],

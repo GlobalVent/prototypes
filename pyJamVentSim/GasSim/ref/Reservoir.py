@@ -43,45 +43,53 @@ class Reservoir(SimNode):
         flowMols=0.0;
         flowMolsN2=0.0;
         flowMolsO2=0.0;
-        ppNewN2=0;
-        ppNewO2=0;      # partial pressures new n2/O2
         # for each connection figure out how much is entering or leaving in mols
         R = Const.uGasConst;
-        numValveOpen=0;
-        Pdelta=0;
-        ppNewO2=0;
-        ppNewN2=0;
         for c in self._connections:
-            if not (c.out.open):
-                continue;
-            numValveOpen += 1;
             # convert volume to mol?
             # PV=nRT solve for n
             #    n=PV/RT
+            Pdrop = c.getPressureDrop(self);
             # print("PresDrop={}".format(Prop))
             #
             #              1                # calculate the new pressure..
             # P      = (-----------)        #   this is only valid
             #               dt/RV
             #             e
-            Pdrop = c.getPressureDrop(self);
+
             R=c.out.resistance;
             V=self.out.volume;
-            tc=1-math.exp(-dt/(R*V))
-            Pdelta=Pdrop*(1-math.exp(-dt/(R*V)))      # this is not handling multiple circuits open.
-            ppNewO2+=Pdelta*c.out.pO2;
-            ppNewN2+=Pdelta*c.out.pN2;
+            Pnew=Pdrop*(1-math.exp(-dt/(R*V)))
+            Pdelta=Pnew+self.out.pressure;
+            # V=c.out.flow*(1-(1/math.exp(dt)))
+            # #V=c.out.flow*dt;        # convert flow to liters
+            # T=c.out.temp;
+            # n=(P*V)/(R*T);
+            # # if self.out.pressure >= c.out.pressure:  # outgoing gast
+            # #     F *= -1;                       # invert the flow
+            # flowMolsN2+=n*c.out.pN2;
+            # flowMolsO2+=n*c.out.pO2;
+            # flowMols+=n;
 
-        assert(numValveOpen == 1);      # don't support parallel filling of the container yet...
-        # ttry working with partial pressures.
-        ppO2 = self.out.pressure * self.out.pO2
-        ppN2 = self.out.pressure * self.out.pN2
-        ppO2 += ppNewO2;
-        ppN2 += ppNewN2;
-        self.out.pressure+= Pdelta;
-        self.out.pN2=ppN2/self.out.pressure;
-        self.out.pO2=ppO2/self.out.pressure;
+        ppresN2=
+        # convert resoviore contents to mols.
+        P=self.out.pressure;
+        V=self.out.volume;
+        T=self.out.temp;
+        resorvoirMols = (P*V)/(R*T)
+        resMolN2 = resorvoirMols * self.out.pN2;
+        resMolO2 = resorvoirMols * self.out.pO2;
 
+        n = resorvoirMols + flowMols;
+        T = self.out.temp;
+        V = self.out.volume;
+        self._next_out.pressure = (n * R * T) / V;
+        # and now a new gas mix...  convert from Volume
+        newMolsN2 = resMolN2 + flowMolsN2;
+        newMolsO2 = resMolO2 + flowMolsO2;
+        # new mix will what partial pressures will we have.
+        self._next_out.pN2 = newMolsN2 / n;
+        self._next_out.pO2 = newMolsO2 / n;
         assert (round(self._next_out.pO2 + self._next_out.pN2, 3) == 1.00);
         # this check is unique to this model, nO2 can never be zero or we did
         #  something very wrong.
