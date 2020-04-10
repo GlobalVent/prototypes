@@ -11,10 +11,10 @@ from . import Const
 
 
 class Reservoir(SimNode):
-    def __init__(self, pressure, volume):
-        SimNode.__init__(self, NodeType.RESEROVIRE);
-        self.setPressure(pressure);
-        self.setVolume(volume);
+    def __init__(self, name, pressure, volume):
+        SimNode.__init__(self, name, NodeType.RESEROVIRE);
+        self._next_out.pressure = pressure;
+        self._next_out.volume = volume;
 
     def connect(self,node):
         '''
@@ -48,12 +48,13 @@ class Reservoir(SimNode):
             # convert volume to mol?
             # PV=nRT solve for n
             #    n=PV/RT
-            P = c.getPressureDrop();
+            P = c.getPressureDrop(self);
+            # print("PresDrop={}".format(P))
             V=c.out.flow*dt;        # convert flow to liters
             T=c.out.temp;
             F=(P*V)/ (R*T);
-            if self.out.pressure >= c.out.pressure:  # outgoing gast
-                F *= -1;                       # invert the flow
+            # if self.out.pressure >= c.out.pressure:  # outgoing gast
+            #     F *= -1;                       # invert the flow
             flowMolsN2+=F*c.out.pN2;
             flowMolsO2+=F*c.out.pO2;
             flowMols+=F;
@@ -77,6 +78,9 @@ class Reservoir(SimNode):
         self._next_out.pN2 = newMolsN2 / n;
         self._next_out.pO2 = newMolsO2 / n;
         assert (round(self._next_out.pO2 + self._next_out.pN2, 3) == 1.00);
+        # this check is unique to this model, nO2 can never be zero or we did
+        #  something very wrong.
+        assert (self._next_out.pO2 > 0);
 
     def getValues(self):
         '''

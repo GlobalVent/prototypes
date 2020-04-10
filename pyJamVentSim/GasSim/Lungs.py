@@ -7,11 +7,11 @@
 from .SimNode import SimNode,NodeType
 
 class Lungs(SimNode):
-    def __init__(self, pressure, gasConst, load):
-        SimNode.__init__(self,NodeType.LUNGS);
-        self.out.pressure = pressure;
-        self.out.gasConst = gasConst;
-        self.out.load = load;       # is this right term.
+    def __init__(self, name, pressure, gasConst, load):
+        SimNode.__init__(self,name,NodeType.LUNGS);
+        self._next_out.pressure = pressure;
+        self._next_out.gasConst = gasConst;
+        self._next_out.load = load;       # is this right term.
         print("Lungs.__init__ calculate the volume here from the pressure and load")
 
     def connect(self, node):

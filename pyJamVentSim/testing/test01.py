@@ -22,21 +22,22 @@ from GasSim import Const
 
 class SimpleGasModel(SimNode):
     def __init__(self):
-        SimNode.__init__(self,NodeType.MODEL)
+        SimNode.__init__(self,"simpleGasModel", NodeType.MODEL)
         # create all the nodes...
         #
-        gasSrc = GasSource(4)  #  bar air source.
+        pipeResist=0.1;
+        gasSrc = GasSource("gasSrc",3)  #  bar air source.
         self.addChildNode(gasSrc);
-        valveRin = Valve(1,  # pressure
-                         Const.reist18mmPipe)  # resistance
+        valveRin = Valve("valveRin", 1,  # pressure
+                         pipeResist)  # resistance
         self.addChildNode(valveRin);
-        reservoir = Reservoir(1,  # pressure
+        reservoir = Reservoir("reservoir", 1,  # pressure
                              2)  # 2 liter volume
         self.addChildNode(reservoir)
-        valveRout = Valve(1,  # pressure
-                          Const.resist12mmPipe)  # resistance
+        valveRout = Valve("valveRout", 1,  # pressure
+                          pipeResist)  # resistance
         self.addChildNode(valveRout);
-        gasSink = GasSource(1)  # 1 bar air sink
+        gasSink = GasSource("gasSink", 1)  # 1 bar air sink
         self.addChildNode(gasSink)
 
         self._gasSrc    = gasSrc;
@@ -67,15 +68,12 @@ class SimpleGasModel(SimNode):
 
     def getResPressure(self):
         return(self._reservoir)
-
     def getReservoir(self):
         return(self._reservoir);
-
     def getValveRin(self):
         return(self._valveRin);
     def getValveRout(self):
         return(self._valveRout);
-
     def getGasSrc(self):
         return(self._gasSrc)
 
@@ -86,8 +84,8 @@ if __name__ == "__main__":
     T=[];       # arrays to plot
     Pres = [];  # reservoir pressures
 
-    dt = 0.01;    # delta time 1 millisecond resolution
-    timeLimit = 40.0;  # time limit in seconds.
+    dt = 0.01;    # delta time
+    timeLimit = 10.0;  # time limit in seconds.
     timeNow=0.0;
     gasSrc = model.getGasSrc();
     reservoir = model.getReservoir();
@@ -95,17 +93,23 @@ if __name__ == "__main__":
     valveRout = model.getValveRout();
     valveRin.setOpen(True);
 
-    # debug reverse the src and resovire pressures..
+    #debug reverse the src and resovire pressures..
     # gasSrc.setPressure(1.0)
-    # reservoir.setPressure(3.999);
-
+    # reservoir.setPressure(3);
+    nsteps=0;
     while timeNow < timeLimit:
+        nsteps += 1;
         model.step(dt);
         model.next();
-        print("{:1.3}: {}".format(timeNow,reservoir.getValues()))
-        if (round(timeNow,6) == round(timeLimit/4,6)):
-            valveRin.setOpen(False);
-            valveRout.setOpen(True);
+        #print("{:1.3}: {}".format(timeNow,reservoir.getValues()))
+        if ((nsteps % 200) == 0):
+            if (valveRin.out.open):
+                valveRin.setOpen(False);
+                valveRout.setOpen(True);
+            else:
+                valveRin.setOpen(True);
+                valveRout.setOpen(False);
+
 
         timeNow += dt;
         T.append(timeNow);
@@ -117,7 +121,3 @@ if __name__ == "__main__":
     #plt.ylim(0,max(reservoir.out.pressure,gasSrc.out.pressure));
     plt.ylim(0,4);
     plt.show()
-
-
-
-

@@ -30,25 +30,37 @@ class NodeType(Enum):
     RESEROVIRE='Reservoire'
 
 class SimNode:
-    _id=0;          # simulaton node id, monitically incremented for every new sim node.
-    def __init__(self,nodeType):
+    __nextId=0;          # simulaton node id, monitically incremented for every new sim node.
+    def __init__(self,name,nodeType):
         # public attributes, immutable (please)
         self.out = GasVars();        # public attributes
 
         # protetected attributes
+        self._name=name;
+        self._nodeType = nodeType;
         self._next_out = GasVars();       # protected attributes
         self._connections = [];
         self.__childNodes = [];
-        self._id = SimNode._id;
-        SimNode._id += 1;
-        self.nodeType = nodeType;
+        self._nodeId = SimNode.__nextId;
+        SimNode.__nextId += 1;
         self.steps=0;
 
         # should we make an attempt at common inputs and outputs.
         # as an immutable tuple, not all nodes will use these, but...
 
-    def getNodeType(self):
-        return(self.nodeType);
+    def nodeId(self):
+        '''
+        retrieve the unique node id
+        :return:
+        '''
+        return(self._nodeId)
+
+    def nodeType(self):
+        '''
+        get the node type of this node...
+        :return:
+        '''
+        return(self._nodeType);
 
     # virtual classes --
     def step(self, dt):
@@ -60,7 +72,10 @@ class SimNode:
         :return: none
         '''
         if (self.steps == 0):
-            self._next_out = self.out;      # initialize initial conditions
+            self.out = self._next_out;      # initialize initial conditions
+        # some self checks
+        assert(self._next_out.pressure > 0);   # should never do 0 or negative pressure
+        assert(self._next_out.temp > 0);       # never absolute zero.
         for n in self.__childNodes:
             n.step(dt)
 
@@ -107,28 +122,26 @@ class SimNode:
         connect one node to another...
            all subfunctions must implement this.
         '''
-        assert(not node.getId() in self._connections)
+        assert(not node.nodeId() in self._connections)
         self._connections.append(node);
 
-    def getId(self):
-        return(self._id)
     # external interface to set values.
     def setPressure(self, pressure):
-        self.out.pressure = float(pressure);
+        self._next_out.pressure = float(pressure);
     def setVolume(self, volume):
-        self.out.volume = float(volume);
+        self._next_out.volume = float(volume);
     def setTemperature(self, temp):
-        self.out.temp = float(temp);
+        self._next_out.temp = float(temp);
     def setMass(self, mass):
-        self.out.mass = float(mass);
+        self._next_out.mass = float(mass);
     def setResistance(self,resistance):
-        self.out.resistance = float(resistance);
+        self._next_out.resistance = float(resistance);
     def setP02(selfself,pO2):
-        self.out.pO2=float(pO2);
+        self._next_out.pO2=float(pO2);
     def setPN2(self, pN2):
-        self.out.pN2=float(pN2);
+        self._next_out.pN2=float(pN2);
     def setOpen(self, open):
-        self.out.open = open;
+        self._next_out.open = open;
 
     def setAllTemp(self, temp):
         '''

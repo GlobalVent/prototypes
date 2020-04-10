@@ -9,10 +9,10 @@ from .SimNode import SimNode,NodeType
 
 class GasSource(SimNode):
 
-    def __init__(self, pressure):
-        SimNode.__init__(self, NodeType.GASSOURCE);
-        self.out.pressure = pressure;
-        self.out.volume = float('inf')
+    def __init__(self,name,pressure):
+        SimNode.__init__(self, name, NodeType.GASSOURCE);
+        self._next_out.pressure = pressure;
+        self._next_out.volume = float('inf')
 
 
     def connect(self, node):

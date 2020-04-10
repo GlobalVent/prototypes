@@ -35,10 +35,23 @@ cmH20Bar = 1019.7162129779;     # how many cm's in 1 bar
 
 # common resistances for our systems.
 # resistance of mm pipe in bar/liters/s
+#   This was calculated from some tables on the inernet.
+#      and i think they are very wrong...
 reist6mmPipe=60;
 resist12mmPipe=4.86
 reist18mmPipe=1.43
 reist24mmPipe=0.619
+
+#
+# resistance to get us a desired flow rate.
+#   we need to be able to pressurize the container in
+#   2 seconds.  for a respiration cycle
+#     2 ltr container
+resist_5Lps=2;      #0.5 l/s
+resist1Lps=1.0;
+resist2Lps=0.5
+resist4Lps=0.25
+
 
 #class Conv:
 

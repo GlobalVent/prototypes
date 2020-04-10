@@ -10,9 +10,9 @@ from .SimNode import SimNode,NodeType
 from .Pipe import Pipe
 
 class Valve(Pipe):
-    def __init__(self, pressure, resistance, open=False):
-        SimNode.__init__(self,NodeType.VALVE);
-        self.out.pressure = pressure;
-        self.out.resistance = resistance
-        self.out.open = open;
+    def __init__(self, name, pressure, resistance, open=False):
+        SimNode.__init__(self,name,NodeType.VALVE);
+        self._next_out.pressure = pressure;
+        self._next_out.resistance = resistance
+        self._next_out.open = open;
 
