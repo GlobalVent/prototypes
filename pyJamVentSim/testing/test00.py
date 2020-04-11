@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 
 from GasSim.SimNode import SimNode,NodeType
 from GasSim.GasSource import GasSource
-from GasSim.Valve import Valve
 from GasSim.Reservoir import Reservoir
+from GasSim.Pipe import Pipe
 from GasSim import Const
 
 
@@ -38,8 +38,9 @@ class SimpleGasModel(SimNode):
         pipeResist=0.1;
         gasSrc = GasSource("gasSrc",srcPres)  #  bar air source.
         self.addChildNode(gasSrc);
-        valveRin = Valve("valveRin", 1,  # pressure
-                         pipeResist)  # resistance
+        valveRin = Pipe("valveRin", 1,  # pressure
+                         pipeResist,  # resistance
+                         True);       # valve initially open.
         self.addChildNode(valveRin);
         reservoir = Reservoir("reservoir", resPres,  # pressure
                              2)  # 2 liter volume

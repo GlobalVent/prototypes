@@ -7,10 +7,18 @@ from .SimNode import SimNode,NodeType
 
 
 class Pipe(SimNode):
-    def __init__(self, name, pressure, resistance):
+    def __init__(self, name, pressure, resistance, open=True):
+        '''
+        Pipe (or valve>
+        :param name:  name of pipe
+        :param pressure:   initial pressure.
+        :param resistance: resistance.
+        :param open: valve position...
+        '''
         SimNode.__init__(self,name, NodeType.PIPE);
         self._next_out.pressure = pressure;
         self._next_out.resistance = resistance;
+        self._next_out.open = open;
 
     def connect(self, node):
         '''
@@ -42,7 +50,6 @@ class Pipe(SimNode):
             maxP = pA;
         else:
             maxP = pB;
-        self._next_out.pN2 = maxP.out.pN2;
         self._next_out.PO2 = maxP.out.pO2;
         self._next_out.pressure = maxP.out.pressure;
 

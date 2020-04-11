@@ -70,19 +70,15 @@ class Reservoir(SimNode):
             tc=1-math.exp(-dt/(R*V))
             Pdelta=Pdrop*(1-math.exp(-dt/(R*V)))      # this is not handling multiple circuits open.
             ppNewO2+=Pdelta*c.out.pO2;
-            ppNewN2+=Pdelta*c.out.pN2;
 
         assert(numValveOpen == 1);      # don't support parallel filling of the container yet...
         # ttry working with partial pressures.
         ppO2 = self.out.pressure * self.out.pO2
-        ppN2 = self.out.pressure * self.out.pN2
         ppO2 += ppNewO2;
-        ppN2 += ppNewN2;
         self.out.pressure+= Pdelta;
-        self.out.pN2=ppN2/self.out.pressure;
         self.out.pO2=ppO2/self.out.pressure;
 
-        assert (round(self._next_out.pO2 + self._next_out.pN2, 3) == 1.00);
+        assert(round(self._next_out.pO2,2) <= 1.0);
         # this check is unique to this model, nO2 can never be zero or we did
         #  something very wrong.
         assert (self._next_out.pO2 > 0);
