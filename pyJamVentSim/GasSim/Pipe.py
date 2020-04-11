@@ -2,6 +2,8 @@
 # a gas pipe simulation element.
 #
 
+import pprint as pp
+
 from .SimNode import SimNode,NodeType
 
 
@@ -20,14 +22,6 @@ class Pipe(SimNode):
         self._next_out.resistance = resistance;
         self._next_out.open = open;
 
-    def connect(self, node):
-        '''
-        :param num: -- connection number 0 | 1
-        :param node: connection Node
-        :return:
-        '''
-        assert(self.getNumConnections() <= 2);        # only two connections to a pipe.
-        SimNode.connect(self,node);
 
     def getOtherConnection(self, node):
         '''
@@ -50,13 +44,14 @@ class Pipe(SimNode):
             maxP = pA;
         else:
             maxP = pB;
-        self._next_out.PO2 = maxP.out.pO2;
+        self._next_out.pO2 = maxP.out.pO2;
         self._next_out.pressure = maxP.out.pressure;
 
         if (self.out.open):
             self._next_out.flow=abs(pA.out.pressure-pB.out.pressure)/self.out.resistance;
         else:
             self._next_out.flow = 0;      # valve off, no flow
+
         return;
 
     def getPressureDrop(self,node):

@@ -2,7 +2,7 @@
 #
 # ultra simple test of basic gas elements.
 #
-# source -- pipe -- valve -- resovire...
+# source -- pipe -- valve -- lung -- reservoir -- gas sink.
 
 import sys;
 import pprint as pp
@@ -11,13 +11,8 @@ import matplotlib.pyplot as plt
 
 from GasSim.SimNode import SimNode,NodeType
 from GasSim.GasSource import GasSource
-from GasSim.Reservoir import Reservoir
+from GasSim.Lungs import Lungs
 from GasSim.Pipe import Pipe
-from GasSim import Const
-#from GasSim import Conv
-#from GasSim import GasSource
-#from GasSim import Lungs
-#from GasSim import Pipe
 
 
 class SimpleGasModel(SimNode):
@@ -32,9 +27,9 @@ class SimpleGasModel(SimNode):
                          pipeResist,  # resistance
                          True);        # open valve
         self.addChildNode(valveRin);
-        reservoir = Reservoir("reservoir", 1,  # pressure
+        lungs = Lungs("lungs", 1,  # pressure
                              2)  # 2 liter volume
-        self.addChildNode(reservoir)
+        self.addChildNode(lungs)
         valveRout = Pipe("valveRout", 1,  # pressure
                           pipeResist,   # resistance
                          False);        # closed valve.
@@ -44,7 +39,7 @@ class SimpleGasModel(SimNode):
 
         self._gasSrc    = gasSrc;
         self._valveRin  = valveRin
-        self._reservoir = reservoir
+        self._lungs = lungs
         self._valveRout = valveRout
         self._gasSink   = gasSink;
 
@@ -59,27 +54,27 @@ class SimpleGasModel(SimNode):
 
         # then connect them up..
         gasSrc.connect(valveRin);
-        valveRin.connect(reservoir);
-        reservoir.connect(valveRout);
+        valveRin.connect(lungs);
+        lungs.connect(valveRout);
         valveRout.connect(gasSink);
 
-    def getResPressure(self):
-        return(self._reservoir)
-    def getReservoir(self):
-        return(self._reservoir);
-    def getValveRin(self):
+    def lungs(self):
+        return(self._lungs);
+    def valveRin(self):
         return(self._valveRin);
-    def getValveRout(self):
+    def valveRout(self):
         return(self._valveRout);
-    def getGasSrc(self):
+    def gasSrc(self):
         return(self._gasSrc)
+    def gasSink(self):
+        return(self._gasSink)
 
 def doModel(dt,timeLimit, stride):
     model = SimpleGasModel();
-    gasSrc = model.getGasSrc();
-    reservoir = model.getReservoir();
-    valveRin = model.getValveRin();
-    valveRout = model.getValveRout();
+    gasSrc = model.gasSrc();
+    lungs = model.lungs();
+    valveRin = model.valveRin();
+    valveRout = model.valveRout();
     valveRin.setOpen(True);
 
     #debug reverse the src and resovire pressures..
@@ -106,7 +101,7 @@ def doModel(dt,timeLimit, stride):
 
         timeNow += dt;
         T.append(timeNow);
-        Pres.append(reservoir.out.pressure);
+        Pres.append(lungs.out.pressure);
     return(T,Pres)
 
 def plotPres(X, Y, color, xMax, yMax):

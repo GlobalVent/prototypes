@@ -3,6 +3,7 @@
 
 from . import Const
 from . import Conv;
+import pprint as pp
 
 
 # container with gas variables for use in the simulation...
@@ -23,3 +24,6 @@ class GasVars:
         self.resistance = 0.0;         # resistance to flow...
         self.open = True;             # if this is a valve, state if it is open or closed...
 
+    # pprint stuff
+    def __str__(self):
+        return str(pp.pprint(vars(self)))

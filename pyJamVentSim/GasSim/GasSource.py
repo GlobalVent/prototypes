@@ -9,14 +9,11 @@ from .SimNode import SimNode,NodeType
 
 class GasSource(SimNode):
 
-    def __init__(self,name,pressure):
+    def __init__(self,name,pressure, pO2=.21):
         SimNode.__init__(self, name, NodeType.GASSOURCE);
         self._next_out.pressure = pressure;
         self._next_out.volume = float('inf')
-
-
-    def connect(self, node):
-        SimNode.connect(self, node);
+        self._next_out.pO2 = pO2;
 
     def step(self,dt):
         SimNode.step(self,dt);

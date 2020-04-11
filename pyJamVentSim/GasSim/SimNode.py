@@ -40,7 +40,9 @@ class SimNode:
         self._nodeType = nodeType;
         self._next_out = GasVars();       # protected attributes
         self._connections = [];
-        self.__childNodes = [];
+        self.__childNodes = [];                # ordered array, preservers insertion order
+        self.__childSet = set([]);             # set of child nodes to check that if we
+                                               # already have a node
         self._nodeId = SimNode.__nextId;
         SimNode.__nextId += 1;
         self.steps=0;
@@ -81,9 +83,14 @@ class SimNode:
 
     def init(self):
         self.out = self._next_out;  # initialize initial conditions
+        # print("init: {}, resistance={}, open={}".format(self._name,
+        #                                                 self.out.resistance,
+        #                                                 self.out.open))
         for n in self.__childNodes:
             n.init();
 
+    def name(self):
+        return(self._name);
     def next(self):
         '''
         call next in all children node and
@@ -113,21 +120,29 @@ class SimNode:
         '''
         print("getHeader -- TBD")
 
-    def addChildNode(self, childNode):
+    def addChildNode(self, node):
         '''
         add a child node to the list of child nodes.
-        :param childNode:
+        :param node:
         :return: none
         '''
-        self.__childNodes.append(childNode);
+        assert (not (node.nodeId() in  self.__childSet));
+        self.__childNodes.append(node);
+        self.__childSet.add(node.nodeId())
 
-    def connect(self, node):
+    def connect(self, node, connBack=True):
         '''
         connect one node to another...
            all subfunctions must implement this.
+           this does a bi directional connection.
+           only need to call this on one of the pairs
+           and they will both be aware of each other.
         '''
+        assert(self.nodeId() != node.nodeId()); # not an unatural act
         assert(not node.nodeId() in self._connections)
         self._connections.append(node);
+        if (connBack):                     # don't loop forever back on our selves.
+            node.connect(self, connBack=False);     # tell the other guy to cnnect back to me
 
     # external interface to set values.
     def setPressure(self, pressure):
@@ -142,8 +157,6 @@ class SimNode:
         self._next_out.resistance = float(resistance);
     def setP02(selfself,pO2):
         self._next_out.pO2=float(pO2);
-    def setPN2(self, pN2):
-        self._next_out.pN2=float(pN2);
     def setOpen(self, open):
         self._next_out.open = open;
 
@@ -161,3 +174,4 @@ class SimNode:
     #
     def getPressureDrop(self):
         return(0);      # default is the same as overall pressure.
+

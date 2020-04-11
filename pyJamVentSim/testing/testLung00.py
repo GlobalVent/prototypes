@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from GasSim.SimNode import SimNode,NodeType
 from GasSim.GasSource import GasSource
 from GasSim.Reservoir import Reservoir
+from GasSim.Lungs import Lungs
 from GasSim.Pipe import Pipe
 from GasSim import Const
 
@@ -42,25 +43,37 @@ class SimpleGasModel(SimNode):
                          pipeResist,  # resistance
                          True);       # valve initially open.
         self.addChildNode(valveRin);
-        reservoir = Reservoir("reservoir", resPres,  # pressure
+        lungs = Lungs("lungs", resPres,  # pressure
                              2)  # 2 liter volume
-        self.addChildNode(reservoir);
+
+        self.addChildNode(lungs);
+        valveRout = Pipe("valveRout", 1,
+                        pipeResist,
+                        False);
+        self.addChildNode(valveRout);
+        gasSink = GasSource("gasSink", 1)
+        self.addChildNode(gasSink);
+
+        self.addChildNode(lungs);
 
         self._gasSrc    = gasSrc;
         self._valveRin  = valveRin
-        self._reservoir = reservoir
+        self._lungs = lungs
 
         # gasSrc <-> valveRin <-> resovior
         # then connect them up..
         gasSrc.connect(valveRin);
-        valveRin.connect(reservoir);
+        valveRin.connect(lungs);
+        lungs.connect(valveRout);
+        valveRout.connect(gasSink)
+
 
     def getGasSrc(self):
         return(self._gasSrc)
     def getValveRin(self):
         return(self._valveRin);
-    def getReservoir(self):
-        return(self._reservoir);
+    def getLungs(self):
+        return(self._lungs);
 
 # run the model and return
 # an array of resovire pressures during the run
@@ -71,7 +84,7 @@ def doModel(dt,timeLimit, stride):
                            1.0      # resPres
                            );
     gasSrc = model.getGasSrc();
-    reservoir = model.getReservoir();
+    lungs = model.getLungs();
     valveRin = model.getValveRin();
     valveRin.setOpen(True);
 
@@ -81,7 +94,7 @@ def doModel(dt,timeLimit, stride):
     timeNow=0.0
 
     T.append(timeNow);
-    Pres.append(reservoir.out.pressure);
+    Pres.append(lungs.out.pressure);
     while timeNow < timeLimit:
         nsteps += 1;
         # strid the timesteps, so our number of
@@ -92,7 +105,7 @@ def doModel(dt,timeLimit, stride):
             model.next();
         timeNow += dt;
         T.append(timeNow);
-        Pres.append(reservoir.out.pressure);
+        Pres.append(lungs.out.pressure);
     return(T,Pres)
 
 
