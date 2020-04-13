@@ -1,0 +1,10 @@
+.DS_*
+/build
+*.o
+*.a
+*.sublime-workspace
+*.sublime-project
+*.xcworkspace
+*Vagrantfile
+
+
