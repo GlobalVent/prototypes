@@ -1,5 +1,6 @@
 .DS_*
 /build
+/out
 *.o
 *.a
 *.sublime-workspace

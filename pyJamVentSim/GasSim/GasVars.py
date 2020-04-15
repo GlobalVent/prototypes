@@ -27,3 +27,10 @@ class GasVars:
     # pprint stuff
     def __str__(self):
         return str(pp.pprint(vars(self)))
+
+
+
+
+
+
+
