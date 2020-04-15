@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "qtStarterAppCross", "qtStarterAppCross.vgdbcmake", "{E64E4836-E901-4560-A700-7C0B40454F0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		MinSizeRel|VisualGDB = MinSizeRel|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+		RelWithDebInfo|VisualGDB = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.MinSizeRel|VisualGDB.ActiveCfg = MinSizeRel|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.MinSizeRel|VisualGDB.Build.0 = MinSizeRel|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.Release|VisualGDB.Build.0 = Release|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.RelWithDebInfo|VisualGDB.ActiveCfg = RelWithDebInfo|VisualGDB
+		{E64E4836-E901-4560-A700-7C0B40454F0A}.RelWithDebInfo|VisualGDB.Build.0 = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1267632D-65A9-4D43-A1AC-CCB8D1A929E6}
+	EndGlobalSection
+EndGlobal
