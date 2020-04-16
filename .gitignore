@@ -1,6 +1,4 @@
-.DS_Store
-*.pyc
-.vs
+# c++ stuff
 # Prerequisites
 *.d
 
@@ -33,3 +31,22 @@
 *.exe
 *.out
 *.app
+
+
+# mac gorp
+.DS_Store
+
+# python stuff
+*.pyc
+# visual Studio
+.vs
+
+# visual Gdb
+CodeDB/
+VisualGDB/
+VisualGDBCache/
+*.vgdbcmake.*.user
+CMakeLists.txt.old
+CMakeFiles/
+CMakeCache.txt
+
