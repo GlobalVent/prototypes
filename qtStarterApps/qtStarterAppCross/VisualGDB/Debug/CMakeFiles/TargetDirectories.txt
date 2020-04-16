@@ -1,0 +1,4 @@
+X:/github/prototypes/qtStarterApps/qtStarterAppCross/VisualGDB/Debug/CMakeFiles/qtStarterAppCross.dir
+X:/github/prototypes/qtStarterApps/qtStarterAppCross/VisualGDB/Debug/CMakeFiles/edit_cache.dir
+X:/github/prototypes/qtStarterApps/qtStarterAppCross/VisualGDB/Debug/CMakeFiles/rebuild_cache.dir
+X:/github/prototypes/qtStarterApps/qtStarterAppCross/VisualGDB/Debug/CMakeFiles/qtStarterAppCross_autogen.dir
