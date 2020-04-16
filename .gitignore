@@ -42,7 +42,7 @@
 .vs
 
 # visual Gdb
-CodeDB/
+
 VisualGDB/
 VisualGDBCache/
 *.vgdbcmake.*.user
