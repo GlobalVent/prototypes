@@ -1,0 +1,138 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "jamventsimlib/testing/jsimTestConf"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"jamventsimlib/testing/CMakeLists.txt",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 10,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 12,
+				"parent" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 3,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g  "
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "X:/github/prototypes/qtStarterApps/jamventProtoProj01/utils"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "X:/github/prototypes/qtStarterApps/jamventProtoProj01/jamventsim"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "X:/github/prototypes/qtStarterApps/jamventProtoProj01/jamventsimlib/testing/.."
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			],
+			"sysroot" : 
+			{
+				"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot"
+			}
+		}
+	],
+	"id" : "jsimTestConf::@e7f842496e1dd568ac3a",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot"
+		},
+		"traceableCommandFragments" : null
+	},
+	"name" : "jsimTestConf",
+	"nameOnDisk" : "jsimTestConf",
+	"paths" : 
+	{
+		"build" : "jamventsimlib/testing",
+		"source" : "jamventsimlib/testing"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "jamventsimlib/testing/testConf.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
