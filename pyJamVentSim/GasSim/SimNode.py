@@ -76,6 +76,7 @@ class SimNode:
         # some self checks
         if (self.steps == 0):
             self.init();
+
         assert(self._next_out.pressure > 0);   # should never do 0 or negative pressure
         assert(self._next_out.temp > 0);       # never absolute zero.
         for n in self.__childNodes:
@@ -107,6 +108,7 @@ class SimNode:
         return(len(self._connections));
 
     def getValues(self):
+
         '''
         retrieve the values for this node, and only this node in format ready to do a debug print.
         :return: print string.

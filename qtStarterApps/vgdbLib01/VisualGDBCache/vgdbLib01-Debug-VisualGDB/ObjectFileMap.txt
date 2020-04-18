@@ -1,0 +1,1 @@
+X:\github\prototypes\qtStarterApps\vgdbLib01\vgdbLib01.cpp|CMakeFiles/vgdbLib01.dir/vgdbLib01.cpp.o

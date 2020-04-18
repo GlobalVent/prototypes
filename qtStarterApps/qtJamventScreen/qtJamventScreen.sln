@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "qtJamventScreen", "qtJamventScreen.vgdbcmake", "{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		MinSizeRel|VisualGDB = MinSizeRel|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+		RelWithDebInfo|VisualGDB = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.MinSizeRel|VisualGDB.ActiveCfg = MinSizeRel|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.MinSizeRel|VisualGDB.Build.0 = MinSizeRel|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.Release|VisualGDB.Build.0 = Release|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.RelWithDebInfo|VisualGDB.ActiveCfg = RelWithDebInfo|VisualGDB
+		{375D20EB-01FB-4F22-AE59-B8BE347AE8C6}.RelWithDebInfo|VisualGDB.Build.0 = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {628DDE76-3F4F-4E39-AC98-9B7C22645D72}
+	EndGlobalSection
+EndGlobal

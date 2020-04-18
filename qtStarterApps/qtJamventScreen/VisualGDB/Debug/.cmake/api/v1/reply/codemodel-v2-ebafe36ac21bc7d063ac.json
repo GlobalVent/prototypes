@@ -1,0 +1,68 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "DEBUG",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "qtJamventScreen",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "qtJamventScreen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qtJamventScreen-DEBUG-5e45b655db7d10a72116.json",
+					"name" : "qtJamventScreen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qtJamventScreen_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qtJamventScreen_autogen-DEBUG-42055a9e72d22a12fff8.json",
+					"name" : "qtJamventScreen_autogen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "X:/github/prototypes/qtStarterApps/qtJamventScreen/VisualGDB/Debug",
+		"source" : "X:/github/prototypes/qtStarterApps/qtJamventScreen"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

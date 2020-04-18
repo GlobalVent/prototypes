@@ -1,0 +1,98 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "jamventsim",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "jamventsim",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "testing",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "testing",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "DEBUG",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "vtgbJamventsim",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "jamventsim::@d1f99d6bbc4f59f89a41",
+					"jsonFile" : "target-jamventsim-DEBUG-da37811d8c2dda448eba.json",
+					"name" : "jamventsim",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "testConf::@7f5979fb78f082e8b1c6",
+					"jsonFile" : "target-testConf-DEBUG-7f5009f0bc87a8a182a6.json",
+					"name" : "testConf",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug",
+		"source" : "X:/github/prototypes/qtStarterApps/vtgbJamventsim"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

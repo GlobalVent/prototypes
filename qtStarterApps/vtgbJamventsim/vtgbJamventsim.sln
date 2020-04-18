@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{803FD0C6-D64E-4E16-9DC3-1DAEC859A3D2}") = "vtgbJamventsim", "vtgbJamventsim.vgdbcmake", "{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|VisualGDB = Debug|VisualGDB
+		MinSizeRel|VisualGDB = MinSizeRel|VisualGDB
+		Release|VisualGDB = Release|VisualGDB
+		RelWithDebInfo|VisualGDB = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.Debug|VisualGDB.ActiveCfg = Debug|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.Debug|VisualGDB.Build.0 = Debug|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.MinSizeRel|VisualGDB.ActiveCfg = MinSizeRel|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.MinSizeRel|VisualGDB.Build.0 = MinSizeRel|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.Release|VisualGDB.ActiveCfg = Release|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.Release|VisualGDB.Build.0 = Release|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.RelWithDebInfo|VisualGDB.ActiveCfg = RelWithDebInfo|VisualGDB
+		{13F5EF3A-EE3C-4C3E-9C76-AD7A3E0AEA4B}.RelWithDebInfo|VisualGDB.Build.0 = RelWithDebInfo|VisualGDB
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8D3103C-52C9-4A14-99F1-F4762223F352}
+	EndGlobalSection
+EndGlobal

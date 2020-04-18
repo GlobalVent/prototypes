@@ -1,0 +1,464 @@
+The target system is: Linux -  - 
+The host system is: Windows - 10.0.18363 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/SysGCC/raspberry/bin/arm-linux-gnueabihf-gcc.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/3.15.2/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/SysGCC/raspberry/bin/arm-linux-gnueabihf-g++.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/3.15.2/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_cebfe && [1/2] Building C object CMakeFiles/cmTC_cebfe.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_cebfe
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_8aad6 && [1/2] Building C object CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o
+Using built-in specs.
+COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-gcc.exe
+Target: arm-linux-gnueabihf
+Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls
+Thread model: posix
+gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/cc1.exe -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -iprefix c:\sysgcc\raspberry\bin\../lib/gcc/arm-linux-gnueabihf/8/ -isysroot C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mfloat-abi=hard -mfpu=vfp -mtls-dialect=gnu -marm -march=armv6+fp -auxbase-strip CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o -version -o C:\Users\RALPHB~1\AppData\Local\Temp\ccaIw9rg.s
+GNU C17 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)
+	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include"
+ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include\arm-linux-gnueabihf"
+ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include"
+ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed"
+ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include"
+#include "..." search starts here:
+#include <...> search starts here:
+ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include
+ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\include
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include\arm-linux-gnueabihf
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include
+End of search list.
+GNU C17 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)
+	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 2a42aa95264e734586a178a0cef8aec3
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/as.exe -v -march=armv6 -mfloat-abi=hard -mfpu=vfp -meabi=5 -o CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o C:\Users\RALPHB~1\AppData\Local\Temp\ccaIw9rg.s
+GNU assembler version 2.31.1 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Raspbian) 2.31.1
+COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../libexec/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/
+LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../lib/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+[2/2] Linking C executable cmTC_8aad6
+Using built-in specs.
+COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-gcc.exe
+COLLECT_LTO_WRAPPER=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe
+Target: arm-linux-gnueabihf
+Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls
+Thread model: posix
+gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) 
+COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../libexec/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/
+LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../lib/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8aad6'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe -plugin c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll -plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\ccLW7YQe.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTC_8aad6 C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8 -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf -Lc:/sysgcc/raspberry/bin/../lib/gcc -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8aad6'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include]
+    add: [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/include]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+  end of search list found
+  collapse include dir [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include]
+  collapse include dir [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/include] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/include]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+  implicit include dirs: [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include;C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed;C:/SysGCC/raspberry/arm-linux-gnueabihf/include;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(arm-linux-gnueabihf-ld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_8aad6 && [1/2] Building C object CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-gcc.exe]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/cc1.exe -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -iprefix c:\sysgcc\raspberry\bin\../lib/gcc/arm-linux-gnueabihf/8/ -isysroot C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mfloat-abi=hard -mfpu=vfp -mtls-dialect=gnu -marm -march=armv6+fp -auxbase-strip CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o -version -o C:\Users\RALPHB~1\AppData\Local\Temp\ccaIw9rg.s]
+  ignore line: [GNU C17 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)]
+  ignore line: [	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include\arm-linux-gnueabihf"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include]
+  ignore line: [ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\include]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include\arm-linux-gnueabihf]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)]
+  ignore line: [	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 2a42aa95264e734586a178a0cef8aec3]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [ c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/as.exe -v -march=armv6 -mfloat-abi=hard -mfpu=vfp -meabi=5 -o CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o C:\Users\RALPHB~1\AppData\Local\Temp\ccaIw9rg.s]
+  ignore line: [GNU assembler version 2.31.1 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Raspbian) 2.31.1]
+  ignore line: [COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/]
+  ignore line: [LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o' '-c'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [[2/2] Linking C executable cmTC_8aad6]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-gcc.exe]
+  ignore line: [COLLECT_LTO_WRAPPER=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) ]
+  ignore line: [COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/]
+  ignore line: [LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_8aad6'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  link line: [ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe -plugin c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll -plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\ccLW7YQe.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTC_8aad6 C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8 -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf -Lc:/sysgcc/raspberry/bin/../lib/gcc -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o]
+    arg [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll] ==> ignore
+    arg [-plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe] ==> ignore
+    arg [-plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\ccLW7YQe.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_8aad6] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o] ==> ignore
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+    arg [CMakeFiles/cmTC_8aad6.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o] ==> ignore
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc] ==> [C:/SysGCC/raspberry/lib/gcc]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/lib]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8;C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf;C:/SysGCC/raspberry/lib/gcc;C:/SysGCC/raspberry/arm-linux-gnueabihf/lib;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+  implicit fwks: []
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_47650 && [1/2] Building CXX object CMakeFiles/cmTC_47650.dir/testCXXCompiler.cxx.o
+[2/2] Linking CXX executable cmTC_47650
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_10c24 && [1/2] Building CXX object CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o
+Using built-in specs.
+COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-g++.exe
+Target: arm-linux-gnueabihf
+Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls
+Thread model: posix
+gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/cc1plus.exe -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -iprefix c:\sysgcc\raspberry\bin\../lib/gcc/arm-linux-gnueabihf/8/ -isysroot C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot -D_GNU_SOURCE C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mfloat-abi=hard -mfpu=vfp -mtls-dialect=gnu -marm -march=armv6+fp -auxbase-strip CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o -version -o C:\Users\RALPHB~1\AppData\Local\Temp\ccLyBXOW.s
+GNU C++14 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)
+	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "c:\sysgcc\raspberry\include\arm-linux-gnueabihf\c++\8"
+ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\arm-linux-gnueabihf\c++\8\arm-linux-gnueabihf"
+ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8"
+ignoring nonexistent directory "c:\sysgcc\raspberry\include\arm-linux-gnueabihf\c++\8"
+ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8\backward"
+ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include"
+ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include\arm-linux-gnueabihf"
+ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include"
+ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed"
+ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include"
+#include "..." search starts here:
+#include <...> search starts here:
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8\backward
+ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include
+ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\include
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\arm-linux-gnueabihf\c++\8
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include\arm-linux-gnueabihf
+ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include
+End of search list.
+GNU C++14 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)
+	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 3ee9b734c4983d96661d97ac24540b87
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/as.exe -v -march=armv6 -mfloat-abi=hard -mfpu=vfp -meabi=5 -o CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o C:\Users\RALPHB~1\AppData\Local\Temp\ccLyBXOW.s
+GNU assembler version 2.31.1 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Raspbian) 2.31.1
+COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../libexec/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/
+LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../lib/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+[2/2] Linking CXX executable cmTC_10c24
+Using built-in specs.
+COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-g++.exe
+COLLECT_LTO_WRAPPER=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe
+Target: arm-linux-gnueabihf
+Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls
+Thread model: posix
+gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) 
+COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../libexec/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/
+LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/;c:/sysgcc/raspberry/bin/../lib/gcc/;c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_10c24' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe -plugin c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll -plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\cc9qAZn2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTC_10c24 C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8 -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf -Lc:/sysgcc/raspberry/bin/../lib/gcc -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_10c24' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/c++/8]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/c++/8/backward]
+    add: [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include]
+    add: [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/include]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/arm-linux-gnueabihf/c++/8]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf]
+    add: [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+  end of search list found
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/c++/8] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/include/c++/8]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/c++/8/backward] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/include/c++/8/backward]
+  collapse include dir [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include]
+  collapse include dir [c:/sysgcc/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/include] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/include]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/include/arm-linux-gnueabihf/c++/8] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/include/arm-linux-gnueabihf/c++/8]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf]
+  collapse include dir [c:/sysgcc/raspberry/arm-linux-gnueabihf/sysroot/usr/include] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+  implicit include dirs: [C:/SysGCC/raspberry/arm-linux-gnueabihf/include/c++/8;C:/SysGCC/raspberry/arm-linux-gnueabihf/include/c++/8/backward;C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include;C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8/include-fixed;C:/SysGCC/raspberry/arm-linux-gnueabihf/include;C:/SysGCC/raspberry/arm-linux-gnueabihf/include/arm-linux-gnueabihf/c++/8;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(arm-linux-gnueabihf-ld\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):C:/Program Files (x86)/Sysprogs/VisualGDB/ninja.exe cmTC_10c24 && [1/2] Building CXX object CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-g++.exe]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/cc1plus.exe -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -iprefix c:\sysgcc\raspberry\bin\../lib/gcc/arm-linux-gnueabihf/8/ -isysroot C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot -D_GNU_SOURCE C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mfloat-abi=hard -mfpu=vfp -mtls-dialect=gnu -marm -march=armv6+fp -auxbase-strip CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o -version -o C:\Users\RALPHB~1\AppData\Local\Temp\ccLyBXOW.s]
+  ignore line: [GNU C++14 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)]
+  ignore line: [	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\include\arm-linux-gnueabihf\c++\8"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\arm-linux-gnueabihf\c++\8\arm-linux-gnueabihf"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\include\arm-linux-gnueabihf\c++\8"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8\backward"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include\arm-linux-gnueabihf"]
+  ignore line: [ignoring nonexistent directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\mnt\f\gnu\raspberry-buster\out\include"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed"]
+  ignore line: [ignoring duplicate directory "c:\sysgcc\raspberry\arm-linux-gnueabihf\include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\c++\8\backward]
+  ignore line: [ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include]
+  ignore line: [ c:\sysgcc\raspberry\lib\gcc\arm-linux-gnueabihf\8\include-fixed]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\include]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\include\arm-linux-gnueabihf\c++\8]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include\arm-linux-gnueabihf]
+  ignore line: [ c:\sysgcc\raspberry\arm-linux-gnueabihf\sysroot\usr\include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++14 (Raspbian 8.3.0-6+rpi1) version 8.3.0 (arm-linux-gnueabihf)]
+  ignore line: [	compiled by GNU C version 5.3.1 20160211, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version none]
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 3ee9b734c4983d96661d97ac24540b87]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [ c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/as.exe -v -march=armv6 -mfloat-abi=hard -mfpu=vfp -meabi=5 -o CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o C:\Users\RALPHB~1\AppData\Local\Temp\ccLyBXOW.s]
+  ignore line: [GNU assembler version 2.31.1 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Raspbian) 2.31.1]
+  ignore line: [COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/]
+  ignore line: [LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  ignore line: [[2/2] Linking CXX executable cmTC_10c24]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=C:\SysGCC\raspberry\bin\arm-linux-gnueabihf-g++.exe]
+  ignore line: [COLLECT_LTO_WRAPPER=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../../src/gcc-8-8.3.0/src/configure --with-pkgversion='Raspbian 8.3.0-6+rpi1' --enable-languages=c,c++,lto --with-gcc-major-version-only --enable-shared --enable-linker-build-id --without-included-gettext --enable-threads=posix --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv6 --with-fpu=vfp --with-float=hard --disable-werror --enable-checking=release --target=arm-linux-gnueabihf --with-sysroot=/mnt/f/gnu/raspberry-buster/out/arm-linux-gnueabihf/sysroot --host=i686-w64-mingw32 --prefix /mnt/f/gnu/raspberry-buster/out/ --disable-nls]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 8.3.0 (Raspbian 8.3.0-6+rpi1) ]
+  ignore line: [COMPILER_PATH=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../libexec/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/bin/]
+  ignore line: [LIBRARY_PATH=c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/]
+  ignore line: [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/]
+  ignore line: [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_10c24' '-shared-libgcc'  '-mfloat-abi=hard' '-mfpu=vfp' '-mtls-dialect=gnu' '-marm' '-march=armv6+fp']
+  link line: [ c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe -plugin c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll -plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\cc9qAZn2.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot --build-id --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -o cmTC_10c24 C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8 -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf -Lc:/sysgcc/raspberry/bin/../lib/gcc -Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf -LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o]
+    arg [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/collect2.exe] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/liblto_plugin-0.dll] ==> ignore
+    arg [-plugin-opt=c:/sysgcc/raspberry/bin/../libexec/gcc/arm-linux-gnueabihf/8/lto-wrapper.exe] ==> ignore
+    arg [-plugin-opt=-fresolution=C:\Users\RALPHB~1\AppData\Local\Temp\cc9qAZn2.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_10c24] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtbegin.o] ==> ignore
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc]
+    arg [-Lc:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib] ==> dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf]
+    arg [-LC:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib] ==> dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+    arg [CMakeFiles/cmTC_10c24.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib/crtend.o] ==> ignore
+    arg [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/crtn.o] ==> ignore
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc] ==> [C:/SysGCC/raspberry/lib/gcc]
+  collapse library dir [c:/sysgcc/raspberry/bin/../lib/gcc/arm-linux-gnueabihf/8/../../../../arm-linux-gnueabihf/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/lib]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib] ==> [C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+  implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+  implicit dirs: [C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf/8;C:/SysGCC/raspberry/lib/gcc/arm-linux-gnueabihf;C:/SysGCC/raspberry/lib/gcc;C:/SysGCC/raspberry/arm-linux-gnueabihf/lib;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/lib;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf;C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib]
+  implicit fwks: []
+
+

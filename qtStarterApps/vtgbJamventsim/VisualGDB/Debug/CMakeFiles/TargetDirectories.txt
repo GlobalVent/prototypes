@@ -1,0 +1,8 @@
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/edit_cache.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/CMakeFiles/rebuild_cache.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/jamventsim/CMakeFiles/jamventsim.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/jamventsim/CMakeFiles/edit_cache.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/jamventsim/CMakeFiles/rebuild_cache.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/testing/CMakeFiles/testConf.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/testing/CMakeFiles/edit_cache.dir
+X:/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/testing/CMakeFiles/rebuild_cache.dir

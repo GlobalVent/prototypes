@@ -1,0 +1,930 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"m",
+				"mmtf_cpp_name"
+			],
+			[
+				"mm",
+				"mmtf_cpp_sha"
+			],
+			[
+				"githu",
+				"github_pymol"
+			],
+			[
+				"mmtf",
+				"mmtf_cpp_ver_file"
+			],
+			[
+				"pymo",
+				"pymol_ver_file"
+			],
+			[
+				"py",
+				"pymol_ver_file"
+			],
+			[
+				"git",
+				"github_mmtf_cpp"
+			],
+			[
+				"JPI",
+				"JPLINE_INSTALL_BRANCHES"
+			],
+			[
+				"JP",
+				"JPLINE_INSTALL_ALL_BRANCHES"
+			],
+			[
+				"srun",
+				"srun_cmd"
+			],
+			[
+				"SINUL",
+				"SINGULARITY_DIR"
+			],
+			[
+				"go",
+				"go"
+			],
+			[
+				"TAR",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SIN",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SINU",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SIGN",
+				"SINGULARITY_VERS"
+			],
+			[
+				"doB",
+				"doBgfsCheckServers"
+			],
+			[
+				"gith",
+				"githubKey"
+			],
+			[
+				"pdsh",
+				"pdshTargets"
+			],
+			[
+				"ls",
+				"ls-topdir-r5"
+			],
+			[
+				"SLURM",
+				"SLURM_JOB_USER"
+			],
+			[
+				"shut",
+				"shutdownNode"
+			],
+			[
+				"es_",
+				"es_download"
+			],
+			[
+				"ki",
+				"kibana-7"
+			],
+			[
+				"glutInit",
+				"glutInitDisplayMode"
+			],
+			[
+				"fi",
+				"fi"
+			],
+			[
+				"parse",
+				"parseKeyValue"
+			],
+			[
+				"TARGET_LI",
+				"TARGET_LIB_NAMES"
+			],
+			[
+				"TARGET",
+				"TARGET_LIBS"
+			],
+			[
+				"Http",
+				"HttpRequestParser"
+			],
+			[
+				"_con",
+				"_contentCurr"
+			],
+			[
+				"get",
+				"getContentLen"
+			],
+			[
+				"http",
+				"http_version_minor"
+			],
+			[
+				"http_v",
+				"http_version_major"
+			],
+			[
+				"RestReq",
+				"RestRequestParser"
+			],
+			[
+				"H",
+				"HttpRequestParser"
+			],
+			[
+				"Rest",
+				"RestConnectionMgr"
+			],
+			[
+				"CC",
+				"CCFILES"
+			],
+			[
+				"rasp",
+				"raspbain_devfs"
+			],
+			[
+				"APT_",
+				"APT_DEST_DIRS"
+			],
+			[
+				"APT",
+				"APT_SRC_DIRS"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": ".gitignore",
+			"settings":
+			{
+				"buffer_size": 7,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 246,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "subl-test.sublime-project",
+			"settings":
+			{
+				"buffer_size": 47,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 419,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fmtstr.h",
+			"settings":
+			{
+				"buffer_size": 822,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/iomanip",
+			"settings":
+			{
+				"buffer_size": 18284,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__config",
+			"settings":
+			{
+				"buffer_size": 51500,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 84,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/c++11.sublime-build",
+					""
+				],
+				[
+					"Packages/User/c++11.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/c++11.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 59.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"markdownpre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"markdownPre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"REMOVE",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"gex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"hex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Show Tags"
+			],
+			[
+				":insta",
+				"Package Control: Install Package"
+			],
+			[
+				"refresh",
+				"Project: Refresh Folders"
+			],
+			[
+				"Package Control: install package",
+				"Package Control: Install Package"
+			],
+			[
+				"browse",
+				"Preferences: Browse Packages"
+			],
+			[
+				"ls",
+				"Permute Lines: Shuffle"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"discover packages",
+				"Package Control: Discover Packages"
+			],
+			[
+				"Package Control:  list packages",
+				"Package Control: List Unmanaged Packages"
+			],
+			[
+				"browse packages",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+			"find . -name *.conf",
+			"switchFile",
+			"print('hello')",
+			"exit()",
+			"quit()",
+			"!ls",
+			"pwd",
+			"ls"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/ct-ng/scratch/subl-test"
+	],
+	"file_history":
+	[
+		"/Volumes/ct-ng/covid-19/github/prototypes/cppJamventSim/.gitignore",
+		"/Volumes/ct-ng/scratch/subl-test/CMakeList.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/gpudiags/testnode.sh",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.git/COMMIT_EDITMSG",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/nvidia.pyconf",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/.git/COMMIT_EDITMSG",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/nvidia.py",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/doit.sh",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.gitignore",
+		"/Volumes/ct-ng/covid-19/github/prototypes/pyJamVentSim/.gitignore",
+		"/Users/ralphbellofatto/.ssh/known_hosts",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/unittest/charg.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/stx_utils/__init__.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/unittest/stx_module_test.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/unittest/main.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/__init__.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/setup.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/unittest/__init__.py",
+		"/Volumes/ct-ng/silicontx/github/stx_workflow/stx_workflow/stx_module/stx_module.py",
+		"/Users/ralphbellofatto/scratch/vagrant/Vagrantfile",
+		"/Volumes/ct-ng/silicontx/asa/stxasa01-backups/stxasa-backup20200318/stxasa-backup3054819217783312764\\running-config.cfg",
+		"/Users/ralphbellofatto/Downloads/consoleText.txt",
+		"/Users/ralphbellofatto/Downloads/console.html",
+		"/Users/ralphbellofatto/Downloads/console.txt",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/MasterVent_v4-2.vi",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Setup_and_Calibrate_v4-0.vi",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Calibration.txt",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Sub/Sub_SaveBuffer.vi",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Sub/S-Q_is_f_of_P.vi",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Sub/Sub-2DBuffer.vi",
+		"/Users/ralphbellofatto/Documents/covid-19/jam-vent/JamVent_v4-2/Sub/Global - ControlParameters.vi",
+		"/Users/ralphbellofatto/Downloads/amber-gitlab-consoleFull.log",
+		"/Users/ralphbellofatto/.ssh/config",
+		"/Volumes/ct-ng/silicontx/github/amber/stxbuild/.gitignore",
+		"/Volumes/ct-ng/silicontx/src/duo_unix-1.11.3/compat/vsyslog.c",
+		"/Volumes/ct-ng/silicontx/src/duo_unix-1.11.3/lib/util.c",
+		"/Users/ralphbellofatto/Downloads/pam_sshd.orig",
+		"/Volumes/ct-ng/silicontx/src/jenkins-srcs/branch-api-plugin/src/main/java/jenkins/branch/MultiBranchProject.java",
+		"/Volumes/ct-ng/silicontx/src/jenkins-srcs/github-branch-source-plugin/src/main/java/org/jenkinsci/plugins/github_branch_source/GitHubSCMSource.java",
+		"/Volumes/ct-ng/silicontx/src/jenkins-srcs/git-plugin/src/main/java/jenkins/plugins/git/AbstractGitSCMSource.java",
+		"/Volumes/ct-ng/silicontx/src/jenkins-srcs/branch-api-plugin/src/main/java/jenkins/branch/MultiBranchProjectViewHolder.java",
+		"/Volumes/ct-ng/silicontx/beegfs-stats/2020-03-20_meta.log",
+		"/Volumes/ct-ng/silicontx/beegfs-stats/2020-03-20_storage.log",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/.git/MERGE_MSG",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/.git/COMMIT_EDITMSG",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/x.sh",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/vars/defaultPipeline.groovy",
+		"/Volumes/ct-ng/silicontx/github/jenkins-test/.git/COMMIT_EDITMSG",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/.gitignore",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/.git/MERGE_MSG",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/mon/source/components/StatsCollector.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/mon/source/components/StatsCollector.h",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/ctl/source/modes/ModeIOStat.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/ctl/source/app/config/Config.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/mon/source/components/worker/RequestMetaDataWork.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/mon/source/misc/InfluxDB.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/admon/source/nodes/MetaNodeEx.h",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/storage/source/components/StorageStatsCollector.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/common/source/common/toolkit/HighResolutionStats.h",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/admon/source/nodes/NodeStoreStorageEx.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/fsck/source/modes/ModeCheckFS.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/admon/source/nodes/MetaNodeEx.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/admon/source/components/Database.cpp",
+		"/Volumes/ct-ng/silicontx/src/beegfs/v7-master/mon/source/misc/Cassandra.cpp",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/bin/recovercn.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/.bashrc",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/shell/condabin/conda-hook.ps1",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/condabin/conda",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/bin/pip",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/bin/deactivate",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/bin/activate",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/software/anaconda2/bin/conda-env",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/githubCIStatus/githubCIStatus.py",
+		"/Users/ralphbellofatto/.ssh/SlackFileUpload.token",
+		"/Users/ralphbellofatto/scratch/x.sh",
+		"/Users/ralphbellofatto/scratch/SlackFileUpload.token",
+		"/Users/ralphbellofatto/scratch/testme.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/reports/GithubStats/generateStats.sh",
+		"/Volumes/ct-ng/silicontx/src/slurm-18.08.2/etc/slurmctld.service.in",
+		"/Volumes/ct-ng/silicontx/src/slurm-18.08.2/contribs/cray/slurmsmwd/slurmsmwd.service.in",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/usr/local/etc/slurm.conf",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/backup/backup.py",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/raid_chk/raid_chk.py",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/.gitignore",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/common/GitHubQuery.py",
+		"/Volumes/ct-ng/silicontx/scratch/githubApi/githubQtest.py",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/backup/backup.py",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/githubCIStatus/runtest.sh",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/reports/GithubStats/GithubStats.py",
+		"/Volumes/ct-ng/silicontx/github/jenkins-test/testme.sh",
+		"/Volumes/ct-ng/silicontx/github/jenkins-test/testme.sg",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/jenkins-test/testme.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/neoConf.yaml",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/backup/runtest.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/test_summary/jobs/20200309_010210/console.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/healthchecks/run_testset/run_testset.py",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/healthchecks/run_testset/runtest.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/pymol/stxbuild/CMakeLists.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/pymol/.gitignore",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/amber_lbsr/stxbuild/Jenkinsfile",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/amber_lbsr/stxbuild/test_cuda_serial.sh",
+		"/Users/ralphbellofatto/Downloads/backup.log",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/amber_lbsr/stxbuild/build.sh",
+		"/Volumes/ct-ng/silicontx/github/amber/stxbuild/build.sh",
+		"/Volumes/ct-ng/silicontx/github/amber/stxbuild/test_cuda_serial.sh",
+		"/Volumes/ct-ng/silicontx/github/amber-decompdev/stxbuild/build.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/sdvolume/ralphbel/stxslurm/testing/scripts/jobarray_test.sh",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/job.py",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/CMakeLists.txt",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/testing/filecheck_test.py",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/testing/jobarray_test.py",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/helper.py",
+		"/Users/ralphbellofatto/Downloads/console.log",
+		"/Volumes/ct-ng/silicontx/github/stxslurm/testing/scripts/jobarray_test.sh",
+		"/Volumes/ct-ng/silicontx/github/amber/AmberTools/src/configure2",
+		"/Volumes/ct-ng/silicontx/github/amber/configure",
+		"/Volumes/ct-ng/silicontx/github/amber/configure_ambermini",
+		"/Users/ralphbellofatto/Downloads/config.exp",
+		"/Users/ralphbellofatto/Downloads/cisco-rv325-01.exp",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/office_conf/cisco-rv325-backup.exp",
+		"/Users/ralphbellofatto/Downloads/schema.public.graphql",
+		"/Users/ralphbellofatto/.ssh/GithubStatusToken.key",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/office_conf/RV340_configuration_new.xml",
+		"/Volumes/ct-ng/silicontx/github/amber/.git/COMMIT_EDITMSG",
+		"/Volumes/ct-ng/silicontx/github/amber-master/stxbuild/build.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/amber/stxbuild/build.sh",
+		"/Volumes/ct-ng/silicontx/github/amber-master/stxbuild/install.sh",
+		"/Volumes/ct-ng/silicontx/github/amber-master/.git/COMMIT_EDITMSG"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"boogers",
+			"]\n"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": ".gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7,
+								7
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Git Formats/Git Ignore.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 246,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								132,
+								132
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "subl-test.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 47,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								419,
+								419
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fmtstr.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 822,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								175,
+								175
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/iomanip",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1696,
+								1696
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 401.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/__config",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 51500,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27383,
+								27383
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11762.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 84,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CMake/CMake.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 175.0
+	},
+	"output.find_results":
+	{
+		"height": 185.0
+	},
+	"output.git":
+	{
+		"height": 102.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 102.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Makefile/Make.sublime-build",
+	"project": "subl-test.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"beegfs-meta.conf",
+				"meta/build/dist/etc/beegfs-meta.conf"
+			],
+			[
+				"beegfs-mgmtd.conf",
+				"mgmtd/build/dist/etc/beegfs-mgmtd.conf"
+			],
+			[
+				"connection.cpp",
+				"boost_1_62_0 1/libs/asio/example/cpp03/http/server/connection.cpp"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 60.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 322.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,8 @@
+# ninja log v5
+2	1364	608878650	CMakeFiles/vgdbLib01.dir/GassimNode.cpp.o	c4b179fa441b6719
+8	916	608878690	CMakeFiles/vgdbLib01.dir/vgdbLib01.cpp.o	3c720622b2de16df
+4	1262	608878691	CMakeFiles/vgdbLib01.dir/GassimNode.cpp.o	c4b179fa441b6719
+1263	1487	608878691	libvgdbLib01.a	db3db75dfe709f11
+2	339	608922583	build.ninja	1784c75ce7ca065a
+4	1368	608922584	CMakeFiles/vgdbLib01.dir/GassimNode.cpp.o	c4b179fa441b6719
+5	1535	608922822	CMakeFiles/vgdbLib01.dir/vgdbLib01.cpp.o	3c720622b2de16df
