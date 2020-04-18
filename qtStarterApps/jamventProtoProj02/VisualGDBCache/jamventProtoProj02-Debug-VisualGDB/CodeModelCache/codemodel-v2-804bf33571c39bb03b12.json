@@ -1,0 +1,146 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "jamvent",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "jamvent",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"build" : "utils",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "utils"
+				},
+				{
+					"build" : "jamventsimlib",
+					"childIndexes" : 
+					[
+						4
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "jamventsimlib",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "jamventsimlib/testing",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.7"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 0,
+					"source" : "jamventsimlib/testing",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "DEBUG",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "jamventProtoProj02",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "jamvent::@8495c2246181531a4fdf",
+					"jsonFile" : "target-jamvent-DEBUG-51efc674736c8b0f871a.json",
+					"name" : "jamvent",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "jamvent_autogen::@8495c2246181531a4fdf",
+					"jsonFile" : "target-jamvent_autogen-DEBUG-8da2bd2a5541e73bdaec.json",
+					"name" : "jamvent_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "jamventsim::@af8e9017f661a8ac8ab8",
+					"jsonFile" : "target-jamventsim-DEBUG-80f71ab5cefd0d13bb46.json",
+					"name" : "jamventsim",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "jsimTestConf::@e7f842496e1dd568ac3a",
+					"jsonFile" : "target-jsimTestConf-DEBUG-d0b7dc9d0b1ee6c88a91.json",
+					"name" : "jsimTestConf",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "X:/github/prototypes/qtStarterApps/jamventProtoProj02/VisualGDB/Debug",
+		"source" : "X:/github/prototypes/qtStarterApps/jamventProtoProj02"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

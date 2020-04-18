@@ -1,0 +1,235 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "VisualGDB/Debug/CMakeFiles/3.15.2/CMakeSystem.cmake"
+		},
+		{
+			"path" : "toolchain.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/Qt/v5-CMake/Qt5Cross.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "VisualGDB/Debug/CMakeFiles/3.15.2/CMakeCCompiler.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "VisualGDB/Debug/CMakeFiles/3.15.2/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/Linux.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/UnixPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Compiler/GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Internal/CMakeCheckCompilerFlag.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/Linux-GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/Linux-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Compiler/GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/Linux-GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/Platform/Linux-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"path" : "jamvent/CMakeLists.txt"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5/Qt5ConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5/Qt5Config.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5/Qt5ModuleLocation.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Core/Qt5CoreConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Core/Qt5CoreConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Core/Qt5CoreConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Core/Qt5CoreMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeParseArguments.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Gui/Qt5GuiConfig.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "C:/SysGCC/raspberry/arm-linux-gnueabihf/sysroot/usr/lib/arm-linux-gnueabihf/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Users/ralphbellofatto/AppData/Local/VisualGDB/CMake/share/cmake-3.15/Modules/CMakeParseArguments.cmake"
+		},
+		{
+			"path" : "utils/CMakeLists.txt"
+		},
+		{
+			"path" : "jamventsimlib/CMakeLists.txt"
+		},
+		{
+			"path" : "jamventsimlib/testing/CMakeLists.txt"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "X:/github/prototypes/qtStarterApps/jamventProtoProj01/VisualGDB/Debug",
+		"source" : "X:/github/prototypes/qtStarterApps/jamventProtoProj01"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}
