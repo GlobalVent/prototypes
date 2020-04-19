@@ -39,7 +39,7 @@
         <Transport>BuiltinShortcut</Transport>
       </RemoteHost>
       <Command>$(VISUALGDB_DIR)/ninja.exe</Command>
-      <Arguments />
+      <Arguments>-v</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <BackgroundMode xsi:nil="true" />
     </MakeCommandTemplate>

@@ -1,13 +1,7 @@
 # ninja log v5
-3	664	0	CMakeFiles/qtStarterAppCross_autogen	1f56f851946ef21d
-3	664	0	qtStarterAppCross_autogen/mocs_compilation.cpp	1f56f851946ef21d
-666	5105	608694885	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross_autogen/mocs_compilation.cpp.o	a006af7d9d96b9a8
-664	6225	608694886	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross.cpp.o	f3262062bc9c6f3e
-668	7270	608694887	CMakeFiles/qtStarterAppCross.dir/MainWindow.cpp.o	6bb31b681b577a80
-7273	7848	608694888	qtStarterAppCross	ca15807cefdf770e
-10	86	0	CMakeFiles/qtStarterAppCross_autogen	1f56f851946ef21d
-10	86	0	qtStarterAppCross_autogen/mocs_compilation.cpp	1f56f851946ef21d
-86	3328	608735115	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross_autogen/mocs_compilation.cpp.o	a006af7d9d96b9a8
-89	3345	608735115	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross.cpp.o	f3262062bc9c6f3e
-91	4522	608735116	CMakeFiles/qtStarterAppCross.dir/MainWindow.cpp.o	6bb31b681b577a80
-4523	5025	608735117	qtStarterAppCross	ca15807cefdf770e
+5	712	0	CMakeFiles/qtStarterAppCross_autogen	1f56f851946ef21d
+5	712	0	qtStarterAppCross_autogen/mocs_compilation.cpp	1f56f851946ef21d
+715	4681	608999101	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross_autogen/mocs_compilation.cpp.o	a006af7d9d96b9a8
+712	4710	608999101	CMakeFiles/qtStarterAppCross.dir/qtStarterAppCross.cpp.o	f3262062bc9c6f3e
+717	5627	608999102	CMakeFiles/qtStarterAppCross.dir/MainWindow.cpp.o	6bb31b681b577a80
+5629	6159	608999103	qtStarterAppCross	ca15807cefdf770e

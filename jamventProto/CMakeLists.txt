@@ -2,7 +2,7 @@
 #Note: VisualGDB will automatically update this file when you add new sources to the project.
 
 cmake_minimum_required(VERSION 2.7)
-project(jamventProtoProj03)
+project(jamventProto)
 set(LIBRARIES_FROM_REFERENCES "")
 
 
