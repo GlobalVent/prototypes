@@ -50,3 +50,6 @@
 #CMakeFiles/
 #CMakeCache.txt
 
+# qtcreator generated files
+*.creator.user*
+*.pro.user*
