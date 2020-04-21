@@ -41,3 +41,14 @@ MainWidget::~MainWidget()
     delete ui;
 }
 
+void MainWidget::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape)
+    {
+        QApplication::instance()->quit();
+    }
+    else
+    {
+        QWidget::keyPressEvent(event);
+    }
+}

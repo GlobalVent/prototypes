@@ -15,6 +15,8 @@ public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
+    void keyPressEvent(QKeyEvent *event) override;
+
 private:
     Ui::MainWidget *ui;
 };
