@@ -2,7 +2,11 @@
 
 #include <assert.h>
 #include <math.h>
+#include <iostream>
+
 #include "GassimReservoir.h"
+
+using namespace std;
 
 GassimReservoir::GassimReservoir(const std::string &name, 
 		double pressure, 
@@ -10,10 +14,10 @@ GassimReservoir::GassimReservoir(const std::string &name,
 	setPressure(pressure);
 	setVolume(volume);
 }
-void  GassimReservoir::setPo2(double pO2) {
+void  GassimReservoir::setPO2(double pO2) {
 	assert(pO2 <= 1.0);				// double check...
     assert (pO2 > 0);
-	GassimNode::setPressure(pO2);
+	GassimNode::setPO2(pO2);
 };
 
 void GassimReservoir::step(double dt) {
@@ -45,15 +49,17 @@ void GassimReservoir::step(double dt) {
         double pDrop = c->getPressureDrop(nodeId());	// pressure drop relative to me...
         double R=c->resistance();
         double V=volume();
-	    //tc=1-math.exp(-dt/(R*V));
+	    double tc=1-exp(-dt/(R*V));
 	    pDelta = pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
         ppNewO2+=pDelta*(c->pO2());
-    }
+	    
+		}
 
+	
     assert(numValveOpen <= 1);      //# don't support parallel filling of the container yet...
     // # ttry working with partial pressures.
     double ppO2 = pressure() * pO2();
     ppO2 += ppNewO2;
     setPressure(pressure()+pDelta);
-    setPo2(ppO2/pressure());
+    setPO2(ppO2/pressure());
 }

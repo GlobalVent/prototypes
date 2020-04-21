@@ -6,10 +6,8 @@
 
 
 GassimPipe::GassimPipe(const std::string &name, 
-			   double pressure,
 			   double resistance,
 			   bool open) : GassimNode(name, PIPE) {
-	setPressure(pressure);
 	setResistance(resistance);
 	setOpen(open);
 }
