@@ -74,14 +74,15 @@ private:
 
 };
 
-typedef std::pair<std::vector<double>,std::vector<double> > VectorPair_t;
-typedef std::shared_ptr<VectorPair_t> VectorPairPtr_t;
+typedef std::pair<double, double> TimeSeriesPair_t;
+typedef std::vector<TimeSeriesPair_t> VectorSeries_t;
+typedef std::shared_ptr<VectorSeries_t> VectorSeriesPtr_t;
 
-VectorPairPtr_t doModel(double dt, 
+VectorSeriesPtr_t doModel(double dt, 
 	double timeLimit, 
 	uint64_t stride)
 {
-	VectorPairPtr_t vp(make_shared<VectorPair_t>());
+	VectorSeriesPtr_t vp(make_shared<VectorSeries_t>());
 	SimpleGasModel  model;
     uint64_t nsteps=0;
 	double timeNow = 0.0;
@@ -95,26 +96,34 @@ VectorPairPtr_t doModel(double dt,
 	        model.step(dt*stride);
             model.next();
 		}
+	    vp->push_back(TimeSeriesPair_t(timeNow, model._reservoir->pressure()));
 		timeNow += dt;
+
     }
 	
+
 	return(vp);
 }
 int  main(int argc, const char * argv []) {
 	ErrStrs errs;
 	bool passed = true;
-
 	cout << "Testing test00 ..." << endl;
-
+	
 	double timelimit  = 4;
-	doModel(0.01, timelimit, 1);
+	VectorSeriesPtr_t vp = doModel(0.01, timelimit, 1);
 
+#if 1
+	// just blindly print out the vector...
+	for (auto it = vp->begin(); it != vp->end(); it++) 
+		cout << it->first <<  ", " << it->second << endl;
+#endif
 	if (errs.size() > 0) {
 		for (auto iter = errs.begin(); iter != errs.end(); iter++) 
 			cout << *iter << endl;
 		cout << "TEST Failed" << endl;
 		passed = false;
 	}
+	
 	
 	cout << "Test : " << (passed ? "PASSED" : "FAILED") << endl;
 

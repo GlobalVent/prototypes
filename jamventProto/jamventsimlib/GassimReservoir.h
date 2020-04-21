@@ -10,7 +10,7 @@ public:
 		double volume);
 	virtual void step(double dt);
 
-	virtual void   setPo2(double pO2);
+	virtual void   setPO2(double pO2);
 
 protected:
 
