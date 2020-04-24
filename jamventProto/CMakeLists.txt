@@ -6,11 +6,22 @@ project(jamventProto)
 set(LIBRARIES_FROM_REFERENCES "")
 
 
-add_subdirectory(jamvent)
+
 include_directories(utils)
+
+include_directories(jamventsimlib)
+
+include_directories(jamhwlib)
+
+include_directories(jamctrllib)
+
+
+add_subdirectory(jamvent)
 add_subdirectory(utils)
-include_directories(jamventsim)
 add_subdirectory(jamventsimlib)
+add_subdirectory(jamhwlib)
+add_subdirectory(jamctrllib)
+
 
 
 #add_executable(jamventProtoProj01 jamventProtoProj01.cpp)

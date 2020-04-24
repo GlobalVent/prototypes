@@ -40,6 +40,7 @@
         <Transport>BuiltinShortcut</Transport>
       </RemoteHost>
       <Command>$(VISUALGDB_DIR)/ninja.exe</Command>
+      <Arguments>-v</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <BackgroundMode xsi:nil="true" />
     </MakeCommandTemplate>
@@ -152,6 +153,7 @@
       <GDBServerPort>2000</GDBServerPort>
       <ProgramArguments>$(SelectedCMakeTargetArgs)</ProgramArguments>
       <WorkingDirectory>$(SelectedCMakeTargetLaunchDir)</WorkingDirectory>
+      <ProgramEnvironment>DISPLAY=:0</ProgramEnvironment>
       <ArgumentEscapingMode>Auto</ArgumentEscapingMode>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>

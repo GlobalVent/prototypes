@@ -14,6 +14,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// meaningless change 
 void MainWindow::ButtonClicked()
 {
     QMessageBox msgBox;
