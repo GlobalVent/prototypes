@@ -44,9 +44,9 @@
 # visual Gdb
 
 #VisualGDB/
-#VisualGDBCache/
-#*.vgdbcmake.*.user
-#CMakeLists.txt.old
+VisualGDBCache/
+*.vgdbcmake.*.user
+CMakeLists.txt.old
 #CMakeFiles/
 #CMakeCache.txt
 
