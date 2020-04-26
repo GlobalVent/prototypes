@@ -18,7 +18,8 @@ ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::Wi
     m_y(0.0)
 {
     legend()->hide();
-    setAnimationOptions(QChart::AllAnimations);
+	//setAnimationOptions(QChart::AllAnimations);
+	setAnimationOptions(QChart::NoAnimation);
     setMargins(QMargins(0,0,0,0));
     setBackgroundRoundness(0);
     setBackgroundVisible(false);
@@ -46,9 +47,18 @@ ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::Wi
     m_series->append(m_x, m_y);
 
     addSeries(m_series);
+	
+	constexpr int LabelPixelSize = 12;
+	
+	QFont font = m_axisX->labelsFont();
+	font.setPixelSize(LabelPixelSize);
+	qDebug() << "font.pixelSize() = " << font.pixelSize();
 
     addAxis(m_axisX, Qt::AlignBottom);
     addAxis(m_axisY, Qt::AlignLeft);
+	
+	m_axisX->setLabelsFont(font);
+	m_axisY->setLabelsFont(font);
 
     m_series->attachAxis(m_axisX);
     m_series->attachAxis(m_axisY);
@@ -57,6 +67,7 @@ ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::Wi
 
     m_axisY->setTickCount(params.yAxisTickCount);
     m_axisY->setRange(params.yAxisMin, params.yAxisMax);
+	m_axisY->setTitleFont(font);
     m_axisY->setTitleText(params.yAxisTitle);
 
     m_timer.start();
@@ -69,8 +80,9 @@ ChartWidget::~ChartWidget()
 
 void ChartWidget::handleTimeout()
 {
-    qDebug() << "Chart::handleTimeout() called.";
-
+	static int count = 100;
+	qDebug() << "Chart::handleTimeout() called. count = " << count;
+	
     qreal xPixel = plotArea().width() / (m_axisX->tickCount() - 1);
     qreal xValue = (m_axisX->max() - m_axisX->min()) / (m_axisX->tickCount() - 1);
     qreal yPixel = plotArea().height() / (m_axisY->tickCount() - 1);
@@ -91,14 +103,22 @@ void ChartWidget::handleTimeout()
 
     qDebug() << "m_x = " << m_x << ", m_y = " << m_y;
 
-    m_series->append(m_x, m_y);
     if (m_x >= m_axisX->tickCount())
     {
-        // At end of graph. Scroll so stays in view
-        scroll(xPixel, 0);
-        //m_series->remove(0); // Remove point that scrolled off the screen.
+	    // At end of graph. Scroll so stays in view
+	    //scroll(xPixel, 0);
+	    //m_series->remove(0); // Remove point that scrolled off the screen.
+		// Start back at left.
+		m_series->clear();
+	    m_x = 0.0;
     }
-    // Stop of 100 steps.
-    if (m_x > 100.0)
-        m_timer.stop();
+	m_series->append(m_x, m_y);
+	
+	// Stop when count reaches 0.
+	if(count <= 0)
+	{
+		m_timer.stop();
+	}
+	
+	count--;
 }

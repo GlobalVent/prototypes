@@ -13,11 +13,13 @@ MainWidget::MainWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
+	const qreal TimerInterval_ms = 100;
+	
     // Upper left graph
     ChartWidget::InitParams ulParams;
     ulParams.type = ChartWidget::ChartType::Scatter;
     ulParams.yAxisTitle = "Press(cmH2O)";
-    ulParams.timerInterval_ms = 1000;
+	ulParams.timerInterval_ms = TimerInterval_ms;
     ulParams.xAxisTickCount = 7;
     ulParams.xAxisMin = 0.0;
     ulParams.xAxisMax = 6.0;
@@ -35,7 +37,7 @@ MainWidget::MainWidget(QWidget *parent)
     ChartWidget::InitParams urParams;
     urParams.type = ChartWidget::ChartType::Spline;
     urParams.yAxisTitle = "Flow(L/min)";
-    urParams.timerInterval_ms = 1000;
+	urParams.timerInterval_ms = TimerInterval_ms;
     urParams.xAxisTickCount = 7;
     urParams.xAxisMin = 0.0;
     urParams.xAxisMax = 6.0;
@@ -53,11 +55,11 @@ MainWidget::MainWidget(QWidget *parent)
     ChartWidget::InitParams llParams;
     llParams.type = ChartWidget::ChartType::Line;
     llParams.yAxisTitle = "";
-    llParams.timerInterval_ms = 2000;
-    llParams.xAxisTickCount = 4;
+	llParams.timerInterval_ms = TimerInterval_ms;
+    llParams.xAxisTickCount = 7;
     llParams.xAxisMin = 0.0;
     llParams.xAxisMax = 6.0;
-    llParams.yAxisTickCount = 3;
+    llParams.yAxisTickCount = 5;
     llParams.yAxisMin = 0.0;
     llParams.yAxisMax = 30.0;
 
