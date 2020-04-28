@@ -13,7 +13,7 @@ MainWidget::MainWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-	const qreal TimerInterval_ms = 100;
+	const qreal TimerInterval_ms = 250;
 	
     // Upper left graph
     ChartWidget::InitParams ulParams;

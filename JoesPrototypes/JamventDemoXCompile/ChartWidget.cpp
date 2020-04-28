@@ -80,8 +80,14 @@ ChartWidget::~ChartWidget()
 
 void ChartWidget::handleTimeout()
 {
-	static int count = 100;
-	qDebug() << "Chart::handleTimeout() called. count = " << count;
+	static int count = 200;
+
+    if (count <= 0)
+    {
+        m_timer.stop();
+        return;
+    }
+    count--;
 	
     qreal xPixel = plotArea().width() / (m_axisX->tickCount() - 1);
     qreal xValue = (m_axisX->max() - m_axisX->min()) / (m_axisX->tickCount() - 1);
@@ -93,6 +99,8 @@ void ChartWidget::handleTimeout()
     double rand = QRandomGenerator::global()->bounded(yRange);
     m_y = rand + m_axisY->min();
 
+#if 0
+    qDebug() << "Chart::handleTimeout() called. count = " << count;
     qDebug() << "plotArea().width() = " << plotArea().width() << ", m_axisX->tickCount() = " << m_axisX->tickCount();
     qDebug() << "m_axisX->max() = " << m_axisX->max() << ", m_axisX->min() = " << m_axisX->min();
     qDebug() << "xPixel = " << xPixel << ", xValue = " << xValue;
@@ -102,7 +110,7 @@ void ChartWidget::handleTimeout()
     qDebug() << "yRange = " << yRange;
 
     qDebug() << "m_x = " << m_x << ", m_y = " << m_y;
-
+#endif
     if (m_x >= m_axisX->tickCount())
     {
 	    // At end of graph. Scroll so stays in view
@@ -115,10 +123,4 @@ void ChartWidget::handleTimeout()
 	m_series->append(m_x, m_y);
 	
 	// Stop when count reaches 0.
-	if(count <= 0)
-	{
-		m_timer.stop();
-	}
-	
-	count--;
 }
