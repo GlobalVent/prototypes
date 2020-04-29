@@ -4,6 +4,7 @@
 #include <QChartView>
 
 #include "ChartWidget.h"
+#include "RedGreenWidget.h"
 
 using namespace QtCharts;
 
@@ -15,6 +16,7 @@ MainWidget::MainWidget(QWidget *parent)
 
 	const qreal TimerInterval_ms = 250;
 	
+#if 0
     // Upper left graph
     ChartWidget::InitParams ulParams;
     ulParams.type = ChartWidget::ChartType::Scatter;
@@ -32,7 +34,9 @@ MainWidget::MainWidget(QWidget *parent)
     QChartView *ulChartView = new QChartView(ulChart, ui->upperLeftGraphFrame);
     ulChartView->setRenderHint(QPainter::Antialiasing);
     ulChartView->resize(ui->upperLeftGraphFrame->size());
+#endif
 
+#if 0
     // Upper right graph
     ChartWidget::InitParams urParams;
     urParams.type = ChartWidget::ChartType::Spline;
@@ -50,7 +54,9 @@ MainWidget::MainWidget(QWidget *parent)
     QChartView *urChartView = new QChartView(urChart, ui->upperRightGraphFrame);
     urChartView->setRenderHint(QPainter::Antialiasing);
     urChartView->resize(ui->upperRightGraphFrame->size());
+#endif
 
+#if 1
     // Lower left graph
     ChartWidget::InitParams llParams;
     llParams.type = ChartWidget::ChartType::Line;
@@ -68,6 +74,12 @@ MainWidget::MainWidget(QWidget *parent)
     QChartView *llChartView = new QChartView(llChart, ui->lowerLeftGraphFrame);
     llChartView->setRenderHint(QPainter::Antialiasing);
     llChartView->resize(ui->lowerLeftGraphFrame->size());
+#endif
+
+#if 1
+    // Lower right graph
+     RedGreenWidget* lrWidget = new RedGreenWidget(ui->lowerRightGraphFrame);
+#endif
 }
 
 MainWidget::~MainWidget()

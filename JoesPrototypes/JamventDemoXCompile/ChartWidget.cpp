@@ -70,6 +70,9 @@ ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::Wi
 	m_axisY->setTitleFont(font);
     m_axisY->setTitleText(params.yAxisTitle);
 
+    qDebug() << "ChartWidget(). xAxisTickCount =" << params.xAxisTickCount
+             << "timerInterval_ms = " << params.timerInterval_ms;
+
     m_timer.start();
 }
 
@@ -86,7 +89,8 @@ void ChartWidget::handleTimeout()
     {
         m_timer.stop();
         return;
-    }
+    }
+
     count--;
 	
     qreal xPixel = plotArea().width() / (m_axisX->tickCount() - 1);
@@ -110,7 +114,8 @@ void ChartWidget::handleTimeout()
     qDebug() << "yRange = " << yRange;
 
     qDebug() << "m_x = " << m_x << ", m_y = " << m_y;
-#endif
+#endif
+
     if (m_x >= m_axisX->tickCount())
     {
 	    // At end of graph. Scroll so stays in view
@@ -121,6 +126,4 @@ void ChartWidget::handleTimeout()
 	    m_x = 0.0;
     }
 	m_series->append(m_x, m_y);
-	
-	// Stop when count reaches 0.
 }
