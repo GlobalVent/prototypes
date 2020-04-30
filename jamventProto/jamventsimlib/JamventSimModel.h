@@ -101,6 +101,24 @@ public:
 	 */
 	virtual float getPo2();
 
+	/**
+	 * @brief set the o2 source pressure in bar
+	 * @details set the o2 source pressure.
+	 *          at any point in the simulation to change the source pressure.
+	 * 
+	 * @param pressure [description]
+	 */
+	virtual setO2Pressure(double pressure);
+
+	/**
+	 * @brief set the Air source pressure in bars
+	 * @details set the air source pressure
+	 *          at any point in the simulation to change the source pressure.
+	 * 
+	 * @param pressure [description]
+	 */
+	virtual setAirPressure(double pressure);
+
 
 protected:
 	GassimModel	_model;

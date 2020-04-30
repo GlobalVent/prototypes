@@ -142,4 +142,26 @@ float JamventSimModel::getPo2() {
 	return(_reservoir->pO2());
 }
 
+/**
+ * @brief set the o2 source pressure in bar
+ * @details set the o2 source pressure.
+ *          at any point in the simulation to change the source pressure.
+ * 
+ * @param pressure [description]
+ */
+JamventSimModel::setO2Pressure(double pressure) {
+	_o2Src->setPressure(pressure);
+}
+
+/**
+ * @brief set the Air source pressure in bars
+ * @details set the air source pressure
+ *          at any point in the simulation to change the source pressure.
+ * 
+ * @param pressure [description]
+ */
+JamventSimModel::setAirPressure(double pressure) {
+	_airSrc->setPressure(pressure);
+}
+
 
