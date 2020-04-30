@@ -21,7 +21,10 @@ void GassimModel::connect(GassimNode::NodePtr_t &a, GassimNode::NodePtr_t &b) {
 void GassimModel::step(double dt) {
 	if (_steps++ == 0) 			// very first iteration call next first...
 		next();
-	
+
+	if (dt == 0.0) 
+		return;
+
 	for (auto n : _childNodes) 
 		n.second->step(dt);
 	

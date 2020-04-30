@@ -177,3 +177,6 @@ class SimNode:
     def getPressureDrop(self):
         return(0);      # default is the same as overall pressure.
 
+    def getResTotal(self, node):      # get total resistance (return zero means we are at the end of the
+        return(0)                    # resistave chain.
+

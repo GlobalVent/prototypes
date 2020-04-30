@@ -47,11 +47,12 @@ class Pipe(SimNode):
         self._next_out.pO2 = maxP.out.pO2;
         self._next_out.pressure = maxP.out.pressure;
 
+        # this needs some refinement,
+        #   to get the flow do we need the total resistance?
         if (self.out.open):
             self._next_out.flow=abs(pA.out.pressure-pB.out.pressure)/self.out.resistance;
         else:
             self._next_out.flow = 0;      # valve off, no flow
-
         return;
 
     def getPressureDrop(self,node):
@@ -70,12 +71,27 @@ class Pipe(SimNode):
                 pdrop = (pA.out.pressure-pB.out.pressure)
             else:
                 pdrop = (pB.out.pressure-pA.out.pressure)
-
-
         else:
             pdrop=0;
         return(pdrop);
 
+    def getResTotal(self,node):
+        '''
+        getResistance Total.  Total up resistance elements in series.
+        :param node: node that is calling this.
+        :return: track the resistance chain to both ends..
+        '''
+        if (self.out.open):
+            cA = self._connections[0];
+            cB = self._connections[1];
+            rTotal=self.out.resistance;   # my own resistance
+            if (node.nodeId() != cA.nodeId())
+                rTotal+=cA.getResTotal(self);
+            if (node.nodeId() != cB.nodeId())
+                rTotal+=cB.getResTotal();
+        else:
+            rTotal=float(inf);
+        return(rTotal)  # valve close, infinite resistance.
 
 
 
