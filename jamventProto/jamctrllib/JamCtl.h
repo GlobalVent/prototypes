@@ -79,6 +79,14 @@ public:
 	virtual bool isThreadRunning() = 0;
 
 	/**
+	 * @brief setDebugLevel
+	 * @details set the debug level to use for debugging 
+	 *          must have done the setLogStream below
+	 * 
+	 * @param level  -- debug level to set, 0, no debug data. 1,2,3... increasing verbosity
+	 */
+	virtual void setDebugLevel(unsigned level) = 0;
+	/**
 	 * @brief setLogStream 
 	 * @details set a logStream device to help with debugging...
 	 * 
