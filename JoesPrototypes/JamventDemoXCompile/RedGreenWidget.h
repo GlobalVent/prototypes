@@ -12,8 +12,16 @@ class RedGreenWidget: public QWidget
 {
     Q_OBJECT
 public:
+  struct InitParams
+  {
+      int xAxisTickCount;
+
+      InitParams()
+          : xAxisTickCount{0} {};
+  };
+
     RedGreenWidget() = delete;
-    RedGreenWidget(QWidget* parent);
+    RedGreenWidget(const InitParams &params, QWidget* parent);
     virtual ~RedGreenWidget() = default;
 
     void onAddValue(qreal v);
@@ -21,25 +29,22 @@ public:
 
 protected:
   void paintEvent(QPaintEvent *) override;
+  qreal getSinValue();
+  qreal getRandValue();
 
 private:
-   qreal getSinValue();
-   qreal getRandValue();
 
    QPen m_redPen{Qt::red, 2};
    QPen m_greenPen{Qt::green, 2};
    QPen* m_pen = &m_redPen;
 
    int m_tickCount;
-   int m_xStep;
+   float m_xStep;  // Store as real for percision.
    int m_tick;
 
    qreal m_x;
    QPointF m_lastPoint;
    QLineF m_line;
-
-   int m_timerInterval_ms;
-   QTimer m_timer;
 
    //qreal m_y;
 };

@@ -55,9 +55,9 @@ public:
 
     struct InitParams {
         ChartType type;
-        qreal timerInterval_ms;
         QString yAxisTitle;
         int xAxisTickCount;
+        int xAxisMinorTickCount;
         qreal xAxisMin;
         qreal xAxisMax;
         int yAxisTickCount;
@@ -66,9 +66,9 @@ public:
 
         InitParams()
             : type{ChartType::Line}
-            , timerInterval_ms{250}
             , yAxisTitle{}
             , xAxisTickCount{0}
+            , xAxisMinorTickCount{1}
             , xAxisMin{0}
             , xAxisMax{0}
             , yAxisTickCount{0}
@@ -79,15 +79,15 @@ public:
     ChartWidget(const InitParams& params, QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = 0);
     virtual ~ChartWidget();
 
-public slots:
-    void handleTimeout();
+    void onTimeout();
 
 private:
-    QTimer m_timer;
     QXYSeries *m_series;
     QValueAxis *m_axisX;
     QValueAxis *m_axisY;
-    qreal m_step;
+
+    int m_indexCnt;
+    qreal m_xStep;
     qreal m_x;
     qreal m_y;
 };

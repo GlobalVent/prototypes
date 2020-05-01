@@ -4,15 +4,14 @@
 
 #include "RedGreenWidget.h"
 
-RedGreenWidget::RedGreenWidget(QWidget *parent)
+RedGreenWidget::RedGreenWidget(const InitParams &params, QWidget *parent)
     : QWidget(parent)
-    , m_tickCount(24)
-    , m_xStep(0)
+    , m_tickCount(params.xAxisTickCount)
+    , m_xStep(0.0)
     , m_tick(0)
     , m_x(0.0)
     , m_lastPoint(0.0, 0.0)
     , m_line()
-    , m_timerInterval_ms(200)
 {
     // Don't erase previous paints.
     //setAttribute(Qt::WA_NoSystemBackground);
@@ -23,30 +22,32 @@ RedGreenWidget::RedGreenWidget(QWidget *parent)
     // Fill the parent.
     resize(parent->size());
 
-    m_xStep = width() / m_tickCount; // Calculate step value for x axis.
+    m_xStep = static_cast<float>(width()) / m_tickCount; // Calculate as real as need percision.
 
     qDebug() << "RedGreenWidget()."
              << "m_tickCount =" << m_tickCount
-             << "m_xStep = " << m_xStep
-             << "m_timerInterval_ms = " << m_timerInterval_ms;
+             << "m_xStep = " << m_xStep;
 
-    // Temporary until controlled with outside timer.
-    QObject::connect(&m_timer, &QTimer::timeout, this, &RedGreenWidget::onTimeout);
-    m_timer.setInterval(m_timerInterval_ms);
-    m_timer.start();
+    qDebug() << "..width() = " << width() << ", height() = " << height();
 }
 
 void RedGreenWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setPen(*m_pen);
-    painter.fillRect(m_x, 0, m_xStep + m_xStep, height(), Qt::black); // Cursor
 
     // Skip drawing line back from right side to new start on left.
     if (m_line.length() < height())
     {
+        // Cursor
+        const int stepWidth = static_cast<int>(m_xStep);
+        painter.fillRect(m_x + 1, 0, stepWidth + stepWidth, height(), Qt::black);
+        //painter.fillRect(m_x + 1, 0, 1, height(), Qt::white);
+
         painter.drawLine(m_line);
     }
+
+    //qDebug() << "paintEvent(). m_line = " << m_line << ", m_x = " << m_x;
 }
 
 void RedGreenWidget::onAddValue(qreal v)
@@ -57,7 +58,7 @@ void RedGreenWidget::onAddValue(qreal v)
       m_pen = (m_pen == &m_redPen)? &m_greenPen : &m_redPen;
   }
 
-  m_x = m_tick * m_xStep;
+  m_x = static_cast<int>(m_xStep * m_tick);
   ++m_tick;
   if (m_tick > (m_tickCount + 1))
   {
@@ -70,21 +71,15 @@ void RedGreenWidget::onAddValue(qreal v)
   m_line = QLineF(m_lastPoint, newPoint);
   m_lastPoint = newPoint;
   update();
+
+  //qDebug() << "onAddValue(). newPoint = " << newPoint << ", m_x = " << m_x;
 }
 
 
 void RedGreenWidget::onTimeout()
 {
-    static int count = 200;
-
-    if (count-- <= 0)
-    {
-        m_timer.stop();
-        return;
-    }
-
-    const qreal v = getRandValue();
-    // const qreal v = getSinValue();
+    //const qreal v = getRandValue();
+    const qreal v = getSinValue();
 
     //qDebug() << "getSinValue(), v = " << v << ", m_tick = " << m_tick;
 
@@ -93,12 +88,13 @@ void RedGreenWidget::onTimeout()
 
 qreal RedGreenWidget::getSinValue()
 {
-   qreal input = ((2.0 * M_PI) * m_tick) / m_tickCount;
-   qreal output = qSin(input);
+    static constexpr qreal cycles = 4.0 * 2.0 * M_PI;  // 4.0 cycles per screen.
+    qreal input = (cycles * m_tick) / m_tickCount;
+    qreal output = qSin(input);
 
-   // qDebug() << "getSinValue() input =" << input << ", output = " << output;
+    // qDebug() << "getSinValue() input =" << input << ", output = " << output;
 
-   return output;
+    return output;
 }
 
 qreal RedGreenWidget::getRandValue()
