@@ -11,7 +11,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 find_package(Qt5 COMPONENTS Core Widgets Charts REQUIRED)
 
-add_executable(JamventDemoXCompile JamventDemoXCompile.cpp MainWidget.cpp MainWidget.ui ChartWidget.cpp RedGreenWidget.cpp)
+add_executable(JamventDemoXCompile JamventDemoXCompile.cpp MainWidget.cpp MainWidget.ui ChartWidget.cpp RedGreenWidget.cpp GraphWidget.cpp PlotAreaWidget.cpp VLabelWidget.cpp)
 target_link_libraries(JamventDemoXCompile Qt5::Widgets "${LIBRARIES_FROM_REFERENCES}")
 target_link_libraries(JamventDemoXCompile Qt5::Charts "${LIBRARIES_FROM_REFERENCES}")
 set_property(TARGET JamventDemoXCompile PROPERTY CXX_STANDARD 14)

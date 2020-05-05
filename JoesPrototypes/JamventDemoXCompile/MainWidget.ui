@@ -29,9 +29,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QFrame { border: 1px solid black;}
-#pressureGraphFrame { border: 1px solid blue;}
-QLabel { border: 1px solid blue; background-color: white;}
+    <string notr="true">#pressureGraphFrame { border: 1px solid blue;}
 QPushButton {
   border: 2px solid gray;
   border-radius: 8px;

@@ -5,6 +5,7 @@
 
 #include "ChartWidget.h"
 #include "RedGreenWidget.h"
+#include "GraphWidget.h"
 
 using namespace QtCharts;
 
@@ -22,12 +23,11 @@ MainWidget::MainWidget(QWidget *parent)
 
     const qreal TimerInterval_ms = 100; //250;
 
-#if 0
+#if 1
     // Upper left graph
     ChartWidget::InitParams ulParams;
     ulParams.type = ChartWidget::ChartType::Scatter;
     ulParams.yAxisTitle = "Press(cmH2O)";
-	ulParams.timerInterval_ms = TimerInterval_ms;
     ulParams.xAxisTickCount = 7;
     ulParams.xAxisMinorTickCount = 4;
     ulParams.xAxisMin = 0.0;
@@ -37,34 +37,26 @@ MainWidget::MainWidget(QWidget *parent)
     ulParams.yAxisMax = 35.0;
 
     m_ulGraph = new ChartWidget(ulParams);
-    m_ulChart->resize(ui->upperLeftGraphFrame->size());
-    QChartView *ulChartView = new QChartView(m_ulChart, ui->upperLeftGraphFrame);
+    m_ulGraph->resize(ui->upperLeftGraphFrame->size());
+    QChartView *ulChartView = new QChartView(m_ulGraph, ui->upperLeftGraphFrame);
     ulChartView->setRenderHint(QPainter::Antialiasing);
     ulChartView->resize(ui->upperLeftGraphFrame->size());
 #endif
 
-#if 0
+#if 1
     // Upper right graph
-    ChartWidget::InitParams urParams;
-    urParams.type = ChartWidget::ChartType::Spline;
-    urParams.yAxisTitle = "Flow(L/min)";
-	urParams.timerInterval_ms = TimerInterval_ms;
-    urParams.xAxisTickCount = 7;
-    urParams.xAxisMinorTickCount = 4;
-    urParams.xAxisMin = 0.0;
-    urParams.xAxisMax = 6.0;
-    urParams.yAxisTickCount = 5;
-    urParams.yAxisMin = -20.0;
-    urParams.yAxisMax = 40.0;
+    GraphWidget::InitParams urParams;
+    //urParams.yAxisTitle = "Flow(L/min)";
+    urParams.xAxisTickCount = 60;
+    urParams.xAxisMin = -1.0;
+    urParams.xAxisMax = 2.0;
+    urParams.yAxisMin = 0.0;
+    urParams.yAxisMax = 6.0;
 
-    m_urGraph = new ChartWidget(urParams);
-    m_urChart->resize(ui->upperRightGraphFrame->size());
-    QChartView *urChartView = new QChartView(m_urChart, ui->upperRightGraphFrame);
-    urChartView->setRenderHint(QPainter::Antialiasing);
-    urChartView->resize(ui->upperRightGraphFrame->size());
+    m_urGraph = new GraphWidget(urParams, ui->upperRightGraphFrame);
 #endif
 
-#if 1
+#if 0
     // Lower left graph
     ChartWidget::InitParams llParams;
     llParams.type = ChartWidget::ChartType::Line;
@@ -87,7 +79,6 @@ MainWidget::MainWidget(QWidget *parent)
 #if 1
     // Lower right graph
     RedGreenWidget::InitParams lrParams;
-    lrParams.xAxisTickCount = 60;
     m_lrGraph = new RedGreenWidget(lrParams, ui->lowerRightGraphFrame);
 #endif
 

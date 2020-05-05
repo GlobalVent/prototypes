@@ -6,6 +6,7 @@
 
 #include "ChartWidget.h"
 #include "RedGreenWidget.h"
+#include "GraphWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWidget; }
@@ -26,7 +27,7 @@ private:
     Ui::MainWidget *ui;
 
     ChartWidget *m_ulGraph = nullptr;
-    ChartWidget *m_urGraph = nullptr;
+    GraphWidget *m_urGraph = nullptr;
     ChartWidget *m_llGraph = nullptr;
     RedGreenWidget *m_lrGraph = nullptr;
 
