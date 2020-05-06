@@ -3,6 +3,7 @@
 
 #include <QChartView>
 
+#include "LabeledInputWidget.h"
 #include "ChartWidget.h"
 #include "RedGreenWidget.h"
 #include "GraphWidget.h"
@@ -21,7 +22,22 @@ MainWidget::MainWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    const qreal TimerInterval_ms = 100; //250;
+    // Add bottom row of input widgets
+    auto inputLayout = ui->inputFrame->layout();
+    inputLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    inputLayout->setSpacing(24);
+    inputLayout->addWidget(new LabeledInputWidget{tr("FiO2")});
+    inputLayout->addWidget(new LabeledInputWidget{tr("Total Vol.")});
+    inputLayout->addWidget(new LabeledInputWidget{tr("Resp Rate")});
+    inputLayout->addWidget(new LabeledInputWidget{tr("I:E")});
+    inputLayout->addWidget(new LabeledInputWidget{tr("PEEP")});
+    inputLayout->addWidget(new LabeledInputWidget{tr("Vent Mode")});
+
+    // Add left column of data widgets
+    //auto dataLayout = ui->dataFrame->layout();
+    //dataLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+
+    const qreal TimerInterval_ms = 100;
 
 #if 1
     // Upper left graph
