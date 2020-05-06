@@ -46,7 +46,7 @@ private:
     InitParams m_params;
 
     int m_tickCount;
-    float m_xStep;  // Store as real for percision.
+    qreal m_xStep;  // Store as real for percision.
     int m_tick;
 
     qreal m_x;

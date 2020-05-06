@@ -2,6 +2,7 @@
 #include <QtCore/QRandomGenerator>
 #include <QtMath>
 
+#include "Theme.h"
 #include "PlotAreaWidget.h"
 
 namespace {
@@ -25,7 +26,7 @@ PlotAreaWidget::PlotAreaWidget(const QRect& rect, int xAxisTickCount, QWidget* p
     // set the geometry
     setGeometry(rect);
 
-    m_xStep = static_cast<float>(width()) / m_tickCount; // Calculate as real as need precision.
+    m_xStep = static_cast<qreal>(width()) / m_tickCount; // Calculate as real as need precision.
 
     qDebug() << "PlotAreaWidget()."
              << "m_tickCount =" << m_tickCount
@@ -39,18 +40,18 @@ void PlotAreaWidget::paintEvent(QPaintEvent *)
     QPainter painter(this);
     painter.setPen(*m_pen);
 
-    // Skip drawing line back from right side to new start on left.
-    if (m_line.length() < height())
+    // Skip drawing 1st line that ends at x of 0
+    if (m_line.x2() > 0.0)
     {
         // Cursor
         const int stepWidth = static_cast<int>(m_xStep);
-        painter.fillRect(m_x + 1, 0, stepWidth + stepWidth, height(), Qt::black);
-        //painter.fillRect(m_x + 1, 0, 1, height(), Qt::white);
+        //painter.fillRect(m_x + 1, 0, stepWidth + stepWidth, height(), Qt::black);
+        painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), Theme::BackgroundColor);
 
         painter.drawLine(m_line);
     }
 
-    // qDebug() << "paintEvent(). m_line = " << m_line << ", m_x = " << m_x;
+     //qDebug() << "paintEvent(). m_line = " << m_line << ", m_x = " << m_x;
 }
 
 void PlotAreaWidget::onAddValue(qreal v)

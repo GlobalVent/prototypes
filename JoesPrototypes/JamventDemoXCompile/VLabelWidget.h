@@ -19,4 +19,4 @@ protected:
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
 };
-#endif /* PLOTAREAWIDGET_H */
+#endif /* VLABELWIDGET_H */
