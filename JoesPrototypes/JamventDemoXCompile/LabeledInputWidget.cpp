@@ -1,5 +1,6 @@
 #include <QVBoxLayout>
 
+#include "Theme.h"
 #include "LabeledInputWidget.h"
 
 namespace
@@ -31,6 +32,8 @@ LabeledInputWidget::LabeledInputWidget(const QString& label, QWidget* parent)
     layout->addWidget(m_spinBox);
 
     setStyleSheet(LabelStyle);
+
+    m_label->setFont(Theme::MainFont);
 }
 
 QSpinBox* LabeledInputWidget::getSpinBox()

@@ -2,6 +2,7 @@
 #include <QtCore/QRandomGenerator>
 #include <QtMath>
 
+#include "Theme.h"
 #include "PlotAreaWidget.h"
 #include "GraphWidget.h"
 
@@ -20,7 +21,7 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
 
     m_yAxisMaxLabel->setGeometry(QRect(0, 0, Indent_px, Indent_px));
     QFont font = m_yAxisMaxLabel->font();
-    font.setPixelSize(11);
+    font.setPixelSize(Theme::YAxisLabelFontSize_px);
     m_yAxisMaxLabel->setFont(font);
     m_yAxisMaxLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 

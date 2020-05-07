@@ -1,12 +1,15 @@
+#include <QVBoxLayout>
+#include <QChartView>
+#include <QPushButton>
+
 #include "MainWidget.h"
 #include "ui_MainWidget.h"
-
-#include <QChartView>
-
 #include "LabeledInputWidget.h"
+#include "LabeledDataWidget.h"
 #include "ChartWidget.h"
 #include "RedGreenWidget.h"
 #include "GraphWidget.h"
+#include "PushButtonWidget.h"
 
 using namespace QtCharts;
 
@@ -23,19 +26,43 @@ MainWidget::MainWidget(QWidget *parent)
     ui->setupUi(this);
 
     // Add bottom row of input widgets
-    auto inputLayout = ui->inputFrame->layout();
-    inputLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    inputLayout->setSpacing(24);
-    inputLayout->addWidget(new LabeledInputWidget{tr("FiO2")});
-    inputLayout->addWidget(new LabeledInputWidget{tr("Total Vol.")});
-    inputLayout->addWidget(new LabeledInputWidget{tr("Resp Rate")});
-    inputLayout->addWidget(new LabeledInputWidget{tr("I:E")});
-    inputLayout->addWidget(new LabeledInputWidget{tr("PEEP")});
-    inputLayout->addWidget(new LabeledInputWidget{tr("Vent Mode")});
+    auto inputGroupFrame = ui->inputGroupFrame;
+    auto inputGroupLayout = new QHBoxLayout{};
+    inputGroupFrame->setLayout(inputGroupLayout);
+    inputGroupLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    inputGroupLayout->setSpacing(24);
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("FiO2")});
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Total Vol.")});
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Resp Rate")});
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("I:E")});
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("PEEP")});
+    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Vent Mode")});
+    //inputGroupLayout->addStretch();
 
-    // Add left column of data widgets
+    // Add right column data display widgets
     //auto dataLayout = ui->dataFrame->layout();
     //dataLayout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    //auto dataFrame = ui->rightColumnFrame;
+    auto dataGroupWidget = ui->dataGroupWidget;
+    auto dataGroupLayout = new QVBoxLayout{};
+    dataGroupWidget->setLayout(dataGroupLayout);
+    dataGroupLayout->setAlignment(Qt::AlignTop| Qt::AlignHCenter);
+    dataGroupLayout->setSpacing(4);
+    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Peak Press")});
+    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Plat Press")});
+    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Tidal Vol")});
+    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Minute Vent")});
+    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Resp Rate")});
+    dataGroupLayout->addStretch();
+
+    // Add right column buttons.
+    auto buttonGroupWidget = ui->buttonGroupWidget;
+    auto buttonGroupLayout = new QVBoxLayout{};
+    buttonGroupWidget->setLayout(dataGroupLayout);
+    buttonGroupLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
+    buttonGroupLayout->setSpacing(4);
+    dataGroupLayout->addWidget(new PushButtonWidget{tr("Menu")});
+    dataGroupLayout->addWidget(new PushButtonWidget{tr("Standby")});
 
     const qreal TimerInterval_ms = 100;
 

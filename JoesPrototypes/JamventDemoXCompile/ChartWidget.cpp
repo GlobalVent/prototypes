@@ -1,5 +1,4 @@
 
-#include "ChartWidget.h"
 #include <QtCharts/QAbstractAxis>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QScatterSeries>
@@ -7,6 +6,9 @@
 #include <QtCharts/QValueAxis>
 #include <QtCore/QRandomGenerator>
 #include <QtCore/QDebug>
+
+#include "Theme.h"
+#include "ChartWidget.h"
 
 ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::WindowFlags wFlags):
     QChart(QChart::ChartTypeCartesian, parent, wFlags),
@@ -49,10 +51,8 @@ ChartWidget::ChartWidget(const InitParams& params, QGraphicsItem *parent, Qt::Wi
 
     addSeries(m_series);
     
-    constexpr int LabelPixelSize = 12;
-    
     QFont font = m_axisX->labelsFont();
-    font.setPixelSize(LabelPixelSize);
+    font.setPixelSize(Theme::MainFontSize_px);
     qDebug() << "font.pixelSize() = " << font.pixelSize();
 
     addAxis(m_axisX, Qt::AlignBottom);
