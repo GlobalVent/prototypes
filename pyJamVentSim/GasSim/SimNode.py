@@ -17,6 +17,7 @@
 #      lungs -- variable volume resovire with a force that works against it.
 #      
 
+import copy;
 from .GasVars import GasVars
 from enum import Enum
 
@@ -102,7 +103,7 @@ class SimNode:
         for n in self.__childNodes:
             n.next()
         # make sure we did not make a mistake with the gas mix...
-        self.out = self._next_out;     # move calculated to public output.
+        self.out = copy.deepcopy(self._next_out);     # move calculated to public output.
 
     def getNumConnections(self):
         return(len(self._connections));
@@ -161,6 +162,8 @@ class SimNode:
         self._next_out.pO2=float(pO2);
     def setOpen(self, open):
         self._next_out.open = open;
+    def setCompliance(self, compliance):
+        self._next_out.compliance = compliance;
 
     def setAllTemp(self, temp):
         '''

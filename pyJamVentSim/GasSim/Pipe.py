@@ -85,9 +85,9 @@ class Pipe(SimNode):
             cA = self._connections[0];
             cB = self._connections[1];
             rTotal=self.out.resistance;   # my own resistance
-            if (node.nodeId() != cA.nodeId())
+            if (node.nodeId() != cA.nodeId()):
                 rTotal+=cA.getResTotal(self);
-            if (node.nodeId() != cB.nodeId())
+            if (node.nodeId() != cB.nodeId()):
                 rTotal+=cB.getResTotal();
         else:
             rTotal=float(inf);

@@ -44,7 +44,8 @@ class SimpleGasModel(SimNode):
                          True);       # valve initially open.
         self.addChildNode(valveRin);
         lungs = Lungs("lungs", resPres,  # pressure
-                             2)  # 2 liter volume
+                             2,    # 2 liter volume
+                             2)  # compliance of .5
 
         self.addChildNode(lungs);
         valveRout = Pipe("valveRout", 1,
@@ -54,7 +55,6 @@ class SimpleGasModel(SimNode):
         gasSink = GasSource("gasSink", 1)
         self.addChildNode(gasSink);
 
-        self.addChildNode(lungs);
 
         self._gasSrc    = gasSrc;
         self._valveRin  = valveRin
