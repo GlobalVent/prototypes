@@ -51,7 +51,7 @@ public:
 		// create the nodes
 		_gasSrc = std ::make_shared<GassimSource>("gasSrc", 2.0, .21);
 		_valveRin = std ::make_shared<GassimPipe>("valveRin", pipeResist, true);
-		_reservoir = std ::make_shared<GassimReservoir>("reservoir", resPress, 2);
+		_reservoir = std::make_shared<GassimReservoir>("reservoir", resPress, 2);
 
 		// add them to the mode.
 		addNode(_gasSrc);
