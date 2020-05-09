@@ -56,8 +56,8 @@ class Reservoir(SimNode):
         # ttry working with partial pressures.
         ppO2 = self.out.pressure * self.out.pO2
         ppO2 += ppNewO2;
-        self.out.pressure+= Pdelta;
-        self.out.pO2=ppO2/self.out.pressure;
+        self._next_out.pressure = self.out.pressure + Pdelta;
+        self._next_out.pO2=ppO2/self._next_out.pressure;
 
         assert(round(self._next_out.pO2,2) <= 1.0);
         # this check is unique to this model, nO2 can never be zero or we did

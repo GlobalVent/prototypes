@@ -11,7 +11,7 @@ import math
 from .SimNode import SimNode,NodeType
 
 class Lungs(SimNode):
-    def __init__(self, name, pressure, compliance):
+    def __init__(self, name, pressure, volume, compliance):
         '''
         Lungs constructure
         :param name: name of node
@@ -20,7 +20,8 @@ class Lungs(SimNode):
         '''
         SimNode.__init__(self,name,NodeType.LUNGS);
         self._next_out.pressure = pressure;
-        self._next_out.volume=compliance;
+        self._next_out.volume = volume;
+        self._next_out.compliance=compliance;
 
     def setCompliance(self, C):
         self._next_out.volume = C;       # compliance is an analog for volume in this situation...
@@ -41,6 +42,28 @@ class Lungs(SimNode):
         return(V1)
 
 
+    def complianceFactor(self, compliance, deltaV, deltaP):
+        '''
+        complianceFactor -- calculate the compliance factor given detlaP and deltaV
+        :param deltaV: change in volume when there is no change in pressure. (comp = infinity)
+        :param deltaP: change in pressure when there is no change in volume (comp = 0)
+        :return: a simple multiplier to use with the above two values to get the
+                 actual detlaP and deltaV with the compliance.
+        '''
+
+        '''
+               C*dP
+            ------------
+             dV + c*dP
+        '''
+        dn=deltaV + (compliance * deltaP)
+        if (dn == 0):
+            f = 1;
+        else:
+            f = (compliance*deltaP)/dn
+        return(f);
+
+
     def step(self, dt):
         SimNode.step(self,dt)
         assert(self.getNumConnections() == 2)
@@ -53,23 +76,11 @@ class Lungs(SimNode):
         #   assume a single source formula instead of parallel
         #   sources from different pressures...
 
-        # uber simple lung model, RC cirucit analog
         #
-        #   ----- R ------
-        #                 |
-        #                 |
-        #                ---
-        #                ---    C Compliance (use the volume of the container)
-        #                 |
-        #                 |
-        #              -------
-        #                ---
-        #                 -
-        #
-        # we can always make the model more
-        #    complicated if we need it.
+        # lung with compliance...
         numValveOpen=0;
-        Pdelta=0;
+        deltaP=0;
+        deltaV=0;
         ppNewO2=0;
         for c in self._connections:
             if not (c.out.open):
@@ -79,19 +90,30 @@ class Lungs(SimNode):
             #              1                # calculate the new pressure..
             # P      = (-----------)        #   this is only valid for a single
             #               dt/RV           #   inlet at a time... no parallel inlets...
-            #             e
+            #              e
             Pdrop = c.getPressureDrop(self);
             R=c.out.resistance+self.out.resistance;
             V=self.out.volume;
+            P=self.out.pressure;
             tc=1-math.exp(-dt/(R*V))
-            Pdelta=Pdrop*(1-math.exp(-dt/(R*V)))      # this is not handling multiple circuits open.
-            ppNewO2+=Pdelta*c.out.pO2;
+            deltaP+=Pdrop*(1-math.exp(-dt/(R*V)))      # this is not handling multiple circuits open.
+            deltaV+=Pdrop*(1-math.exp(-dt/(R*P)))
+
+        ## final adjustments.
+        f=self.complianceFactor(self.out.compliance, deltaV, deltaP);
+        deltaVadj = deltaV*f;
+        deltaPadj = deltaP*(1-f);
+
+        assert(round(deltaVadj/deltaPadj,6) == self.out.compliance);
+        ppNewO2+=deltaP*c.out.pO2;                # just deal with p02 as partial pressures for now...
 
         assert(numValveOpen == 1);      # don't support parallel filling of the container yet...
-        # ttry working with partial pressures.
+        # try working with partial pressures.
         ppO2 = self.out.pressure * self.out.pO2
         ppO2 += ppNewO2;
-        self.out.pressure+= Pdelta;
-        self.out.pO2=ppO2/self.out.pressure;
+        self._next_out.pressure = self.out.pressure + deltaPadj;
+        self._next_out.volume = self.out.volume + deltaVadj;
+        self._next_out.pO2=ppO2/(self.out.pressure+deltaP);  # use what the pressure would have been if the volume did not change.
+
 
         assert(round(self._next_out.pO2,2) <= 1.0);

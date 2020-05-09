@@ -3,11 +3,15 @@
 #include "JamventSimModel.h"
 
 
+
+
 JamventSimModel::JamventSimModel() :
 	_dt(0)
 {
 	double pipeResist=0.1;
 
+    // these are nomial default values, change the parameters prior to starting
+	//    based on whatever we want our test configuration input to be...
 	_o2Src = std ::make_shared<GassimSource>("o2Src", 5.0, 1.00);	  // 4 bar guage, 5 absoluate...
 	_airSrc = std ::make_shared<GassimSource>("airSrc", 5.0, 0.21);	  // 4 bar guage, 5 absoluate...
 	_valveA = std ::make_shared<GassimPipe>("valveA", pipeResist, false);
@@ -15,7 +19,7 @@ JamventSimModel::JamventSimModel() :
 	_valveC = std ::make_shared<GassimPipe>("valveC", pipeResist, false);
 	_valveD = std ::make_shared<GassimPipe>("valveD", pipeResist, false);
 	_reservoir = std ::make_shared<GassimReservoir>("reservoir", 1.0, 2.0);  // 1 bar at 2 liter bottle
-	_lungs = std ::make_shared<GassimReservoir>("reservoir", 1.0, 4.0);  // 4 liter lungs
+	_lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 4.0, 1.0);  // 4 liter lungs, compliance of 1 (1/1 pressure volume relationship)...
 	_gasSink = std ::make_shared<GassimSource>("gasSink", 1.0, 1.00);	  // gas sink at 1 bar...
 
 
@@ -149,7 +153,7 @@ float JamventSimModel::getPo2() {
  * 
  * @param pressure [description]
  */
-JamventSimModel::setO2Pressure(double pressure) {
+void JamventSimModel::setO2Pressure(double pressure) {
 	_o2Src->setPressure(pressure);
 }
 
@@ -160,7 +164,7 @@ JamventSimModel::setO2Pressure(double pressure) {
  * 
  * @param pressure [description]
  */
-JamventSimModel::setAirPressure(double pressure) {
+void JamventSimModel::setAirPressure(double pressure) {
 	_airSrc->setPressure(pressure);
 }
 

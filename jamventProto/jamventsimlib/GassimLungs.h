@@ -13,6 +13,9 @@ public:
 	virtual void  setPo2(double pO2);
 
 protected:
+	double complianceFactor(double compliance, 
+							double deltaV, 
+							double deltaP);
 
 private:
 

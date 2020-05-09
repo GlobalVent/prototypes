@@ -108,7 +108,7 @@ public:
 	 * 
 	 * @param pressure [description]
 	 */
-	virtual setO2Pressure(double pressure);
+	virtual void  setO2Pressure(double pressure);
 
 	/**
 	 * @brief set the Air source pressure in bars
@@ -117,7 +117,7 @@ public:
 	 * 
 	 * @param pressure [description]
 	 */
-	virtual setAirPressure(double pressure);
+	virtual void setAirPressure(double pressure);
 
 
 protected:
