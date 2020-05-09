@@ -24,14 +24,20 @@ public:
     void onTimeout();
 
 private:
-    Ui::MainWidget *ui;
+  float getSinValue(int tick, int tickCount);
 
-    ChartWidget *m_ulGraph = nullptr;
-    GraphWidget *m_urGraph = nullptr;
-    ChartWidget *m_llGraph = nullptr;
-    RedGreenWidget *m_lrGraph = nullptr;
+  Ui::MainWidget *ui;
 
-    int m_timerInterval_ms = 0;
-    QTimer m_timer;
+  GraphWidget::InitParams m_ulParams;
+  GraphWidget *m_ulGraph = nullptr;
+
+  GraphWidget::InitParams m_urParams;
+  GraphWidget *m_urGraph = nullptr;
+
+  ChartWidget *m_llGraph = nullptr;
+  RedGreenWidget *m_lrGraph = nullptr;
+
+  int m_timerInterval_ms = 0;
+  QTimer m_timer;
 };
 #endif // MAINWIDGET_H

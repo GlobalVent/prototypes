@@ -1,6 +1,7 @@
 #include <QVBoxLayout>
 #include <QChartView>
 #include <QPushButton>
+#include <QtMath>
 
 #include "MainWidget.h"
 #include "ui_MainWidget.h"
@@ -67,36 +68,26 @@ MainWidget::MainWidget(QWidget *parent)
     const qreal TimerInterval_ms = 100;
 
 #if 1
-    // Upper left graph
-    ChartWidget::InitParams ulParams;
-    ulParams.type = ChartWidget::ChartType::Scatter;
-    ulParams.yAxisTitle = "Press(cmH2O)";
-    ulParams.xAxisTickCount = 7;
-    ulParams.xAxisMinorTickCount = 4;
-    ulParams.xAxisMin = 0.0;
-    ulParams.xAxisMax = 6.0;
-    ulParams.yAxisTickCount = 5;
-    ulParams.yAxisMin = 0.0;
-    ulParams.yAxisMax = 35.0;
+    m_ulParams.xAxisTickCount = 60;
+    m_ulParams.xAxisMin = 0.0;
+    m_ulParams.xAxisMax = 6.0;
+    m_ulParams.yAxisMin = 0.0;
+    m_ulParams.yAxisMax = 10.0;
+    m_ulParams.yAxisLabel = "Press(cmH2O)";
 
-    m_ulGraph = new ChartWidget(ulParams);
-    m_ulGraph->resize(ui->upperLeftGraphFrame->size());
-    QChartView *ulChartView = new QChartView(m_ulGraph, ui->upperLeftGraphFrame);
-    ulChartView->setRenderHint(QPainter::Antialiasing);
-    ulChartView->resize(ui->upperLeftGraphFrame->size());
+    m_ulGraph = new GraphWidget(m_ulParams, ui->upperLeftGraphFrame);
 #endif
 
 #if 1
     // Upper right graph
-    GraphWidget::InitParams urParams;
-    //urParams.yAxisTitle = "Flow(L/min)";
-    urParams.xAxisTickCount = 60;
-    urParams.xAxisMin = -1.0;
-    urParams.xAxisMax = 2.0;
-    urParams.yAxisMin = 0.0;
-    urParams.yAxisMax = 6.0;
+    m_urParams.xAxisTickCount = 60;
+    m_urParams.xAxisMin = 0.0;
+    m_urParams.xAxisMax = 6.0;
+    m_urParams.yAxisMin = -1.0;
+    m_urParams.yAxisMax = 1.0;
+    m_urParams.yAxisLabel = "Flow R(1/min)";
 
-    m_urGraph = new GraphWidget(urParams, ui->upperRightGraphFrame);
+    m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
 
 #if 0
@@ -152,12 +143,22 @@ void MainWidget::onTimeout()
 
     if (nullptr != m_ulGraph)
     {
-        m_ulGraph->onTimeout();
+        // Gen cyle of values 0.0 - Y axis max
+        static float nextValue = 0.0;
+        float v = nextValue;
+        nextValue += 1.0;
+        nextValue = (nextValue > m_ulParams.yAxisMax) ? 0.0 : nextValue;
+        m_ulGraph->onAddValue(v);
     }
 
     if (nullptr != m_urGraph)
     {
-        m_urGraph->onTimeout();
+        float v = getSinValue(m_urGraph->getTick(), m_urParams.xAxisTickCount);
+        m_urGraph->onAddValue(v);
+
+        // Test out add values
+        //static const GraphWidget::FloatVector v = {0.5, 0.0, -0.5, 0.0};
+        //m_urGraph->onAddValues(v);
     }
 
     if (nullptr != m_llGraph)
@@ -169,4 +170,16 @@ void MainWidget::onTimeout()
     {
         m_lrGraph->onTimeout();
     }
+}
+
+float MainWidget::getSinValue(int tick, int tickCount)
+{
+    // Generate sine wave values between -1.0 and 1.0.
+    static constexpr float cycles = 4.0 * 2.0 * M_PI; // 4.0 cycles per screen.
+    float input = (cycles * tick) / tickCount;
+    float output = qSin(input);
+
+    //qDebug() << "getSinValue() input =" << input << ", output = " << output;
+    //qDebug() << "..tick =" << tick << ", tickCount =" << tickCount;
+    return output;
 }

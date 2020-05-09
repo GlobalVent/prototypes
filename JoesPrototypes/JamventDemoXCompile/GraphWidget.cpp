@@ -1,6 +1,4 @@
 #include <QtCore/QDebug>
-#include <QtCore/QRandomGenerator>
-#include <QtMath>
 
 #include "Theme.h"
 #include "PlotAreaWidget.h"
@@ -11,10 +9,13 @@ namespace {
 }
 
 GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
-    : QWidget(parent), m_params{params}
-    , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height() - Indent_px), params.xAxisTickCount, parent))
-    , m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height()), parent))
+    : QWidget(parent)
+    , m_params{params}
+    , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height() - Indent_px)
+    , params.xAxisTickCount, parent))
+    , m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height() - Indent_px), parent))
     , m_yAxisMaxLabel(new QLabel(parent))
+    , m_yAxisMinLabel(new QLabel(parent))
 {
     // Fill the parent.
     resize(parent->size());
@@ -24,49 +25,50 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
     font.setPixelSize(Theme::YAxisLabelFontSize_px);
     m_yAxisMaxLabel->setFont(font);
     m_yAxisMaxLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    m_yAxisMaxLabel->setText(QString::number(m_params.yAxisMax, 'f', 1));
 
-    // Dummy text for now
-    m_yAxisLabel->setText("Press(cmH20)");
-    m_yAxisMaxLabel->setText("6.0");
+    m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px - Indent_px, Indent_px, Indent_px));
+    font = m_yAxisMinLabel->font();
+    font.setPixelSize(Theme::YAxisLabelFontSize_px);
+    m_yAxisMinLabel->setFont(font);
+    m_yAxisMinLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    m_yAxisMinLabel->setText(QString::number(m_params.yAxisMin, 'f', 1));
+
+    m_yAxisLabel->setText(m_params.yAxisLabel);
 
     qDebug() << "GraphWidget().";
     qDebug() << "..width() = " << width() << ", height() = " << height();
 }
 
-void GraphWidget::onAddValue(qreal v)
+int GraphWidget::getTick()
 {
-    m_plotArea->onAddValue(v);
+    return m_plotArea->getTick();
 }
 
-
-void GraphWidget::onTimeout()
+void GraphWidget::onAddValue(float value)
 {
-    //const qreal v = getRandValue();
-    const qreal v = getSinValue(m_plotArea->getTick(), m_plotArea->getTickCount());
+    // Normalize to range of -1.0 to 1.0.
+    const float inRange = m_params.yAxisMax - m_params.yAxisMin;
 
-    //qDebug() << "getSinValue(), v = " << v;
+    // Convert to range from 0.0 to 10.0 to -1.0 to 1.0
+    float norm = (value - (m_params.yAxisMin)) / inRange * PlotAreaWidget::YRange;
+    
+    // Convert from 0.0 to 2.0 to -1.0 to 1.0;
+    norm = norm + PlotAreaWidget::YMin;
 
-    m_plotArea->onAddValue(v);
+    // qDebug() << "onAddValue(" << value << ") norm = " << norm;
+
+    m_plotArea->onAddValue(norm);
 }
 
-qreal GraphWidget::getSinValue(int tick, int tickCount)
+#if 0
+// Doesn't work correctly as need to repaint after each point added. 
+void GraphWidget::onAddValues(const FloatVector& vector)
 {
-    // Generate sine wave values between -1.0 and 1.0.
-    static constexpr qreal cycles = 4.0 * 2.0 * M_PI;  // 4.0 cycles per screen.
-    qreal input = (cycles * tick) / tickCount;
-    qreal output = qSin(input);
-
-    //qDebug() << "getSinValue() input =" << input << ", output = " << output;
-    //qDebug() << "..tick =" << tick << ", tickCount =" << tickCount;
-    return output;
+    for (const auto v : vector)
+    {
+        m_plotArea->onAddValue(v); 
+    }
+    //m_plotArea->update();
 }
-
-qreal GraphWidget::getRandValue()
-{
-    // Random value between -1.0 and 1.0.
-    qreal output = QRandomGenerator::global()->bounded(1.0 + 1.0) - 1.0;
-
-    // qDebug() << "getRandValue() output = " << output;
-
-    return output;
-}
+#endif
