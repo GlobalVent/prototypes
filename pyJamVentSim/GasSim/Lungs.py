@@ -98,6 +98,7 @@ class Lungs(SimNode):
             tc=1-math.exp(-dt/(R*V))
             deltaP+=Pdrop*(1-math.exp(-dt/(R*V)))      # this is not handling multiple circuits open.
             deltaV+=Pdrop*(1-math.exp(-dt/(R*P)))
+            ppNewO2 = deltaP*c.out.pO2;                # just deal with p02 as partial pressures for now...
 
         ## final adjustments.
         f=self.complianceFactor(self.out.compliance, deltaV, deltaP);
@@ -105,12 +106,11 @@ class Lungs(SimNode):
         deltaPadj = deltaP*(1-f);
 
         assert(round(deltaVadj/deltaPadj,6) == self.out.compliance);
-        ppNewO2+=deltaP*c.out.pO2;                # just deal with p02 as partial pressures for now...
 
         assert(numValveOpen == 1);      # don't support parallel filling of the container yet...
         # try working with partial pressures.
         ppO2 = self.out.pressure * self.out.pO2
-        ppO2 += ppNewO2;
+        ppO2 =- ppNewO2;
         self._next_out.pressure = self.out.pressure + deltaPadj;
         self._next_out.volume = self.out.volume + deltaVadj;
         self._next_out.pO2=ppO2/(self.out.pressure+deltaP);  # use what the pressure would have been if the volume did not change.
