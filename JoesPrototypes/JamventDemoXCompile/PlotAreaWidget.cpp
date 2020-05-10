@@ -54,12 +54,15 @@ void PlotAreaWidget::paintEvent(QPaintEvent *)
      //qDebug() << "paintEvent(). m_line = " << m_line << ", m_x = " << m_x;
 }
 
-void PlotAreaWidget::onAddValue(qreal v)
+void PlotAreaWidget::onAddValue(float v)
 {
-   // Switch pens each cycle. And move last point to left side.
-  if (0 == m_tick)
-  {
-      m_pen = (m_pen == &m_redPen)? &m_greenPen : &m_redPen;
+    // Enforce range of -1.0 to 1.0.
+    Q_ASSERT((YMin <= v) && (v <= YMax));
+
+    // Switch pens each cycle. And move last point to left side.
+    if (0 == m_tick)
+    {
+        m_pen = (m_pen == &m_redPen) ? &m_greenPen : &m_redPen;
   }
 
   m_x = static_cast<int>(m_xStep * m_tick);
@@ -70,13 +73,17 @@ void PlotAreaWidget::onAddValue(qreal v)
       m_tick = 0;
   }
 
+  // Convert value to positve and reverse as Qt coordinates go from top to bottom.
+  float norm = YRange - (v - YMin);
+
   const auto h = height();
-  QPointF newPoint(m_x, (v * h * 0.4) + (h * 0.5));
+  //QPointF newPoint(m_x, (norm * h * 0.5) + (h * 0.5));
+  QPointF newPoint(m_x, norm / YRange * h);
   m_line = QLineF(m_lastPoint, newPoint);
   m_lastPoint = newPoint;
   update();
 
-  //qDebug() << "PlotAreaWidget::onAddValue(). newPoint = " << newPoint << ", m_x = " << m_x;
+  //qDebug() << "PlotAreaWidget::onAddValue(" << v << "). norm = " << norm << ", newPoint = " << newPoint << ", m_x = " << m_x;
 }
 
 int PlotAreaWidget::getTick()
