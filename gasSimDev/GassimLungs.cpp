@@ -37,13 +37,15 @@ double GassimLungs::complianceFactor(double compliance,
     //    C*dP
     // ------------
     //  dV + c*dP
-    double f;
+    double f = NAN;
     if (compliance == INFINITY)   // INFINITY * 0 is nan, so don't do that...
         f=1;
     else {
         double  dn=deltaV + (compliance * deltaP); // compute the demoniator first, to avoid divide by zero.
         if (dn == 0) 
             f=0;
+        else
+            f=(compliance*deltaP)/dn;
     }
     return(f);
 }

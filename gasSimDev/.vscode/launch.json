@@ -5,6 +5,42 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "testLungsComp2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testing/testLungsComp2",
+            "args": ["--outfile=testLungsComp2"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "testLungsComp1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testing/testLungsComp1",
+            "args": ["--outfile=testLungsComp1"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "testLungsComp0",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testing/testLungsComp0",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "args": ["--outfile=testLungsComp0"],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
             "name": "testModel00",
             "type": "cppdbg",
             "request": "launch",
@@ -21,7 +57,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/testing/testLungsCompInf",
-            "args": ["--outfile=testout"],
+            "args": ["--outfile=testLungsCompInf"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
