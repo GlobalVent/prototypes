@@ -24,7 +24,7 @@
 
 #include "ParseTestArgs.h"
 #include "TimeSeries.h"
-#include "TestOutFile.h"
+#include "TimeSeriesOutFile.h"
 
 using namespace std;
 
@@ -104,6 +104,7 @@ unsigned  checkAtTime(TimeSeries &ts,
     unsigned errCnt=0;
     if (.0005 < fabs(it->second-exp)) {
         errs << "(ERROR) " << testName << " "
+             << __FUNCTION__ <<  " "
              << "TimeStep: "
              << floatw(3) << time << " "
              << "dt=" << dt << " "
@@ -146,7 +147,7 @@ unsigned testInflate(string const &outFileName,
     ofstream outFile;
     string testName(__FUNCTION__);
     unsigned errCnt=0;
-    TestOutFile tout;
+    TimeSeriesOutFile tout;
     if (!tout.open(outFileName, testName, dt, errs))
         return(1);
     //  ok paraemters done
@@ -193,7 +194,7 @@ unsigned testDeflate(string const &outFileName,
     string testName(__FUNCTION__);
     ofstream outFile;
     unsigned errCnt=0;
-    TestOutFile tout;
+    TimeSeriesOutFile tout;
     if (!tout.open(outFileName, testName, dt, errs))
         return(1);
     //  ok paraemters done
@@ -249,14 +250,12 @@ int  main(int argc, const char * argv []) {
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
     errCnt+=testInflate(p.outFileName, 1,    6, errs);
-    #if 0
     errCnt+=testInflate(p.outFileName, .1,   6, errs);
     errCnt+=testInflate(p.outFileName, .001, 6, errs);
 
     errCnt+=testDeflate(p.outFileName, 1,    6, errs);
     errCnt+=testDeflate(p.outFileName, .1,   6, errs);
     errCnt+=testDeflate(p.outFileName, .001, 6, errs);
-    #endif
 
     if (errs.str().size() > 0) {
         cout << errs.str();

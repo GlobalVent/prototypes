@@ -5,10 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug test01",
+            "name": "testModel00",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/testing/test01",
+            "program": "${workspaceFolder}/build/testing/testModel00",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "debug testLungsCompInf",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testing/testLungsCompInf",
             "args": ["--outfile=testout"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

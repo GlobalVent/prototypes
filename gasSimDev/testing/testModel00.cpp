@@ -53,15 +53,17 @@ double getCurrTime() {
  */
 void waitTime(double tw) {
 	struct timespec timeReq;
+	struct timespec rem;
 	timeReq.tv_sec = (unsigned)tw;	// truncate the time  to get seconds.
 	timeReq.tv_nsec = (unsigned)(tw*1e9);  // 10000 nano secionds (10 milliseconds)
+	nanosleep(&timeReq, &rem);
 }
 
 int  main(int argc, const char * argv []) {
 	ErrStrs errs;
 	bool passed = true;
 	cout << "Testing testing JamventSimModel ..." << endl;
-	double timeLimit  = 20;
+	double timeLimit  = 5;
 
 	double timeStart = getCurrTime();
 	double timePrev = getCurrTime();  // time in 
