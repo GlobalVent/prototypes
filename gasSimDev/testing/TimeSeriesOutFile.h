@@ -37,7 +37,7 @@ public:
 
         if (fileNameBase.size() > 0) {
             std::ostringstream os;
-            os << fileNameBase << "-" << testName << ".ts_" << floatw(3,4) << dt << ".plt";
+            os << fileNameBase << "_" << testName << ".ts_" << floatw(3,4) << dt << ".plt";
             std::string fname=os.str();
             _outFile.open (fname, std::ios::out); 
             if (! _outFile.is_open()) {

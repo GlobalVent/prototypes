@@ -62,6 +62,7 @@ public:
         uint64_t nsteps=0;
         double timeNow = 0.0;
 
+        next();
         vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
         while (timeNow <= timeLimit) {
             step(dt);
@@ -101,7 +102,7 @@ unsigned checkPres(TimeSeriesPV &ts,
                      ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    if (.0005 < fabs(it->p-exp)) {
+    if (isnan(it->p) || (.0005 < fabs(it->p-exp)) ) {
         errs << "(ERROR) " << testName << " "
              << __FUNCTION__ <<  " "
              << "TimeStep: "
@@ -132,7 +133,7 @@ unsigned checkVol(TimeSeriesPV &ts,
                      ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    if (.0005 < fabs(it->v-exp)) {
+    if (isnan(it->v) || (.0005 < fabs(it->v - exp)) ) {
         errs << "(ERROR) " << testName << " "
              << __FUNCTION__ <<  " "
              << "TimeStep: "
@@ -169,7 +170,7 @@ unsigned checkPo2(LungsModel &model, double dt, ostream &errs) {
  * @param errs 
  * @return unsigned 
  */
-unsigned testInflateComp0(string const &outFileName,
+unsigned testInflate(string const &outFileName,
              double dt,
              double timeLimit,
              ostream &errs) 
@@ -226,7 +227,7 @@ unsigned testInflateComp0(string const &outFileName,
  * @param errs 
  * @return number of errors found.
  */
-unsigned testDeflateComp0(string const &outFileName,
+unsigned testDeflate(string const &outFileName,
              double dt,
              double timeLimit,
              ostream &errs) 
@@ -293,13 +294,11 @@ int  main(int argc, const char * argv []) {
 
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
-    errCnt+=testInflateComp0(p.outFileName, 1,    6, errs);
-    errCnt+=testInflateComp0(p.outFileName, .1,   6, errs);
-    errCnt+=testInflateComp0(p.outFileName, .001, 6, errs);
+    errCnt+=testInflate(p.outFileName, 1,    6, errs);
+    errCnt+=testInflate(p.outFileName, .001, 6, errs);
 
-    errCnt+=testDeflateComp0(p.outFileName, 1,    6, errs);
-    errCnt+=testDeflateComp0(p.outFileName, .1,   6, errs);
-    errCnt+=testDeflateComp0(p.outFileName, .001, 6, errs);
+    errCnt+=testDeflate(p.outFileName, 1,    6, errs);
+    errCnt+=testDeflate(p.outFileName, .001, 6, errs);
 
     if (errs.str().size() > 0) {
         cout << errs.str();

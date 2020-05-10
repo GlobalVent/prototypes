@@ -63,6 +63,7 @@ public:
         uint64_t nsteps=0;
         double timeNow = 0.0;
 
+        next();
         vp.push_back(timeNow, _reservoir->pressure());
         while (timeNow <= timeLimit) {
             step(dt);
@@ -250,11 +251,9 @@ int  main(int argc, const char * argv []) {
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
     errCnt+=testInflate(p.outFileName, 1,    6, errs);
-    errCnt+=testInflate(p.outFileName, .1,   6, errs);
     errCnt+=testInflate(p.outFileName, .001, 6, errs);
 
     errCnt+=testDeflate(p.outFileName, 1,    6, errs);
-    errCnt+=testDeflate(p.outFileName, .1,   6, errs);
     errCnt+=testDeflate(p.outFileName, .001, 6, errs);
 
     if (errs.str().size() > 0) {

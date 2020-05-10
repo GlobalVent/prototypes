@@ -26,6 +26,7 @@ public:
 	void init();				            // first step initialization.
 	virtual void step(double dt);			// step the simulation for delta time.
 	virtual void next();					// proceed to the next step...
+	
 
 protected :
 private :

@@ -62,6 +62,7 @@ public:
         uint64_t nsteps=0;
         double timeNow = 0.0;
 
+        next();       
         vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
         while (timeNow <= timeLimit) {
             step(dt);
@@ -100,7 +101,7 @@ unsigned  checkPres(TimeSeriesPV &ts,
                  ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    if (.0005 < fabs(it->p-exp)) {
+    if ((isnan(it->p) ) || (.0005 < fabs(it->p-exp))) {
         errs << "(ERROR) " << testName << " "
              << __FUNCTION__ <<  " "
              << "TimeStep: "
@@ -132,7 +133,7 @@ unsigned checkVol(TimeSeriesPV &ts,
                      ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    if (.0005 < fabs(it->v-exp)) {
+    if ((isnan(it->v) ) || (.0005 < fabs(it->v-exp))) {
         errs << "(ERROR) " << testName << " "
              << __FUNCTION__ <<  " "
              << "TimeStep: "
@@ -169,7 +170,7 @@ unsigned checkPo2(LungsModel &model, double dt, ostream &errs) {
  * @param errs 
  * @return unsigned 
  */
-unsigned testInflateCompInf(string const &outFileName,
+unsigned testInflate(string const &outFileName,
                          double dt,
                          double timeLimit,
                          ostream &errs) 
@@ -219,6 +220,65 @@ unsigned testInflateCompInf(string const &outFileName,
 }
 
 /**
+ * @brief testInflateComp0
+ * 
+ * @param outFileName 
+ * @param dt 
+ * @param timeLimit 
+ * @param compliance 
+ * @param errs 
+ * @return unsigned 
+ */
+unsigned testInflateFrom0(string const &outFileName,
+                         double dt,
+                         double timeLimit,
+                         ostream &errs) 
+{
+    // #
+    // # gasSrc <-> valveRin <-> lungs
+    // #  2bar        1R         1 liter 1 bar... compiliance 0
+    // # pressures are in absolute pressure
+    // # temperature is 21c
+    //
+    // # compliance of zero should behave the same as a fixed size reservoir
+    ofstream outFile;
+    string testName(__FUNCTION__);
+    unsigned errCnt=0;
+    TimeSeriesOutFile tout;
+    if (!tout.open(outFileName, testName, dt, errs))
+        return(1);
+
+    //  ok paraemters done
+    cout << "# Testing " << testName << " dt=" << float(3) << dt << endl;
+    TimeSeriesPV vp;
+    LungsModel  model(2,  // srcPress
+                      1,  // resist
+                      1,  // lungsPressure  
+                      0,  // lungsVoume
+                      INFINITY); // compliance
+    model.run(vp, dt, timeLimit);
+    errCnt+=checkPo2(model, 0, errs);
+
+    errCnt+=checkPres(vp, testName, dt, 1.0, 1,   errs);
+    errCnt+=checkVol (vp, testName, dt, 1.0, 0+1, errs);
+
+    errCnt+=checkPres(vp, testName, dt, 2.0, 1,   errs);
+    errCnt+=checkVol (vp, testName, dt, 2.0, 0+2, errs);
+
+    errCnt+=checkPres(vp, testName, dt, 3.0, 1,   errs);
+    errCnt+=checkVol (vp, testName, dt, 3.0, 0+3, errs);
+
+    errCnt+=checkPres(vp, testName, dt, 4.0, 1,   errs);
+    errCnt+=checkVol (vp, testName, dt, 4.0, 0+4, errs);
+
+    errCnt+=checkPo2(model, timeLimit, errs);
+
+    tout.writeTimeSeries(vp);
+    return(errCnt);
+
+}
+
+/**
  * @brief testDeflateComp0 test discharge of Lungs to source
  * 
  * @param outFileName 
@@ -227,7 +287,7 @@ unsigned testInflateCompInf(string const &outFileName,
  * @param errs 
  * @return number of errors found.
  */
-unsigned testDeflateCompInf(string const &outFileName,
+unsigned testDeflate(string const &outFileName,
                          double dt,
                          double timeLimit,
                          ostream &errs) 
@@ -244,17 +304,17 @@ unsigned testDeflateCompInf(string const &outFileName,
     LungsModel  model(1,  // srcPress
                       1,  // resist
                       2,  // lungsPressure
-                      1,  // lungsVoume
+                      4,  // lungsVoume
                       INFINITY); // compliance
     model.run(vp, dt, timeLimit);
     errCnt+=checkPres(vp, testName, dt, 1.0, 2,   errs);
-    errCnt+=checkVol (vp, testName, dt, 1.0, 0, errs);
+    errCnt+=checkVol (vp, testName, dt, 1.0, 3,   errs);
 
-    errCnt+=checkPres(vp, testName, dt, 2.0, 1,   errs);
-    errCnt+=checkVol (vp, testName, dt, 2.0, 0, errs);
+    errCnt+=checkPres(vp, testName, dt, 2.0, 2,   errs);
+    errCnt+=checkVol (vp, testName, dt, 2.0, 2,   errs);
 
     errCnt+=checkPres(vp, testName, dt, 3.0, 2,   errs);
-    errCnt+=checkVol (vp, testName, dt, 3.0, 0, errs);
+    errCnt+=checkVol (vp, testName, dt, 3.0, 1,   errs);
 
     errCnt+=checkPres(vp, testName, dt, 4.0, 2,   errs);
     errCnt+=checkVol (vp, testName, dt, 4.0, 0, errs);
@@ -262,6 +322,8 @@ unsigned testDeflateCompInf(string const &outFileName,
     tout.writeTimeSeries(vp);
     return(errCnt);
 }
+
+
 
 void printUsage() {
     cout << "test00 [options]" << endl 
@@ -294,16 +356,13 @@ int  main(int argc, const char * argv []) {
 
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
-#if 0    
-    errCnt+=testInflateCompInf(p.outFileName, 1,    6, errs);
-    errCnt+=testInflateCompInf(p.outFileName, .1,   6, errs);
-    errCnt+=testInflateCompInf(p.outFileName, .001, 6, errs);
-#endif    
-    errCnt+=testDeflateCompInf(p.outFileName, 1,    6, errs);
-#if 0
-    errCnt+=testDeflateCompInf(p.outFileName, .1,   6, errs);
-    errCnt+=testDeflateCompInf(p.outFileName, .001, 6, errs);
-#endif    
+    errCnt+=testInflate(p.outFileName, 1,    6, errs);
+    errCnt+=testInflate(p.outFileName, .001, 6, errs);
+
+    errCnt+=testDeflate(p.outFileName, 1,    6, errs);
+    errCnt+=testDeflate(p.outFileName, .001, 6, errs);
+
+    errCnt+=testInflateFrom0(p.outFileName, 1,    6, errs);
 
     if (errs.str().size() > 0) {
         cout << errs.str();

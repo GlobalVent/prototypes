@@ -38,13 +38,13 @@ double GassimLungs::complianceFactor(double compliance,
     // ------------
     //  dV + c*dP
     double f;
-    double  dn=deltaV + (compliance * deltaP); // compute the demoniator first, to avoid divide by zero.
-    if (dn == 0) 
-        f=0;
-    else if (dn == INFINITY)
+    if (compliance == INFINITY)   // INFINITY * 0 is nan, so don't do that...
         f=1;
-    else
-        f = (compliance*deltaP)/dn;
+    else {
+        double  dn=deltaV + (compliance * deltaP); // compute the demoniator first, to avoid divide by zero.
+        if (dn == 0) 
+            f=0;
+    }
     return(f);
 }
 
@@ -65,7 +65,6 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
     unsigned numValveOpen=0;
     double deltaP =0;
     double deltaV = 0;
-    double ppNewO2=0;
     double P=pressure();
     double V=volume();
     double T=temp();
@@ -88,7 +87,7 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
             deltaP = pDrop*(1 - exp(-dt / (r*V)));      
         else
             deltaP = 0;
-        deltaV = pDrop*dt;
+        deltaV += pDrop*dt;
         sourcePo2+=c->pO2();
     }
     double f=complianceFactor(compliance(), deltaV, deltaP);
