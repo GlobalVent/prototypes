@@ -203,7 +203,7 @@ unsigned testDeflateComp0(string const &outFileName,
     LungsModel  model(1,  // srcPress
                       1,  // resist
                       2,  // lungsPressure
-                      2,  // lungsVoume
+                      1,  // lungsVoume
                       0); // compliance
     model.run(vp, dt, timeLimit);
     errCnt+=checkAtTime(vp, testName, dt, 1.0, 2-0.632, errs);
@@ -246,15 +246,15 @@ int  main(int argc, const char * argv []) {
 
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
+#if 0
     errCnt+=testInflateComp0(p.outFileName, 1,    6, errs);
-#if 0    
     errCnt+=testInflateComp0(p.outFileName, .1,   6, errs);
     errCnt+=testInflateComp0(p.outFileName, .001, 6, errs);
-
+#endif    
     errCnt+=testDeflateComp0(p.outFileName, 1,    6, errs);
     errCnt+=testDeflateComp0(p.outFileName, .1,   6, errs);
     errCnt+=testDeflateComp0(p.outFileName, .001, 6, errs);
-#endif
+
     if (errs.str().size() > 0) {
         cout << errs.str();
         cout << "TEST Failed" << endl;

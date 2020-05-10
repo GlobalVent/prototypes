@@ -14,11 +14,11 @@ set(JV_SIM_TESTLIBS jamventsim)
 add_executable(testConf testConf.cpp)
 target_link_libraries(testConf "${LIBRARIES_FROM_REFERENCES}")
 
-add_executable(test00 test00.cpp)
-target_link_libraries(test00 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+add_executable(testRes testRes.cpp)
+target_link_libraries(testRes ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
-add_executable(test01 test01.cpp)
-target_link_libraries(test01 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+add_executable(testLungsComp0 testLungsComp0.cpp)
+target_link_libraries(testLungsComp0 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
 add_executable(testModel00 testModel00.cpp)
 target_link_libraries(testModel00 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
