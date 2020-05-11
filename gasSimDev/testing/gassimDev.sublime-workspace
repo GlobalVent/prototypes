@@ -1,0 +1,1425 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cmake_",
+				"cmake_dir_3_8_1"
+			],
+			[
+				"_val",
+				"_valveA"
+			],
+			[
+				"canc",
+				"cancel_dir"
+			],
+			[
+				"Jam",
+				"JamventCtrlMgrBase"
+			],
+			[
+				"RUN",
+				"RUN_LONG_TEST"
+			],
+			[
+				"SLURM",
+				"SLURMD_NODENAME"
+			],
+			[
+				"JP",
+				"JPLINE_INSTALL_PATH"
+			],
+			[
+				"sof",
+				"software_common_apps"
+			],
+			[
+				"RES",
+				"RES_NAME"
+			],
+			[
+				"m",
+				"mmtf_cpp_name"
+			],
+			[
+				"mm",
+				"mmtf_cpp_sha"
+			],
+			[
+				"githu",
+				"github_pymol"
+			],
+			[
+				"mmtf",
+				"mmtf_cpp_ver_file"
+			],
+			[
+				"pymo",
+				"pymol_ver_file"
+			],
+			[
+				"py",
+				"pymol_ver_file"
+			],
+			[
+				"git",
+				"github_mmtf_cpp"
+			],
+			[
+				"JPI",
+				"JPLINE_INSTALL_BRANCHES"
+			],
+			[
+				"srun",
+				"srun_cmd"
+			],
+			[
+				"SINUL",
+				"SINGULARITY_DIR"
+			],
+			[
+				"go",
+				"go"
+			],
+			[
+				"TAR",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SIN",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SINU",
+				"SIGNULARITY_TARFILE"
+			],
+			[
+				"SIGN",
+				"SINGULARITY_VERS"
+			],
+			[
+				"doB",
+				"doBgfsCheckServers"
+			],
+			[
+				"gith",
+				"githubKey"
+			],
+			[
+				"pdsh",
+				"pdshTargets"
+			],
+			[
+				"ls",
+				"ls-topdir-r5"
+			],
+			[
+				"shut",
+				"shutdownNode"
+			],
+			[
+				"es_",
+				"es_download"
+			],
+			[
+				"ki",
+				"kibana-7"
+			],
+			[
+				"glutInit",
+				"glutInitDisplayMode"
+			],
+			[
+				"fi",
+				"fi"
+			],
+			[
+				"parse",
+				"parseKeyValue"
+			],
+			[
+				"TARGET_LI",
+				"TARGET_LIB_NAMES"
+			],
+			[
+				"TARGET",
+				"TARGET_LIBS"
+			],
+			[
+				"Http",
+				"HttpRequestParser"
+			],
+			[
+				"_con",
+				"_contentCurr"
+			],
+			[
+				"get",
+				"getContentLen"
+			],
+			[
+				"http",
+				"http_version_minor"
+			],
+			[
+				"http_v",
+				"http_version_major"
+			],
+			[
+				"RestReq",
+				"RestRequestParser"
+			],
+			[
+				"H",
+				"HttpRequestParser"
+			],
+			[
+				"Rest",
+				"RestConnectionMgr"
+			],
+			[
+				"CC",
+				"CCFILES"
+			],
+			[
+				"rasp",
+				"raspbain_devfs"
+			],
+			[
+				"APT_",
+				"APT_DEST_DIRS"
+			],
+			[
+				"APT",
+				"APT_SRC_DIRS"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/.gitignore",
+			"settings":
+			{
+				"buffer_size": 515,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/.gitignore",
+			"settings":
+			{
+				"buffer_size": 5,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 180,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 4093 files for \"StringToken\"\n\n0 matches\n\nSearching 4093 files for \"StrToken\"\n\n/Volumes/ct-ng/covid-19/github/prototypes/.vs/slnx.sqlite:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/build/testing/testConf:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/build/testing/CMakeFiles/testConf.dir/CXX.includecache:\n   17: ../src/StrTokenize.h\n   44: StrTokenize.h\n   45: /Volumes/ct-ng/covid-19/github/prototypes/cppJamventSim/testing/StrTokenize.h\n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/build/testing/CMakeFiles/testConf.dir/depend.internal:\n    7:  ../src/StrTokenize.h\n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/build/testing/CMakeFiles/testConf.dir/depend.make:\n    6: testing/CMakeFiles/testConf.dir/testConf.cpp.o: ../src/StrTokenize.h\n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/src/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/attic/cppJamventSim/testing/testConf.cpp:\n   18: #include \"StrTokenize.h\"\n   43: \t\tStrTokenize ts = StrTokenize(file,'/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/build/testing/CMakeFiles/jsimModel00.dir/CXX.includecache:\n  102: StrTokenize.h\n  103: /Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing/StrTokenize.h\n\n/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing/test00.cpp:\n   22: #include \"StrTokenize.h\"\n\n/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing/testConf.cpp:\n   21: #include \"StrTokenize.h\"\n   48: \t\tStrTokenize ts = StrTokenize(file, '/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing/testModel00.cpp:\n   23: #include \"StrTokenize.h\"\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/test00.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/test00.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testConf.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testConf.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testConf.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testModel00.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testModel00.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/testModel00.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/tmp00000003.npa01:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/tmp00000006.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CodeDB/jamventProto.vgdbcmake-Debug/tmp0000002f.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/test00.cpp:\n   22: #include \"StrTokenize.h\"\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/testConf.cpp:\n   21: #include \"StrTokenize.h\"\n   48: \t\tStrTokenize ts = StrTokenize(file, '/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/testModel00.cpp:\n   23: #include \"StrTokenize.h\"\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/utils/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/VisualGDB/Debug/.ninja_deps:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/VisualGDB/Debug/jamventsimlib/testing/jsimTestConf:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug/testConf.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug/testConf.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug/testConf.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug.0001/testConf.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug.0001/testConf.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/CodeDB/jamventProtoProj01.vgdbcmake-Debug.0001/testConf.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/jamventsimlib/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/jamventsimlib/testing/testConf.cpp:\n   22: #include \"StrTokenize.h\"\n   49: \t\tStrTokenize ts = StrTokenize(file, '/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj01/VisualGDBCache/jamventProtoProj01-Debug-VisualGDB/CodeModelCache/target-jamventsim-DEBUG-f3a218e3c6d1c0ba57cc.json:\n  137: \t\t\t\"path\" : \"jamventsimlib/StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj02/CodeDB/jamventProtoProj02.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj02/CodeDB/jamventProtoProj02.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj02/jamventsimlib/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj02/jamventsimlib/testing/testConf.cpp:\n   22: #include \"StrTokenize.h\"\n   49: \t\tStrTokenize ts = StrTokenize(file, '/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj02/VisualGDBCache/jamventProtoProj02-Debug-VisualGDB/CodeModelCache/target-jamventsim-DEBUG-80f71ab5cefd0d13bb46.json:\n  137: \t\t\t\"path\" : \"jamventsimlib/StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/CodeDB/jamventProtoProj03.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/CodeDB/jamventProtoProj03.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/jamventsimlib/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/jamventsimlib/testing/testConf.cpp:\n   22: #include \"StrTokenize.h\"\n   49: \t\tStrTokenize ts = StrTokenize(file, '/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/VisualGDB/Debug/.ninja_deps:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/VisualGDB/Debug/.cmake/api/v1/reply/target-jamventsim-DEBUG-de994c55c53260b95565.json:\n  137: \t\t\t\"path\" : \"jamventsimlib/StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/VisualGDB/Debug/jamventsimlib/testing/jsimTestConf:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/VisualGDBCache/jamventProtoProj03-Debug-VisualGDB/CodeModelCache/target-jamventsim-DEBUG-de994c55c53260b95565.json:\n  137: \t\t\t\"path\" : \"jamventsimlib/StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CMakeLists.txt:\n    7: add_library(vgdbLib01 vgdbLib01.cpp fmtstr.h StrTokenize.h GassimConv.h GassimConst.h GassimNode.h GassimVars.h GassimNode.cpp GassimNode.h)\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/vgdbLib01.cpp:\n   29: #include \"StrTokenize.h\"\n   77: \t\tStrTokenize ts = StrTokenize(file,'/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/tmp00000008.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/tmp00000009.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/tmp0000000b.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/vgdbLib01.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/vgdbLib01.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/CodeDB/vgdbLib01.vgdbcmake-Debug/vgdbLib01.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/VisualGDB/Debug/.ninja_deps:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/VisualGDB/Debug/.cmake/api/v1/reply/target-vgdbLib01-DEBUG-217de810e56261c0dd8e.json:\n  100: \t\t\t\"path\" : \"StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vgdbLib01/VisualGDBCache/vgdbLib01-Debug-VisualGDB/CodeModelCache/target-vgdbLib01-DEBUG-217de810e56261c0dd8e.json:\n  100: \t\t\t\"path\" : \"StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/GlobalFileTable.000:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/GlobalFileTable.001:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/testConf.npa01:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/testConf.npd:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/testConf.rdb:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/tmp00000003.npa00:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/CodeDB/vtgbJamventsim.vgdbcmake-Debug/tmp00000004.npa01:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/jamventsim/StrTokenize.h:\n    7: class StrTokenize {\n    9: \tStrTokenize() = delete;\t\t\t// no default constructor\n   11: \t * @brief StrTokenize\n   17: \tStrTokenize(std::string const &str, \n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/testing/testConf.cpp:\n   22: #include \"StrTokenize.h\"\n   48: \t\tStrTokenize ts = StrTokenize(file,'/');\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/.ninja_deps:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/.cmake/api/v1/reply/target-jamventsim-DEBUG-da37811d8c2dda448eba.json:\n  141: \t\t\t\"path\" : \"jamventsim/StrTokenize.h\",\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDB/Debug/testing/testConf:\n    <binary>\n\n/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/vtgbJamventsim/VisualGDBCache/vtgbJamventsim-Debug-VisualGDB/CodeModelCache/target-jamventsim-DEBUG-da37811d8c2dda448eba.json:\n  141: \t\t\t\"path\" : \"jamventsim/StrTokenize.h\",\n\n294 matches across 81 files\n",
+			"settings":
+			{
+				"buffer_size": 13010,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "testModel00.cpp",
+			"settings":
+			{
+				"buffer_size": 2582,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test00.cpp",
+			"settings":
+			{
+				"buffer_size": 3158,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/Makefile",
+			"settings":
+			{
+				"buffer_size": 137,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ParseArgs.h",
+			"settings":
+			{
+				"buffer_size": 116,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/utils/StrTokenize.h",
+			"settings":
+			{
+				"buffer_size": 788,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "testConf.cpp",
+			"settings":
+			{
+				"buffer_size": 3637,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "CMakeLists.txt",
+			"settings":
+			{
+				"buffer_size": 486,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/build/plotme.plt",
+			"settings":
+			{
+				"buffer_size": 37,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/c++11.sublime-build",
+					""
+				],
+				[
+					"Packages/User/c++11.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/c++11.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 59.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"markdownpre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"markdownPre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"REMOVE",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"gex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"hex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Show Tags"
+			],
+			[
+				":insta",
+				"Package Control: Install Package"
+			],
+			[
+				"refresh",
+				"Project: Refresh Folders"
+			],
+			[
+				"Package Control: install package",
+				"Package Control: Install Package"
+			],
+			[
+				"browse",
+				"Preferences: Browse Packages"
+			],
+			[
+				"ls",
+				"Permute Lines: Shuffle"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"discover packages",
+				"Package Control: Discover Packages"
+			],
+			[
+				"Package Control:  list packages",
+				"Package Control: List Unmanaged Packages"
+			],
+			[
+				"browse packages",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 130.0,
+		"history":
+		[
+			"find . -name *.conf",
+			"switchFile",
+			"print('hello')",
+			"exit()",
+			"quit()",
+			"!ls",
+			"pwd",
+			"ls"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/ct-ng/covid-19/github/prototypes",
+		"/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev",
+		"/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/utils"
+	],
+	"file_history":
+	[
+		"/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/testing/parseArgs.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/build/test.out",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.gitignore",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag_report/gpudiag_report.py",
+		"/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/README.md",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag_report/gputest_partition.xlsx",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/config.yaml",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.git/COMMIT_EDITMSG",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/.git/MERGE_MSG",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/.git/COMMIT_EDITMSG",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/neoConf.yaml",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/cmake/stxbuild/CMakeLists.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/cmake/cmake-3.8.1/Makefile",
+		"/Volumes/ct-ng/silicontx/github/cmake/.git/COMMIT_EDITMSG",
+		"/Volumes/ct-ng/silicontx/github/cmake/stxbuild/build.sh",
+		"/Volumes/ct-ng/silicontx/github/cmake/cmake-3.8.1/Makefile",
+		"/Volumes/ct-ng/silicontx/github/cmake/cmake-3.8.1/cmake_install.cmake",
+		"/Volumes/ct-ng/silicontx/github/cmake/cmake-3.8.1/bootstrap",
+		"/Volumes/ct-ng/silicontx/github/cmake/.gitignore",
+		"/Volumes/ct-ng/silicontx/github/cmake/stxbuild/install.sh",
+		"/Volumes/ct-ng/silicontx/github/cmake/stxbuild/CMakeLists.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/gpudiag_report/tests/failed/stxcompute070_2020_05_03T11_45/stdout.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/gpudiag_report/tests/failed/stxcompute066_2020_05_03T11_00/stdout.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/gpudiag_report/.gitignore",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/gpudiag01.py",
+		"/Volumes/ct-ng/silicontx/github/jenkins-pipelines/.git/COMMIT_EDITMSG",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute062_2020_05_03T07_45/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute063_2020_05_03T08_30/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute063_2020_05_03T08_30/dmesg.log",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/testloop.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute006_2020_04_30T08_45/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/gpudiags/run_standalone.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/bin/new-user.sh",
+		"/Users/ralphbellofatto/Downloads/stxcompute070.mprime.out.txt",
+		"/Library/Preferences/VMware Fusion/networking",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/jamventSimModel.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/jamventSimModel.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimReservoir.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimReservoir.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamctrllib/JamCtl.h",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute001_2020_04_28T23_15/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute001_2020_04_28T23_15/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute069_2020_04_29T02_30/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute069_2020_04_29T02_30/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/failed/stxcompute073_2020_04_29T08_30/jobstate.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/run_testset/run_testset.py",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/run_testset/run_testset.py",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/git_fetch/jobs/20200428_190001/console.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/git_fetch/jobs/20200428_190001/exit-code.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/git_fetch/jobs/20200424_104501/exit-code.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/d56ebe40-ff85-4cc9-9ac8-20b77f7e2560/home/stxadmin/neohc/hpcutil/ralphbel/work/healthchecks/git_fetch/jobs/20200424_104501/console.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/gpudiags/testnode.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/gpudiags/testme.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/work/healthchecks/gpudiag01/tests/running/stxcompute001_2020_04_28T13_55/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/failed/stxcompute069_2020_04_28T12_31/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/running/stxcompute067_2020_04_28T12_36/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/passed/stxcompute001_2020_04_28T12_32/jobstate.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tb.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/running/stxcompute069_2020_04_24T16_46/jobid.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/running/stxcompute069_2020_04_24T16_45/jobid.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/testfail.sh",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/running/stxcompute069_2020_04_24T16_42/stdout.txt",
+		"/private/var/folders/xr/wrgy2v4n7yn94d_l6ltw1wx80000gn/T/7b709fda-b3bb-43f9-a8dc-6a275e6e6c9c/home/ralphbel/github/hpcutil/ralphbel/healthchecks/gpudiag01/tests/running/stxcompute069_2020_04_24T16_42/stderr.txt",
+		"/Volumes/ct-ng/silicontx/github/hpcutil/ralphbel/healthchecks/gpudiag01/.gitignore",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/cmath1.c",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/cmath.h",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/cmath1.h",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/test_cx_cph.c",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/test_cx_j.c",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/test_cx_mag.c",
+		"/Volumes/ct-ng/covid-19/github/ngspice/src/maths/cmaths/test_cx_ph.c",
+		"/Volumes/ct-ng/covid-19/github/prototypes/qtExamples/widgets/painting/basicdrawing/MainWindow.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/qtExamples/widgets/painting/basicdrawing/MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/CMakeLists.txt",
+		"/Users/ralphbellofatto/Downloads/qcustomplot-source/qcustomplot.h",
+		"/Users/ralphbellofatto/Downloads/amberConsole.txt",
+		"/Volumes/ct-ng/covid-19/qt5/QtConcurrent/qtconcurrent_global.h",
+		"/Volumes/ct-ng/covid-19/qt5/QtSql/QSqlQuery",
+		"/Volumes/ct-ng/covid-19/github/prototypes/JoesPrototypes/JamventGuiVGDB-01/CMakeLists.txt",
+		"/Users/ralphbellofatto/Downloads/jenkinsAmberFail.txt",
+		"/Users/ralphbellofatto/Downloads/consoleText.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/test00.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimVars.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimNode.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimSource.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimSource.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimNode.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimModel.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimModel.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimLungs.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimLungs.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/testing/testConf.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimPipe.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimPipe.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/Reservoir.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/Lungs.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/Reservoir.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GatsimNode.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventsimlib/GassimConv.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamvent/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/qtStarterAppCross/VisualGDB/Debug/qtStarterAppCross_autogen/EWIEGA46WW/moc_MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/VisualGDB/Debug/jamvent/jamvent_autogen/EWIEGA46WW/moc_MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventProto.sln",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamvent/MainWindow.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamvent/MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamvent/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamvent/MainWindow.ui",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamvent/qtStarterAppCross.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamvent/MainWindow.h",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamvent/MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamventProto.sln",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/toolchain.cmake",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/.gitignore",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamventProto.vgdbcmake",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/VisualGDB/Debug/jamvent/jamvent_autogen/EWIEGA46WW/moc_MainWindow.cpp",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/VisualGDB/Debug/jamvent/cmake_install.cmake",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/jamvent/MainWindow.ui",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamventProto.vgdbcmake",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.vs/ProjectSettings.json",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.vs/slnx.sqlite",
+		"/Volumes/ct-ng/covid-19/github/prototypes/.vs/VSWorkspaceState.json",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto.ref/jamventProto.vgdbcmake.ralphbellofatto.user",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/VisualGDB/Debug/CMakeFiles/CMakeOutput.log",
+		"/Volumes/ct-ng/covid-19/github/prototypes/qtStarterApps/jamventProtoProj03/CMakeLists.txt",
+		"/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/CMakeLists.txt.old"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 102.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"tokenize",
+			"StrToken",
+			"StringToken"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/.gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 515,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								515,
+								515
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Git Formats/Git Ignore.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/.gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5,
+								5
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Git Formats/Git Ignore.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								180,
+								180
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CMake/CMake.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13010,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										393,
+										401
+									],
+									[
+										414,
+										422
+									],
+									[
+										499,
+										507
+									],
+									[
+										646,
+										654
+									],
+									[
+										836,
+										844
+									],
+									[
+										945,
+										953
+									],
+									[
+										967,
+										975
+									],
+									[
+										1037,
+										1045
+									],
+									[
+										1057,
+										1065
+									],
+									[
+										1196,
+										1204
+									],
+									[
+										1220,
+										1228
+									],
+									[
+										1237,
+										1245
+									],
+									[
+										1379,
+										1387
+									],
+									[
+										1460,
+										1468
+									],
+									[
+										1564,
+										1572
+									],
+									[
+										1671,
+										1679
+									],
+									[
+										1695,
+										1703
+									],
+									[
+										1712,
+										1720
+									],
+									[
+										1831,
+										1839
+									],
+									[
+										3540,
+										3548
+									],
+									[
+										3664,
+										3672
+									],
+									[
+										3688,
+										3696
+									],
+									[
+										3705,
+										3713
+									],
+									[
+										3841,
+										3849
+									],
+									[
+										3946,
+										3954
+									],
+									[
+										3968,
+										3976
+									],
+									[
+										4038,
+										4046
+									],
+									[
+										4058,
+										4066
+									],
+									[
+										5625,
+										5633
+									],
+									[
+										5647,
+										5655
+									],
+									[
+										5717,
+										5725
+									],
+									[
+										5737,
+										5745
+									],
+									[
+										5903,
+										5911
+									],
+									[
+										5927,
+										5935
+									],
+									[
+										5944,
+										5952
+									],
+									[
+										6194,
+										6202
+									],
+									[
+										6632,
+										6640
+									],
+									[
+										6654,
+										6662
+									],
+									[
+										6724,
+										6732
+									],
+									[
+										6744,
+										6752
+									],
+									[
+										6910,
+										6918
+									],
+									[
+										6934,
+										6942
+									],
+									[
+										6951,
+										6959
+									],
+									[
+										7201,
+										7209
+									],
+									[
+										7639,
+										7647
+									],
+									[
+										7661,
+										7669
+									],
+									[
+										7731,
+										7739
+									],
+									[
+										7751,
+										7759
+									],
+									[
+										7917,
+										7925
+									],
+									[
+										7941,
+										7949
+									],
+									[
+										7958,
+										7966
+									],
+									[
+										8297,
+										8305
+									],
+									[
+										8680,
+										8688
+									],
+									[
+										8831,
+										8839
+									],
+									[
+										9022,
+										9030
+									],
+									[
+										9044,
+										9052
+									],
+									[
+										9114,
+										9122
+									],
+									[
+										9134,
+										9142
+									],
+									[
+										9270,
+										9278
+									],
+									[
+										9294,
+										9302
+									],
+									[
+										9311,
+										9319
+									],
+									[
+										10666,
+										10674
+									],
+									[
+										10875,
+										10883
+									],
+									[
+										11987,
+										11995
+									],
+									[
+										12009,
+										12017
+									],
+									[
+										12079,
+										12087
+									],
+									[
+										12099,
+										12107
+									],
+									[
+										12247,
+										12255
+									],
+									[
+										12271,
+										12279
+									],
+									[
+										12288,
+										12296
+									],
+									[
+										12615,
+										12623
+									],
+									[
+										12965,
+										12973
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								51,
+								51
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"incomplete_sync": null,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "testModel00.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2582,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								872,
+								872
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 85.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "test00.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3158,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2613,
+								2613
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1212.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 137,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								137,
+								137
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "ParseArgs.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								105,
+								105
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/jamventProto/utils/StrTokenize.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 788,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								86,
+								779
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "testConf.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3637,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								871,
+								879
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								83,
+								83
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/CMake/CMake.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/Volumes/ct-ng/covid-19/github/prototypes/gasSimDev/build/plotme.plt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 37,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								36
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 39.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 175.0
+	},
+	"output.find_results":
+	{
+		"height": 185.0
+	},
+	"output.git":
+	{
+		"height": 102.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 102.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Makefile/Make.sublime-build",
+	"project": "gassimDev.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"beegfs-meta.conf",
+				"meta/build/dist/etc/beegfs-meta.conf"
+			],
+			[
+				"beegfs-mgmtd.conf",
+				"mgmtd/build/dist/etc/beegfs-mgmtd.conf"
+			],
+			[
+				"connection.cpp",
+				"boost_1_62_0 1/libs/asio/example/cpp03/http/server/connection.cpp"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 60.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 294.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

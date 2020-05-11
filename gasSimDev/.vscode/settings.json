@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "iomanip": "cpp",
+        "vector": "cpp",
+        "utility": "cpp",
+        "map": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    },
+    "C_Cpp.default.configurationProvider": "go2sh.cmake-integration"
+}
