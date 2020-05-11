@@ -12,6 +12,28 @@
 #include "GraphWidget.h"
 #include "PushButtonWidget.h"
 
+namespace
+{
+    constexpr const char *FiosLabelStr = QT_TRANSLATE_NOOP("MainWidget", "FiO2");
+    constexpr const char *TidalVolLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Tidal Vol.");
+    constexpr const char *RespRateLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Resp Rate");
+    constexpr const char *IeLabelStr = QT_TRANSLATE_NOOP("MainWidget", "I:E");
+    constexpr const char *PeepLabelStr = QT_TRANSLATE_NOOP("MainWidget", "PEEP");
+    constexpr const char *VentModeLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Vent Mode");
+
+    constexpr const char *PeakPressLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Peak Press");
+    constexpr const char *PlatPressLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Plat Press");
+    constexpr const char *MinuteVentLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Minute Vent");
+
+    constexpr const char *PercentSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " %");
+    constexpr const char *MlSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " ml");
+    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " 1/min");
+    constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " cmH2O");
+
+    constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
+    constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+}
+
 using namespace QtCharts;
 
 MainWidget::MainWidget(QWidget *parent)
@@ -32,13 +54,36 @@ MainWidget::MainWidget(QWidget *parent)
     inputGroupFrame->setLayout(inputGroupLayout);
     inputGroupLayout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     inputGroupLayout->setSpacing(24);
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("FiO2")});
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Total Vol.")});
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Resp Rate")});
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("I:E")});
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("PEEP")});
-    inputGroupLayout->addWidget(new LabeledInputWidget{tr("Vent Mode")});
-    //inputGroupLayout->addStretch();
+
+    auto w = new LabeledInputWidget(tr(FiosLabelStr));
+    auto spin = w->getSpinBox();
+    spin->setRange(21, 100);
+    spin->setSuffix(tr(PercentSuffixStr));
+    inputGroupLayout->addWidget(w);
+
+    w = new LabeledInputWidget(tr(TidalVolLabelStr));
+    spin = w->getSpinBox();
+    //spin->setRange(21, 100);  What is the range?
+    spin->setSuffix(tr(MlSuffixStr));
+    inputGroupLayout->addWidget(w);
+
+    w = new LabeledInputWidget(tr(RespRateLabelStr));
+    spin = w->getSpinBox();
+    spin->setRange(1, 35);
+    spin->setSuffix(PerMinSuffixStr);
+    inputGroupLayout->addWidget(w);
+
+    // JPW \todo Need to understand how I:E ratio options
+    inputGroupLayout->addWidget(new LabeledInputWidget(tr(IeLabelStr)));
+
+    w = new LabeledInputWidget(tr(PeepLabelStr));
+    spin = w->getSpinBox();
+    spin->setRange(0, 20);
+    spin->setSuffix(tr(Cmh20MinSuffixStr));
+    inputGroupLayout->addWidget(w);
+
+    // JPW \todo Don't know what this is
+    inputGroupLayout->addWidget(new LabeledInputWidget(tr(VentModeLabelStr)));
 
     // Add right column data display widgets
     //auto dataLayout = ui->dataFrame->layout();
@@ -49,11 +94,11 @@ MainWidget::MainWidget(QWidget *parent)
     dataGroupWidget->setLayout(dataGroupLayout);
     dataGroupLayout->setAlignment(Qt::AlignTop| Qt::AlignHCenter);
     dataGroupLayout->setSpacing(4);
-    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Peak Press")});
-    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Plat Press")});
-    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Tidal Vol")});
-    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Minute Vent")});
-    dataGroupLayout->addWidget(new LabeledDataWidget{tr("Resp Rate")});
+    dataGroupLayout->addWidget(new LabeledDataWidget(tr(PeakPressLabelStr)));
+    dataGroupLayout->addWidget(new LabeledDataWidget(tr(PlatPressLabelStr)));
+    dataGroupLayout->addWidget(new LabeledDataWidget(tr(TidalVolLabelStr)));
+    dataGroupLayout->addWidget(new LabeledDataWidget(tr(MinuteVentLabelStr)));
+    dataGroupLayout->addWidget(new LabeledDataWidget(tr(RespRateLabelStr)));
     dataGroupLayout->addStretch();
 
     // Add right column buttons.
@@ -62,8 +107,8 @@ MainWidget::MainWidget(QWidget *parent)
     buttonGroupWidget->setLayout(dataGroupLayout);
     buttonGroupLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
     buttonGroupLayout->setSpacing(4);
-    dataGroupLayout->addWidget(new PushButtonWidget{tr("Menu")});
-    dataGroupLayout->addWidget(new PushButtonWidget{tr("Standby")});
+    dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
+    dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
 
     const qreal TimerInterval_ms = 100;
 
@@ -73,7 +118,7 @@ MainWidget::MainWidget(QWidget *parent)
     m_ulParams.xAxisMax = 6.0;
     m_ulParams.yAxisMin = 0.0;
     m_ulParams.yAxisMax = 10.0;
-    m_ulParams.yAxisLabel = "Press(cmH2O)";
+    m_ulParams.yAxisLabel = tr("Press(cmH2O)");
 
     m_ulGraph = new GraphWidget(m_ulParams, ui->upperLeftGraphFrame);
 #endif
@@ -85,7 +130,7 @@ MainWidget::MainWidget(QWidget *parent)
     m_urParams.xAxisMax = 6.0;
     m_urParams.yAxisMin = -1.0;
     m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = "Flow R(1/min)";
+    m_urParams.yAxisLabel = tr("Flow R(1/min)");
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
