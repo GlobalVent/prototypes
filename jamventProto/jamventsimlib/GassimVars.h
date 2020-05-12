@@ -19,7 +19,8 @@ public:
 	GassimVars() {
 		pressure = 1.0;
 		volume = 1.0;
-		temp = GassimConv::cToKelvin(21);
+		//temp = GassimConv::cToKelvin(21);
+		temp = GassimConv::cToKelvin(20);
 		pO2 = .21;
 		resistance=0;
 		compliance=0;			// compiance, 0 is rigid container.

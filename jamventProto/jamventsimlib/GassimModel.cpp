@@ -34,3 +34,7 @@ void GassimModel::next() {
 		n.second->next();
 }
 
+void GassimModel::init() {
+	next();
+}
+

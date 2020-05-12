@@ -78,6 +78,7 @@ public:
 
 protected:
 	std::string _name;
+	unsigned _stepCount;
 	unsigned  _nodeId;
 	NodeType _nodeType;
 	ConnectionMap_t _connections;			// node connections.

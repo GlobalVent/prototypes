@@ -27,13 +27,13 @@ double GassimPipe::getPressureDrop(unsigned reqNodeId) {
 	ConnectionMap_t::iterator p  = _connections.begin();
 	NodePtr_t pA = p->second; p++;		// extract the first 2 connections...
 	NodePtr_t pB = p->second; p++;
-	double pdrop = abs(pA->pressure() - pB->pressure());
+	double pdrop = INFINITY;
 	if (open()) {
-		if (nodeId() == reqNodeId)
-			pdrop = -pdrop;   // flowing away...
+		if (reqNodeId == pA->nodeId())
+			pdrop=pB->pressure() - pA->pressure();
+		else
+			pdrop=pA->pressure() - pB->pressure();		
 	}
-	else 
-		pdrop = INFINITY;
 	return(pdrop);
 }
 

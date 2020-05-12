@@ -5,7 +5,8 @@
 
 GassimNode::GassimNode(const std::string &name, NodeType nodeType) :
   _name(name),
-  _nodeType(nodeType) {
+  _nodeType(nodeType),
+  _stepCount(0) {
 
 
 }
@@ -13,6 +14,7 @@ GassimNode::GassimNode(const std::string &name, NodeType nodeType) :
 
 void GassimNode::next() {					// proceed to the next step...
 	_out = _nextOut;
+	_stepCount++;
 }
 
 

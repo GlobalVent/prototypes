@@ -119,6 +119,15 @@ public:
 	 */
 	virtual void setAirPressure(double pressure);
 
+	/**
+	 * @brief set the lung compliance
+	 * 
+	 * @param compliance  in  (delta)liters
+	 * 						 ---------------
+	 * 						  (delta)bar
+	 */
+	virtual void setLungCompliance(double compliance);
+
 
 protected:
 	GassimModel	_model;

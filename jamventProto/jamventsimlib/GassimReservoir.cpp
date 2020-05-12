@@ -47,19 +47,23 @@ void GassimReservoir::step(double dt) {
         // #               dt/RV           #   inlet at a time... no parallel inlets...
         // #             e
         double pDrop = c->getPressureDrop(nodeId());	// pressure drop relative to me...
+
         double R=c->resistance();
         double V=volume();
 	    double tc=1-exp(-dt/(R*V));
-	    pDelta = pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
+	    pDelta += pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
         ppNewO2+=pDelta*(c->pO2());
-	    
-		}
-
+	}
 	
     assert(numValveOpen <= 1);      //# don't support parallel filling of the container yet...
     // # ttry working with partial pressures.
     double ppO2 = pressure() * pO2();
+    double newP = pressure() + pDelta;
     ppO2 += ppNewO2;
-    setPressure(pressure()+pDelta);
-    setPO2(ppO2/pressure());
+    setPressure(newP);
+    setPO2(ppO2/newP);
+
+    // cout << "pDelta=" << pDelta << " "
+    //      << "startPo2=" << pO2() << " newPo2=" << ppO2/newP << " "
+    //      <<   "startPpo2=" << (pressure()*pO2()) << " ppNewO2=" << ppNewO2 << endl;
 }

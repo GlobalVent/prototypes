@@ -23,11 +23,12 @@ public:
 
 	virtual void connect(GassimNode::NodePtr_t &a, GassimNode::NodePtr_t &b);
 	virtual void addNode(GassimNode::NodePtr_t nodePtr);
+	void init();				            // first step initialization.
 	virtual void step(double dt);			// step the simulation for delta time.
 	virtual void next();					// proceed to the next step...
+	
 
 protected :
-	void init();					// first step initialization.
 private :
 
 	std::map<unsigned, GassimNode::NodePtr_t> _childNodes;			// 

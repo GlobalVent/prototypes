@@ -6,6 +6,7 @@
 //  Copyright © 2020 ralph bellofatto. All rights reserved.
 //
 
+#include <sys/time.h>
 #include <time.h>
 #include <iostream>
 #include <memory>
@@ -20,9 +21,13 @@
 #include <sstream>
 
 
-#include "StrTokenize.h"
-#include "fmtstr.h"
+//#include "StrTokenize.h"
+//#include "fmtstr.h"
 #include "JamventSimModel.h"
+
+#ifndef TIME_UTC
+#define TIME_UTC 0
+#endif
 
 using namespace std;
 
@@ -35,7 +40,8 @@ typedef std::shared_ptr<VectorSeries_t> VectorSeriesPtr_t;
 
 double getCurrTime() {
 	struct timespec ts;
-	timespec_get(&ts, TIME_UTC);
+	//timespec_get(&ts, TIME_UTC);
+    clock_gettime(CLOCK_REALTIME, &ts); // Works on Linux
 	return(ts.tv_sec + ((double)ts.tv_nsec*1e-9));
 }
 /**
@@ -47,15 +53,17 @@ double getCurrTime() {
  */
 void waitTime(double tw) {
 	struct timespec timeReq;
+	struct timespec rem;
 	timeReq.tv_sec = (unsigned)tw;	// truncate the time  to get seconds.
 	timeReq.tv_nsec = (unsigned)(tw*1e9);  // 10000 nano secionds (10 milliseconds)
+	nanosleep(&timeReq, &rem);
 }
 
 int  main(int argc, const char * argv []) {
 	ErrStrs errs;
 	bool passed = true;
 	cout << "Testing testing JamventSimModel ..." << endl;
-	double timeLimit  = 20;
+	double timeLimit  = 5;
 
 	double timeStart = getCurrTime();
 	double timePrev = getCurrTime();  // time in 

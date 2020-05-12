@@ -168,4 +168,16 @@ void JamventSimModel::setAirPressure(double pressure) {
 	_airSrc->setPressure(pressure);
 }
 
+/**
+ * @brief set the lung compliance
+ * 
+* @param compliance  in  (delta)liters
+* 						 ---------------
+* 						  (delta)bar
+ */
+void JamventSimModel::setLungCompliance(double compliance) {
+	_lungs->setCompliance(compliance);
+}
+
+
 
