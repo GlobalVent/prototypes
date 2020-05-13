@@ -16,7 +16,7 @@ GassimReservoir::GassimReservoir(const std::string &name,
 }
 void  GassimReservoir::setPO2(double pO2) {
 	assert(pO2 <= 1.0);				// double check...
-    assert (pO2 > 0);
+    //assert (pO2 > 0);
 	GassimNode::setPO2(pO2);
 };
 
@@ -52,18 +52,17 @@ void GassimReservoir::step(double dt) {
         double V=volume();
 	    double tc=1-exp(-dt/(R*V));
 	    pDelta += pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
-        ppNewO2+=pDelta*(c->pO2());
+        if (pDrop > 0)                               // our percent Po2 only changes if we are gaining gas
+            ppNewO2+=pDelta*(c->pO2());
 	}
 	
     assert(numValveOpen <= 1);      //# don't support parallel filling of the container yet...
     // # ttry working with partial pressures.
     double ppO2 = pressure() * pO2();
     double newP = pressure() + pDelta;
-    ppO2 += ppNewO2;
     setPressure(newP);
-    setPO2(ppO2/newP);
-
-    // cout << "pDelta=" << pDelta << " "
-    //      << "startPo2=" << pO2() << " newPo2=" << ppO2/newP << " "
-    //      <<   "startPpo2=" << (pressure()*pO2()) << " ppNewO2=" << ppNewO2 << endl;
+    if (ppNewO2) {          // no change, so don't recalculate...
+        ppO2 += ppNewO2;
+        setPO2(ppO2/newP);
+    }
 }

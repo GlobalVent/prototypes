@@ -116,8 +116,21 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
         deltaNo2 = ((newN-N)*sourcePo2);
     }
     double newNo2 = No2+deltaNo2;       // now we have a new number of mols of no2
-    double newPo2 = newNo2/newN;        // new percent of the mols of gas , no need to convert back 
+    double newPo2;
+    if (newN > 0)
+        newPo2 = newNo2/newN;        // new percent of the mols of gas , no need to convert back 
+    else
+        newPo2=pO2();
 
+    // cout << "N=" << N << ", "
+    //      << "deltaN=" << newN-N << ", "
+    //      << "No2=" << No2 << ", "
+    //      << "deltaNo2=" << deltaNo2 << ", "
+    //      << "mewN=" << newN << ", "
+    //      << "newNo2=" << newNo2 << ", "
+    //      << "deltaNo2=" << deltaNo2 << ", "
+    //      << "newPO2=" << newPo2
+    //      << endl;
     setPressure(newP);
     setVolume(newV);
     setPO2(newPo2);

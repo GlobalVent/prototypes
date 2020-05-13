@@ -15,6 +15,7 @@
 
 #include "TimeSeries.h"
 #include "TimeSeriesPV.h"
+#include "TimeSeriesPVO2.h"
 
 #include <fmtstr.h>
 
@@ -74,6 +75,25 @@ public:
                 << "set ylabel 'bars/liters' " << std::endl
                 << "set yrange [0:]" << std::endl
                 << "plot $data using 1:2 title 'pressure' with lines, $data using 1:3 title 'volume' with lines " 
+                << std::endl;
+        }
+    }
+    void writeTimeSeries(TimeSeriesPVO2 &ts) {
+        if (_outFile.is_open()) {
+            _outFile << "$data << EOD" << std::endl;
+            for (auto it = ts.begin(); it != ts.end(); it++) 
+                _outFile << it->t <<  ", " 
+                         << it->p << ", " 
+                         << it->v 
+                         << it->o2 
+                         << std::endl;
+            _outFile << "EOD" << std::endl
+                << "set xlabel 'time' " << std::endl
+                << "set ylabel 'bars/liters' " << std::endl
+                << "set yrange [0:]" << std::endl
+                << "plot $data using 1:2 title 'pressure' with lines, "
+                << "$data using 1:3 title 'volume' with lines " 
+                << "$data using 1:4 title pO2 with lines "
                 << std::endl;
         }
     }

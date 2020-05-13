@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "testResPo2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/testing/testResPo2",
+            "args": ["--outfile=testLungsComp2"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
             "name": "testLungsComp2",
             "type": "cppdbg",
             "request": "launch",

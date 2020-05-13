@@ -19,9 +19,10 @@ JamventSimModel::JamventSimModel() :
 	_valveC = std ::make_shared<GassimPipe>("valveC", pipeResist, false);
 	_valveD = std ::make_shared<GassimPipe>("valveD", pipeResist, false);
 	_reservoir = std ::make_shared<GassimReservoir>("reservoir", 1.0, 2.0);  // 1 bar at 2 liter bottle
-	_lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 4.0, 1.0);  // 4 liter lungs, compliance of 1 (1/1 pressure volume relationship)...
+	
+	// 2.5 liter lungs, compliance of .035 cmh20
+	_lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 2.5, GassimConv::complianceCmH2oToBar(.035));  
 	_gasSink = std ::make_shared<GassimSource>("gasSink", 1.0, 1.00);	  // gas sink at 1 bar...
-
 
 	_model.addNode(_o2Src);
 	_model.addNode(_airSrc);
@@ -170,10 +171,10 @@ void JamventSimModel::setAirPressure(double pressure) {
 
 /**
  * @brief set the lung compliance
- * 
-* @param compliance  in  (delta)liters
-* 						 ---------------
-* 						  (delta)bar
+ *     use Conversion routines to convert to and from cmH20
+ * @param compliance  in  (delta)liters
+ * 						 ---------------
+ * 						  (delta)bar
  */
 void JamventSimModel::setLungCompliance(double compliance) {
 	_lungs->setCompliance(compliance);

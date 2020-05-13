@@ -11,6 +11,8 @@ public:
 		bool open=true);
 	virtual void step(double dt);			
 	virtual double getPressureDrop(unsigned reqNodeId);
+	virtual double pO2();
+
 
 protected:
 private:

@@ -36,4 +36,7 @@ target_link_libraries(testLungsCompInf ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFE
 add_executable(testModel00 testModel00.cpp)
 target_link_libraries(testModel00 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
+add_executable(testResPo2 testResPo2.cpp)
+target_link_libraries(testResPo2 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+
 

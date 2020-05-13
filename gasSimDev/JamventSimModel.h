@@ -72,7 +72,7 @@ public:
 
 	/**
 	 * @brief retrieve the current valve state.
-	 * @details read back the current valve state.
+	 * @details read back the current valve state. 
 	 * @return true -- open, false -- closed
 	 */
 	virtual bool getValveAopen();
@@ -83,7 +83,8 @@ public:
 	/**
 	 * @brief getPsys -- get the psys pressure.
 	 * @details retrieve the Psys pressure.
-	 * @return Psys pressure in bars... (for now)...
+	 * @return Psys pressure in bars... (for now)...  
+	 *         use GassimConv to convert to bars
 	 */
 	virtual float getPsys();
 
@@ -124,7 +125,7 @@ public:
 	 * 
 	 * @param compliance  in  (delta)liters
 	 * 						 ---------------
-	 * 						  (delta)bar
+	 * 						  (delta)cmH20
 	 */
 	virtual void setLungCompliance(double compliance);
 
