@@ -2,11 +2,13 @@
 
 #include <assert.h>
 #include <math.h>
+#include <float.h>
 #include <iostream>
 #include "GassimLungs.h"
 
 
 using namespace std;
+
 
 GassimLungs::GassimLungs(const std::string &name, 
         double pressure, 
@@ -21,35 +23,32 @@ void  GassimLungs::setPO2(double pO2) {
 };
 
 /**
- * @brief      complianceFactor
- *      compute the compliance factor that can then adjust the
- *      deltaV and deltaP values..
- * @param[in]  compliance  The compliance (0--infinity)
- * @param[in]  deltaV      The delta v
- * @param[in]  deltaP      The delta p
- *
- * @return     multiplcation factor to pass out deltaP to deltaP (0..1)
+ * @brief intersect -- intersect two volume pressure lines given 4 points
+ * 
+ * @param A point A on line AB
+ * @param B point B on line AB
+ * @param C point C on line CD
+ * @param D point D on line CD
+ * @return VP_t 
  */
-double GassimLungs::complianceFactor(double compliance, 
-                                     double deltaV, 
-                                     double deltaP)
-{
-    //    C*dP
-    // ------------
-    //  dV + c*dP
-    double f = NAN;
-    if (compliance == INFINITY)   // INFINITY * 0 is nan, so don't do that...
-        f=1;
-    else {
-        double  dn=deltaV + (compliance * deltaP); // compute the demoniator first, to avoid divide by zero.
-        if (dn == 0) 
-            f=0;
-        else
-            f=(compliance*deltaP)/dn;
-    }
-    return(f);
+GassimLungs::VP_t GassimLungs::intersect(VP_t A, VP_t B, VP_t C, VP_t D) {
+   // Line AB represented as a1x + b1y = c1
+   double a = B.second - A.second;
+   double b = A.first - B.first;
+   double c = a*(A.first) + b*(A.second);
+   // Line CD represented as a2x + b2y = c2
+   double a1 = D.second - C.second;
+   double b1 = C.first - D.first;
+   double c1 = a1*(C.first)+ b1*(C.second);
+   double det = a*b1 - a1*b;
+   if (det == 0) {
+      return make_pair(0, 0);
+   } else {
+      double x = (b1*c - b*c1)/det;
+      double y = (a*c1 - a1*c)/det;
+      return make_pair(x, y);
+   }
 }
-
 
 void GassimLungs::step(double dt) {        // # avoid dealing with both the pressure AND temperature chaning
 
@@ -69,6 +68,8 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
     double deltaV = 0;
     double P=pressure();
     double V=volume();
+    if (V == 0)
+        V=DBL_EPSILON;
     double T=temp();
     double sourcePo2 = 0;
     // this works ONLY for one source at a time.
@@ -89,12 +90,28 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
             deltaP = pDrop*(1 - exp(-dt / (r*V)));      
         else
             deltaP = 0;
-        deltaV += pDrop*dt;
+        deltaV += pDrop*(dt/r);
         sourcePo2+=c->pO2();
     }
-    double f=complianceFactor(compliance(), deltaV, deltaP);
-    double deltaVadj = deltaV*f;
-    double deltaPadj = deltaP*(1-f);
+
+    if ((deltaV == 0) && (deltaP == 0))
+        return;                     // nothing changed so nothing to do.
+                                    // the following line intercept won't work for no change
+
+    double deltaVadj, deltaPadj;
+    if (compliance() == INFINITY) {   // INFINITY * 0 is nan, so don't do that...
+        deltaVadj = deltaV;
+        deltaPadj = 0;
+    }
+    else {
+        VP_t p1(deltaV,0);     // line from delta Volume to Delta pressure
+        VP_t p2(0, deltaP);
+        VP_t p3(compliance(),1);  // complance slope
+        VP_t p4(0,0);            // only dealing with the detas so at the origin
+        VP_t vp=intersect(p1,p2,p3,p4);
+        deltaVadj=vp.first;
+        deltaPadj=vp.second;
+    }
 
     double newP=pressure()+deltaPadj;              // new totals...
     if (newP < 0)
@@ -122,11 +139,14 @@ void GassimLungs::step(double dt) {        // # avoid dealing with both the pres
     else
         newPo2=pO2();
 
+
+    // cout << "newN=" << newN << ", "
+    //      << "newV=" << newV << endl;
     // cout << "N=" << N << ", "
     //      << "deltaN=" << newN-N << ", "
     //      << "No2=" << No2 << ", "
     //      << "deltaNo2=" << deltaNo2 << ", "
-    //      << "mewN=" << newN << ", "
+    //      << "newN=" << newN << ", "
     //      << "newNo2=" << newNo2 << ", "
     //      << "deltaNo2=" << deltaNo2 << ", "
     //      << "newPO2=" << newPo2

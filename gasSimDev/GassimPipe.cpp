@@ -44,7 +44,7 @@ double GassimPipe::getPressureDrop(unsigned reqNodeId) {
 	ConnectionMap_t::iterator p  = _connections.begin();
 	NodePtr_t pA = p->second; p++;		// extract the first 2 connections...
 	NodePtr_t pB = p->second; p++;
-	double pdrop = INFINITY;
+	double pdrop = 0;
 	if (open()) {
 		if (reqNodeId == pA->nodeId())
 			pdrop=pB->pressure() - pA->pressure();

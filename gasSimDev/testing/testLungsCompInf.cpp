@@ -398,10 +398,10 @@ int  main(int argc, const char * argv []) {
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
     errCnt+=testInflate(p.outFileName, 1,    6, errs);
     errCnt+=testInflate(p.outFileName, .001, 6, errs);
+
     errCnt+=testDeflate(p.outFileName, 1,    6, errs);
     errCnt+=testDeflate(p.outFileName, .001, 6, errs);
     errCnt+=testInflateFrom0(p.outFileName, 1,    6, errs);
-
     if (errs.str().size() > 0) {
         cout << errs.str();
         cout << "TEST Failed" << endl;

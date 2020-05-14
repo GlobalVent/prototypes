@@ -21,6 +21,9 @@ target_link_libraries(testConf "${LIBRARIES_FROM_REFERENCES}")
 add_executable(testRes testRes.cpp)
 target_link_libraries(testRes ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
+add_executable(testResSmall testResSmall.cpp)
+target_link_libraries(testResSmall ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+
 add_executable(testLungsComp0 testLungsComp0.cpp)
 target_link_libraries(testLungsComp0 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
@@ -33,10 +36,14 @@ target_link_libraries(testLungsComp2 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERE
 add_executable(testLungsCompInf testLungsCompInf.cpp)
 target_link_libraries(testLungsCompInf ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
+add_executable(testResPo2 testResPo2.cpp)
+target_link_libraries(testResPo2 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+
 add_executable(testModel00 testModel00.cpp)
 target_link_libraries(testModel00 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
-add_executable(testResPo2 testResPo2.cpp)
-target_link_libraries(testResPo2 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+add_executable(testModel01 testModel01.cpp)
+target_link_libraries(testModel01 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+
 
 

@@ -43,6 +43,12 @@ public:
 	virtual void setLogStream(std::ostream &ostr);
 
 	/**
+	 * @brief init
+	 *    initialize timestep 0, needed if you want to plot the initialial sate
+	 */
+	virtual void init();
+
+	/**
 	 * @brief step -- step the simulation one delta time.
 	 * @details step the simulaton one time step.
 	 * 
@@ -98,12 +104,19 @@ public:
 	/**
 	 * @brief retrieve the Po2 level
 	 * @details read back the p02 level 0.00 - 1.0....
-	 * @return [description]
+	 * @return percent O2
 	 */
 	virtual float getPo2();
 
 	/**
-	 * @brief set the o2 source pressure in bar
+	 * @brief Get the lung volume value.
+	 * 
+	 * @return lung volume
+	 */
+	virtual float getLvol();
+
+	/**
+	 * @brief set the o2 source pressure in bar (absolute pressure)
 	 * @details set the o2 source pressure.
 	 *          at any point in the simulation to change the source pressure.
 	 * 
@@ -112,7 +125,7 @@ public:
 	virtual void  setO2Pressure(double pressure);
 
 	/**
-	 * @brief set the Air source pressure in bars
+	 * @brief set the Air source pressure in bars (absolute Pressure)
 	 * @details set the air source pressure
 	 *          at any point in the simulation to change the source pressure.
 	 * 

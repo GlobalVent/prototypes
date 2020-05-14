@@ -302,7 +302,15 @@ unsigned testDeflate(string const &outFileName,
 
     errCnt+=checkPres(vp, testName, dt, 4.0, 1.219, errs);
     errCnt+=checkVol (vp, testName, dt, 4.0, 1.219, errs);
-    errCnt+=checkPo2 (vp, testName, dt, 3.0, 0.5,           errs);  
+    errCnt+=checkPo2 (vp, testName, dt, 4.0, 0.5,           errs);  
+
+    errCnt+=checkPres(vp, testName, dt, 5.0, 1.141, errs);
+    errCnt+=checkVol (vp, testName, dt, 5.0, 1.141, errs);
+    errCnt+=checkPo2 (vp, testName, dt, 5.0, 0.5,           errs);  
+
+    errCnt+=checkPres(vp, testName, dt, 6.0, 1.079, errs);
+    errCnt+=checkVol (vp, testName, dt, 6.0, 1.079, errs);
+    errCnt+=checkPo2 (vp, testName, dt, 6.0, 0.5,           errs);  
 
     tout.writeTimeSeries(vp);
     return(errCnt);
@@ -340,10 +348,10 @@ int  main(int argc, const char * argv []) {
     unsigned errCnt = 0;
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
     errCnt+=testInflate(p.outFileName, 1,    6, errs);
-    errCnt+=testInflate(p.outFileName, .001, 6, errs);
+    errCnt+=testInflate(p.outFileName, .01, 6, errs);
 
     errCnt+=testDeflate(p.outFileName, 1,    6, errs);
-    errCnt+=testDeflate(p.outFileName, .001, 6, errs);
+    errCnt+=testDeflate(p.outFileName, .01, 6, errs);
 
     if (errs.str().size() > 0) {
         cout << errs.str();

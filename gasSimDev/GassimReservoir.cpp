@@ -42,10 +42,10 @@ void GassimReservoir::step(double dt) {
         	continue;
         numValveOpen += 1;
         // #
-        // #              1                # calculate the new pressure..
-        // # P      = (-----------)        #   this is only valid for a single
-        // #               dt/RV           #   inlet at a time... no parallel inlets...
-        // #             e
+        // #                -t                # calculate the new pressure..
+        // # P      = 1- (-----------)        #   this is only valid for a single
+        // #                  dt/RV           #   inlet at a time... no parallel inlets...
+        // #                e
         double pDrop = c->getPressureDrop(nodeId());	// pressure drop relative to me...
 
         double R=c->resistance();
