@@ -6,8 +6,6 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories(.)
-
 
 file(GLOB jamventsim_src . *.cpp *.h)
 
@@ -22,6 +20,6 @@ add_test(testRes testing/testRes)
 add_test(testLungsComp0 testing/testLungsComp0)
 add_test(testLungsCompInf testing/testLungsCompInf)
 # todo, correct the math so these two tests will pass
-#add_test(testLungsComp1 testing/testLungsComp1)
-#add_test(testLungsComp2 testing/testLungsComp2)
+add_test(testLungsComp1 testing/testLungsComp1)
+add_test(testLungsComp2 testing/testLungsComp2)
 

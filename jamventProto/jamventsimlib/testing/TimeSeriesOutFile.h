@@ -15,6 +15,8 @@
 
 #include "TimeSeries.h"
 #include "TimeSeriesPV.h"
+#include "TimeSeriesPVO2.h"
+#include "TimeSeriesMod.h"
 
 #include <fmtstr.h>
 
@@ -56,7 +58,8 @@ public:
             _outFile << "EOD" << std::endl
                 << "set xlabel 'time'" << std::endl
                 << "set ylabel 'bars'" << std::endl
-                << "set yrange [0:]" << std::endl
+                << "set autoscale y" << std::endl
+                //<< "set yrange [0:]" << std::endl
                 << "plot $data using 1:2 title 'pressure' with lines" 
                 << std::endl;
                 
@@ -72,8 +75,56 @@ public:
             _outFile << "EOD" << std::endl
                 << "set xlabel 'time' " << std::endl
                 << "set ylabel 'bars/liters' " << std::endl
-                << "set yrange [0:]" << std::endl
+                //<< "set yrange [0:]" << std::endl
+                << "set autoscale y" << std::endl
                 << "plot $data using 1:2 title 'pressure' with lines, $data using 1:3 title 'volume' with lines " 
+                << std::endl;
+        }
+    }
+    void writeTimeSeries(TimeSeriesPVO2 &ts) {
+        if (_outFile.is_open()) {
+            _outFile << "$data << EOD" << std::endl;
+            for (auto it = ts.begin(); it != ts.end(); it++) 
+                _outFile << it->t <<  ", " 
+                         << it->p << ", " 
+                         << it->v << ", "
+                         << it->o2 << ", "
+                         << std::endl;
+            _outFile << "EOD" << std::endl
+                << "set xlabel 'time' " << std::endl
+                << "set ylabel 'bars/liters' " << std::endl
+                //<< "set yrange [1:]" << std::endl
+                << "set autoscale y" << std::endl
+                << "plot $data using 1:2 title 'pressure' with lines, "
+                << "$data using 1:3 title 'volume' with lines, " 
+                << "$data using 1:4 title 'pO2' with lines "
+                << std::endl;
+        }
+    }
+    void writeTimeSeries(TimeSeriesMod &ts) {
+        if (_outFile.is_open()) {
+            _outFile << "$data << EOD" << std::endl;
+            for (auto it = ts.begin(); it != ts.end(); it++) 
+                _outFile << floatw(4) << it->t <<  ", " 
+                         << floatw(4) << it->pRes << ", " 
+                         << floatw(4) << it->pSys << ", "
+                         << floatw(4) << it->pO2 << ", "
+                         << floatw(4) << it->lvol << ", "
+                         << decw(0) << it->valveA << ", "
+                         << it->valveB << ", "
+                         << it->valveC << ", "
+                         << it->valveD 
+                         << std::endl;
+            _outFile << "EOD" << std::endl
+                << "set multiplot layout 4,1 rowsfirst" << std::endl
+                << "set xlabel 'time' " << std::endl
+                << "set ylabel 'bars/liters' " << std::endl
+                //<< "set yrange [0:]" << std::endl
+                << "set autoscale y" << std::endl
+                << "plot $data using 1:2 title 'pRes' with lines "  << std::endl
+                << "plot $data using 1:3 title 'pSys' with lines, " << std::endl
+                << "plot $data using 1:4 title 'pO2' with lines, "  << std::endl
+                << "plot $data using 1:5 title 'lvol' with lines, " << std::endl
                 << std::endl;
         }
     }

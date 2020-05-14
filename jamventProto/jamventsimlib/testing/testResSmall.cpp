@@ -1,5 +1,7 @@
 //
 //
+// step response for reservoire with small pressures.
+//
 
 #include <iostream>
 #include <memory>
@@ -18,30 +20,26 @@
 #include "GassimModel.h"
 
 #include "ParseTestArgs.h"
+#include "TimeSeries.h"
 #include "TimeSeriesOutFile.h"
 
 using namespace std;
 
-
-class LungsModel: public GassimModel 
+class ReservoirModel: public GassimModel 
 {
 public:
-    LungsModel(float srcPress, 
-               float resist,  
-               float lungsPress, 
-               float lungsVolume, 
-               float compliance) {
+    ReservoirModel(float srcPress, float resist, float resPress, float resVolume) {
         _gasSrc = std ::make_shared<GassimSource>("gasSrc", srcPress, .21);
         _valveRin = std ::make_shared<GassimPipe>("valveRin", resist, true);
-        _lungs = std::make_shared<GassimLungs>("lungs", lungsPress, lungsVolume, compliance);
+        _reservoir = std::make_shared<GassimReservoir>("reservoir", resPress, resVolume);
 
         // add them to the mode.
         addNode(_gasSrc);
         addNode(_valveRin);
-        addNode(_lungs);
+        addNode(_reservoir);
         // connect them up...
         connect(_gasSrc,_valveRin);
-        connect(_valveRin,_lungs);
+        connect(_valveRin,_reservoir);
 
     };
 
@@ -55,7 +53,7 @@ public:
      * @param timeLimit -- time limint in seconds
      * @return true if successful, false if not.
      */
-    bool run(TimeSeriesPV &vp,
+    bool run(TimeSeries &vp,
              double dt, 
              double timeLimit)
     {
@@ -63,114 +61,76 @@ public:
         double timeNow = 0.0;
 
         next();
-        vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
+        vp.push_back(timeNow, _reservoir->pressure());
         while (timeNow <= timeLimit) {
             step(dt);
             next();
             timeNow += dt;
-            vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
+            vp.push_back(timeNow, _reservoir->pressure());
         }
         return(true);
     };
 
-    double getLungsPO2() {
-        return(_lungs->pO2());
+    double getResPO2() {
+        return(_reservoir->pO2());
     }
+
 protected:
     // public container...
     GassimNode::NodePtr_t _gasSrc;
     GassimNode::NodePtr_t _valveRin;
-    GassimNode::NodePtr_t _lungs;
+    GassimNode::NodePtr_t _reservoir;
 private:
 };
 
 /**
- * @brief checkPres -- check a time series at time, for the expected value.
+ * @brief checkAtTime -- check a time series at time, for the expected value.
  * 
  * @param ts -- time series to check
- * @param testName -- test name to display
  * @param time -- time to check at
  * @param exp  -- expected value
  * @param errs -- error stream to report errors on.
- * @return -- returns additional count of errors.
+ * return -- returns additional count of errors.
  */
-unsigned checkPres(TimeSeriesPV &ts, 
-                     string const &testName,
-                     double dt,
-                     double time, 
-                     double exp, 
-                     ostream &errs) {
+unsigned  checkAtTime(TimeSeries &ts, 
+                 string const &testName,
+                 double dt,
+                 double time, 
+                 double exp, 
+                 ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    //if (isnan(it->p) || (.0005 < fabs(it->p-exp)) ) {
-    if (isnan(it->p) || (.3 < fabs(it->p-exp)) ) {  // this is a linear approximation, so be more forgiving of the error
+    if (.0005 < fabs(it->second-exp)) {
         errs << "(ERROR) " << testName << " "
              << __FUNCTION__ <<  " "
              << "TimeStep: "
              << floatw(3) << time << " "
              << "dt=" << dt << " "
              << "exp=" << exp << " "
-             << "got=" << it->p
+             << "got=" << it->second
              << endl;
         errCnt++;
     }
     return(errCnt);
 }
-/**
- * @brief checkVol -- check volume at dt
- * 
- * @param ts -- time series to check
- * @param testName -- test name to display
- * @param time -- time to check at
- * @param exp  -- expected value
- * @param errs -- error stream to report errors on.
- * @return -- returns additional count of errors.
- */
-unsigned checkVol(TimeSeriesPV &ts, 
-                     string const &testName,
-                     double dt,
-                     double time, 
-                     double exp, 
-                     ostream &errs) {
-    auto it = ts.findTime(time, .00001);
+unsigned checkPo2(ReservoirModel &model, double dt, ostream &errs) {
     unsigned errCnt=0;
-    //if (isnan(it->v) || (.0005 < fabs(it->v - exp)) ) {
-    if (isnan(it->v) || (.1 < fabs(it->v - exp)) ) {  // this is a linear approximation of compliance, so be more forgiving
-        errs << "(ERROR) " << testName << " "
-             << __FUNCTION__ <<  " "
-             << "TimeStep: "
-             << floatw(3) << time << " "
-             << "dt=" << dt << " "
-             << "exp=" << exp << " "
-             << "got=" << it->v
-             << endl;
-        errCnt++;
-    }
-    return(errCnt);
-}
-
-unsigned checkPo2(LungsModel &model, double dt, ostream &errs) {
-    unsigned errCnt=0;
-    if (.0005 < fabs(model.getLungsPO2()-.21) ) {
+    if (.0005 < fabs(model.getResPO2()-.21) ) {
         errCnt++;
         errs << "(ERROR)" << "pO2 at dt=" << 0 <<  " "
              << "exp=" << "0.21" << " " 
              << "got=" << floatw
-             (2) << model.getLungsPO2() 
+             (2) << model.getResPO2() 
              << endl;
     }
     return(errCnt);
 }
-
 /**
- * @brief testInflateComp0
+ * @brief 
  * 
  * @param outFileName 
- * @param dt 
- * @param timeLimit 
- * @param compliance 
- * @param errs 
- * @return unsigned 
+ * @param errs stream to print errors to.
+ * @return number of errors found.
  */
 unsigned testInflate(string const &outFileName,
              double dt,
@@ -178,51 +138,40 @@ unsigned testInflate(string const &outFileName,
              ostream &errs) 
 {
     // #
-    // # gasSrc <-> valveRin <-> lungs
-    // #  2bar        1R         1 liter 1 bar... compiliance 0
+    // # gasSrc <-> valveRin <-> resovior
+    // #  2bar        1R         1 liter 1 bar...
     // # pressures are in absolute pressure
     // # temperature is 21c
-    //
-    // # compliance of zero should behave the same as a fixed size reservoir
     ofstream outFile;
     string testName(__FUNCTION__);
     unsigned errCnt=0;
     TimeSeriesOutFile tout;
     if (!tout.open(outFileName, testName, dt, errs))
         return(1);
-
     //  ok paraemters done
     cout << "# Testing " << testName << " dt=" << floatw(3) << dt << endl;
-    TimeSeriesPV vp;
-    LungsModel  model(2,  // srcPress
-                      1,  // resist
-                      1,  // lungsPressure
-                      1,  // lungsVoume
-                      2); // compliance
-    model.run(vp, dt, timeLimit);
+    TimeSeries vp;
+    ReservoirModel  model(1.04,  // srcPress
+                          1,  // resist
+                          1,  // resPress
+                          1); // resVolume
+    model.init();
     errCnt+=checkPo2(model, 0, errs);
-
-    errCnt+=checkPres(vp, testName, dt, 1.0, 1.279, errs);
-    errCnt+=checkVol (vp, testName, dt, 1.0, 1.558, errs);
-    
-    errCnt+=checkPres(vp, testName, dt, 2.0, 1.454, errs);
-    errCnt+=checkVol (vp, testName, dt, 2.0, 1.909, errs);
-    
-    errCnt+=checkPres(vp, testName, dt, 3.0, 1.577, errs);
-    errCnt+=checkVol (vp, testName, dt, 3.0, 2.154, errs);
-    
-    errCnt+=checkPres(vp, testName, dt, 4.0, 1.667, errs);
-    errCnt+=checkVol (vp, testName, dt, 4.0, 2.334, errs);
-    
+    model.run(vp, dt, timeLimit);
+    errCnt+=checkAtTime(vp, testName, dt, 1.0, 1+0.632, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 2.0, 1+0.865, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 3.0, 1+0.950, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 4.0, 1+0.982, errs);
     errCnt+=checkPo2(model, timeLimit, errs);
 
     tout.writeTimeSeries(vp);
+
     return(errCnt);
 
 }
 
 /**
- * @brief testDeflateComp0 test discharge of Lungs to source
+ * @brief testDeflate test discharge of resoivoire to source
  * 
  * @param outFileName 
  * @param dt 
@@ -235,6 +184,11 @@ unsigned testDeflate(string const &outFileName,
              double timeLimit,
              ostream &errs) 
 {
+    // #
+    // # gasSrc <-> valveRin <-> resovior
+    // #  1 bar        1R         2 liter 2 bar
+    // # pressures are in absolute pressure
+    // # temperature is 21c
     string testName(__FUNCTION__);
     ofstream outFile;
     unsigned errCnt=0;
@@ -243,25 +197,20 @@ unsigned testDeflate(string const &outFileName,
         return(1);
     //  ok paraemters done
     cout << "# Testing " << testName << " dt=" << floatw(3) << dt << endl;
-    TimeSeriesPV vp;
-    LungsModel  model(1,  // srcPress
-                      1,  // resist
-                      2,  // lungsPressure
-                      2,  // lungsVoume
-                      2); // compliance
+    TimeSeries vp;
+    
+    ReservoirModel  model(1,  // srcPress
+                          1,  // resist
+                          1.04,  // resPress
+                          1); // resVolume
+    model.init();
+    errCnt+=checkPo2(model, 0, errs);
     model.run(vp, dt, timeLimit);
-
-    errCnt+=checkPres(vp, testName, dt, 1.0, 1.780, errs);
-    errCnt+=checkVol (vp, testName, dt, 1.0, 1.560, errs);
-
-    errCnt+=checkPres(vp, testName, dt, 2.0, 1.590, errs);
-    errCnt+=checkVol (vp, testName, dt, 2.0, 1.180, errs);
-
-    errCnt+=checkPres(vp, testName, dt, 3.0, 1.433, errs);
-    errCnt+=checkVol (vp, testName, dt, 3.0, 0.866, errs);
-
-    errCnt+=checkPres(vp, testName, dt, 4.0, 1.308, errs);
-    errCnt+=checkVol (vp, testName, dt, 4.0, 0.615, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 1.0, 2-0.632, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 2.0, 2-0.865, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 3.0, 2-0.950, errs);
+    errCnt+=checkAtTime(vp, testName, dt, 4.0, 2-0.982, errs);
+    errCnt+=checkPo2(model, timeLimit, errs);
 
     tout.writeTimeSeries(vp);
     return(errCnt);
@@ -300,10 +249,10 @@ int  main(int argc, const char * argv []) {
     // first test, timestep of 1 second... we should get 1-(1/e) (.632)
     errCnt+=testInflate(p.outFileName, 1,    6, errs);
     errCnt+=testInflate(p.outFileName, .001, 6, errs);
-
+    
     errCnt+=testDeflate(p.outFileName, 1,    6, errs);
     errCnt+=testDeflate(p.outFileName, .001, 6, errs);
-
+    
     if (errs.str().size() > 0) {
         cout << errs.str();
         cout << "TEST Failed" << endl;

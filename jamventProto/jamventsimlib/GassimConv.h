@@ -47,6 +47,12 @@ public:
     	return(lps*60);
     };
 
+	static double complianceCmH2oToBar(double c) {
+		return(c*GassimConst::cmH20Bar);
+	}
+	static double complianceBarToCmH2o(double c) {
+		return(c/GassimConst::cmH20Bar);
+	}
 protected:
 private:
 };

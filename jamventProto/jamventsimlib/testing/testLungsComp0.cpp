@@ -31,7 +31,7 @@ public:
                float lungsPress, 
                float lungsVolume, 
                float compliance) {
-        _gasSrc = std ::make_shared<GassimSource>("gasSrc", srcPress, .21);
+        _gasSrc = std ::make_shared<GassimSource>("gasSrc", srcPress, 1.0);
         _valveRin = std ::make_shared<GassimPipe>("valveRin", resist, true);
         _lungs = std::make_shared<GassimLungs>("lungs", lungsPress, lungsVolume, compliance);
 
@@ -55,7 +55,7 @@ public:
      * @param timeLimit -- time limint in seconds
      * @return true if successful, false if not.
      */
-    bool run(TimeSeriesPV &vp,
+    bool run(TimeSeriesPVO2 &vp,
              double dt, 
              double timeLimit)
     {
@@ -63,12 +63,12 @@ public:
         double timeNow = 0.0;
 
         next();
-        vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
+        vp.push_back(timeNow, _lungs->pressure(), _lungs->volume(), _lungs->pO2());
         while (timeNow <= timeLimit) {
             step(dt);
             next();
             timeNow += dt;
-            vp.push_back(timeNow, _lungs->pressure(), _lungs->volume());
+            vp.push_back(timeNow, _lungs->pressure(), _lungs->volume(), _lungs->pO2());
         }
         return(true);
     };
@@ -76,6 +76,11 @@ public:
     double getLungsPO2() {
         return(_lungs->pO2());
     }
+
+    void setLungsPO2(double pO2) {
+        _lungs->setPO2(pO2);      // start out with NO o2, and inject 100% 02
+    }
+
 protected:
     // public container...
     GassimNode::NodePtr_t _gasSrc;
@@ -94,7 +99,7 @@ private:
  * @param errs -- error stream to report errors on.
  * @return -- returns additional count of errors.
  */
-unsigned checkPres(TimeSeriesPV &ts, 
+unsigned checkPres(TimeSeriesPVO2 &ts, 
                      string const &testName,
                      double dt,
                      double time, 
@@ -125,7 +130,7 @@ unsigned checkPres(TimeSeriesPV &ts,
  * @param errs -- error stream to report errors on.
  * @return -- returns additional count of errors.
  */
-unsigned checkVol(TimeSeriesPV &ts, 
+unsigned checkVol(TimeSeriesPVO2 &ts, 
                      string const &testName,
                      double dt,
                      double time, 
@@ -147,15 +152,33 @@ unsigned checkVol(TimeSeriesPV &ts,
     return(errCnt);
 }
 
-unsigned checkPo2(LungsModel &model, double dt, ostream &errs) {
+/**
+ * @brief checkPo2 at time -- check a time series at time, for the expected value.
+ * 
+ * @param ts -- time series to check
+ * @param time -- time to check at
+ * @param exp  -- expected value
+ * @param errs -- error stream to report errors on.
+ * return -- returns additional count of errors.
+ */
+unsigned  checkPo2(TimeSeriesPVO2 &ts, 
+                 string const &testName,
+                 double dt,
+                 double time, 
+                 double exp, 
+                 ostream &errs) {
+    auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
-    if (.0005 < fabs(model.getLungsPO2()-.21) ) {
-        errCnt++;
-        errs << "(ERROR)" << "pO2 at dt=" << 0 <<  " "
-             << "exp=" << "0.21" << " " 
-             << "got=" << floatw
-             (2) << model.getLungsPO2() 
+    if (.0005 < fabs(it->o2-exp)) {
+        errs << "(ERROR) " << testName << " "
+             << __FUNCTION__ <<  " "
+             << "TimeStep: "
+             << floatw(3) << time << " "
+             << "dt=" << dt << " "
+             << "exp=" << exp << " "
+             << "got=" << it->o2
              << endl;
+        errCnt++;
     }
     return(errCnt);
 }
@@ -189,29 +212,35 @@ unsigned testInflate(string const &outFileName,
     if (!tout.open(outFileName, testName, dt, errs))
         return(1);
 
+    
     //  ok paraemters done
     cout << "# Testing " << testName << " dt=" << floatw(3) << dt << endl;
-    TimeSeriesPV vp;
+    TimeSeriesPVO2 vp;
     LungsModel  model(2,  // srcPress
                       1,  // resist
                       1,  // lungsPressure
                       1,  // lungsVoume
                       0); // compliance
+
+    model.setLungsPO2(0);
+    model.init();                      
     model.run(vp, dt, timeLimit);
-    errCnt+=checkPo2(model, 0, errs);
-    errCnt+=checkPres(vp, testName, dt, 1.0, 1+0.632, errs);
-    errCnt+=checkVol (vp, testName, dt, 1.0, 1,       errs);
+    errCnt+=checkPres(vp, testName, dt, 1.0, 1+0.632,        errs);
+    errCnt+=checkVol (vp, testName, dt, 1.0, 1,              errs);
+    errCnt+=checkPo2 (vp, testName, dt, 1.0, .632/(1+0.632), errs);
     
-    errCnt+=checkPres(vp, testName, dt, 2.0, 1+0.865, errs);
-    errCnt+=checkVol (vp, testName, dt, 2.0, 1,       errs);
+    errCnt+=checkPres(vp, testName, dt, 2.0, 1+0.865,        errs);
+    errCnt+=checkVol (vp, testName, dt, 2.0, 1,              errs);
+    errCnt+=checkPo2 (vp, testName, dt, 2.0, .865/(1+0.865), errs);
     
-    errCnt+=checkPres(vp, testName, dt, 3.0, 1+0.950, errs);
-    errCnt+=checkVol (vp, testName, dt, 3.0, 1,       errs);
+    errCnt+=checkPres(vp, testName, dt, 3.0, 1+0.950,        errs);
+    errCnt+=checkVol (vp, testName, dt, 3.0, 1,              errs);
+    errCnt+=checkPo2 (vp, testName, dt, 3.0, .950/(1+0.950), errs);
     
-    errCnt+=checkPres(vp, testName, dt, 4.0, 1+0.982, errs);
-    errCnt+=checkVol (vp, testName, dt, 4.0, 1,       errs);
+    errCnt+=checkPres(vp, testName, dt, 4.0, 1+0.982,        errs);
+    errCnt+=checkVol (vp, testName, dt, 4.0, 1,              errs);
+    errCnt+=checkPo2 (vp, testName, dt, 4.0, .982/(1+0.982), errs);
     
-    errCnt+=checkPo2(model, timeLimit, errs);
 
     tout.writeTimeSeries(vp);
     return(errCnt);
@@ -240,24 +269,29 @@ unsigned testDeflate(string const &outFileName,
         return(1);
     //  ok paraemters done
     cout << "# Testing " << testName << " dt=" << floatw(3) << dt << endl;
-    TimeSeriesPV vp;
+    TimeSeriesPVO2 vp;
     LungsModel  model(1,  // srcPress
                       1,  // resist
                       2,  // lungsPressure
                       1,  // lungsVoume
                       0); // compliance
+    model.setLungsPO2(.5);
     model.run(vp, dt, timeLimit);
     errCnt+=checkPres(vp, testName, dt, 1.0, 2-0.632, errs);
     errCnt+=checkVol (vp, testName, dt, 1.0, 1,       errs);
+    errCnt+=checkPo2 (vp, testName, dt, 1.0, .5,      errs);
 
     errCnt+=checkPres(vp, testName, dt, 2.0, 2-0.865, errs);
     errCnt+=checkVol (vp, testName, dt, 2.0, 1,       errs);
+    errCnt+=checkPo2 (vp, testName, dt, 2.0, .5,      errs);
 
     errCnt+=checkPres(vp, testName, dt, 3.0, 2-0.950, errs);
     errCnt+=checkVol (vp, testName, dt, 3.0, 1,       errs);
+    errCnt+=checkPo2 (vp, testName, dt, 3.0, .5,      errs);
 
     errCnt+=checkPres(vp, testName, dt, 4.0, 2-0.982, errs);
     errCnt+=checkVol (vp, testName, dt, 3.0, 1,       errs);
+    errCnt+=checkPo2 (vp, testName, dt, 4.0, .5,      errs);
 
     tout.writeTimeSeries(vp);
     return(errCnt);
