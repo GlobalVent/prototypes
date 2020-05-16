@@ -8,14 +8,16 @@
 JamventSimModel::JamventSimModel() :
 	_dt(0)
 {
-	double valveABrst=4.5;		
-	double valveCrst=1.11;
-	double valveDrst=0.0007894;
+	double o2SrcPres  = 4.0;
+	double airSrcPres = 4.0;
+	double valveABrst = 4.5;		
+	double valveCrst  = 1.11;
+	double valveDrst  = 0.029;
 
     // these are nomial default values, change the parameters prior to starting
 	//    based on whatever we want our test configuration input to be...
-	_o2Src = std ::make_shared<GassimSource>("o2Src",   4.0, 1.00);	  // 3 bar guage, 4 absoluate...
-	_airSrc = std ::make_shared<GassimSource>("airSrc", 4.0, 0.21);	  // 3 bar guage, 4 absoluate...
+	_o2Src = std ::make_shared<GassimSource>("o2Src",   o2SrcPres,  1.00);	  // 3 bar guage, 4 absoluate...
+	_airSrc = std ::make_shared<GassimSource>("airSrc", airSrcPres, 0.21);	  // 3 bar guage, 4 absoluate...
 	_valveA = std ::make_shared<GassimPipe>("valveA", valveABrst, false);
 	_valveB = std ::make_shared<GassimPipe>("valveB", valveABrst, false);
 	_valveC = std ::make_shared<GassimPipe>("valveC", valveCrst, false);

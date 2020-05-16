@@ -2,7 +2,6 @@
 
 #include <assert.h>
 #include <math.h>
-#include <iostream>
 
 #include "GassimReservoir.h"
 
