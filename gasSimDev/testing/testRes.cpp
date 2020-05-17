@@ -28,7 +28,7 @@
 
 using namespace std;
 
-class ReservoirModel: public GassimModel 
+class ReservoirModel: public GassimModel
 {
 public:
     ReservoirModel(float srcPress, float resist, float resPress, float resVolume) {
@@ -50,14 +50,14 @@ public:
     /**
      * @brief run
      *    run the gas model.
-     *   
+     *
      * @param vp -- reference to vector of result pairs for the run
-     * @param dt -- delta time to use. (time step in seconds) 
+     * @param dt -- delta time to use. (time step in seconds)
      * @param timeLimit -- time limint in seconds
      * @return true if successful, false if not.
      */
     bool run(TimeSeries &vp,
-             double dt, 
+             double dt,
              double timeLimit)
     {
         uint64_t nsteps=0;
@@ -88,18 +88,18 @@ private:
 
 /**
  * @brief checkAtTime -- check a time series at time, for the expected value.
- * 
+ *
  * @param ts -- time series to check
  * @param time -- time to check at
  * @param exp  -- expected value
  * @param errs -- error stream to report errors on.
  * return -- returns additional count of errors.
  */
-unsigned  checkAtTime(TimeSeries &ts, 
+unsigned  checkAtTime(TimeSeries &ts,
                  string const &testName,
                  double dt,
-                 double time, 
-                 double exp, 
+                 double time,
+                 double exp,
                  ostream &errs) {
     auto it = ts.findTime(time, .00001);
     unsigned errCnt=0;
@@ -121,24 +121,24 @@ unsigned checkPo2(ReservoirModel &model, double dt, ostream &errs) {
     if (.0005 < fabs(model.getResPO2()-.21) ) {
         errCnt++;
         errs << "(ERROR)" << "pO2 at dt=" << 0 <<  " "
-             << "exp=" << "0.21" << " " 
+             << "exp=" << "0.21" << " "
              << "got=" << floatw
-             (2) << model.getResPO2() 
+             (2) << model.getResPO2()
              << endl;
     }
     return(errCnt);
 }
 /**
- * @brief 
- * 
- * @param outFileName 
+ * @brief
+ *
+ * @param outFileName
  * @param errs stream to print errors to.
  * @return number of errors found.
  */
 unsigned testInflate(string const &outFileName,
              double dt,
              double timeLimit,
-             ostream &errs) 
+             ostream &errs)
 {
     // #
     // # gasSrc <-> valveRin <-> resovior
@@ -175,17 +175,17 @@ unsigned testInflate(string const &outFileName,
 
 /**
  * @brief testDeflate test discharge of resoivoire to source
- * 
- * @param outFileName 
- * @param dt 
- * @param timeLimit 
- * @param errs 
+ *
+ * @param outFileName
+ * @param dt
+ * @param timeLimit
+ * @param errs
  * @return number of errors found.
  */
 unsigned testDeflate(string const &outFileName,
              double dt,
              double timeLimit,
-             ostream &errs) 
+             ostream &errs)
 {
     // #
     // # gasSrc <-> valveRin <-> resovior
@@ -201,7 +201,7 @@ unsigned testDeflate(string const &outFileName,
     //  ok paraemters done
     cout << "# Testing " << testName << " dt=" << floatw(3) << dt << endl;
     TimeSeries vp;
-    
+
     ReservoirModel  model(1,  // srcPress
                           1,  // resist
                           2,  // resPress
@@ -220,10 +220,10 @@ unsigned testDeflate(string const &outFileName,
 }
 
 void printUsage() {
-    cout << "test00 [options]" << endl 
+    cout << "test00 [options]" << endl
          << "  --help -- print help" << endl
          << "  --verbose -- verbose mode" << endl
-         << "  --outfile=<filename> -- output file plot test telemetry" 
+         << "  --outfile=<filename> -- output file plot test telemetry"
          << "       files will have the filename.<testnum>.plt"
          << endl;
 }
@@ -261,9 +261,8 @@ int  main(int argc, const char * argv []) {
         cout << "TEST Failed" << endl;
         passed = false;
     }
-    
+
     cout << "# Test : " << (passed ? "PASSED" : "FAILED") << endl;
 
     return (passed ? 0 : 1);
 }
-

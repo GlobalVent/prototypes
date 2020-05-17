@@ -31,12 +31,6 @@
 
 using namespace std;
 
-typedef vector<string> ErrStrs;
-
-typedef std::pair<double, double> TimeSeriesPair_t;
-typedef std::vector<TimeSeriesPair_t> VectorSeries_t;
-typedef std::shared_ptr<VectorSeries_t> VectorSeriesPtr_t;
-
 
 double getCurrTime() {
 	struct timespec ts;
@@ -60,7 +54,6 @@ void waitTime(double tw) {
 }
 
 int  main(int argc, const char * argv []) {
-	ErrStrs errs;
 	bool passed = true;
 	cout << "Testing testing JamventSimModel ..." << endl;
 	double timeLimit  = 5;
@@ -91,14 +84,7 @@ int  main(int argc, const char * argv []) {
 		waitTime(0.01);		// wait 10 milliseconds...
 	}
 
-	if (errs.size() > 0) {
-		for (auto iter = errs.begin(); iter != errs.end(); iter++) 
-			cout << *iter << endl;
-		cout << "TEST Failed" << endl;
-		passed = false;
-	}
-	
-	
+	// kind of nothing to fail here	
 	cout << "Test : " << (passed ? "PASSED" : "FAILED") << endl;
 
 	return (passed ? 0 : 1);

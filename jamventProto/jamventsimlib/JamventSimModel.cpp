@@ -8,20 +8,27 @@
 JamventSimModel::JamventSimModel() :
 	_dt(0)
 {
-	double pipeResist=0.1;
+	double o2SrcPres  = 4.0;
+	double airSrcPres = 4.0;
+	double valveABrst = 4.5;		
+	double valveCrst  = 1.11;
+	double valveDrst  = 0.029;
 
     // these are nomial default values, change the parameters prior to starting
 	//    based on whatever we want our test configuration input to be...
-	_o2Src = std ::make_shared<GassimSource>("o2Src", 5.0, 1.00);	  // 4 bar guage, 5 absoluate...
-	_airSrc = std ::make_shared<GassimSource>("airSrc", 5.0, 0.21);	  // 4 bar guage, 5 absoluate...
-	_valveA = std ::make_shared<GassimPipe>("valveA", pipeResist, false);
-	_valveB = std ::make_shared<GassimPipe>("valveB", pipeResist, false);
-	_valveC = std ::make_shared<GassimPipe>("valveC", pipeResist, false);
-	_valveD = std ::make_shared<GassimPipe>("valveD", pipeResist, false);
+	_o2Src = std ::make_shared<GassimSource>("o2Src",   o2SrcPres,  1.00);	  // 3 bar guage, 4 absoluate...
+	_airSrc = std ::make_shared<GassimSource>("airSrc", airSrcPres, 0.21);	  // 3 bar guage, 4 absoluate...
+	_valveA = std ::make_shared<GassimPipe>("valveA", valveABrst, false);
+	_valveB = std ::make_shared<GassimPipe>("valveB", valveABrst, false);
+	_valveC = std ::make_shared<GassimPipe>("valveC", valveCrst, false);
+	_valveD = std ::make_shared<GassimPipe>("valveD", valveDrst, false);
 	_reservoir = std ::make_shared<GassimReservoir>("reservoir", 1.0, 2.0);  // 1 bar at 2 liter bottle
-	_lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 4.0, 1.0);  // 4 liter lungs, compliance of 1 (1/1 pressure volume relationship)...
-	_gasSink = std ::make_shared<GassimSource>("gasSink", 1.0, 1.00);	  // gas sink at 1 bar...
-
+	
+	// 2.5 liter lungs, compliance of .035 cmh20
+	_lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 2.5, GassimConv::complianceCmH2oToBar(.035));  
+	// _lungs = std ::make_shared<GassimLungs>("reservoir", 1.0, 2.5, 20);  
+	//_lungs = std ::make_shared<GassimReservoir>("lungs", 1, 100);  
+	_gasSink = std ::make_shared<GassimSource>("gasSink", 1.0, 0.21);	  // gas sink at 1 bar...
 
 	_model.addNode(_o2Src);
 	_model.addNode(_airSrc);
@@ -70,6 +77,14 @@ void JamventSimModel::setLogStream(std::ostream &ostr) {
 }
 
 /**
+ * @brief init
+ *    initialize timestep 0, needed if you want to plot the initialial sate
+ */
+void JamventSimModel::init() {
+	_model.init();
+}
+
+/**
  * @brief step -- step the simulation one delta time.
  * @details step the simulaton one time step.
  * 
@@ -77,8 +92,8 @@ void JamventSimModel::setLogStream(std::ostream &ostr) {
  */
 void JamventSimModel::step(float dt) {
 	_dt+=dt;
-	_model.step(dt);
 	_model.next();
+	_model.step(dt);
 }
 
 
@@ -116,7 +131,7 @@ bool JamventSimModel::getValveCopen() {
 	return(_valveC->open());
 }
 bool JamventSimModel::getValveDopen() {
-	return(_valveC->open());
+	return(_valveD->open());
 }
 
 /**
@@ -168,4 +183,24 @@ void JamventSimModel::setAirPressure(double pressure) {
 	_airSrc->setPressure(pressure);
 }
 
+/**
+ * @brief set the lung compliance
+ *     use Conversion routines to convert to and from cmH20
+ * @param compliance  in  (delta)liters
+ * 						 ---------------
+ * 						  (delta)bar
+ */
+void JamventSimModel::setLungCompliance(double compliance) {
+	_lungs->setCompliance(compliance);
+}
+
+
+/**
+ * @brief Get the lung volume value.
+ * 
+ * @return lung volume
+ */
+float JamventSimModel::getLvol() {
+	return(_lungs->volume());
+}
 

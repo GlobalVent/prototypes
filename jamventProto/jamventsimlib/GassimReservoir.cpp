@@ -2,7 +2,6 @@
 
 #include <assert.h>
 #include <math.h>
-#include <iostream>
 
 #include "GassimReservoir.h"
 
@@ -16,7 +15,7 @@ GassimReservoir::GassimReservoir(const std::string &name,
 }
 void  GassimReservoir::setPO2(double pO2) {
 	assert(pO2 <= 1.0);				// double check...
-    assert (pO2 > 0);
+    //assert (pO2 > 0);
 	GassimNode::setPO2(pO2);
 };
 
@@ -42,24 +41,27 @@ void GassimReservoir::step(double dt) {
         	continue;
         numValveOpen += 1;
         // #
-        // #              1                # calculate the new pressure..
-        // # P      = (-----------)        #   this is only valid for a single
-        // #               dt/RV           #   inlet at a time... no parallel inlets...
-        // #             e
+        // #                -t                # calculate the new pressure..
+        // # P      = 1- (-----------)        #   this is only valid for a single
+        // #                  dt/RV           #   inlet at a time... no parallel inlets...
+        // #                e
         double pDrop = c->getPressureDrop(nodeId());	// pressure drop relative to me...
+
         double R=c->resistance();
         double V=volume();
 	    double tc=1-exp(-dt/(R*V));
-	    pDelta = pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
-        ppNewO2+=pDelta*(c->pO2());
-	    
-		}
-
+	    pDelta += pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
+        if (pDrop > 0)                               // our percent Po2 only changes if we are gaining gas
+            ppNewO2+=pDelta*(c->pO2());
+	}
 	
     assert(numValveOpen <= 1);      //# don't support parallel filling of the container yet...
     // # ttry working with partial pressures.
     double ppO2 = pressure() * pO2();
-    ppO2 += ppNewO2;
-    setPressure(pressure()+pDelta);
-    setPO2(ppO2/pressure());
+    double newP = pressure() + pDelta;
+    setPressure(newP);
+    if (ppNewO2) {          // no change, so don't recalculate...
+        ppO2 += ppNewO2;
+        setPO2(ppO2/newP);
+    }
 }
