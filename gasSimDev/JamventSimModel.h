@@ -40,7 +40,9 @@ public:
 	 * 
 	 * @param ostr [description]
 	 */
-	virtual void setLogStream(std::ostream &ostr);
+	virtual void setLogStream(std::ostream *ostr) {
+		_ostr = ostr;
+	}
 
 	/**
 	 * @brief init
@@ -69,7 +71,7 @@ public:
 	 * @brief set the valve state for the simulator
 	 * @details manullly override the valve state for a given valve.
 	 * 
-	 * @param open [description]
+	 * @param open true to open the valve, false to close.
 	 */
 	virtual void setValveAopen(bool open);
 	virtual void setValveBopen(bool open);
@@ -106,7 +108,7 @@ public:
 	 * @details read back the p02 level 0.00 - 1.0....
 	 * @return percent O2
 	 */
-	virtual float getPo2();
+	virtual float getPO2();
 
 	/**
 	 * @brief Get the lung volume value.
@@ -145,6 +147,7 @@ public:
 
 protected:
 	GassimModel	_model;
+	std::ostream *_ostr;	
 
 	GassimNode::NodePtr_t _o2Src;
 	GassimNode::NodePtr_t _airSrc;
