@@ -6,6 +6,7 @@
 #include <set>
 #include <memory>
 #include <map>
+#include <ostream>
 
 #include "GassimVars.h"
 
@@ -29,6 +30,15 @@ public:
 	GassimNode() = delete;			// no default constructor..
 	GassimNode(const std::string &name, NodeType nodeType);
 	virtual ~GassimNode() {};
+	/**
+	 * @brief Set the Log Stream object (for debug telemetry)
+	 * 
+	 * @param ostr 
+	 */
+	virtual void setLogStream(std::ostream *ostr) {
+		_ostr = ostr;
+	}
+
 
 	// set and get for the internal vars..., 
 	//   get the current value.
@@ -77,6 +87,7 @@ public:
 
 
 protected:
+	std::ostream *_ostr;
 	std::string _name;
 	unsigned _stepCount;
 	unsigned  _nodeId;
