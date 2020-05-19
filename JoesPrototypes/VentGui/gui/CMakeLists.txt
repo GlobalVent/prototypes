@@ -15,6 +15,9 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 file(GLOB GUI_SOURCES . *.cpp *.h *.ui)
 
+include_directories(common/resources)
+add_subdirectory(common/resources)
+
 include_directories(common/widgets)
 add_subdirectory(common/widgets)
 
