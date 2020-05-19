@@ -13,12 +13,15 @@ class LabeledInputWidget: public QWidget
   public:
     LabeledInputWidget(QWidget* parent = nullptr) = delete;
     LabeledInputWidget(const QString& label, QWidget* parent = nullptr);
+    LabeledInputWidget(const QString &label, QSpinBox* spinBox, QWidget* parent = nullptr);
 
     ~LabeledInputWidget() = default;
 
     QSpinBox* getSpinBox();
 
   private:
+    void init();
+
     QLabel* m_label = nullptr;
     QSpinBox* m_spinBox = nullptr;
 };

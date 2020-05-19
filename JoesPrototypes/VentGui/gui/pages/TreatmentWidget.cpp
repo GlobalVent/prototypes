@@ -8,6 +8,7 @@
 #include "LabeledDataWidget.h"
 #include "GraphWidget.h"
 #include "PushButtonWidget.h"
+#include "IeRatioSpinBoxWidget.h"
 
 namespace
 {
@@ -69,7 +70,10 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     inputGroupLayout->addWidget(w);
 
     // JPW \todo Need to understand how I:E ratio options
-    inputGroupLayout->addWidget(new LabeledInputWidget(tr(IeLabelStr)));
+    m_ieSpinBox = new IeRatioSpinBoxWidget();
+    m_ieSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
+    w = new LabeledInputWidget(tr(IeLabelStr), m_ieSpinBox);
+    inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(PeepLabelStr));
     m_peepSpinBox = w->getSpinBox();

@@ -13,14 +13,25 @@ LabeledInputWidget::LabeledInputWidget(const QString& label, QWidget* parent)
     , m_label{new QLabel{label}}
     , m_spinBox{new QSpinBox}
 {
+    init();
+}
+
+LabeledInputWidget::LabeledInputWidget(const QString &label, QSpinBox *spinBox, QWidget *parent)
+    : QWidget(parent), m_label{new QLabel{label}}, m_spinBox{spinBox}
+{
+    init();
+}
+
+void LabeledInputWidget::init()
+{
     // Set size policy
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
     setFixedHeight(48);
     //setMaximumWidth(120);
     setMinimumWidth(60);
-    
+
     // Add to a horizontal layout.
-    auto layout = new QVBoxLayout{ };
+    auto layout = new QVBoxLayout{};
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     layout->setSpacing(2);

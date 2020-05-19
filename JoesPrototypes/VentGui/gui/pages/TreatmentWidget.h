@@ -48,7 +48,7 @@ private:
   QSpinBox* m_fiO2SpinBox = nullptr;
   QSpinBox *m_tidalVolSpinBox = nullptr;
   QSpinBox *m_respRateSpinBox = nullptr;
-  // I:E?
+  QSpinBox *m_ieSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
 
