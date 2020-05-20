@@ -15,5 +15,8 @@ namespace Theme
     // Colors
     static const QColor BackgroundColor = QColor(Qt::white);
     static const QColor ForegroundColor = QColor(Qt::black);
+    // Dimensions
+    static constexpr int ScreenWidth_px = 800;
+    static constexpr int ScreenHeight_px = 480;
 }
 #endif /* THEMEWIDGET_H */

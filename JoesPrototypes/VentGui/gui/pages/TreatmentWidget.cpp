@@ -176,6 +176,7 @@ UserInputData TreatmentWidget::getUserInputData() {
     data.fiO2 = m_fiO2SpinBox->value();
     data.tidalVol = m_tidalVolSpinBox->value();
     data.respRate = m_respRateSpinBox->value();
+    data.ie = static_cast<IeRatioSpinBoxWidget::IeRatio_E>(m_ieSpinBox->value());
     data.peep = m_peepSpinBox->value();
 
     return data;
