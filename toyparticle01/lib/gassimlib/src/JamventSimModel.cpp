@@ -6,8 +6,7 @@
 
 
 JamventSimModel::JamventSimModel() :
-	_dt(0),
-	_ostr(nullptr)
+	_dt(0)
 {
 	double o2SrcPres  = 4.0;
 	double airSrcPres = 4.0;
@@ -67,6 +66,15 @@ JamventSimModel::~JamventSimModel()
 void JamventSimModel::setDebugLevel(unsigned level) {
 	// TBD.. do something with this.
 }
+/**
+ * @brief setLogStream
+ * @details set the string stream to use for logging debug information.
+ * 
+ * @param ostr [description]
+ */
+void JamventSimModel::setLogStream(std::ostream &ostr) {
+	// TBD do something with this.
+}
 
 /**
  * @brief init
@@ -83,9 +91,9 @@ void JamventSimModel::init() {
  * @param dt -- delta time since last time step.
  */
 void JamventSimModel::step(float dt) {
+	_dt+=dt;
 	_model.next();
 	_model.step(dt);
-	_dt+=dt;
 }
 
 
@@ -149,7 +157,7 @@ float JamventSimModel::getPres() {
  * @details read back the p02 level 0.00 - 1.0....
  * @return [description]
  */
-float JamventSimModel::getPO2() {
+float JamventSimModel::getPo2() {
 	return(_reservoir->pO2());
 }
 

@@ -15,17 +15,11 @@
 class GassimModel {
 public:
 	GassimModel()
-		: _ostr(nullptr)
-		, _nextId(0)
+		: _nextId(0)
 		, _steps(0) {}
 	;
 	virtual ~GassimModel() {}
-	virtual void setLogStream(std::ostream *ostr) {
-		_ostr = ostr;
-		for (auto const &it : _childNodes) // easier to do this later than doing it in place.
-			it.second->setLogStream(ostr);
-	}
-	
+	;
 
 	virtual void connect(GassimNode::NodePtr_t &a, GassimNode::NodePtr_t &b);
 	virtual void addNode(GassimNode::NodePtr_t nodePtr);
@@ -36,7 +30,7 @@ public:
 
 protected :
 private :
-	std::ostream *_ostr;
+
 	std::map<unsigned, GassimNode::NodePtr_t> _childNodes;			// 
 	unsigned _nextId;		// 
 	unsigned _steps;

@@ -3,7 +3,6 @@
 // Blink an LED
 // ------------
 
-#include <chrono>
 /*-------------
 
 We've heavily commented this code for you. If you're a pro, feel free to ignore it.
@@ -53,42 +52,12 @@ void setup() {
 // Next we have the loop function, the other essential part of a microcontroller program.
 // This routine gets repeated over and over, as quickly as possible and as many times as possible, after the setup function is called.
 // Note: Code that blocks for too long (like more than 5 seconds), can make weird things happen (like dropping the network connection).  The built-in delay function shown below safely interleaves required background activity, so arbitrarily long delays can safely be done if you need them.
-double getTimeNow() {
-    #if PARTICLE==1
-        // millis rolls over after 49 days, so handle the roll over...
-        static unsigned long lastMillis = 0;
-        static unsigned long long totalTime = 0;
-        unsigned long long deltaTime;
-        unsigned long currMillis = millis();
-        if (currMillis >= lastMillis)    
-            deltaTime = currMillis-lastMillis;
-        else   // we rolled over...
-            deltaTime = ((unsigned long long)currMillis+0x100000000ULL)-lastMillis;
-        lastMillis=currMillis;      // remember this.
-        totalTime+= deltaTime;
-        return(1e-3*totalTime);
-    #else
-
-        using Clock = std::chrono::high_resolution_clock;
-        using TimePoint = std::chrono::time_point<Clock>;
-        // using Ms = std::chrono::milliseconds;
-        // using Ns = std::chrono::nanoseconds;
-
-        TimePoint point = Clock::now();
-        const Clock::duration since_epoch = point.time_since_epoch();
-        double ns = std::chrono::duration<double>(since_epoch).count();
-        return(ns);
-    #endif
-
-}
-
 static unsigned cnt =0;
 void loop() {
     unsigned dly=(((cnt++ % 4)+1) * 500);
 
-    double ns = getTimeNow();
-    Serial.printf("ns = %g\n",ns);
-
+    
+    Serial.println("hey..\n");
 
     // To blink the LED, first we'll turn it on...
     digitalWrite(led1, HIGH);
