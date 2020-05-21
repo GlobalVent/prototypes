@@ -8,19 +8,10 @@
       <LocalDirForAbsolutePaths>$(ToolchainDir)</LocalDirForAbsolutePaths>
     </CustomSourceDirectories>
     <DeploymentHost>
-      <HostName>raspberrypi</HostName>
+      <HostName>rpi02.local</HostName>
       <Transport>SSH</Transport>
       <UserName>pi</UserName>
     </DeploymentHost>
-    <MainSourceTransferCommand>
-      <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
-      <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/tmp/VisualGDB/$(ProjectDirUnixStyle)</RemoteDirectory>
-      <TransferNewFilesOnly>true</TransferNewFilesOnly>
-      <IncludeSubdirectories>true</IncludeSubdirectories>
-      <DeleteDisappearedFiles>false</DeleteDisappearedFiles>
-      <ApplyGlobalExclusionList>true</ApplyGlobalExclusionList>
-    </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
     <IgnoreFileTransferErrors>false</IgnoreFileTransferErrors>
