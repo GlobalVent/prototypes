@@ -45,6 +45,8 @@ private:
     QPen m_greenPen{Qt::green, 2};
     QPen* m_pen = &m_redPen;
 
+    QColor m_bgColor;
+
     InitParams m_params;
 
     int m_tickCount;

@@ -7,8 +7,8 @@ namespace
     const QString ButtonStyle =
 "QPushButton {"
 "  font-family: 'Roboto';"
-"  font-size: 12px;"
-"  font-weight: 400;"
+"  font-size: 14px;"
+"  font-weight: 700;"
 "  color: black;"
 "  border: 2px solid gray;"
 "  border-radius: 8px;"

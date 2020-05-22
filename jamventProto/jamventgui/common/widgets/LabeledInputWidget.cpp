@@ -5,7 +5,7 @@
 
 namespace
 {
-    const QString LabelStyle = "QLabel { font-family: 'Roboto'; font-size: 12px; font-weight: 400; color: black; }";
+    const QString LabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 700; color: black; }";
 }
 
 LabeledInputWidget::LabeledInputWidget(const QString& label, QWidget* parent)

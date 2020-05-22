@@ -5,15 +5,17 @@
 #include "GraphWidget.h"
 
 namespace {
-    constexpr int Indent_px = 20;
+    constexpr int Indent_px = 24;
 }
 
 GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
     : QWidget(parent)
     , m_params{params}
-    , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height() - Indent_px)
+    // , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height() - Indent_px)
+    , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height())
     , params.xAxisTickCount, parent))
-    , m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height() - Indent_px), parent))
+    //, m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height() - Indent_px), parent))
+    , m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height()), parent))
     , m_yAxisMaxLabel(new QLabel(parent))
     , m_yAxisMinLabel(new QLabel(parent))
 {
@@ -22,14 +24,15 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
 
     m_yAxisMaxLabel->setGeometry(QRect(0, 0, Indent_px, Indent_px));
     QFont font = m_yAxisMaxLabel->font();
-    font.setPixelSize(Theme::YAxisLabelFontSize_px);
+    font.setPixelSize(Theme::SmallerFontSize_px);
     m_yAxisMaxLabel->setFont(font);
     m_yAxisMaxLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_yAxisMaxLabel->setText(QString::number(m_params.yAxisMax, 'f', 1));
 
-    m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px - Indent_px, Indent_px, Indent_px));
+    //m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px - Indent_px, Indent_px, Indent_px));
+    m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px, Indent_px, Indent_px));
     font = m_yAxisMinLabel->font();
-    font.setPixelSize(Theme::YAxisLabelFontSize_px);
+    font.setPixelSize(Theme::SmallerFontSize_px);
     m_yAxisMinLabel->setFont(font);
     m_yAxisMinLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_yAxisMinLabel->setText(QString::number(m_params.yAxisMin, 'f', 1));

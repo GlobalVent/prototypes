@@ -7,9 +7,10 @@
 
 namespace {
     constexpr int Indent_px = 20;
+    constexpr int BorderWidth_px = 1;
 }
 
-PlotAreaWidget::PlotAreaWidget(const QRect& rect, int xAxisTickCount, QWidget* parent)
+PlotAreaWidget::PlotAreaWidget(const QRect& rectArg, int xAxisTickCount, QWidget* parent)
     : QWidget(parent)
     , m_tickCount(xAxisTickCount)
     , m_xStep(0.0)
@@ -23,15 +24,22 @@ PlotAreaWidget::PlotAreaWidget(const QRect& rect, int xAxisTickCount, QWidget* p
     setAutoFillBackground(false);
     setAttribute(Qt::WA_OpaquePaintEvent);
 
-    // set the geometry
-    setGeometry(rect);
+    m_bgColor = palette().color(QPalette::Window);
+
+    qDebug() << "PlotAreaWidget(" << rectArg << ", " << xAxisTickCount << ")";
+    qDebug() << "..old geometry =" << geometry();
+
+    // set the geometry. Allow to show the border from the parent.
+    setGeometry(rectArg.x(), rectArg.y() + BorderWidth_px, rectArg .width() - BorderWidth_px, rectArg.height() - BorderWidth_px - BorderWidth_px);
+
+    qDebug() << "..new geometry =" << geometry();
 
     m_xStep = static_cast<qreal>(width()) / m_tickCount; // Calculate as real as need precision.
 
     qDebug() << "PlotAreaWidget()."
              << "m_tickCount =" << m_tickCount
              << "m_xStep = " << m_xStep;
-    qDebug() << "..rect = " << rect;
+    qDebug() << "..rect = " << rectArg;
     qDebug() << "..width() = " << width() << ", height() = " << height();
 }
 
@@ -46,7 +54,8 @@ void PlotAreaWidget::paintEvent(QPaintEvent *)
         // Cursor
         const int stepWidth = static_cast<int>(m_xStep);
         //painter.fillRect(m_x + 1, 0, stepWidth + stepWidth, height(), Qt::black);
-        painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), Theme::BackgroundColor);
+        //painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), Theme::BackgroundColor);
+        painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), m_bgColor);
 
         painter.drawLine(m_line);
     }
