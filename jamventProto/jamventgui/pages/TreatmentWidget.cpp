@@ -25,7 +25,7 @@ namespace
 
     constexpr const char *PercentSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " %");
     constexpr const char *MlSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " ml");
-    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " 1/min");
+    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " l/min");
     constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " cmH2O");
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
@@ -129,7 +129,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_urParams.xAxisMax = 6.0;
     m_urParams.yAxisMin = -1.0;
     m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = tr("Flow R(1/min)");
+    m_urParams.yAxisLabel = tr("Flow R(l/min)");
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif

@@ -5,8 +5,8 @@
 
 namespace
 {
-    const QString LabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 700; color: black; }";
-    const QString DataLabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 700; color: black;  border: 2px solid blue;}";
+    const QString LabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 500; color: black; }";
+    const QString DataLabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 500; color: black;  border: 2px solid blue;}";
 }
 
 LabeledDataWidget::LabeledDataWidget(const QString& label, QWidget* parent)

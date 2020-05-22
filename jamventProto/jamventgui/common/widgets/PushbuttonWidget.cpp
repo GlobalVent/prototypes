@@ -8,7 +8,7 @@ namespace
 "QPushButton {"
 "  font-family: 'Roboto';"
 "  font-size: 14px;"
-"  font-weight: 700;"
+"  font-weight: 500;"
 "  color: black;"
 "  border: 2px solid gray;"
 "  border-radius: 8px;"
