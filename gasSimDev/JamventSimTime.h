@@ -14,6 +14,11 @@
 
 #include <chrono>
 
+#if PARTICLE==1
+#include <Particle.h>
+#endif
+
+
 class JamventSimTime {
 public:
     JamventSimTime() {};
