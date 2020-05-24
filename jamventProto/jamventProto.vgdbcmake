@@ -32,7 +32,7 @@
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
     <BinaryDirectory>VisualGDB/$(ConfigurationName)</BinaryDirectory>
-    <MainCMakeTarget>testCtrl01</MainCMakeTarget>
+    <MainCMakeTarget>JamventGui</MainCMakeTarget>
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
@@ -40,7 +40,6 @@
         <Transport>BuiltinShortcut</Transport>
       </RemoteHost>
       <Command>$(VISUALGDB_DIR)/ninja.exe</Command>
-      <Arguments>-v</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <BackgroundMode xsi:nil="true" />
     </MakeCommandTemplate>
@@ -56,6 +55,9 @@
     <UpdateSourcesInCMakeFile>true</UpdateSourcesInCMakeFile>
     <ExportCompileCommands>false</ExportCompileCommands>
     <DisableToolchainFile>false</DisableToolchainFile>
+    <ExtraConfigurationVariables>
+      <string>JV_GUI=1</string>
+    </ExtraConfigurationVariables>
     <CMakeMakefileType>Ninja</CMakeMakefileType>
     <PrefixOnBuildMachine>$(BuildDir)</PrefixOnBuildMachine>
     <DeployAsRoot>false</DeployAsRoot>

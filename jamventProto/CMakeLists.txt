@@ -16,7 +16,14 @@ include_directories(jamhwlib)
 include_directories(jamctrllib)
 
 
-if (WINDOWS)
+# way to inspect the variables available
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
+
+if (JV_GUI)
 # add_subdirectory(jamvent)
 add_subdirectory(jamventgui)
 endif()

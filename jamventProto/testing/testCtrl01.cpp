@@ -43,7 +43,7 @@ int main(int argc, const char * argv []) {
         return(1);
 
     };
-	string testName("testModel01");
+	string testName("testCtrl01");
 
     if (p.parms.size() > 0) {
         cout << "incorrect number of parameters" << endl;
@@ -59,7 +59,6 @@ int main(int argc, const char * argv []) {
 	JamCtrlSim jamCtrlSim;
 	JamventTime jamTime;
 
-
 	TimeSeriesMod ts;
 
 	cout << "Testing jamCtlSim functions...xx" << endl;
@@ -71,18 +70,18 @@ int main(int argc, const char * argv []) {
 
 	JamCtrlData cd;
 	cd = jamCtrlSim.getCtrlData();
-	ts.push_back(0, cd.pRes, cd.pSys, cd.pO2, 0,
+	ts.push_back(0, cd.pRes, cd.pSys, cd.pO2, cd.lvol,
 				 cd.valveAopen, cd.valveBopen, cd.valveCopen, cd.valveDopen);
 
 	// finite time...
 	double timeStart = jamTime.now();
-	double timeEnd = timeStart + 60;
+	double timeEnd = timeStart + 30;
 	double timeNow = timeStart;
 	jamCtrlSim.runThread();
 	while ((timeNow=jamTime.now()) < timeEnd) {
 		jamTime.waitTime(0.10); // sample us 10 times a second.
 		cd = jamCtrlSim.getCtrlData();
-		ts.push_back(timeNow-timeStart, cd.pRes, cd.pSys, cd.pO2, 0,
+		ts.push_back(timeNow-timeStart, cd.pRes, cd.pSys, cd.pO2, cd.lvol,
 					cd.valveAopen, cd.valveBopen, cd.valveCopen, cd.valveDopen);
 	}
 	jamCtrlSim.killThread();

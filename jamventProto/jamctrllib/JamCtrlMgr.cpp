@@ -21,11 +21,9 @@ public:
 // temporary test sequence for initial hookup
 //    replace with real model later..
 TestSequence testSequence[] = {
-	{1, true,  false, false, false},
-	{1, false, true,  false, false},
-	{1, false, false, true,  false},
-	{4, false, false, false, true},
-
+	{1, true,  false, false, true},  // charge o2 and exhale
+	{1, false, true,  false, true},  // charge air and exhale
+	{1, false, false, true,  false}, // inhale
 };
 
 /**
