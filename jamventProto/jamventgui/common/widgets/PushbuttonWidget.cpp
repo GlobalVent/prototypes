@@ -1,6 +1,6 @@
 
 #include "Theme.h"
-#include "PushButtonWidget.h"
+#include "PushbuttonWidget.h"
 
 namespace
 {

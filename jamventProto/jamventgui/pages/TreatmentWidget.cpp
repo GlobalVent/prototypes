@@ -7,7 +7,7 @@
 #include "LabeledInputWidget.h"
 #include "LabeledDataWidget.h"
 #include "GraphWidget.h"
-#include "PushButtonWidget.h"
+#include "PushbuttonWidget.h"
 #include "IeRatioSpinBoxWidget.h"
 
 namespace
