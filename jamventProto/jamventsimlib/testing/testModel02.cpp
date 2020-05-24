@@ -26,7 +26,7 @@
 
 //#include "StrTokenize.h"
 //#include "fmtstr.h"
-#include "JamventSimModel.h"
+#include "JamventSimModelRt.h"
 #include "ParseTestArgs.h"
 #include "TimeSeriesOutFile.h"
 
@@ -106,14 +106,14 @@ int  main(int argc, const char * argv []) {
 
 	TimeSeriesMod ts;
 	bool passed = true;
-	cout << "Testing testing JamventSimModel ..." << endl;
+	cout << "Testing testing JamventSimModelRt ..." << endl;
 
 
 	// note this is a test so it only runs for a short time and then stops...
 	//  actual simulation on hardware would be a loop forever...
 
 	// model test for real..
-	JamventSimModel model;
+	JamventSimModelRt model;
 	
 	// note this test just makes sure the model itself does not crash.
 	// but nothing yet is going on...

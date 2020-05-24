@@ -16,7 +16,7 @@ struct hexw
     hexw(unsigned width) : _width(width) {};
     unsigned _width;
 };
-std::ostream& operator<<(std::ostream& os, const hexw &f) {
+inline std::ostream& operator<<(std::ostream& os, const hexw &f) {
     if (f._width)
         os << std::setfill('0');
     else
@@ -31,7 +31,7 @@ struct decw
     unsigned _width;
 };
 
-std::ostream& operator<<(std::ostream& os, const decw &f) {
+inline std::ostream& operator<<(std::ostream& os, const decw &f) {
     if (f._width)
         os << std::setfill('0');
     else
@@ -52,7 +52,7 @@ struct floatw
     char _fill;
 };
 
-std::ostream& operator<<(std::ostream&os, const floatw &f) {
+inline std::ostream& operator<<(std::ostream&os, const floatw &f) {
     if (f._width)
         os << std::setfill(f._fill);
     else

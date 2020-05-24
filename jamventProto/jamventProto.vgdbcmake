@@ -32,7 +32,7 @@
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
     <BinaryDirectory>VisualGDB/$(ConfigurationName)</BinaryDirectory>
-    <MainCMakeTarget>jsimModel00</MainCMakeTarget>
+    <MainCMakeTarget>testCtrl01</MainCMakeTarget>
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>

@@ -16,13 +16,16 @@ include_directories(jamhwlib)
 include_directories(jamctrllib)
 
 
+if (WINDOWS)
 # add_subdirectory(jamvent)
 add_subdirectory(jamventgui)
+endif()
 
 add_subdirectory(utils)
 add_subdirectory(jamventsimlib)
 add_subdirectory(jamhwlib)
 add_subdirectory(jamctrllib)
+add_subdirectory(testing)
 
 #add_executable(jamventProtoProj01 jamventProtoProj01.cpp)
 #target_link_libraries(jamventProtoProj01 "${LIBRARIES_FROM_REFERENCES}")

@@ -1,5 +1,5 @@
 /**
- * @file JamventSimTime.h
+ * @file JamventTime.h
  * @author ralph bellofatto
  * @brief  Jamvent sim time module provides class to pass to jamventmodelrt that can be used 
  *         for getting the time as a double percision floating point.
@@ -9,8 +9,8 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef __JAMVENT_SIM_TIME_H__
-#define __JAMVENT_SIM_TIME_H__
+#ifndef __JAMVENT_TIME_H__
+#define __JAMVENT_TIME_H__
 
 #include <chrono>
 
@@ -19,10 +19,10 @@
 #endif
 
 
-class JamventSimTime {
+class JamventTime {
 public:
-    JamventSimTime() {};
-    ~JamventSimTime() {};
+    JamventTime() {};
+    ~JamventTime() {};
     /**
      * @brief get the time for NOW 
      * 
