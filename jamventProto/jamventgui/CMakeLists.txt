@@ -26,8 +26,10 @@ add_subdirectory(common/data)
 include_directories(pages)
 add_subdirectory(pages)
 
+include_directories(../jamctrllib)
+
 message("GUI_SOURCES = ${GUI_SOURCES}")
 
 add_executable(JamventGui ${GUI_SOURCES})
 
-target_link_libraries(JamventGui Qt5::Widgets "${LIBRARIES_FROM_REFERENCES}")
+target_link_libraries(JamventGui Qt5::Widgets jamctrllib jamventsim pthread "${LIBRARIES_FROM_REFERENCES}")

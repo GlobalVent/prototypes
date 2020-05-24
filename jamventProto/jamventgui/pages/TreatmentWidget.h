@@ -9,6 +9,8 @@
 #include "UserInputData.h"
 #include "GraphWidget.h"
 
+#include "JamCtrlMgr.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -29,6 +31,9 @@ public:
 
     void keyPressEvent(QKeyEvent *event) override;
     void onTimeout();
+
+
+    void setJamCtrlMgr(JamCtrlMgr *jamCtrlMgr) { m_jamCtrlMgr=jamCtrlMgr;};
 
 private:
   float getSinValue(int tick, int tickCount);
@@ -54,5 +59,7 @@ private:
 
   int m_timerInterval_ms = 0;
   QTimer m_timer;
+
+  JamCtrlMgr *m_jamCtrlMgr;
 };
 #endif // TREATMENTWIDGET_H

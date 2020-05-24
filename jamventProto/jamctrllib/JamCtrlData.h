@@ -24,21 +24,21 @@ public:
 		valveDopen(0)
 	{};
 	//  These first values are readbacks of the setXXX functions in jamventCtrlMgr;
-	float fiO2_set;
-	float tidalVolume_set;
-	float respRate_set;
-	float peepIeRatio_set;
+	double fiO2_set;
+	double tidalVolume_set;
+	double respRate_set;
+	double peepIeRatio_set;
 
 
 	// TODO: add readback of calibration data here...
 
 	// active values (note no _set suffix.
-	float pRes;				// resovior pressure.
-	float pSys;				// psys pressure
-	float pO2;				// po2 sensor reading.
+	double pRes;				// resovior pressure.
+	double pSys;				// psys pressure
+	double pO2;				// po2 sensor reading.
 
     // temporary placeholder for lung volume.. for initial test.
-    float lvol;             // lung volume
+    double lvol;             // lung volume
 
 	bool  valveAopen;		// valve state
 	bool  valveBopen;

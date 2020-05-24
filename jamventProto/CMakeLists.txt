@@ -6,6 +6,7 @@ project(jamventProto)
 set(LIBRARIES_FROM_REFERENCES "")
 
 
+add_compile_options("-Wno-psabi")
 
 include_directories(utils)
 

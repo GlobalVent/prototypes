@@ -1,6 +1,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QtMath>
+#include <algorithm>    // std::max
 
 #include "TreatmentWidget.h"
 #include "ui_TreatmentWidget.h"
@@ -41,6 +42,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     , m_lrGraph(nullptr)
     , m_timerInterval_ms(0)
     , m_timer()
+    , m_jamCtrlMgr(nullptr)
 {
     ui->setupUi(this);
 
@@ -112,7 +114,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     const qreal TimerInterval_ms = 100;
 
 #if 1
-    m_ulParams.xAxisTickCount = 60;
+    m_ulParams.xAxisTickCount = 120;
     m_ulParams.xAxisMin = 0.0;
     m_ulParams.xAxisMax = 6.0;
     m_ulParams.yAxisMin = 0.0;
@@ -124,7 +126,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 
 #if 1
     // Upper right graph
-    m_urParams.xAxisTickCount = 60;
+    m_urParams.xAxisTickCount = 120;
     m_urParams.xAxisMin = 0.0;
     m_urParams.xAxisMax = 6.0;
     m_urParams.yAxisMin = -1.0;
@@ -201,7 +203,32 @@ void TreatmentWidget::keyPressEvent(QKeyEvent *event)
 
 void TreatmentWidget::onTimeout()
 {
+#if 1
+	JamCtrlData cd;
+	// TBD.. figure out scaling for thes3e
+	if (m_jamCtrlMgr)
+	    cd = m_jamCtrlMgr->getCtrlData();
 
+
+	// NOTE: scaling here is really artificial as these are not the data
+	//       we are ultimatly graphing, but the data that we are just 
+	//       using to do a milestone.
+    if (m_ulGraph)
+        m_ulGraph->onAddValue(std::min(cd.pSys/3, double(m_ulParams.yAxisMax)));        
+
+    if (m_urGraph)
+        m_urGraph->onAddValue(std::min((cd.pRes/1000)+m_urParams.yAxisMin, double(m_urParams.yAxisMax)));
+
+    #if 0  // add these once we have axis values.
+    if (m_llGraph)
+        m_llGraph->onAddValue(cd.pRes);
+
+    if (m_lrGraph)
+        m_lrGraph->onAddValue(std ::min(cd.lvol));
+    #endif
+
+
+#else
     if (nullptr != m_ulGraph)
     {
         // Gen cyle of values 0.0 - Y axis max
@@ -231,6 +258,8 @@ void TreatmentWidget::onTimeout()
     {
         //m_lrGraph->onTimeout();
     }
+#endif
+
 }
 
 float TreatmentWidget::getSinValue(int tick, int tickCount)
