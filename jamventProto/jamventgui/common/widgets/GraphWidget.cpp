@@ -50,28 +50,32 @@ int GraphWidget::getTick()
 
 void GraphWidget::onAddValue(float value)
 {
-    // Normalize to range of -1.0 to 1.0.
     const float inRange = m_params.yAxisMax - m_params.yAxisMin;
 
-    // Convert to range from 0.0 to 10.0 to -1.0 to 1.0
-    float norm = (value - (m_params.yAxisMin)) / inRange * PlotAreaWidget::YRange;
-    
-    // Convert from 0.0 to 2.0 to -1.0 to 1.0;
-    norm = norm + PlotAreaWidget::YMin;
+    // Normalize to range of -1.0 to 1.0.
+    float norm;
 
-    // qDebug() << "onAddValue(" << value << ") norm = " << norm;
-
-    m_plotArea->onAddValue(norm);
-}
-
-#if 0
-// Doesn't work correctly as need to repaint after each point added. 
-void GraphWidget::onAddValues(const FloatVector& vector)
-{
-    for (const auto v : vector)
+    // Force value to be in range.
+    if (value < m_params.yAxisMin)
     {
-        m_plotArea->onAddValue(v); 
+        norm = m_params.yAxisMin;
     }
-    //m_plotArea->update();
+    else if (value > m_params.yAxisMax)
+    {
+        norm = m_params.yAxisMax;
+    }
+    else
+    {
+        norm = value;
+    }
+
+     // Convert to range the input range to -1.0 to 1.0
+     norm = (norm - (m_params.yAxisMin)) / inRange * PlotAreaWidget::YRange;
+
+     // Convert from 0.0 to 2.0 to -1.0 to 1.0;
+     norm = norm + PlotAreaWidget::YMin;
+
+     // qDebug() << "onAddValue(" << value << ") norm = " << norm;
+
+     m_plotArea->onAddValue(norm);
 }
-#endif

@@ -46,7 +46,10 @@ private:
   GraphWidget::InitParams m_urParams;
   GraphWidget *m_urGraph = nullptr;
 
+  GraphWidget::InitParams m_llParams;
   GraphWidget *m_llGraph = nullptr;
+
+  GraphWidget::InitParams m_lrParams;
   GraphWidget *m_lrGraph = nullptr;
 
   // User Input Data widgets

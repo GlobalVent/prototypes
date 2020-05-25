@@ -3,6 +3,8 @@
 #include <QtMath>
 #include <algorithm>    // std::max
 
+#include <QDebug>
+
 #include "TreatmentWidget.h"
 #include "ui_TreatmentWidget.h"
 #include "LabeledInputWidget.h"
@@ -31,6 +33,8 @@ namespace
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
     constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+
+    constexpr qreal TimerInterval_ms = 50; //100; // 100 milliseconds
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
@@ -111,8 +115,6 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
 
-    const qreal TimerInterval_ms = 100;
-
 #if 1
     m_ulParams.xAxisTickCount = 120;
     m_ulParams.xAxisMin = 0.0;
@@ -136,30 +138,28 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
 
-#if 0
+#if 1
     // Lower left graph
-    ChartWidget::InitParams llParams;
-    llParams.type = ChartWidget::ChartType::Line;
-    llParams.yAxisTitle = "";
-    llParams.xAxisTickCount = 7;
-    llParams.xAxisMinorTickCount = 10;
-    llParams.xAxisMin = 0.0;
-    llParams.xAxisMax = 6.0;
-    llParams.yAxisTickCount = 5;
-    llParams.yAxisMin = 0.0;
-    llParams.yAxisMax = 30.0;
+    m_llParams.xAxisTickCount = 120;
+    m_llParams.xAxisMin = 0.0;
+    m_llParams.xAxisMax = 6.0;
+    m_llParams.yAxisMin = -1.0;
+    m_llParams.yAxisMax = 1.0;
+    m_llParams.yAxisLabel = tr("pO2");
 
-    m_llGraph = new ChartWidget(llParams);
-    m_llGraph->resize(ui->lowerLeftGraphFrame->size());
-    QChartView *llChartView = new QChartView(m_llGraph, ui->lowerLeftGraphFrame);
-    llChartView->setRenderHint(QPainter::Antialiasing);
-    llChartView->resize(ui->lowerLeftGraphFrame->size());
+    m_llGraph = new GraphWidget(m_llParams, ui->lowerLeftGraphFrame);
 #endif
 
-#if 0
+#if 1
     // Lower right graph
-    RedGreenWidget::InitParams lrParams;
-    m_lrGraph = new RedGreenWidget(lrParams, ui->lowerRightGraphFrame);
+    m_lrParams.xAxisTickCount = 120;
+    m_lrParams.xAxisMin = 0.0;
+    m_lrParams.xAxisMax = 6.0;
+    m_lrParams.yAxisMin = 0.0;
+    m_lrParams.yAxisMax = 10.0;
+    m_lrParams.yAxisLabel = tr("Lung Vol");
+
+    m_lrGraph = new GraphWidget(m_lrParams, ui->lowerRightGraphFrame);
 #endif
 
      QObject::connect(&m_timer, &QTimer::timeout, this, &TreatmentWidget::onTimeout);
@@ -209,6 +209,7 @@ void TreatmentWidget::onTimeout()
 	if (m_jamCtrlMgr)
 	    cd = m_jamCtrlMgr->getCtrlData();
 
+    // qDebug() << "pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
 
 	// NOTE: scaling here is really artificial as these are not the data
 	//       we are ultimatly graphing, but the data that we are just 
@@ -219,14 +220,13 @@ void TreatmentWidget::onTimeout()
     if (m_urGraph)
         m_urGraph->onAddValue(std::min((cd.pRes/1000)+m_urParams.yAxisMin, double(m_urParams.yAxisMax)));
 
-    #if 0  // add these once we have axis values.
+    // @todo Showing raw value. Figure out range and correct.
     if (m_llGraph)
-        m_llGraph->onAddValue(cd.pRes);
+        m_llGraph->onAddValue(cd.pO2);
 
+    // @todo Showing raw value. Figure out range and correct.
     if (m_lrGraph)
-        m_lrGraph->onAddValue(std ::min(cd.lvol));
-    #endif
-
+        m_lrGraph->onAddValue(cd.lvol);
 
 #else
     if (nullptr != m_ulGraph)
