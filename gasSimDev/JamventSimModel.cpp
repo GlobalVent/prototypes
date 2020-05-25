@@ -150,7 +150,7 @@ float JamventSimModel::getPres() {
  * @return [description]
  */
 float JamventSimModel::getPO2() {
-	return(_reservoir->pO2());
+	return(_lungs->pO2());
 }
 
 /**
