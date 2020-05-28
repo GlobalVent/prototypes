@@ -1,5 +1,5 @@
 /**
- * @file JamventSimTime.h
+ * @file JamventTime.h
  * @author ralph bellofatto
  * @brief  Jamvent sim time module provides class to pass to jamventmodelrt that can be used 
  *         for getting the time as a double percision floating point.
@@ -9,21 +9,26 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef __JAMVENT_SIM_TIME_H__
-#define __JAMVENT_SIM_TIME_H__
+#ifndef __JAMVENT_TIME_H__
+#define __JAMVENT_TIME_H__
 
 #include <chrono>
 
-class JamventSimTime {
+#if PARTICLE==1
+#include <Particle.h>
+#endif
+
+
+class JamventTime {
 public:
-    JamventSimTime() {};
-    ~JamventSimTime() {};
+    JamventTime() {};
+    ~JamventTime() {};
     /**
      * @brief get the time for NOW 
      * 
      * @return double 
      */
-    virtual double now() {
+    double now() {
         #if PARTICLE==1
             // millis rolls over after 49 days, so handle the roll over...
             static unsigned long lastMillis = 0;
@@ -51,6 +56,20 @@ public:
         #endif
 
     }
+    void waitTime(float tw)
+    {
+        #if PARTICLE==1
+        unsigned long ms = (unsigned long)(tw*1000);
+        delay(ms);
+        #else
+            struct timespec timeReq;
+            struct timespec rem;
+            timeReq.tv_sec = (unsigned)tw;	// truncate the time  to get seconds.
+            timeReq.tv_nsec = (unsigned)(tw*1e9)%1000000000ull;  // 10000 nano secionds (10 milliseconds)
+            nanosleep(&timeReq, &rem);
+        #endif
+    }
+    
 protected:
 
 private:

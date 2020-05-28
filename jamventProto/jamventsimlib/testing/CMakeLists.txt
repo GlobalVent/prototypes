@@ -45,5 +45,8 @@ target_link_libraries(testModel00 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCE
 add_executable(testModel01 testModel01.cpp)
 target_link_libraries(testModel01 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
 
+add_executable(testModel02 testModel02.cpp)
+target_link_libraries(testModel02 ${JV_SIM_TESTLIBS} "${LIBRARIES_FROM_REFERENCES}")
+
 
 

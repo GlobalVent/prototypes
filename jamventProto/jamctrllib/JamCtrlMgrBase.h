@@ -1,43 +1,11 @@
-#ifndef __JAM_CTRL_LIB_H__
-#define __JAM_CTRL_LIB_H__
+#ifndef __JAM_CTRL_MGR_BASE_H__
+#define __JAM_CTRL_MGR_BASE_H__
 
 
 #include <memory>
 #include <ostream>
+#include <JamCtrlData.h>
 #include "JamHw.h"
-/**
- * @brief JamventCtrlData
- * @details Container class returning the 
- *          ccontrol system telemetry.
- * 
- */
-class JamCtrlData {
-public:
-	JamCtrlData() {}
-	//  These first values are readbacks of the setXXX functions in jamventCtrlMgr;
-	float fiO2_set;
-	float tidalVolume_set;
-	float respRate_set;
-	float peepIeRatio_set;
-
-
-	// TODO: add readback of calibration data here...
-
-	// active values (note no _set suffix.
-	float pressure;		// pressure in cmH2O
-	float peekPressure;	// peek pressure cmH2O
-	float peep;			// peep cmH2O
-	float tidalVolumeIns;	// tital Volume inspiration
-	float tidalVolumeExp;	// tidal volume expiration.
-	float MinuteVoumeExp;  // minute volume expiration.
-	bool  valveAopen;		// valve state
-	bool  valveBopen;
-	bool  valveCopen;
-	bool  valveDopen;
-
-protected:
-private:
-};
 /**
  * @brief JamventCtrlMgrBase
  * @details Jamvent abstract base class for the control manager
@@ -48,10 +16,13 @@ private:
 class JamCtrlMgrBase {
 public:	
 	JamCtrlMgrBase() {};
-	virtual ~JamCtrlMgrBase() {
-		killThread();
-	};
-	
+	virtual ~JamCtrlMgrBase() { };
+
+	/**
+	 * @brief perform any onetime intiailiation needed/
+	 * 
+	 */
+	virtual void init() = 0;
 	/////////////////////////////////////
 	// control interface callable from UI thread.  
 	//   All calls are threadsafe...
@@ -62,13 +33,13 @@ public:
 	 * 
 	 * runs until kill is called (the destructor also implies kill).
 	 */
-	virtual void runThread() = 0;	
+	virtual void runThread() = 0;
 									
 	/**
 	 * @brief killThread -- kill the thread before exiting.
 	 * @details kill the running thread.
 	 */
-	virtual void killThread() = 0;	
+	virtual void killThread() = 0;
 
 	/**
 	 * @brief Check if the thread is running.
@@ -77,6 +48,13 @@ public:
 	 * @return true if the thread is running, false if not.
 	 */
 	virtual bool isThreadRunning() = 0;
+
+	/**
+	 * @brief Set the Time Interval to use for sampling inputs./
+	 * 
+	 * @param dt -- time interval to use.
+	 */
+	virtual void setTimeInterval(double dt) = 0;
 
 	/**
 	 * @brief setDebugLevel
@@ -92,7 +70,7 @@ public:
 	 * 
 	 * @param ostr ostream object to send log data to.
 	 */
-	virtual void setLogStream(std::ostream &ostr) = 0; // set a log os stream device.  some place to send log info.
+	virtual void setLogStream(std::ostream *ostr) = 0; // set a log os stream device.  some place to send log info.
 
 	/**
 	 * @brief manually set the valve state.
@@ -113,7 +91,16 @@ public:
 	 */
 	virtual const JamCtrlData getCtrlData() const = 0;	// returns a copy of the control data.
 
+
 protected:
+	/**
+	 * @brief step the model one time step.
+	 *        there is one implementation for the 
+	 *        simululator and one for real hardware layer...
+	 * @param dt delta time since last time we were called.
+	 */
+	virtual void step(double dt) = 0;		// step the model
+
 
 
 };

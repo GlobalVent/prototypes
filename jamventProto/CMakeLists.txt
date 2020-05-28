@@ -6,6 +6,7 @@ project(jamventProto)
 set(LIBRARIES_FROM_REFERENCES "")
 
 
+add_compile_options("-Wno-psabi")
 
 include_directories(utils)
 
@@ -16,13 +17,23 @@ include_directories(jamhwlib)
 include_directories(jamctrllib)
 
 
-add_subdirectory(jamvent)
+# way to inspect the variables available
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
+
+if (JV_GUI)
+# add_subdirectory(jamvent)
+add_subdirectory(jamventgui)
+endif()
+
 add_subdirectory(utils)
 add_subdirectory(jamventsimlib)
 add_subdirectory(jamhwlib)
 add_subdirectory(jamctrllib)
-
-
+add_subdirectory(testing)
 
 #add_executable(jamventProtoProj01 jamventProtoProj01.cpp)
 #target_link_libraries(jamventProtoProj01 "${LIBRARIES_FROM_REFERENCES}")

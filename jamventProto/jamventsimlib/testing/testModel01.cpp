@@ -52,31 +52,6 @@ TestSequence testSequence[] = {
 	{1,   false, false, true,  false},
 	{4,   false, false, false, true},
 
-#if 0
-	{0.5, true,  false, false, false},
-	{0.5, false, true,  false, false},
-	{1,   false, false, true,  false},
-	{2,   false, false, false, true},
-	{1,   false, false, false, false},
-
-	{0.5, true,  false, false, false},
-	{0.5, false, true,  false, false},
-	{1,   false, false, true,  false},
-	{2,   false, false, false, true},
-	{1,   false, false, false, false},
-
-	{0.5, true,  false, false, false},
-	{0.5, false, true,  false, false},
-	{1,   false, false, true,  false},
-	{2,   false, false, false, true},
-	{1,   false, false, false, false},
-
-	{0.5, true,  false, false, false},
-	{0.5, false, true,  false, false},
-	{1,   false, false, true,  false},
-	{2,   false, false, false, true},
-	{1,   false, false, false, false}
-#endif
 };
 
 //vector::<TestSequence> testSequenceVect;
@@ -107,7 +82,7 @@ void runModel(JamventSimModel &model, double timeStart, double nSteps, double dt
 	for (unsigned n = 0; n < nSteps; n++) {
 		model.step(dt);
 		t+= dt;
-		ts.push_back(t, model.getPres(), model.getPsys(), model.getPo2(), model.getLvol(),
+		ts.push_back(t, model.getPres(), model.getPsys(), model.getPO2(), model.getLvol(),
 					model.getValveAopen(), model.getValveBopen(), model.getValveCopen(), model.getValveDopen());
 	}
 }
@@ -144,7 +119,7 @@ int  main(int argc, const char * argv []) {
 	// but nothing yet is going on...
 	//  should run for 20 seconds then exit
 	model.init();
-	ts.push_back(0, model.getPres(), model.getPsys(), model.getPo2(), model.getLvol(),
+	ts.push_back(0, model.getPres(), model.getPsys(), model.getPO2(), model.getLvol(),
 				 model.getValveAopen(), model.getValveBopen(), model.getValveCopen(), model.getValveDopen());
 
 
