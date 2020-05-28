@@ -30,6 +30,11 @@ namespace
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
     constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+
+    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve A");
+    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve B");
+    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve C");
+    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve D");
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
@@ -106,9 +111,13 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     buttonGroupWidget->setLayout(dataGroupLayout);
     buttonGroupLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
     buttonGroupLayout->setSpacing(4);
+#if 0
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
-
+#else    auto buttonWidget = new PushButtonWidget(tr(ValveALabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
+    buttonWidget = new PushButtonWidget(tr(ValveBLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
+    buttonWidget = new PushButtonWidget(tr(ValveCLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
+    buttonWidget = new PushButtonWidget(tr(ValveDLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);#endif
     const qreal TimerInterval_ms = 100;
 
 #if 1
