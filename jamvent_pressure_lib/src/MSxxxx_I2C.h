@@ -89,8 +89,22 @@ class MSxxxx
 		float getTemperature(temperature_units units, precision _precision);
 		// Return calculated pressure from sensor
 		float getPressure(precision _precision);
+		// Use following 2 functions to send the ADC conversion command separately
+		// from reading back+applying temperature compensation
+		// 1. Send ADC conversion cmd only, allows calling function to do something else
+		// in meantime of blocking and reading all in one function (use for multiple sensor reads)
+		void sendADCCommand(measurement _measurement, precision _precision);
+
+		float convertRawValues();
+		uint32_t readRawPressure();
+		uint32_t readRawTemp();
+
+		//uint32_t readFromADCAndConvert();
 
 	private:
+
+		int32_t _temperature_raw;
+		int32_t _pressure_raw;
 
 		int32_t _temperature_actual;
 		int32_t _pressure_actual;
@@ -99,8 +113,7 @@ class MSxxxx
 		ms_addr _address; 		// Variable used to store I2C device address.
 		uint16_t coefficient[8];// Coefficients;
 
-		void getMeasurements(precision _precision);
-
+		uint32_t readValue(); //2. Once data are ready, read
 		void sendCommand(uint8_t command);	// General I2C send command function
 		uint32_t getADCconversion(measurement _measurement, precision _precision);	// Retrieve ADC result
 

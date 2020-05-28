@@ -28,7 +28,7 @@ Distributed as-is; no warranty is given.
 
 
 #define CONSOLEDEBUG 1
-#define FS 130
+#define FS 70
 
 
 #define BMP_SCK 13
@@ -56,6 +56,9 @@ void debugStartPulse(void);
 //Fixed during runtime
 const double Ts = 1.0/FS;
 const int Ts_millis = Ts*1e3;
+const precision p_res_resolution = ADC_2048;
+const precision p_sys_resolution = ADC_2048;
+uint8_t max_res;
 
 //Create variables to store results
 double p_abs_ms5607, p_baseline_ms5607, p_abs_ms5803, p_baseline_ms5803;
@@ -76,6 +79,14 @@ void setup() {
 
     //AJO TO-DO -- make sure each sensor is inited correctly?
 
+    // Compare both resolutions to see which one is higher, this will determine
+    // the ADC conversion time (assuming equal sample rate for both sensors)
+    if(p_res_resolution >= p_sys_resolution) {
+        max_res = p_res_resolution;
+    } else {
+      max_res = p_sys_resolution;
+    }
+
     p_res_sensor.reset();
     p_res_sensor.begin();
     delay(1000);
@@ -88,6 +99,8 @@ void setup() {
     // AJO TO-DO - Do multiple readings here and average?
     p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
     p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
+    p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
+    p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
 
     if(CONSOLEDEBUG) {
       Serial.print("MS5607 baseline pressure = ");
@@ -98,7 +111,6 @@ void setup() {
       Serial.print(p_baseline_ms5803);
       Serial.println(" mbar");
     }
-
     debugStartPulse();
 }
 
@@ -108,21 +120,58 @@ void loop() {
   readSensorsFn();
   // AJO TO-DO -- add logic to subtract elapsed time from Ts_millis and only
   // delay for the remaining time left, at ADC_2048 can't go more than 14 ms
-  // or 71 Hz
-  delay(Ts_millis);
+  // or 71 Hz. With no delay @ ADC_2048 for both we get Tloop = ~19 ms
+//  delay(Ts_millis);
 }
 
 void readSensorsFn() {
-  /* if (! p_sys_sensor.performReadingNormal()) {
-    Serial.println("Failed to perform reading :(");
-    return;
-  } */
+  // 1. send adc cmd (pressure) for each sensor
+  // 2. delay by higher of 2 ADC settling times
+  // 3. read values
+  // 4. repeat 1-3 for temperature
+  // 5. Convert to compensated/actual values
+
+  p_sys_sensor.sendADCCommand(TEMPERATURE, p_sys_resolution);
+  p_res_sensor.sendADCCommand(TEMPERATURE, p_res_resolution);
+
+
+  // AJO note -- faster if we predefine delay during setup based on resolutions?
+  delay(1); //general delay
+  switch(max_res)
+  {
+    case ADC_256 : delay(1); break;
+    case ADC_512 : delay(3); break;
+    case ADC_1024: delay(4); break;
+    case ADC_2048: delay(6); break;
+    case ADC_4096: delay(10); break;
+  }
+
+
+  p_sys_sensor.readRawTemp();
+  p_res_sensor.readRawTemp();
 
   // Read pressure from the sensor in mbar (temp correction applied inline)
-  p_abs_ms5607 = p_sys_sensor.getPressure(ADC_2048);
-  //p_abs_ms5607 = 100.0;
-  p_abs_ms5803 = p_res_sensor.getPressure(ADC_2048);
-  //p_abs_ms5803 = 100.0;
+  p_sys_sensor.sendADCCommand(PRESSURE, p_sys_resolution);
+  p_res_sensor.sendADCCommand(PRESSURE, p_res_resolution);
+
+  // AJO note -- faster if we predefine delay during setup based on resolutions?
+  delay(1); //general delay
+  switch(max_res)
+  {
+    case ADC_256 : delay(1); break;
+    case ADC_512 : delay(3); break;
+    case ADC_1024: delay(4); break;
+    case ADC_2048: delay(6); break;
+    case ADC_4096: delay(10); break;
+  }
+
+
+  p_sys_sensor.readRawPressure();
+  p_res_sensor.readRawPressure();
+
+  //Calculate actual values
+  p_abs_ms5607 = p_sys_sensor.convertRawValues();
+  p_abs_ms5803 = p_res_sensor.convertRawValues();
 
   // Convert mbar to voltage in DAC range (0-4095 for 12-bit Photon DAC)
   //p_ms5607_V = (p_abs_ms5607 - BMP388_MBAR_LOW) * 1.0/BMP388_MBAR_RANGE * 4095;
@@ -177,7 +226,7 @@ void debugStartPulse() {
     Serial.print("MS5803 Output signal = ");
     Serial.println("3.30 V");
 
-    Serial.print("BMP388 Output signal = ");
+    Serial.print("MS5607 Output signal = ");
     Serial.println("3.30 V");
 
     delay(Ts_millis);
@@ -188,7 +237,7 @@ void debugStartPulse() {
     Serial.print("MS5803 Output signal = ");
     Serial.println("0.00 V");
 
-    Serial.print("BMP388 Output signal = ");
+    Serial.print("MS5607 Output signal = ");
     Serial.println("0.00 V");
 
     delay(Ts_millis);

@@ -63,7 +63,10 @@ uint8_t MSxxxx::begin(void)
 float MSxxxx::getTemperature(temperature_units units, precision _precision)
 // Return a temperature reading in either F or C.
 {
-  getMeasurements(_precision);
+
+  _temperature_raw = getADCconversion(TEMPERATURE, _precision);
+  _pressure_raw = getADCconversion(PRESSURE, _precision);
+  convertRawValues();
   float temperature_reported;
   // If Fahrenheit is selected return the temperature converted to F
   if(units == FAHRENHEIT){
@@ -82,7 +85,10 @@ float MSxxxx::getTemperature(temperature_units units, precision _precision)
 float MSxxxx::getPressure(precision _precision)
 // Return a pressure reading units Pa.
 {
-  getMeasurements(_precision);
+  //Retrieve ADC result
+  _temperature_raw = getADCconversion(TEMPERATURE, _precision);
+  _pressure_raw = getADCconversion(PRESSURE, _precision);
+  convertRawValues();
   float pressure_reported;
   pressure_reported = _pressure_actual;
 
@@ -94,13 +100,13 @@ float MSxxxx::getPressure(precision _precision)
   return pressure_reported;
 }
 
-void MSxxxx::getMeasurements(precision _precision) {
+// Apply compensation to get actual pressure/temp values (keeping "conversion" out
+// of function name to avoid confusion with ADC conversion)
+// Returns final pressure value
+float MSxxxx::convertRawValues() {
+  float pressure_reported;
+
   if(_ms_model == MS5803) {
-    //Retrieve ADC result
-    int32_t temperature_raw = getADCconversion(TEMPERATURE, _precision);
-    int32_t pressure_raw = getADCconversion(PRESSURE, _precision);
-
-
     //Create Variables for calculations
     int32_t temp_calc;
     int32_t pressure_calc;
@@ -108,7 +114,7 @@ void MSxxxx::getMeasurements(precision _precision) {
     int32_t dT;
 
     //Now that we have a raw temperature, let's compute our actual.
-    dT = temperature_raw - ((int32_t)coefficient[5] << 8);
+    dT = _temperature_raw - ((int32_t)coefficient[5] << 8);
     temp_calc = (((int64_t)dT * coefficient[6]) >> 23) + 2000;
 
     // TODO TESTING  _temperature_actual = temp_calc;
@@ -150,20 +156,16 @@ void MSxxxx::getMeasurements(precision _precision) {
     // Now lets calculate the pressure
 
 
-    pressure_calc = (((SENS * pressure_raw) / 2097152 ) - OFF) / 32768;
+    pressure_calc = (((SENS * _pressure_raw) / 2097152 ) - OFF) / 32768;
 
     _temperature_actual = temp_calc ;
     _pressure_actual = pressure_calc ; // 10;// pressure_calc;
 
-
+    pressure_reported = _pressure_actual;
+    pressure_reported = pressure_reported / 10;
   }
   else if(_ms_model == MS5607)
   {
-    //Retrieve ADC result
-    int32_t temperature_raw = getADCconversion(TEMPERATURE, _precision);
-    int32_t pressure_raw = getADCconversion(PRESSURE, _precision);
-
-
     //Create Variables for calculations
     int32_t temp_calc;
     int32_t pressure_calc;
@@ -171,7 +173,7 @@ void MSxxxx::getMeasurements(precision _precision) {
     int32_t dT;
 
     //Now that we have a raw temperature, let's compute our actual.
-    dT = temperature_raw - ((int32_t)coefficient[5] << 8);
+    dT = _temperature_raw - ((int32_t)coefficient[5] << 8);
     temp_calc = (((int64_t)dT * coefficient[6]) >> 23) + 2000;
 
     // TODO TESTING  _temperature_actual = temp_calc;
@@ -213,13 +215,63 @@ void MSxxxx::getMeasurements(precision _precision) {
     // Now lets calculate the pressure
 
 
-    pressure_calc = (((SENS * pressure_raw) / 2097152 ) - OFF) / 32768;
+    pressure_calc = (((SENS * _pressure_raw) / 2097152 ) - OFF) / 32768;
 
     _temperature_actual = temp_calc ;
     _pressure_actual = pressure_calc ; // 10;// pressure_calc;
+
+    pressure_reported = _pressure_actual;
+    pressure_reported = pressure_reported / 100;
   }
+
+  return pressure_reported;
 }
 
+void MSxxxx::sendADCCommand(measurement _measurement, precision _precision) {
+    sendCommand(CMD_ADC_CONV + _measurement + _precision);
+}
+
+uint32_t MSxxxx::readRawTemp() {
+  // Reads temperature value from the bus and sets variable
+  _temperature_raw = readValue();
+}
+
+uint32_t MSxxxx::readRawPressure() {
+  // Read the raw pressure value from the bus and sets variable
+  _pressure_raw = readValue();
+}
+
+// Note - when calling after sendADCCommand, wait to read from ADC until
+// appropriate ADC conversion time has passed (see datasheet, resolution-dependent)
+uint32_t MSxxxx::readValue() {
+  uint32_t result;
+  uint8_t highByte, midByte, lowByte;
+  sendCommand(CMD_ADC_READ);
+  Wire.requestFrom(_address, 3);
+
+  while(Wire.available())
+  {
+    highByte = Wire.read();
+    midByte = Wire.read();
+    lowByte = Wire.read();
+  }
+
+  result = ((uint32_t)highByte << 16) + ((uint32_t)midByte << 8) + lowByte;
+
+  return result;
+}
+
+/*
+uint32_t readFromADCAndConvert() {
+  uint32_t result;
+  int32_t temperature_raw = readFromADC(TEMPERATURE, _precision);
+  int32_t pressure_raw = getADCconversion(PRESSURE, _precision);
+  result = readFromADC();
+
+  if
+  getActualValues();
+}
+*/
 
 uint32_t MSxxxx::getADCconversion(measurement _measurement, precision _precision)
 // Retrieve ADC measurement from the device.
