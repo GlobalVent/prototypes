@@ -7,6 +7,7 @@
 #include <QtCore/QTimer>
 
 #include "UserInputData.h"
+#include "PushButtonWidget.h"
 #include "GraphWidget.h"
 
 QT_BEGIN_NAMESPACE
@@ -33,6 +34,11 @@ public:
 private:
   float getSinValue(int tick, int tickCount);
 
+  void onValveAToggled(bool isChecked);
+  void onValveBToggled(bool isChecked);
+  void onValveCToggled(bool isChecked);
+  void onValveDToggled(bool isChecked);
+
   Ui::TreatmentWidget *ui;
 
   GraphWidget::InitParams m_ulParams;
@@ -41,7 +47,10 @@ private:
   GraphWidget::InitParams m_urParams;
   GraphWidget *m_urGraph = nullptr;
 
+  GraphWidget::InitParams m_llParams;
   GraphWidget *m_llGraph = nullptr;
+
+  GraphWidget::InitParams m_lrParams;
   GraphWidget *m_lrGraph = nullptr;
 
   // User Input Data widgets
@@ -51,6 +60,18 @@ private:
   QSpinBox *m_ieSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
+
+  // Value A-D button widgets
+  PushButtonWidget* m_valveAButtonWidget;
+  PushButtonWidget* m_valveBButtonWidget;
+  PushButtonWidget* m_valveCButtonWidget;
+  PushButtonWidget* m_valveDButtonWidget;
+
+  // Value A-D button checked state
+  bool m_isValueAChecked = false;
+  bool m_isValueBChecked = false;
+  bool m_isValueCChecked = false;
+  bool m_isValueDChecked = false;
 
   int m_timerInterval_ms = 0;
   QTimer m_timer;

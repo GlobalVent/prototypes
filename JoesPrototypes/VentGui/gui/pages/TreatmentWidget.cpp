@@ -1,5 +1,6 @@
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDebug>
 #include <QtMath>
 
 #include "TreatmentWidget.h"
@@ -7,7 +8,7 @@
 #include "LabeledInputWidget.h"
 #include "LabeledDataWidget.h"
 #include "GraphWidget.h"
-#include "PushButtonWidget.h"
+#include "PushbuttonWidget.h"
 #include "IeRatioSpinBoxWidget.h"
 
 namespace
@@ -25,7 +26,7 @@ namespace
 
     constexpr const char *PercentSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " %");
     constexpr const char *MlSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " ml");
-    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " 1/min");
+    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " l/min");
     constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " cmH2O");
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
@@ -114,10 +115,20 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 #if 0
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
-#else    auto buttonWidget = new PushButtonWidget(tr(ValveALabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
-    buttonWidget = new PushButtonWidget(tr(ValveBLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
-    buttonWidget = new PushButtonWidget(tr(ValveCLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);
-    buttonWidget = new PushButtonWidget(tr(ValveDLabelStr));    buttonWidget->setCheckable(true);    dataGroupLayout->addWidget(buttonWidget);#endif
+#else
+    m_valveAButtonWidget = new PushButtonWidget(tr(ValveALabelStr));
+    m_valveAButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveAButtonWidget);
+    m_valveBButtonWidget = new PushButtonWidget(tr(ValveBLabelStr));
+    m_valveBButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveBButtonWidget);
+    m_valveCButtonWidget = new PushButtonWidget(tr(ValveCLabelStr));
+    m_valveCButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveCButtonWidget);
+    m_valveDButtonWidget = new PushButtonWidget(tr(ValveDLabelStr));
+    m_valveDButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveDButtonWidget);
+#endif
     const qreal TimerInterval_ms = 100;
 
 #if 1
@@ -168,6 +179,12 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     RedGreenWidget::InitParams lrParams;
     m_lrGraph = new RedGreenWidget(lrParams, ui->lowerRightGraphFrame);
 #endif
+
+    // Connect signals.
+    QObject::connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
+    QObject::connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
+    QObject::connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
+    QObject::connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
 
      QObject::connect(&m_timer, &QTimer::timeout, this, &TreatmentWidget::onTimeout);
      m_timer.setInterval(TimerInterval_ms);
@@ -252,4 +269,52 @@ float TreatmentWidget::getSinValue(int tick, int tickCount)
     //qDebug() << "getSinValue() input =" << input << ", output = " << output;
     //qDebug() << "..tick =" << tick << ", tickCount =" << tickCount;
     return output;
+}
+
+void TreatmentWidget::onValveAToggled(bool isChecked)
+{
+    if (m_isValueAChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveAToggled(" << isChecked << ")";
+
+        m_isValueAChecked = isChecked;
+
+        // JPW @todo signal the valve button has changed.
+    }
+}
+
+void TreatmentWidget::onValveBToggled(bool isChecked)
+{
+    if (m_isValueBChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveBToggled(" << isChecked << ")";
+
+        m_isValueBChecked = isChecked;
+
+        // JPW @todo signal the valve button has changed.
+    }
+}
+
+void TreatmentWidget::onValveCToggled(bool isChecked)
+{
+    if (m_isValueCChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveCToggled(" << isChecked << ")";
+
+        m_isValueCChecked = isChecked;
+
+        // JPW @todo signal the valve button has changed.
+    }
+}
+
+void TreatmentWidget::onValveDToggled(bool isChecked)
+{
+    if (m_isValueDChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveDToggled(" << isChecked << ")";
+
+        m_isValueDChecked = isChecked;
+
+        // JPW @todo signal the valve button has changed.
+    }
 }

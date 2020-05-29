@@ -29,7 +29,7 @@ add_subdirectory(pages)
 
 message("top GUI_SOURCES = ${GUI_SOURCES}")
 
-add_executable(Gui ${GUI_SOURCES} pages/TreatmentCtrl.cpp pages/TreatmentCtrl.h)
+add_executable(Gui ${GUI_SOURCES} pages/TreatmentCtrl.cpp pages/TreatmentCtrl.h common/widgets/PushButtonWidget.h)
 
 target_link_libraries(Gui Qt5::Widgets "${LIBRARIES_FROM_REFERENCES}")
 set_property(TARGET Gui PROPERTY CXX_STANDARD 14)
