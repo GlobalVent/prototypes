@@ -3,6 +3,7 @@
 
 #include "Theme.h"
 #include "MainWidget.h"
+#include "SerialMgr.h"
 
 void loadFonts()
 {
@@ -25,6 +26,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     loadFonts();
+
+    //SerialMgr seralMgr;
 
     MainWidget w;
     w.resize(Theme::ScreenWidth_px, Theme::ScreenHeight_px);
