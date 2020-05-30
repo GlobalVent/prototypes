@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets SerialPort REQUIRED)
 
 file(GLOB GUI_SOURCES . *.cpp *.h *.ui)
 
@@ -31,5 +31,5 @@ message("top GUI_SOURCES = ${GUI_SOURCES}")
 
 add_executable(Gui ${GUI_SOURCES} pages/TreatmentCtrl.cpp pages/TreatmentCtrl.h common/widgets/PushButtonWidget.h)
 
-target_link_libraries(Gui Qt5::Widgets "${LIBRARIES_FROM_REFERENCES}")
+target_link_libraries(Gui Qt5::Core Qt5::Widgets Qt5::SerialPort "${LIBRARIES_FROM_REFERENCES}")
 set_property(TARGET Gui PROPERTY CXX_STANDARD 14)

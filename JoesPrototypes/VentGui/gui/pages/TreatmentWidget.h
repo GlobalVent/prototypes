@@ -9,6 +9,7 @@
 #include "UserInputData.h"
 #include "PushButtonWidget.h"
 #include "GraphWidget.h"
+#include "SerialMgr.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -72,6 +73,9 @@ private:
   bool m_isValueBChecked = false;
   bool m_isValueCChecked = false;
   bool m_isValueDChecked = false;
+
+  // JPW @todo temporary here for convenience
+  SerialMgr m_serialMgr;
 
   int m_timerInterval_ms = 0;
   QTimer m_timer;

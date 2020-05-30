@@ -279,7 +279,7 @@ void TreatmentWidget::onValveAToggled(bool isChecked)
 
         m_isValueAChecked = isChecked;
 
-        // JPW @todo signal the valve button has changed.
+        m_serialMgr.setValueAOpen(!isChecked);  // Assumed when checked valve is closed.
     }
 }
 
@@ -291,7 +291,7 @@ void TreatmentWidget::onValveBToggled(bool isChecked)
 
         m_isValueBChecked = isChecked;
 
-        // JPW @todo signal the valve button has changed.
+        m_serialMgr.setValueBOpen(!isChecked); // Assumed when checked valve is closed.
     }
 }
 
@@ -303,7 +303,7 @@ void TreatmentWidget::onValveCToggled(bool isChecked)
 
         m_isValueCChecked = isChecked;
 
-        // JPW @todo signal the valve button has changed.
+        m_serialMgr.setValueCOpen(!isChecked); // Assumed when checked valve is closed.
     }
 }
 
@@ -315,6 +315,6 @@ void TreatmentWidget::onValveDToggled(bool isChecked)
 
         m_isValueDChecked = isChecked;
 
-        // JPW @todo signal the valve button has changed.
+        m_serialMgr.setValueDOpen(!isChecked); // Assumed when checked valve is closed.
     }
 }
