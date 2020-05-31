@@ -1,5 +1,6 @@
 #include <QtCore/QDebug>
 
+#include "Theme.h"
 #include "VLabelWidget.h"
 
 
@@ -21,9 +22,10 @@ void VLabelWidget::paintEvent(QPaintEvent *)
     //qDebug() << "width =" << width() << "height =" << height() << ", text =" << text();
 
     QFont font = painter.font();
-    font.setPointSize(12);
+    font.setPointSize(Theme::SmallerFontSize_point);
     painter.setFont(font);
-    const QRect textRect(0, 0, height(), width());
+
+    const QRect textRect(0, 0, height(), width());
     qDebug() << "textRect = " << textRect;
     qDebug() << "rect() = " << rect();
 

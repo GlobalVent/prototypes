@@ -1,41 +1,39 @@
 
 /******************************************************************************
 twoCh_I2CPressureToDAC_noTimer.ino
-Combines AdaFruit and SparkFun demo code with improvements and modifications to
-output the read values over DAC
+Author: AJ Ortiz
+Organization: GlobalVent
+Date: 2020
+License: GPL V3
+
+Demo of MSxxxx_I2C library functions to break out the different steps of a
+pressure sensor read. This allows us to do the ADC conversion time wait for
+multiple sensors at once instead of asking one for data, waiting for Tadc and
+then repeating all of this for the other (effectively almost twice as slow).
+
+1. Send read temperature command to each of the 2 sensors
+2. Wait for ADC conversion
+3. Read back raw value from each sensor
+4. Repeat 1-3 for pressure
+5. Calculate actual pressure using raw values and PROM coefficients
 
 I2C - 10k pull up resistors on SCL/SDA
 //SDA -- D0
 //SCL -- D1
 
-Licensed under GPL v3
+This version uses no timing between loop iterations, the blocking delays for
+ADC conversion of temp and pressure will determine how quickly it runs. The
+period between each loop iteration is printed to the console for reference -
+~19 ms if sampling both temperature and pressure at ADC_2048 on each loop
 
 
-This version uses simple delay() calls to handle the timing between loop
-iterationsI2C read and also writes the  pressure value over DAC
-
-
-Original SF license --
-This code is beerware. If you see me (or any other SparkFun employee) at the
-local pub, and you've found our code helpful, please buy us a round!
-
-Distributed as-is; no warranty is given.
 ******************************************************************************/
-//#include "SparkIntervalTimer.h"
-//#include "SparkFun_MS5803_I2C.h"
-//#include "MS5607_I2C.h"
 #include "MSxxxx_I2C.h"
 
 
 #define CONSOLEDEBUG 1
-#define FS 70
-
-
-#define BMP_SCK 13
-#define BMP_MISO 12
-#define BMP_MOSI 11
-#define BMP_CS 10
-#define SEALEVELPRESSURE_HPA (1013.25)
+#define DAC_OUTPUT 1
+#define FS 70 // Note -- currently unused with loop running as quickly as possible
 
 // Both sensors use same address scheme, need to set CS pin for one of them
 MSxxxx p_sys_sensor(MS_ADDRESS_LOW, MS5607); //
@@ -68,50 +66,47 @@ unsigned int  stepTime;
 
 void setup() {
 
-    //Pin inits
-    pinMode(DAC1, OUTPUT);
-    pinMode(DAC2, OUTPUT);
+  //Pin inits
+  pinMode(DAC1, OUTPUT);
+  pinMode(DAC2, OUTPUT);
 
-    Serial.begin(115200);
-    while (!Serial);
-    Serial.println("MS5607 and MS5803 --> Read and output over DAC pins (Range-limited to match UK sensors)");
+  Serial.begin(115200);
+  while (!Serial);
+  Serial.println("MS5607 and MS5803 --> Read and output over DAC pins (Range-limited to match UK sensors)");
 
+  // Compare both resolutions to see which one is higher, this will determine
+  // the ADC conversion time (assuming equal sample rate for both sensors)
+  if(p_res_resolution >= p_sys_resolution) {
+    max_res = p_res_resolution;
+  } else {
+    max_res = p_sys_resolution;
+  }
 
-    //AJO TO-DO -- make sure each sensor is inited correctly?
+  p_res_sensor.reset();
+  p_res_sensor.begin();
+  delay(1000);
 
-    // Compare both resolutions to see which one is higher, this will determine
-    // the ADC conversion time (assuming equal sample rate for both sensors)
-    if(p_res_resolution >= p_sys_resolution) {
-        max_res = p_res_resolution;
-    } else {
-      max_res = p_sys_resolution;
-    }
-
-    p_res_sensor.reset();
-    p_res_sensor.begin();
-    delay(1000);
-
-    p_sys_sensor.reset();
-    p_sys_sensor.begin();
+  p_sys_sensor.reset();
+  p_sys_sensor.begin();
 
 
-    // Read pressure from the sensors in mbar (temp correction applied inline)
-    // AJO TO-DO - Do multiple readings here and average?
-    p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
-    p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
-    p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
-    p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
+  // Read pressure from the sensors in mbar (temp correction applied inline)
+  // AJO TO-DO - Do multiple readings here and average?
+  p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
+  p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
+  p_baseline_ms5607 = p_sys_sensor.getPressure(ADC_4096);
+  p_baseline_ms5803 = p_res_sensor.getPressure(ADC_4096);
 
-    if(CONSOLEDEBUG) {
-      Serial.print("MS5607 baseline pressure = ");
-      Serial.print(p_baseline_ms5607);
-      Serial.println(" mbar");
+  if(CONSOLEDEBUG) {
+    Serial.print("MS5607 baseline pressure = ");
+    Serial.print(p_baseline_ms5607);
+    Serial.println(" mbar");
 
-      Serial.print("MS5803 baseline pressure = ");
-      Serial.print(p_baseline_ms5803);
-      Serial.println(" mbar");
-    }
-    debugStartPulse();
+    Serial.print("MS5803 baseline pressure = ");
+    Serial.print(p_baseline_ms5803);
+    Serial.println(" mbar");
+  }
+  debugStartPulse();
 }
 
 
@@ -121,7 +116,13 @@ void loop() {
   // AJO TO-DO -- add logic to subtract elapsed time from Ts_millis and only
   // delay for the remaining time left, at ADC_2048 can't go more than 14 ms
   // or 71 Hz. With no delay @ ADC_2048 for both we get Tloop = ~19 ms
-//  delay(Ts_millis);
+  //  delay(Ts_millis);
+  
+  if(CONSOLEDEBUG) {
+    Serial.print("Time = ");
+    Serial.print(stepTime);
+    Serial.println(" ms");
+  }
 }
 
 void readSensorsFn() {
@@ -173,43 +174,40 @@ void readSensorsFn() {
   p_abs_ms5607 = p_sys_sensor.convertRawValues();
   p_abs_ms5803 = p_res_sensor.convertRawValues();
 
-  // Convert mbar to voltage in DAC range (0-4095 for 12-bit Photon DAC)
-  //p_ms5607_V = (p_abs_ms5607 - BMP388_MBAR_LOW) * 1.0/BMP388_MBAR_RANGE * 4095;
-  p_rel_analog_ms5607 = (p_abs_ms5607 - p_baseline_ms5607) * 1.0/MS5607_MBAR_RANGE_UKLIMIT * 4095;
-  p_rel_analog_ms5803 = (p_abs_ms5803 - p_baseline_ms5803) * 1.0/MS5803_MBAR_RANGE_UKLIMIT * 4095;
-
-  // Note -- does Photon lib automatically limit this if it's out of range?
-  if(p_rel_analog_ms5607 > 4095) p_rel_analog_ms5607 = 4095;
-  if(p_rel_analog_ms5803 > 4095) p_rel_analog_ms5803 = 4095;
-
-
-  //Output over DAC
-  //AJO TO-DO -- change ordering here -- read, set DAC; read, set DAC?
-  analogWrite(DAC1, p_rel_analog_ms5607); // MS5607 --> p_sys
-  analogWrite(DAC2, p_rel_analog_ms5803); // MS5803 --> p_res
-
   if(CONSOLEDEBUG) {
-    Serial.print("Time = ");
-    Serial.print(stepTime);
-    Serial.println(" ms");
-
     Serial.print("MS5803 Pressure = ");
     Serial.print(p_abs_ms5803);
     Serial.println(" hPa");
 
-    Serial.print("MS5803 Output signal = ");
-    Serial.print(double(p_rel_analog_ms5803)/4095 * 3.3);
-    Serial.println(" V");
-
     Serial.print("MS5607 Pressure = ");
     Serial.print(p_abs_ms5607);
     Serial.println(" hPa");
+  }
 
-    Serial.print("MS5607 Output signal = ");
-    Serial.print(double(p_rel_analog_ms5607)/4095 * 3.3);
-    Serial.println(" V");
- }
 
+  if(DAC_OUTPUT) {
+    // Convert mbar to voltage in DAC range (0-4095 for 12-bit Photon DAC)
+    p_rel_analog_ms5607 = (p_abs_ms5607 - p_baseline_ms5607) * 1.0/MS5607_MBAR_RANGE_UKLIMIT * 4095;
+    p_rel_analog_ms5803 = (p_abs_ms5803 - p_baseline_ms5803) * 1.0/MS5803_MBAR_RANGE_UKLIMIT * 4095;
+
+    // Note -- does Photon lib automatically limit this if it's out of range?
+    if(p_rel_analog_ms5607 > 4095) p_rel_analog_ms5607 = 4095;
+    if(p_rel_analog_ms5803 > 4095) p_rel_analog_ms5803 = 4095;
+
+    //Output over DAC
+    analogWrite(DAC1, p_rel_analog_ms5607); // MS5607 --> p_sys
+    analogWrite(DAC2, p_rel_analog_ms5803); // MS5803 --> p_res
+
+    if(CONSOLEDEBUG) {
+      Serial.print("MS5607 Output signal = ");
+      Serial.print(double(p_rel_analog_ms5607)/4095 * 3.3);
+      Serial.println(" V");
+
+      Serial.print("MS5803 Output signal = ");
+      Serial.print(double(p_rel_analog_ms5803)/4095 * 3.3);
+      Serial.println(" V");
+    }
+  }
 }
 
 

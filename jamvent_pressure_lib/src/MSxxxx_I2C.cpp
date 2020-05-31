@@ -1,25 +1,22 @@
 /******************************************************************************
 MSxxxx_I2C.cpp
-Library for MS5607 and MS5803 pressure sensors.
-AJO modifying library by (original comments follow:)
+Author: AJ Ortiz
+Organization: GlobalVent
+Date: 2020
+License: GPL V3
 
+Generic library for using a variety of MSxxxx pressure sensors.
+Currently supports - MS5803, MS5607
+
+Uses Wire() library
+
+
+Original reference ---
+MS5607_I2C.h
+Library for MS5607 pressure sensors.
 Casey Kuhns @ SparkFun Electronics
 6/26/2014
-https://github.com/sparkfun/MS5803-14BA_Breakout
-
-The MS58XX MS57XX and MS56XX by Measurement Specialties is a low cost I2C pressure
-sensor.  This sensor can be used in weather stations and for altitude
-estimations. It can also be used underwater for water depth measurements.
-
-In this file are the functions in the MSxxxx class
-
-Resources:
-This library uses the Arduino Wire.h to complete I2C transactions.
-
-This code is beerware. If you see me (or any other SparkFun employee) at the
-local pub, and you've found our code helpful, please buy us a round!
-
-Distributed as-is; no warranty is given.
+https://github.com/sparkfun/MS5607-14BA_Breakout
 ******************************************************************************/
 
 #include <Wire.h> // Wire library is used for I2C
@@ -261,18 +258,6 @@ uint32_t MSxxxx::readValue() {
   return result;
 }
 
-/*
-uint32_t readFromADCAndConvert() {
-  uint32_t result;
-  int32_t temperature_raw = readFromADC(TEMPERATURE, _precision);
-  int32_t pressure_raw = getADCconversion(PRESSURE, _precision);
-  result = readFromADC();
-
-  if
-  getActualValues();
-}
-*/
-
 uint32_t MSxxxx::getADCconversion(measurement _measurement, precision _precision)
 // Retrieve ADC measurement from the device.
 // Select measurement type and precision
@@ -317,7 +302,7 @@ void MSxxxx::sendCommand(uint8_t command)
 }
 
 void MSxxxx::sensorWait(uint8_t time)
-// Delay function.  This can be modified to work outside of Arduino based MCU's
+// Delay function.  This can be modified to work outside of Arduino based MCU's (Photon included compatible delay function)
 {
   delay(time);
 };

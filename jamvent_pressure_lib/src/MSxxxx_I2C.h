@@ -1,30 +1,23 @@
+
 /******************************************************************************
+MSxxxx_I2C.h
+Author: AJ Ortiz
+Organization: GlobalVent
+Date: 2020
+License: GPL V3
+
+Generic library for using a variety of MSxxxx pressure sensors.
+Currently supports - MS5803, MS5607
+
+Uses Wire() library
+
+
+Original reference ---
 MS5607_I2C.h
 Library for MS5607 pressure sensors.
 Casey Kuhns @ SparkFun Electronics
 6/26/2014
 https://github.com/sparkfun/MS5607-14BA_Breakout
-
-The MS58XX MS57XX and MS56XX by Measurement Specialties is a low cost I2C pressure
-sensor.  This sensor can be used in weather stations and for altitude
-estimations. It can also be used underwater for water depth measurements.
-
-In this file are the function prototypes in the MS5607 class
-
-Resources:
-This library uses the Arduino Wire.h to complete I2C transactions.
-
-Development environment specifics:
-	IDE: Arduino 1.0.5
-	Hardware Platform: Arduino Pro 3.3V/8MHz
-	MS5607 Breakout Version: 1.0
-
-**Updated for Arduino 1.6.4 5/2015**
-
-This code is beerware. If you see me (or any other SparkFun employee) at the
-local pub, and you've found our code helpful, please buy us a round!
-
-Distributed as-is; no warranty is given.
 ******************************************************************************/
 
 #ifndef SparkFun_MSxxxx_I2C_h
@@ -85,21 +78,21 @@ class MSxxxx
 		void reset(void);	 //Reset device
 		uint8_t begin(void); // Collect coefficients from sensor
 
-		// Return calculated temperature from sensor
+		// Return calculated temperature or pressure from sensor
+		// These 2 functions using a blocking delay inline to wait for the ADC
+		// conversion time specified in the data sheet
 		float getTemperature(temperature_units units, precision _precision);
-		// Return calculated pressure from sensor
 		float getPressure(precision _precision);
-		// Use following 2 functions to send the ADC conversion command separately
+
+		// Use following 4 functions to send the ADC conversion command separately
 		// from reading back+applying temperature compensation
 		// 1. Send ADC conversion cmd only, allows calling function to do something else
 		// in meantime of blocking and reading all in one function (use for multiple sensor reads)
 		void sendADCCommand(measurement _measurement, precision _precision);
-
-		float convertRawValues();
 		uint32_t readRawPressure();
 		uint32_t readRawTemp();
+		float convertRawValues();
 
-		//uint32_t readFromADCAndConvert();
 
 	private:
 
