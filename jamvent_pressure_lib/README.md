@@ -1,4 +1,4 @@
-# JamventPressureLib
+# MSxxxxPressureLib
 
 A Particle library for GlobalVent - MS5803/MS5607 pressure sensor testing
 Example also shows how to read from both sensors simultaneously and output as analog values
