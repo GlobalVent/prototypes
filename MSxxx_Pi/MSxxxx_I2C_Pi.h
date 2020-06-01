@@ -1,4 +1,3 @@
-
 /******************************************************************************
 MSxxxx_I2C.h
 Author: AJ Ortiz
@@ -6,24 +5,24 @@ Organization: GlobalVent
 Date: 2020
 License: GPL V3
 
-Generic library for using a variety of MSxxxx pressure sensors.
+Generic Raspberry Pi library for using a variety of MSxxxx pressure sensors.
 Currently supports - MS5803, MS5607
 
-Uses Wire() library
-
+NOTE - for pigpio we do the gpioInitialize and gpioTerminate from the caller
+function, not from within this library!
 
 Original reference ---
-MS5607_I2C.h
 Library for MS5607 pressure sensors.
 Casey Kuhns @ SparkFun Electronics
 6/26/2014
 https://github.com/sparkfun/MS5607-14BA_Breakout
 ******************************************************************************/
 
-#ifndef SparkFun_MSxxxx_I2C_h
-#define SparkFun_MSxxxx_I2C_h
 
-#include <Arduino.h>
+#ifndef MSxxxx_I2C_Pi_h
+#define MSxxxx_I2C_Pi_h
+
+//#include <Arduino.h>
 
  // Already defined in MS5803 headers
 // Define units for conversions.
@@ -75,24 +74,26 @@ class MSxxxx
 {
 	public:
 		MSxxxx(ms_addr address, ms_model);
+		~MSxxxx();
+		void initI2C(void);
 		void reset(void);	 //Reset device
-		uint8_t begin(void); // Collect coefficients from sensor
+		int8_t begin(void); // Collect coefficients from sensor
 
-		// Return calculated temperature or pressure from sensor
-		// These 2 functions using a blocking delay inline to wait for the ADC
-		// conversion time specified in the data sheet
+		// Return calculated temperature from sensor
 		float getTemperature(temperature_units units, precision _precision);
+		// Return calculated pressure from sensor
 		float getPressure(precision _precision);
-
-		// Use following 4 functions to send the ADC conversion command separately
+		// Use following 2 functions to send the ADC conversion command separately
 		// from reading back+applying temperature compensation
 		// 1. Send ADC conversion cmd only, allows calling function to do something else
 		// in meantime of blocking and reading all in one function (use for multiple sensor reads)
 		void sendADCCommand(measurement _measurement, precision _precision);
-		uint32_t readRawPressure();
-		uint32_t readRawTemp();
-		float convertRawValues();
 
+		float convertRawValues();
+		void readRawPressure();
+		void readRawTemp();
+
+		//uint32_t readFromADCAndConvert();
 
 	private:
 
@@ -104,13 +105,14 @@ class MSxxxx
 
 		ms_model _ms_model;
 		ms_addr _address; 		// Variable used to store I2C device address.
-		uint16_t coefficient[8];// Coefficients;
+		int coefficient[8];// Coefficients; -- AJO NOTE - was uint16_t
+		int _handle;
 
 		uint32_t readValue(); //2. Once data are ready, read
 		void sendCommand(uint8_t command);	// General I2C send command function
 		uint32_t getADCconversion(measurement _measurement, precision _precision);	// Retrieve ADC result
 
-		void sensorWait(uint8_t time); // General delay function see: delay()
+		void sensorWait(uint32_t time_us); // General delay function see: delay()
 };
 
 #endif
