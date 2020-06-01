@@ -147,9 +147,9 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_urParams.xAxisTickCount = 60;
     m_urParams.xAxisMin = 0.0;
     m_urParams.xAxisMax = 6.0;
-    m_urParams.yAxisMin = -1.0;
-    m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = tr("Flow R(1/min)");
+    m_urParams.yAxisMin = 0.0;
+    m_urParams.yAxisMax = 8.0;
+    m_urParams.yAxisLabel = tr("H Sensor");
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
@@ -181,14 +181,16 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 #endif
 
     // Connect signals.
-    QObject::connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
-    QObject::connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
-    QObject::connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
-    QObject::connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
+    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
+    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
+    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
+    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
 
-     QObject::connect(&m_timer, &QTimer::timeout, this, &TreatmentWidget::onTimeout);
-     m_timer.setInterval(TimerInterval_ms);
-     m_timer.start();
+    connect(&m_serialMgr, &SerialMgr::sigNameValuePair, this, &TreatmentWidget::onNameValuePair);
+
+     //QObject::connect(&m_timer, &QTimer::timeout, this, &TreatmentWidget::onTimeout);
+     //m_timer.setInterval(TimerInterval_ms);
+     //m_timer.start();
 }
 
 TreatmentWidget::~TreatmentWidget()
@@ -225,6 +227,7 @@ void TreatmentWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
+#if 0
 void TreatmentWidget::onTimeout()
 {
 
@@ -256,6 +259,32 @@ void TreatmentWidget::onTimeout()
     if (nullptr != m_lrGraph)
     {
         //m_lrGraph->onTimeout();
+    }
+}
+#endif
+
+void TreatmentWidget::onNameValuePair(QString name, QString value)
+{
+    //qDebug() << "TreatmentWidget::onNameValuePair(" << name << ", " << value << ")";
+
+    bool isOk;
+    int intValue = value.toInt(&isOk, 10);
+    if (!isOk)
+    {
+        qDebug() << "Failed to convert value string to int. value =" << value;
+        return;
+    }
+
+    if ("L" == name)
+    {
+        // Low sensor value. Graph on upper left.
+        // JPW @todo fill in lower value when know range.
+    }
+    else if ("H" == name)
+    {
+        // High sensor value. Graph on upper right.
+        float floatValue = static_cast<float>(intValue);
+        m_urGraph->onAddValue(floatValue);
     }
 }
 

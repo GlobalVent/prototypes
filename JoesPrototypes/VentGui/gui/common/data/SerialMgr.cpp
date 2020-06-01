@@ -22,12 +22,16 @@ SerialMgr::SerialMgr()
               + "Product Identifier: " + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n\n";
     qDebug() << s;
   }
-#endif
-  m_serialPort.setPortName("/dev/ttyACM0");
-  bool status = m_serialPort.open(QIODevice::ReadWrite);
-  qDebug() << "open status =" << status;
-  m_serialPort.setBaudRate(QSerialPort::Baud9600);
+#endif
 
+    m_serialPort.setPortName("/dev/ttyACM0");
+    bool status = m_serialPort.open(QIODevice::ReadWrite);
+    qDebug() << "open status =" << status;
+    m_serialPort.setBaudRate(QSerialPort::Baud9600);
+
+    // Connect serial port.
+    connect(&m_serialPort, &QSerialPort::readyRead, this, &SerialMgr::onReadyRead);
+    connect(this, &SerialMgr::sigReadLine, this, &SerialMgr::onReadLine, Qt::QueuedConnection);  // Queued to queue read requests
 }
 
 void SerialMgr::setValueAOpen(bool isOpen)
@@ -64,6 +68,32 @@ void SerialMgr::setValueDOpen(bool isOpen)
         m_isValueDOpen = isOpen;
         toggleValve("d");
      }
+}
+
+void SerialMgr::onReadyRead()
+{
+    while(m_serialPort.canReadLine())
+    {
+        constexpr qint64 maxSize = 80;
+        QByteArray data = m_serialPort.readLine(maxSize);
+        // qDebug() << "readLine data =" << data;
+        emit sigReadLine(data);
+    }
+}
+
+void SerialMgr::onReadLine(QByteArray data)
+{
+    QString str(data);
+    str = str.trimmed();   // Trim whitespace ("\r\n")
+    // qDebug() << "readLine str =" << str;
+
+    QStringList list = str.split("=");
+    //qDebug() << "readLine list =" << list;
+
+    if (list.size() >= 2)
+    {
+        emit sigNameValuePair(list.at(0), list.at(1));
+    }
 }
 
 void SerialMgr::toggleValve(const char* valveChar)

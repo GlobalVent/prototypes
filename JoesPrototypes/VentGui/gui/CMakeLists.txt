@@ -27,9 +27,9 @@ add_subdirectory(common/data)
 include_directories(pages)
 add_subdirectory(pages)
 
-message("top GUI_SOURCES = ${GUI_SOURCES}")
+message("GUI_SOURCES = ${GUI_SOURCES}")
 
-add_executable(Gui ${GUI_SOURCES} pages/TreatmentCtrl.cpp pages/TreatmentCtrl.h common/widgets/PushButtonWidget.h)
+add_executable(Gui ${GUI_SOURCES})
 
 target_link_libraries(Gui Qt5::Core Qt5::Widgets Qt5::SerialPort "${LIBRARIES_FROM_REFERENCES}")
 set_property(TARGET Gui PROPERTY CXX_STANDARD 14)

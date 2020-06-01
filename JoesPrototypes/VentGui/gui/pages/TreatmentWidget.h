@@ -30,7 +30,8 @@ public:
     void setUserInputData(const UserInputData& data);
 
     void keyPressEvent(QKeyEvent *event) override;
-    void onTimeout();
+    //void onTimeout();
+    void onNameValuePair(QString name, QString value);
 
 private:
   float getSinValue(int tick, int tickCount);

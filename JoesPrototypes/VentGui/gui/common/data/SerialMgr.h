@@ -15,6 +15,14 @@ class SerialMgr: public QObject
     void setValueCOpen(bool isOpen);
     void setValueDOpen(bool isOpen);
 
+  signals:
+    void sigReadLine(QByteArray data);
+    void sigNameValuePair(QString name, QString value);
+
+  private slots:
+    void onReadyRead();
+    void onReadLine(QByteArray data);
+
   private:
     void toggleValve(const char* valveChar);
 
