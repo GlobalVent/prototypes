@@ -10,7 +10,7 @@
 #include "LabeledInputWidget.h"
 #include "LabeledDataWidget.h"
 #include "GraphWidget.h"
-#include "PushbuttonWidget.h"
+#include "PushButtonWidget.h"
 #include "IeRatioSpinBoxWidget.h"
 
 namespace
@@ -34,7 +34,10 @@ namespace
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
     constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
 
-    constexpr qreal TimerInterval_ms = 50; //100; // 100 milliseconds
+    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve A");
+    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve B");
+    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve C");
+    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve D");
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
@@ -112,8 +115,27 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     buttonGroupWidget->setLayout(dataGroupLayout);
     buttonGroupLayout->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
     buttonGroupLayout->setSpacing(4);
+#if 0
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
+#else
+    m_valveAButtonWidget = new PushButtonWidget(tr(ValveALabelStr));
+    m_valveAButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveAButtonWidget);
+    m_valveBButtonWidget = new PushButtonWidget(tr(ValveBLabelStr));
+    m_valveBButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveBButtonWidget);
+    m_valveCButtonWidget = new PushButtonWidget(tr(ValveCLabelStr));
+    m_valveCButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveCButtonWidget);
+    m_valveDButtonWidget = new PushButtonWidget(tr(ValveDLabelStr));
+    m_valveDButtonWidget->setCheckable(true);
+    dataGroupLayout->addWidget(m_valveDButtonWidget);
+
+    m_standbyButtonWidget = new PushButtonWidget(tr(StandbyLabelStr));
+    dataGroupLayout->addWidget(m_standbyButtonWidget);
+#endif
+    const qreal TimerInterval_ms = 100;
 
 #if 1
     m_ulParams.xAxisTickCount = 120;
@@ -162,6 +184,12 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_lrGraph = new GraphWidget(m_lrParams, ui->lowerRightGraphFrame);
 #endif
 
+    // Connect signals.
+    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
+    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
+    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
+    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
+
      QObject::connect(&m_timer, &QTimer::timeout, this, &TreatmentWidget::onTimeout);
      m_timer.setInterval(TimerInterval_ms);
      m_timer.start();
@@ -204,21 +232,21 @@ void TreatmentWidget::keyPressEvent(QKeyEvent *event)
 void TreatmentWidget::onTimeout()
 {
 #if 1
-	JamCtrlData cd;
-	// TBD.. figure out scaling for thes3e
-	if (m_jamCtrlMgr)
-	    cd = m_jamCtrlMgr->getCtrlData();
+    JamCtrlData cd;
+    // TBD.. figure out scaling for thes3e
+    if (m_jamCtrlMgr)
+        cd = m_jamCtrlMgr->getCtrlData();
 
     // qDebug() << "pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
 
-	// NOTE: scaling here is really artificial as these are not the data
-	//       we are ultimatly graphing, but the data that we are just 
-	//       using to do a milestone.
+    // NOTE: scaling here is really artificial as these are not the data
+    //       we are ultimatly graphing, but the data that we are just
+    //       using to do a milestone.
     if (m_ulGraph)
-        m_ulGraph->onAddValue(std::min(cd.pSys/3, double(m_ulParams.yAxisMax)));        
+        m_ulGraph->onAddValue(std::min(cd.pSys / 3, double(m_ulParams.yAxisMax)));
 
     if (m_urGraph)
-        m_urGraph->onAddValue(std::min((cd.pRes/1000)+m_urParams.yAxisMin, double(m_urParams.yAxisMax)));
+        m_urGraph->onAddValue(std::min((cd.pRes / 1000) + m_urParams.yAxisMin, double(m_urParams.yAxisMax)));
 
     // @todo Showing raw value. Figure out range and correct.
     if (m_llGraph)
@@ -259,7 +287,31 @@ void TreatmentWidget::onTimeout()
         //m_lrGraph->onTimeout();
     }
 #endif
+}
 
+void TreatmentWidget::onNameValuePair(QString name, QString value)
+{
+    //qDebug() << "TreatmentWidget::onNameValuePair(" << name << ", " << value << ")";
+
+    bool isOk;
+    int intValue = value.toInt(&isOk, 10);
+    if (!isOk)
+    {
+        qDebug() << "Failed to convert value string to int. value =" << value;
+        return;
+    }
+
+    if ("L" == name)
+    {
+        // Low sensor value. Graph on upper left.
+        // JPW @todo fill in lower value when know range.
+    }
+    else if ("H" == name)
+    {
+        // High sensor value. Graph on upper right.
+        float floatValue = static_cast<float>(intValue);
+        m_urGraph->onAddValue(floatValue);
+    }
 }
 
 float TreatmentWidget::getSinValue(int tick, int tickCount)
@@ -272,4 +324,52 @@ float TreatmentWidget::getSinValue(int tick, int tickCount)
     //qDebug() << "getSinValue() input =" << input << ", output = " << output;
     //qDebug() << "..tick =" << tick << ", tickCount =" << tickCount;
     return output;
+}
+
+void TreatmentWidget::onValveAToggled(bool isChecked)
+{
+    if (m_isValueAChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveAToggled(" << isChecked << ")";
+
+        m_isValueAChecked = isChecked;
+
+        m_jamCtrlMgr->setValveAopen(isChecked); // checked = open, unchecked = closed
+    }
+}
+
+void TreatmentWidget::onValveBToggled(bool isChecked)
+{
+    if (m_isValueBChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveBToggled(" << isChecked << ")";
+
+        m_isValueBChecked = isChecked;
+
+        m_jamCtrlMgr->setValveBopen(isChecked); // checked = open, unchecked = closed
+    }
+}
+
+void TreatmentWidget::onValveCToggled(bool isChecked)
+{
+    if (m_isValueCChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveCToggled(" << isChecked << ")";
+
+        m_isValueCChecked = isChecked;
+
+        m_jamCtrlMgr->setValveCopen(isChecked); // checked = open, unchecked = closed
+    }
+}
+
+void TreatmentWidget::onValveDToggled(bool isChecked)
+{
+    if (m_isValueDChecked != isChecked)
+    {
+        qDebug() << "TreatmentWidget::onValveDToggled(" << isChecked << ")";
+
+        m_isValueDChecked = isChecked;
+
+        m_jamCtrlMgr->setValveDopen(isChecked); // checked = open, unchecked = closed
+    }
 }

@@ -7,6 +7,7 @@
 #include <QtCore/QTimer>
 
 #include "UserInputData.h"
+#include "PushButtonWidget.h"
 #include "GraphWidget.h"
 
 #include "JamCtrlMgr.h"
@@ -31,12 +32,17 @@ public:
 
     void keyPressEvent(QKeyEvent *event) override;
     void onTimeout();
+    void onNameValuePair(QString name, QString value);
 
-
-    void setJamCtrlMgr(JamCtrlMgr *jamCtrlMgr) { m_jamCtrlMgr=jamCtrlMgr;};
+    void setJamCtrlMgr(JamCtrlMgr *jamCtrlMgr) { m_jamCtrlMgr = jamCtrlMgr; };
 
 private:
   float getSinValue(int tick, int tickCount);
+
+  void onValveAToggled(bool isChecked);
+  void onValveBToggled(bool isChecked);
+  void onValveCToggled(bool isChecked);
+  void onValveDToggled(bool isChecked);
 
   Ui::TreatmentWidget *ui;
 
@@ -59,6 +65,23 @@ private:
   QSpinBox *m_ieSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
+
+  // Value A-D button widgets
+  PushButtonWidget* m_valveAButtonWidget;
+  PushButtonWidget* m_valveBButtonWidget;
+  PushButtonWidget* m_valveCButtonWidget;
+  PushButtonWidget* m_valveDButtonWidget;
+
+  PushButtonWidget *m_standbyButtonWidget;
+
+  // Value A-D button checked state
+  bool m_isValueAChecked = false;
+  bool m_isValueBChecked = false;
+  bool m_isValueCChecked = false;
+  bool m_isValueDChecked = false;
+
+  // JPW @todo temporary here for convenience
+  //SerialMgr m_serialMgr;
 
   int m_timerInterval_ms = 0;
   QTimer m_timer;
