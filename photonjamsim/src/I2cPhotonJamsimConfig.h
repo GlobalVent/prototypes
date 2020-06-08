@@ -1,4 +1,7 @@
 
+#ifndef __I2C_PHOTON_JAMSIM_CONFIG_H__
+#define __I2C_PHOTON_JAMSIM_CONFIG_H__
+
 #include "I2cSlaveDevice.h"
 
 /**
@@ -15,7 +18,9 @@ public:
      * @param devAddr -- device address for this device.
      */
     I2cPhotonJamsimConfig(unsigned devAddr) :
-        I2cSlaveDevice(devAddr) {};
+        I2cSlaveDevice(devAddr),
+        _version(1),
+        _simInterval(10) {};
 
     /**
      * @brief startTransaction -- this call happens after a start event AND
@@ -48,6 +53,29 @@ public:
      */
     virtual void write(uint8_t data);
 
+    //
+    // now to setup a registers to read and write
+    // with address assignments.
+    //
+    // this device supports the following commands
+    enum {
+        VERSION = 0,        // return with the version number of this simulation (replies with 2 bytes, major and minor)
+        SIMINTERVAL = 1     // set the sim interval in milliseconds.
+    };
+
+    /** set/getVersion
+     * set or get the version string.
+     * @param version -- version in the following for (major[15:8], minor[7:0])
+     */
+    void setVersion(unsigned version) { _version=version;}
+    unsigned getVersion() { return(_version);}
+
+    void setSimInterval(unsigned simInterval) { _simInterval=simInterval;}
+    unsigned getSimInterval() { return(_simInterval);};
+
 protected:
+    unsigned _version;
+    unsigned _simInterval;
 private:
 };
+#endif

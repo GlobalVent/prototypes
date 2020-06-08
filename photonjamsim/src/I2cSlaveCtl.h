@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include "I2cSlaveDevice.h"
+#include "JamsimDbgPrint.h"
 
 
 /**
@@ -17,6 +18,9 @@ public:
     I2cSlaveCtl(int sdlGpio, int sdaGpio);
     virtual ~I2cSlaveCtl();
 
+    void setDbgPrint(JamsimDbgPrint *dbgPrint) {
+        _dbgPrint = dbgPrint;
+    }
     std::string lastError() {
         return(_lastError);
     }
@@ -26,7 +30,7 @@ public:
      *        this step function.
      * 
      */
-    void sampleIO();
+    void sampleIO(double now);
 
     /**
      * @brief register the i2c device with the controller.
@@ -38,14 +42,48 @@ public:
     
     
 protected:
+    void goToStateReady(unsigned from);
+    void goToStateAddr(unsigned from);
+    void goToStateAckAddr(unsigned from);
+    void goToStateWr(unsigned from);
+    void goToStateRd(unsigned from);
+    void goToStateAck(unsigned from);
 private:
-    unsigned _sdlGpio;
+    unsigned _sclGpio;
     unsigned _sdaGpio;
+    std::ostream *_log;
     std::string _lastError;
+    JamsimDbgPrint *_dbgPrint;
     std::map<unsigned,I2cSlaveDevicePtr> _registeredDevs;     // devices registerd to this slave controller.
-    unsigned _i2cLastSample;                // sample bits SCL/SDA
+    unsigned _i2cLastGpio;                // sample bits SCL/SDA
     unsigned _i2cState;
-    bool     _read;                         // this is a read operation
+    I2cSlaveDevicePtr *_currDev;        // currently addressed device
+
+    bool     _rw;                          // substates for the state machine below
+    bool     _bitCount;                         
+    uint8_t  _currByte;                 // current byte under assembly
+
+    // state names and implementation comes from here.
+    // https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324
+    //   modified as start and stop are actually events, not states
+    enum {
+        I2C_STATE_READY     = 0,
+        I2C_STATE_ADDR      = 1,
+        I2C_STATE_ACK_ADDR  = 2,
+        I2C_STATE_WR        = 3,
+        I2C_STATE_ACK       = 4,
+        I2C_STATE_RD        = 5
+    };
+
+    enum {
+        I2C_EVENT_INVAL,
+        I2C_EVENT_START,
+        I2C_EVENT_STOP,
+        I2C_EVENT_SCL_DOWN,
+        I2C_EVENT_SCL_UP
+    };
+
+
 };
 
 

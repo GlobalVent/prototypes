@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdint.h>
+//#include <sstream>
 
 class I2cSlaveDevice
 {
@@ -14,17 +15,34 @@ public:
      * @param devAddr -- device address for this device.
      */
     I2cSlaveDevice(unsigned devAddr) :
+        //_log(nullptr),
         _devAddr(devAddr),
         _byteCount(0) {};
-    unsigned getDevId() { return _devAddr;};
+    /**
+     * @brief Get the Dev address object
+     * 
+     * @return device address
+     */
+    unsigned getDevAddr() { return _devAddr;};
+
+    #if 0
+    /**
+     * @brief Set the Log Stream object
+     * 
+     * @param log -- stream to set log to.
+     */
+    void setLogStream(std::ostringstream *log) {
+        _log=log;
+    }
+    #endif
 
     /**
      * @brief startTransaction -- this call happens after a start event AND
      *           and the the caller has received an address matching the 
      *           devAddr
-     * @param -- read -- true of this is a read transaction, false if it is a write.
+     * @param -- rw bit from transaction 1=read, 0 write
      */
-    virtual void start(bool read) {
+    virtual void start(unsigned rw) {
         _byteCount = 0;
         _recvData.clear();
     }
@@ -32,9 +50,9 @@ public:
     /**
      * @brief stop event received AFTER receiving a start event...
      * 
-     * @param -- read -- true of this is a read transaction, false if it is a write.
+     * @param -- rw bit from transaction 1=read, 0 write
      */
-    virtual void stop(bool read) {};
+    virtual void stop(unsigned rw) {};
 
     /**
      * @brief read the next byte of data
@@ -58,6 +76,7 @@ public:
     }
 protected:
 public:
+    //std::ostream *_log;
     unsigned _devAddr;
     unsigned _byteCount;
 
