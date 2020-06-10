@@ -20,32 +20,36 @@ public:
     I2cPhotonJamsimConfig(unsigned devAddr) :
         I2cSlaveDevice(devAddr),
         _version(1),
-        _simInterval(10) {};
+        _simInterval(10),
+        _command(-1) {};
 
     /**
      * @brief startTransaction -- this call happens after a start event AND
      *           and the the caller has received an address matching the 
      *           devAddr
-     * @param -- read -- true of this is a read transaction, false if it is a write.
+     * @param -- _rw -- read/write_
      */
-    virtual void start(bool read);
+    virtual void start(unsigned _rw);
 
     /**
      * @brief stop event received AFTER receiving a start event...
      * 
-     * @param -- read -- true of this is a read transaction, false if it is a write.
+     * @param -- _rw -- read/write_
      */
-    virtual void stop(bool read);
+    virtual void stop(unsigned _rw);
 
-    /**
+        /**
      * @brief read the next byte of data
      *        the remote computer is asking for more data so deliver it
      *        if this has no more to send then return zeros.
      * 
-     * 
-     * @return uint8_t 
+     * @param data -- place to put next read value.
+     * @return bool -- read data valid 
+     *                 return false when we read more than the device 
+     *                 has in the register associated with the command
+     *                 written.
      */
-    virtual uint8_t read();
+    virtual bool read(uint8_t &data);
     /**
      * @brief write data to the device. (one byte at a time.)
      * 
@@ -76,6 +80,7 @@ public:
 protected:
     unsigned _version;
     unsigned _simInterval;
+    int      _command;
 private:
 };
 #endif

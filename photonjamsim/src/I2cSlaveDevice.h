@@ -59,29 +59,25 @@ public:
      *        the remote computer is asking for more data so deliver it
      *        if this has no more to send then return zeros.
      * 
-     * 
-     * @return uint8_t 
+     * @param data -- place to put next read value.
+     * @return bool -- read data valid 
+     *                 return false when we read more than the device 
+     *                 has in the register associated with the command
+     *                 written.
      */
-    virtual uint8_t read() {
-      _byteCount++; 
-      return(0);
-    };
+    virtual bool read(uint8_t &data) = 0;
     /**
      * @brief write data to the device. (one byte at a time.)
      * 
      * @param data -- 1 byte data written to the device
      */
-    virtual void write(uint8_t data) {
-        _recvData.push_back(data);
-    }
+    virtual void write(uint8_t data) = 0;
 protected:
-public:
-    //std::ostream *_log;
+    //std::ostream *_log;       // switch to debug object, streams blows our memory budget.
     unsigned _devAddr;
     unsigned _byteCount;
-
     std::vector<uint8_t> _recvData;     // buffer to hold received data
-
+private:
 };
 
 

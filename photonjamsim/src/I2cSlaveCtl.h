@@ -42,26 +42,31 @@ public:
     
     
 protected:
-    void goToStateReady(unsigned from);
-    void goToStateAddr(unsigned from);
-    void goToStateAckAddr(unsigned from);
-    void goToStateWr(unsigned from);
-    void goToStateRd(unsigned from);
-    void goToStateAck(unsigned from);
+    void gotoStateReady(unsigned from);
+    void gotoStateAddr(unsigned from);
+    void gotoStateAckAddr(unsigned from);
+    void gotoStateWr(unsigned from);
+    void gotoStateRd(unsigned from);
+    void gotoStateAck(unsigned from);
+    void writeSda(unsigned data);
+    unsigned readSda();
+    void setSdaPinMode(PinMode mode);
 private:
     unsigned _sclGpio;
     unsigned _sdaGpio;
     std::ostream *_log;
     std::string _lastError;
     JamsimDbgPrint *_dbgPrint;
+    typedef std::map<unsigned,I2cSlaveDevicePtr>::iterator RegisteredDevsIter;
     std::map<unsigned,I2cSlaveDevicePtr> _registeredDevs;     // devices registerd to this slave controller.
     unsigned _i2cLastGpio;                // sample bits SCL/SDA
     unsigned _i2cState;
-    I2cSlaveDevicePtr *_currDev;        // currently addressed device
+    I2cSlaveDevicePtr _currDev;        // currently addressed device
 
     bool     _rw;                          // substates for the state machine below
-    bool     _bitCount;                         
+    unsigned _bitCount;                         
     uint8_t  _currByte;                 // current byte under assembly
+    PinMode _sdaPinMode;
 
     // state names and implementation comes from here.
     // https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324

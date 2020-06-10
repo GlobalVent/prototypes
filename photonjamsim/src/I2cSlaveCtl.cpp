@@ -4,6 +4,11 @@
 #include "I2cSlaveCtl.h"
 #include <ostream>
 
+// photon documention for io is here:
+// https://docs.particle.io/reference/device-os/firmware/photon/
+// 
+// specifically note: digital io and low level io, which i think we are gonig to need
+//
 
 I2cSlaveCtl::I2cSlaveCtl(int sdlGpio, int sdaGpio) :
     _sclGpio(sdlGpio),
@@ -14,47 +19,72 @@ I2cSlaveCtl::I2cSlaveCtl(int sdlGpio, int sdaGpio) :
     _currDev(nullptr),
     _rw(1),
     _bitCount(0),
-    _currByte(0)
+    _currByte(0),
+    _sdaPinMode(INPUT)
 {
     pinMode(sdlGpio, INPUT);
-    pinMode(sdaGpio, INPUT);
-
-    //pinMode(D7, OUTPUT);
+    setSdaPinMode(INPUT);
 }
 I2cSlaveCtl::~I2cSlaveCtl() {
 
 }
 
-void I2cSlaveCtl::goToStateReady(unsigned from) 
+void I2cSlaveCtl::writeSda(unsigned data) 
+{
+    digitalWrite(_sdaGpio, data);
+}
+unsigned I2cSlaveCtl::readSda() 
+{
+    return(digitalRead(_sdaGpio));
+}
+
+void I2cSlaveCtl::setSdaPinMode(PinMode mode)
+{
+    if (_sdaPinMode != mode) {
+        pinMode(_sdaGpio, mode);
+        _sdaPinMode = mode;
+    }
+}
+
+void I2cSlaveCtl::gotoStateReady(unsigned from) 
 {
     _i2cState = I2C_STATE_READY;
+    setSdaPinMode(INPUT);
+    _currDev = nullptr;
+    _currByte = 0;
+    _bitCount = 0;
 }
-void I2cSlaveCtl::goToStateAddr(unsigned from)
+void I2cSlaveCtl::gotoStateAddr(unsigned from)
 {
     _i2cState = I2C_STATE_ADDR;
     _bitCount = 8;         // count down 8 bits
     _currDev = nullptr;
     _currByte = 0;
+    setSdaPinMode(INPUT);
 
 }
-void I2cSlaveCtl::goToStateAckAddr(unsigned from)
+void I2cSlaveCtl::gotoStateAckAddr(unsigned from)
 {
     _i2cState = I2C_STATE_ACK_ADDR;
+    setSdaPinMode(OUTPUT);
 
 }
-void I2cSlaveCtl::goToStateWr(unsigned from)
+void I2cSlaveCtl::gotoStateWr(unsigned from)
 {
     _i2cState = I2C_STATE_WR;
+    setSdaPinMode(INPUT);
 
 }
-void I2cSlaveCtl::goToStateRd(unsigned from)
+void I2cSlaveCtl::gotoStateRd(unsigned from)
 {
     _i2cState = I2C_STATE_RD;
+    setSdaPinMode(INPUT);
 
 }
-void I2cSlaveCtl::goToStateAck(unsigned from)
+void I2cSlaveCtl::gotoStateAck(unsigned from)
 {
     _i2cState = I2C_STATE_ACK;
+    setSdaPinMode(OUTPUT);
 }
 
 /**
@@ -96,7 +126,7 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_READY: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);
+                    gotoStateAddr(_i2cState);
                     break;
                 default:
                     break;          // ignore
@@ -106,14 +136,32 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_ADDR: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);        // abort current, start again.
+                    gotoStateAddr(_i2cState);        // abort current, start again.
                     break;
                 case I2C_EVENT_STOP:
-                    goToStateReady(_i2cState);               // abort, ready
+                    gotoStateReady(_i2cState);               // abort, ready
                     break;
-                case I2C_EVENT_SCL_DOWN:
-                    // handle bit reading here.
+                case I2C_EVENT_SCL_UP: {
+                    if ((_bitCount == 0) || (_bitCount > 8))     // this should NEVER happen, but just in case. 
+                        gotoStateReady(_i2cState);          
+                    _bitCount -= 1;
+                    unsigned bit = readSda();
+                    if (_bitCount == 0) {                       // last bit...
+                        RegisteredDevsIter iter;
+                        iter = _registeredDevs.find(_currByte);
+                        if (iter != _registeredDevs.end()) {
+                            _rw = bit;
+                            _currDev = iter->second;
+                            gotoStateAckAddr(_i2cState);
+                        }
+                        else
+                            gotoStateReady(_i2cState);  // nothing registered at this address, ignore...
+                        
+                    }
+                    else 
+                        _currByte = (_currByte<<1) + bit;
                     break;
+                }
                 default:
                     break;              // don't care about SCL UP..
             }
@@ -122,19 +170,19 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_ACK_ADDR: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);        // abort current, start again.
+                    gotoStateAddr(_i2cState);        // abort current, start again.
                     break;
                 case I2C_EVENT_STOP:
-                    goToStateReady(_i2cState);               // abort, ready
+                    gotoStateReady(_i2cState);               // abort, ready
                     break;
                 case I2C_EVENT_SCL_DOWN:
                     
                     break;
                 case I2C_EVENT_SCL_UP:
                     if (_rw)
-                        goToStateRd(_i2cState);
+                        gotoStateRd(_i2cState);
                     else
-                        goToStateWr(_i2cState);
+                        gotoStateWr(_i2cState);
                     break;
                 default:
                     break;              
@@ -144,10 +192,10 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_RD: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);        // abort current, start again.
+                    gotoStateAddr(_i2cState);        // abort current, start again.
                     break;
                 case I2C_EVENT_STOP:
-                    goToStateReady(_i2cState);               // abort, ready
+                    gotoStateReady(_i2cState);               // abort, ready
                     break;
                 case I2C_EVENT_SCL_UP:            // sample on rising edge of scl
                     // read bits                    
@@ -160,10 +208,10 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_WR: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);        // abort current, start again.
+                    gotoStateAddr(_i2cState);        // abort current, start again.
                     break;
                 case I2C_EVENT_STOP:
-                    goToStateReady(_i2cState);               // abort, ready
+                    gotoStateReady(_i2cState);               // abort, ready
                     break;
                 case I2C_EVENT_SCL_DOWN:              // present new data on falling edge of scl
                     // write bits
@@ -176,19 +224,19 @@ void I2cSlaveCtl::sampleIO(double now) {
         case I2C_STATE_ACK: {
             switch (i2cEvent) {
                 case I2C_EVENT_START:
-                    goToStateAddr(_i2cState);        // abort current, start again.
+                    gotoStateAddr(_i2cState);        // abort current, start again.
                     break;
                 case I2C_EVENT_STOP:
-                    goToStateReady(_i2cState);               // abort, ready
+                    gotoStateReady(_i2cState);               // abort, ready
                     break;
                 case I2C_EVENT_SCL_DOWN:
                     
                     break;
                 case I2C_EVENT_SCL_UP:
                     if (_rw)
-                        goToStateRd(_i2cState);
+                        gotoStateRd(_i2cState);
                     else
-                        goToStateWr(_i2cState);
+                        gotoStateWr(_i2cState);
                     break;
                 default:
                     break;              
