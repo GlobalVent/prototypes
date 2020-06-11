@@ -1,7 +1,7 @@
 
 
 
-#include "I2cPhotonJamsimConfig.h"
+#include "I2cPresSensor.h"
 
 
 /**
@@ -11,7 +11,7 @@
  * @param -- _rw -- read/write_
  * 
  */
-void I2cPhotonJamsimConfig::start(unsigned _rw) {
+void I2cPresSensor::start(unsigned _rw) {
     stop(_rw);                         // if we have a command in progress and get another start it implies a stop.
     I2cSlaveDevice::start(_rw);
 }
@@ -21,11 +21,13 @@ void I2cPhotonJamsimConfig::start(unsigned _rw) {
  * 
  * @param -- _rw -- read/write_
  */
-void I2cPhotonJamsimConfig::stop(unsigned _rw) {
+void I2cPresSensor::stop(unsigned _rw) {
     switch (_command) {
         case 1:             // sim interval
-            if (_recvData.size() >= 2)
-                _simInterval = (_recvData[0] << 1) + _recvData[0];
+            if (_recvData.size() >= 2) {
+                // todo, deal with received data here.
+            }
+                
             break;        
 
     }
@@ -43,20 +45,11 @@ void I2cPhotonJamsimConfig::stop(unsigned _rw) {
  *                 has in the register associated with the command
  *                 written.
  */
-bool I2cPhotonJamsimConfig::read(uint8_t &data) {
+bool I2cPresSensor::read(uint8_t &data) {
     bool rc = true;
     switch (_command) {     // data goes out in network byte order
-        case 0:                     // get version number.
-            if (_byteCount < 2) 
-                data = (_version >> _byteCount) & 0xFF;
-            else
-                data = 0, rc=false;
-            break;
-        case 1:             // sim interval
-            if (_byteCount < 2) 
-                data = (_simInterval >> _byteCount) & 0xFF;
-            else
-                data = 0, rc=false;
+        case 0:                    
+            // todo, deal with commands here.
             break;
     }
     _byteCount++;
@@ -67,12 +60,11 @@ bool I2cPhotonJamsimConfig::read(uint8_t &data) {
  * 
  * @param data -- 1 byte data written to the device
  */
-void I2cPhotonJamsimConfig::write(uint8_t data) {
+void I2cPresSensor::write(uint8_t data) {
     if (_byteCount == 0)        // first byte, pick up the command.
         _command=data;
     else {
-        if (_byteCount < 2)
-            _recvData.push_back(data);
+        // todo, deal with  writes here..
     }
     _byteCount++;
 }

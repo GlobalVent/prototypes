@@ -40,6 +40,7 @@ public:
      */
     bool registerI2cDevice(I2cSlaveDevice *dev);
     
+
     
 protected:
     void gotoStateReady(unsigned from);
@@ -48,10 +49,10 @@ protected:
     void gotoStateWr(unsigned from);
     void gotoStateRd(unsigned from);
     void gotoStateAck(unsigned from);
-    void writeSda(unsigned data);
-    unsigned readSda();
+    void writeSda(unsigned data) {  digitalWrite(_sdaGpio, data); } 
+    unsigned readSda() { return(digitalRead(_sdaGpio)); }
     void setSdaPinMode(PinMode mode);
-private:
+
     unsigned _sclGpio;
     unsigned _sdaGpio;
     std::ostream *_log;
@@ -67,6 +68,7 @@ private:
     unsigned _bitCount;                         
     uint8_t  _currByte;                 // current byte under assembly
     PinMode _sdaPinMode;
+    bool     _rdValid;                  // true when the read is valid from the device...
 
     // state names and implementation comes from here.
     // https://www.digikey.com/eewiki/pages/viewpage.action?pageId=10125324
@@ -80,6 +82,12 @@ private:
         I2C_STATE_RD        = 5
     };
 
+    void handleStateReady(unsigned i2cEvent, unsigned sda);
+    void handleStateAddr(unsigned i2cEvent, unsigned sda);
+    void handleStateAckAddr(unsigned i2cEvent, unsigned sda);
+    void handleStateWr(unsigned i2cEvent, unsigned sda);
+    void handleStateRd(unsigned i2cEvent, unsigned sda);
+    void handleStateAck(unsigned i2cEvent, unsigned sda);
     enum {
         I2C_EVENT_INVAL,
         I2C_EVENT_START,
@@ -88,6 +96,7 @@ private:
         I2C_EVENT_SCL_UP
     };
 
+private:
 
 };
 

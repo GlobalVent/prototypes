@@ -10,20 +10,21 @@
 #include "GassimSource.h"
 #include "GassimReservoir.h"
 #include "GassimLungs.h"
+#include "JamsimDbgPrint.h"
 
 
 class GassimModel {
 public:
 	GassimModel()
-		: _ostr(nullptr)
+		: _log(nullptr)
 		, _nextId(0)
 		, _steps(0) {}
 	;
 	virtual ~GassimModel() {}
-	virtual void setLogStream(std::ostream *ostr) {
-		_ostr = ostr;
+	virtual void setLog(JamsimDbgPrint *log) {
+		_log = log;
 		for (auto const &it : _childNodes) // easier to do this later than doing it in place.
-			it.second->setLogStream(ostr);
+			it.second->setLog(log);
 	}
 	
 
@@ -36,7 +37,7 @@ public:
 
 protected :
 private :
-	std::ostream *_ostr;
+	JamsimDbgPrint *_log;
 	std::map<unsigned, GassimNode::NodePtr_t> _childNodes;			// 
 	unsigned _nextId;		// 
 	unsigned _steps;

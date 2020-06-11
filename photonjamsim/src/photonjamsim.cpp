@@ -12,14 +12,18 @@
  */
 
 #include "I2cSlaveCtl.h"
-#include "I2cPhotonJamsimConfig.h"
+#include "I2cJamsimConfig.h"
+#include "I2cPresSensor.h"
+#include "I2cPsysSensor.h"
+#include "I2cAdcSensor.h"
 #include "JamventTime.h"
 #include "JamsimDbgPrint.h"
+
 
 // gpio defs  (these will change with our proto board.)
 void setup();
 void loop();
-#line 14 "/Volumes/ct-ng/covid-19/github/prototypes/photonjamsim/src/photonjamsim.ino"
+#line 18 "/Volumes/ct-ng/covid-19/github/prototypes/photonjamsim/src/photonjamsim.ino"
 #define I2C_RPI_SDL D5
 #define I2C_RPI_SDA D4
 
@@ -36,7 +40,7 @@ void loop();
 #define I2C_PHOTON_CONFIG_ADDR 0b0000110
 
 I2cSlaveCtl *i2cSlaveCtl = nullptr;
-I2cPhotonJamsimConfig *photonConfig;
+I2cJamsimConfig *photonConfig;
 static double timeToWake = 0;
 static double timeToPrint = 0;
 static JamventTime jamTime;
@@ -49,7 +53,7 @@ void setup() {
 	Serial.begin(9600);			// debugger no workee we need to do this the old fashion way...
 	i2cSlaveCtl = new I2cSlaveCtl(I2C_RPI_SDL, I2C_RPI_SDA);
 	i2cSlaveCtl->setDbgPrint(&dbgPrint);
-	photonConfig = new I2cPhotonJamsimConfig(I2C_PHOTON_CONFIG_ADDR);
+	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CONFIG_ADDR);
 	//photonConfig->setLogStream(&log);
 	pinMode(D7,OUTPUT);
 
