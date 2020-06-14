@@ -5,6 +5,7 @@
  * Date:
  */
 
+#include "I2cIntHandler.h"
 #include "I2cSlaveCtl.h"
 #include "I2cJamsimConfig.h"
 #include "I2cPresSensor.h"
@@ -13,25 +14,38 @@
 #include "JamventTime.h"
 #include "JamsimDbgPrint.h"
 
+SYSTEM_THREAD(ENABLED);
+SYSTEM_MODE(MANUAL);
+
 
 // gpio defs  (these will change with our proto board.)
-#define I2C_RPI_SDL D5
-#define I2C_RPI_SDA D4
+#define I2C_RPI_SCL   A1
+#define I2C_RPI_SDA   A4
+#define I2C_CPLD_SCL  D3
+#define I2C_CPLD_SDA  D2
 
 #define GPIO_VALVEA D0
 #define GPIO_VALVEB D1
 #define GPIO_VALVEC D2
 #define GPIO_VALVED D3
 
-
 // stay away from these addresses
-#define I2C_PRES_ADDR_A 0x76
-#define I2C_PRES_ADDR_B 0x77
+#define I2C_PRES_ADDR 0x76  // check these against the specs...
+#define I2C_PSYS_ADDR 0x77
 
-#define I2C_PHOTON_CONFIG_ADDR 0b0000110
+// our simulation addresses...
+#define I2C_PHOTON_CFG_ADDR 0x60
+#define I2C_PRES_SIM_ADDR   0x61
+#define I2C_PSYS_SIM_ADDR   0x62
+#define I2C_ADC_SIM_ADDR    0x63
 
-I2cSlaveCtl *i2cSlaveCtl = nullptr;
-I2cJamsimConfig *photonConfig;
+
+
+
+static I2cIntHandler *i2cIntHandler = nullptr;
+static I2cSlaveCtl *i2cRpiSlaveCtl = nullptr;
+static I2cSlaveCtl *i2cCpldSlaveCtl = nullptr;
+static I2cJamsimConfig *photonConfig;
 static double timeToWake = 0;
 static double timeToPrint = 0;
 static JamventTime jamTime;
@@ -40,27 +54,49 @@ static JamsimDbgPrint dbgPrint;
 
 int counter = 0;
 
+void initialize() {
+	static bool isInitialized = false;
+	if (isInitialized)
+		return;
+
+	i2cIntHandler = new I2cIntHandler();
+	i2cIntHandler->setDbgPrint(&dbgPrint);
+	i2cRpiSlaveCtl = new I2cSlaveCtl(I2C_RPI_SCL, I2C_RPI_SDA);
+	i2cRpiSlaveCtl->setDbgPrint(&dbgPrint);
+	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CFG_ADDR);
+	// TBD create three more sensors
+
+
+	i2cCpldSlaveCtl = new I2cSlaveCtl(I2C_CPLD_SCL, I2C_CPLD_SDA);
+	i2cCpldSlaveCtl->setDbgPrint(&dbgPrint);
+	// TBD create three cpld sensors...
+
+	// wire it all up.
+	i2cIntHandler->registerI2cSlaveCtl(i2cRpiSlaveCtl);
+	#if 0
+	i2cIntHandler->registerI2cSlaveCtl(i2cCpldSlaveCtl);
+	#endif
+	i2cRpiSlaveCtl->registerI2cDevice(photonConfig);
+	i2cIntHandler->attachAllInterrupts();
+	isInitialized=true;
+
+}
+
 void setup() {
-	Serial.begin(9600);			// debugger no workee we need to do this the old fashion way...
-	i2cSlaveCtl = new I2cSlaveCtl(I2C_RPI_SDL, I2C_RPI_SDA);
-	i2cSlaveCtl->setDbgPrint(&dbgPrint);
-	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CONFIG_ADDR);
-	//photonConfig->setLogStream(&log);
-	pinMode(D7,OUTPUT);
-
-
+	initialize();
 }	
 
 
 void loop() {
 
-	double now = jamTime.now();
-	i2cSlaveCtl->sampleIO(now);
-	if (now >= timeToWake) {
-		// call the simulation.
+	if (i2cIntHandler == nullptr)
+		return;
 
-		// very nice.... next....
-		timeToWake = now + photonConfig->getSimInterval()*1e-3;	// convert to milliseconds
+	i2cIntHandler->microsNow();			// keep this refreshed so we have an accurate micros count...
+	double now = jamTime.now();
+	//i2cSlaveCtl->sampleIO();
+	if (now >= timeToWake) {
+		// tbd... call the jamsim simulation.
 	}
 	if (now >= timeToPrint) {
 		if (dbgPrint.hasData()) {

@@ -24,7 +24,7 @@ void I2cAdcSensor::start(unsigned _rw) {
 void I2cAdcSensor::stop(unsigned _rw) {
     switch (_command) {
         case 1:             // sim interval
-            if (_recvData.size() >= 2) {
+            if (_recvByteCount >= 2) {
                 // todo, deal with received data here.
             }
                 
@@ -46,14 +46,17 @@ void I2cAdcSensor::stop(unsigned _rw) {
  *                 written.
  */
 bool I2cAdcSensor::read(uint8_t &data) {
+    #if 0
     bool rc = true;
     switch (_command) {     // data goes out in network byte order
         case 0:                    
             // todo, deal with commands here.
             break;
     }
-    _byteCount++;
+    _recvByteCount++;
     return(rc);
+    #endif
+    return(false);
 }
 /**
  * @brief write data to the device. (one byte at a time.)
@@ -61,12 +64,14 @@ bool I2cAdcSensor::read(uint8_t &data) {
  * @param data -- 1 byte data written to the device
  */
 void I2cAdcSensor::write(uint8_t data) {
-    if (_byteCount == 0)        // first byte, pick up the command.
+    #if 0
+    if (_recvByteCount == 0)        // first byte, pick up the command.
         _command=data;
     else {
         // todo, deal with  writes here..
     }
     _byteCount++;
+    #endif
 }
 
 
