@@ -32,7 +32,8 @@ namespace
     constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " cmH2O");
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
-    constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+    //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+    constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
 
     constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve A");
     constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve B");
