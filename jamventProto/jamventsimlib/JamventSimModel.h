@@ -21,7 +21,6 @@
 class JamventSimModel {
 public:
 	JamventSimModel();
-	;
 	virtual ~JamventSimModel();
 
 
@@ -38,10 +37,10 @@ public:
 	 * @brief setLogStream
 	 * @details set the string stream to use for logging debug information.
 	 * 
-	 * @param ostr [description]
+	 * @param log [description]
 	 */
-	virtual void setLogStream(std::ostream *ostr) {
-		_ostr = ostr;
+	virtual void setLog(JamsimDbgPrint *log) {
+		_log = log;
 	}
 
 	/**
@@ -147,7 +146,7 @@ public:
 
 protected:
 	GassimModel	_model;
-	std::ostream *_ostr;	
+	JamsimDbgPrint *_log;	
 
 	GassimNode::NodePtr_t _o2Src;
 	GassimNode::NodePtr_t _airSrc;

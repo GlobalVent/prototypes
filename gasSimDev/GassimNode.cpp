@@ -4,7 +4,7 @@
 #include "GassimNode.h"
 
 GassimNode::GassimNode(const std::string &name, NodeType nodeType) :
-  _ostr(nullptr),
+  _log(nullptr),
   _name(name),
   _nodeType(nodeType),
   _stepCount(0) {

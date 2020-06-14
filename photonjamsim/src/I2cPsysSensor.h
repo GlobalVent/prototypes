@@ -1,26 +1,23 @@
-
-#ifndef __I2C_PHOTON_JAMSIM_CONFIG_H__
-#define __I2C_PHOTON_JAMSIM_CONFIG_H__
+#ifndef __I2C_PSYS_SENSOR_H__
+#define __I2C_PSYS_SENSOR_H__
 
 #include "I2cSlaveDevice.h"
 
 /**
- * @brief I2cPhotonJamsimConfig -- photonjamsim slave config i2c device
+ * @brief I2cPsysSensor -- photonjamsim slave config i2c device
  * 
  */
-class I2cPhotonJamsimConfig : public I2cSlaveDevice
+class I2cPsysSensor : public I2cSlaveDevice
 {
 public:
-    I2cPhotonJamsimConfig() = delete;
+    I2cPsysSensor() = delete;
     /**
      * @brief Construct a new I2cSlaveDevice object
      * 
      * @param devAddr -- device address for this device.
      */
-    I2cPhotonJamsimConfig(unsigned devAddr) :
+    I2cPsysSensor(unsigned devAddr) :
         I2cSlaveDevice(devAddr),
-        _version(1),
-        _simInterval(10),
         _command(-1) {};
 
     /**
@@ -57,29 +54,8 @@ public:
      */
     virtual void write(uint8_t data);
 
-    //
-    // now to setup a registers to read and write
-    // with address assignments.
-    //
-    // this device supports the following commands
-    enum {
-        VERSION = 0,        // return with the version number of this simulation (replies with 2 bytes, major and minor)
-        SIMINTERVAL = 1     // set the sim interval in milliseconds.
-    };
-
-    /** set/getVersion
-     * set or get the version string.
-     * @param version -- version in the following for (major[15:8], minor[7:0])
-     */
-    void setVersion(unsigned version) { _version=version;}
-    unsigned getVersion() { return(_version);}
-
-    void setSimInterval(unsigned simInterval) { _simInterval=simInterval;}
-    unsigned getSimInterval() { return(_simInterval);};
 
 protected:
-    unsigned _version;
-    unsigned _simInterval;
     int      _command;
 private:
 };

@@ -7,7 +7,7 @@
 
 JamventSimModel::JamventSimModel() :
 	_dt(0),
-	_ostr(nullptr)
+	_log(nullptr)
 {
 	double o2SrcPres  = 4.0;
 	double airSrcPres = 4.0;

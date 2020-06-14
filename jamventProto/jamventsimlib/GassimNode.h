@@ -9,6 +9,7 @@
 #include <ostream>
 
 #include "GassimVars.h"
+#include "JamsimDbgPrint.h"
 
 
 /**
@@ -35,8 +36,8 @@ public:
 	 * 
 	 * @param ostr 
 	 */
-	virtual void setLogStream(std::ostream *ostr) {
-		_ostr = ostr;
+	virtual void setLog(JamsimDbgPrint *log) {
+		_log = log;
 	}
 
 
@@ -87,7 +88,7 @@ public:
 
 
 protected:
-	std::ostream *_ostr;
+	JamsimDbgPrint *_log;
 	std::string _name;
 	unsigned _stepCount;
 	unsigned  _nodeId;
