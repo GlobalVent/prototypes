@@ -2,6 +2,7 @@
 #define COMMMGR_H
 
 #include <QObject>
+#include <QTimer>
 
 #include "JamCtrlSim.h" // simulated version for now.
 
@@ -58,6 +59,12 @@ class CommMgr : public QObject
     void sigNewInData(DataIn);
 
   private:
+    void onTimeout();
+
     JamCtrlSim m_jamCtrl; // sim setup for now...
+    QTimer m_timer;       // Timer for polling communication
 };
+
+// Declare as meta type so can use to pass data in signals/slots.
+Q_DECLARE_METATYPE(CommMgr::DataIn)
 #endif /* COMMMGR_H */

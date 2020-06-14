@@ -3,14 +3,11 @@
 
 #include <QWidget>
 #include <QSpinBox>
-#include <QKeyEvent>
-#include <QtCore/QTimer>
 
 #include "UserInputData.h"
 #include "PushButtonWidget.h"
 #include "GraphWidget.h"
-
-#include "JamCtrlMgr.h"
+#include "CommMgr.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -30,14 +27,16 @@ public:
     UserInputData getUserInputData();
     void setUserInputData(const UserInputData& data);
 
-    void onTimeout();
-    void onNameValuePair(QString name, QString value);
+  public slots:
+    void onNewInData(CommMgr::DataIn data);
 
-    void setJamCtrlMgr(JamCtrlMgr *jamCtrlMgr) { m_jamCtrlMgr = jamCtrlMgr; };
+signals:
+    void sigValueAOpenChanged(bool isOpen);
+    void sigValueBOpenChanged(bool isOpen);
+    void sigValueCOpenChanged(bool isOpen);
+    void sigValueDOpenChanged(bool isOpen);
 
 private:
-  float getSinValue(int tick, int tickCount);
-
   void onValveAToggled(bool isChecked);
   void onValveBToggled(bool isChecked);
   void onValveCToggled(bool isChecked);
@@ -78,13 +77,5 @@ private:
   bool m_isValueBChecked = false;
   bool m_isValueCChecked = false;
   bool m_isValueDChecked = false;
-
-  // JPW @todo temporary here for convenience
-  //SerialMgr m_serialMgr;
-
-  int m_timerInterval_ms = 0;
-  QTimer m_timer;
-
-  JamCtrlMgr *m_jamCtrlMgr;
 };
 #endif // TREATMENTWIDGET_H

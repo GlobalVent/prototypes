@@ -18,8 +18,6 @@ public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
-    void setJamCtlMgr(JamCtrlMgr *jamCtrlMgr) { m_treatmentWidget->setJamCtrlMgr(jamCtrlMgr); };
-
     void addWidget(Pages::Page_E page, QWidget *widget);
     void showPage(Pages::Page_E page);
 

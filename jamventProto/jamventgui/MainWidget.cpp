@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QDebug>
 

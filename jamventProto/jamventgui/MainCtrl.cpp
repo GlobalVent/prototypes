@@ -15,11 +15,17 @@ MainCtrl::MainCtrl()
 {
     TreatmentWidget* treatmentWidget = m_treatmentCtrl->getWidget();
 
-    // JPW @todo. For now share controller with widget.
-    treatmentWidget->setJamCtrlMgr(m_commMgr.getJamCtrlMgr());
-
     // Add all the page widgets to the main widget.
     m_widget->addWidget(Pages::PageTreatment, treatmentWidget);
+
+    // Connections
+    // Connect CommMgr to Widgets
+    connect(treatmentWidget, &TreatmentWidget::sigValueAOpenChanged, &m_commMgr, &CommMgr::onValveAOpenChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigValueBOpenChanged, &m_commMgr, &CommMgr::onValveCOpenChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigValueCOpenChanged, &m_commMgr, &CommMgr::onValveBOpenChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigValueDOpenChanged, &m_commMgr, &CommMgr::onValveDOpenChanged);
+
+    connect(&m_commMgr, &CommMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
 
     // Start by showing the Treatment Page
     showPage(Pages::PageTreatment);
