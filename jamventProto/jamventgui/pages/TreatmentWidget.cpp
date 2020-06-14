@@ -15,30 +15,30 @@
 
 namespace
 {
-    constexpr const char *FiosLabelStr = QT_TRANSLATE_NOOP("MainWidget", "FiO2");
-    constexpr const char *TidalVolLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Tidal Vol.");
-    constexpr const char *RespRateLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Resp Rate");
-    constexpr const char *IeLabelStr = QT_TRANSLATE_NOOP("MainWidget", "I:E");
-    constexpr const char *PeepLabelStr = QT_TRANSLATE_NOOP("MainWidget", "PEEP");
-    constexpr const char *VentModeLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Vent Mode");
+    constexpr const char *FiosLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "FiO2");
+    constexpr const char *TidalVolLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Tidal Vol.");
+    constexpr const char *RespRateLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Resp Rate");
+    constexpr const char *IeLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "I:E");
+    constexpr const char *PeepLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "PEEP");
+    constexpr const char *VentModeLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Vent Mode");
 
-    constexpr const char *PeakPressLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Peak Press");
-    constexpr const char *PlatPressLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Plat Press");
-    constexpr const char *MinuteVentLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Minute Vent");
+    constexpr const char *PeakPressLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Peak Press");
+    constexpr const char *PlatPressLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Plat Press");
+    constexpr const char *MinuteVentLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Minute Vent");
 
-    constexpr const char *PercentSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " %");
-    constexpr const char *MlSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " ml");
-    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " l/min");
-    constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("MainWidget", " cmH2O");
+    constexpr const char *PercentSuffixStr = QT_TRANSLATE_NOOP("TreatmentWidget", " %");
+    constexpr const char *MlSuffixStr = QT_TRANSLATE_NOOP("TreatmentWidget", " ml");
+    constexpr const char *PerMinSuffixStr = QT_TRANSLATE_NOOP("TreatmentWidget", " l/min");
+    constexpr const char *Cmh20MinSuffixStr = QT_TRANSLATE_NOOP("TreatmentWidget", " cmH2O");
 
-    constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Menu");
-    //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Standby");
+    constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Menu");
+    //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Standby");
     constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
 
-    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve A");
-    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve B");
-    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve C");
-    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Valve D");
+    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve A");
+    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve B");
+    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve C");
+    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve D");
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
