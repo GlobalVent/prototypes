@@ -27,12 +27,9 @@ PlotAreaWidget::PlotAreaWidget(const QRect& rectArg, int xAxisTickCount, QWidget
     m_bgColor = palette().color(QPalette::Window);
 
     qDebug() << "PlotAreaWidget(" << rectArg << ", " << xAxisTickCount << ")";
-    qDebug() << "..old geometry =" << geometry();
 
     // set the geometry. Allow to show the border from the parent.
     setGeometry(rectArg.x(), rectArg.y() + BorderWidth_px, rectArg .width() - BorderWidth_px, rectArg.height() - BorderWidth_px - BorderWidth_px);
-
-    qDebug() << "..new geometry =" << geometry();
 
     m_xStep = static_cast<qreal>(width()) / m_tickCount; // Calculate as real as need precision.
 
@@ -72,27 +69,26 @@ void PlotAreaWidget::onAddValue(float v)
     if (0 == m_tick)
     {
         m_pen = (m_pen == &m_redPen) ? &m_greenPen : &m_redPen;
-  }
+    }
 
-  m_x = static_cast<int>(m_xStep * m_tick);
-  ++m_tick;
-  if (m_tick > (m_tickCount + 1))
-  {
-      // Did the last rightmost point.  Start back on the left.
-      m_tick = 0;
-  }
+    m_x = static_cast<int>(m_xStep * m_tick);
+    ++m_tick;
+    if (m_tick > (m_tickCount + 1))
+    {
+        // Did the last rightmost point.  Start back on the left.
+        m_tick = 0;
+    }
 
-  // Convert value to positve and reverse as Qt coordinates go from top to bottom.
-  float norm = YRange - (v - YMin);
+    // Convert value to positve and reverse as Qt coordinates go from top to bottom.
+    float norm = YRange - (v - YMin);
 
-  const auto h = height();
-  //QPointF newPoint(m_x, (norm * h * 0.5) + (h * 0.5));
-  QPointF newPoint(m_x, norm / YRange * h);
-  m_line = QLineF(m_lastPoint, newPoint);
-  m_lastPoint = newPoint;
-  update();
+    const auto h = height();
+    QPointF newPoint(m_x, norm / YRange * h);
+    m_line = QLineF(m_lastPoint, newPoint);
+    m_lastPoint = newPoint;
+    update();
 
-  //qDebug() << "PlotAreaWidget::onAddValue(" << v << "). norm = " << norm << ", newPoint = " << newPoint << ", m_x = " << m_x;
+    //qDebug() << "PlotAreaWidget::onAddValue(" << v << "). norm = " << norm << ", newPoint = " << newPoint << ", m_x = " << m_x;
 }
 
 int PlotAreaWidget::getTick()

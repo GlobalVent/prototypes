@@ -8,7 +8,7 @@
       <LocalDirForAbsolutePaths>$(ToolchainDir)</LocalDirForAbsolutePaths>
     </CustomSourceDirectories>
     <DeploymentHost>
-      <HostName>rpi02.local</HostName>
+      <HostName>192.168.1.157</HostName>
       <Transport>SSH</Transport>
       <UserName>pi</UserName>
     </DeploymentHost>

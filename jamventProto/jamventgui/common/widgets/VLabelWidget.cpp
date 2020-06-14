@@ -17,7 +17,6 @@ VLabelWidget::VLabelWidget(const QRect& rect, QWidget* parent)
 void VLabelWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    //painter.setPen(QPen(Qt::black, 2));
 
     //qDebug() << "width =" << width() << "height =" << height() << ", text =" << text();
 
@@ -25,8 +24,6 @@ void VLabelWidget::paintEvent(QPaintEvent *)
     font.setPointSize(Theme::SmallerFontSize_point);
     painter.setFont(font);
     const QRect textRect(0, 0, height(), width());
-    qDebug() << "textRect = " << textRect;
-    qDebug() << "rect() = " << rect();
 
     painter.translate(0, height());
     painter.rotate(270.0);

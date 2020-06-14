@@ -13,7 +13,7 @@ public:
     TreatmentCtrl();
     ~TreatmentCtrl() = default;
 
-    void show();
+    TreatmentWidget* getWidget();
 
     UserInputData getUserInputData();
     void setUserInputData(const UserInputData& data);
