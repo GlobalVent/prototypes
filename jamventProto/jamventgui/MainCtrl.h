@@ -1,11 +1,13 @@
 #ifndef MAINCTRL_H
-#define MAINCTL_H
+#define MAINCTRL_H
 
 #include <QObject>
 
-//#include "MainWidget.h"
-
+#include "Pages.h"
+#include "CommMgr.h"
 #include "TreatmentCtrl.h"
+
+class MainWidget;
 
 class MainCtrl : public QObject
 {
@@ -15,16 +17,15 @@ public:
     MainCtrl();
     ~MainCtrl() = default;
 
-    enum class Page_E
-    {
-        None,
-        Treatment
-    };
-
-    void show(Page_E page);
+    MainWidget* getWidget();
+    void showPage(Pages::Page_E page);
 
 private:
+    MainWidget* m_widget = nullptr;
+
     // Controllers for each page
     TreatmentCtrl*  m_treatmentCtrl = nullptr;
+
+    CommMgr m_commMgr;
 };
 #endif // MAINCTRL_H

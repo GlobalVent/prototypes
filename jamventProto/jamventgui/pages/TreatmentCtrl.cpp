@@ -10,9 +10,9 @@ TreatmentCtrl::TreatmentCtrl()
 {
 }
 
-void TreatmentCtrl::show()
+TreatmentWidget* TreatmentCtrl::getWidget()
 {
-    m_widget->show();
+    return m_widget;
 }
 
 UserInputData TreatmentCtrl::getUserInputData()

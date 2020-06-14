@@ -217,18 +217,6 @@ void TreatmentWidget::setUserInputData(const UserInputData &data)
     // \todo Set the widgets from the inputs passed in
 }
 
-void TreatmentWidget::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Escape)
-    {
-        QApplication::instance()->quit();
-    }
-    else
-    {
-        QWidget::keyPressEvent(event);
-    }
-}
-
 void TreatmentWidget::onTimeout()
 {
 #if 1

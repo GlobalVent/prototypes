@@ -30,7 +30,6 @@ public:
     UserInputData getUserInputData();
     void setUserInputData(const UserInputData& data);
 
-    void keyPressEvent(QKeyEvent *event) override;
     void onTimeout();
     void onNameValuePair(QString name, QString value);
 

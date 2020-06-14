@@ -2,9 +2,9 @@
 #include <QFontDatabase>
 
 #include "Theme.h"
-#include "MainWidget.h"
+#include "MainCtrl.h"
 
-#include "JamCtrlSim.h"  // simulated version for now.
+//#include "JamCtrlSim.h"  // simulated version for now.
 
 void loadFonts()
 {
@@ -26,26 +26,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    JamCtrlSim jamCtrl;      // sim setup for now...
+    // loadFonts();
 
-    // we probably need to direct to a ostream class when then goes to qdebug...
-	//jamCtrlSim.setLogStream(qDebug());  
-	jamCtrl.setTimeInterval(0.01);
-	jamCtrl.init();		// ontime init, after we do any other settings.
-	jamCtrl.runThread();
-
-    loadFonts();
-
-    MainWidget w;
-    w.setJamCtlMgr(&jamCtrl);
-    w.resize(Theme::ScreenWidth_px, Theme::ScreenHeight_px);
-    
-    w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    w.show();
-
+    MainCtrl ctl;   // Instantiate the main controller to controll the GUI pages.
     int rc;
     rc=a.exec();
 
-    jamCtrl.killThread();
     return(rc);
 }

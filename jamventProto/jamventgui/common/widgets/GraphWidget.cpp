@@ -11,10 +11,8 @@ namespace {
 GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
     : QWidget(parent)
     , m_params{params}
-    // , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height() - Indent_px)
     , m_plotArea(new PlotAreaWidget(QRect(Indent_px, 0, parent->width() - Indent_px, parent->height())
     , params.xAxisTickCount, parent))
-    //, m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height() - Indent_px), parent))
     , m_yAxisLabel(new VLabelWidget(QRect(0, 0, Indent_px, parent->height()), parent))
     , m_yAxisMaxLabel(new QLabel(parent))
     , m_yAxisMinLabel(new QLabel(parent))
