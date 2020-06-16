@@ -5,6 +5,7 @@
 
 #include "Pages.h"
 #include "CommMgr.h"
+#include "PowerupCtrl.h"
 #include "TreatmentCtrl.h"
 
 class MainWidget;
@@ -24,6 +25,7 @@ private:
     MainWidget* m_widget = nullptr;
 
     // Controllers for each page
+    PowerupCtrl *m_powerupCtrl = nullptr;
     TreatmentCtrl*  m_treatmentCtrl = nullptr;
 
     CommMgr m_commMgr;

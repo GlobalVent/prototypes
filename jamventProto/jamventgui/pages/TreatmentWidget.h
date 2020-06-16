@@ -36,6 +36,8 @@ signals:
     void sigValueCOpenChanged(bool isOpen);
     void sigValueDOpenChanged(bool isOpen);
 
+    void sigPowerupButtonClicked();
+
 private:
   void onValveAToggled(bool isChecked);
   void onValveBToggled(bool isChecked);
@@ -70,7 +72,7 @@ private:
   PushButtonWidget* m_valveCButtonWidget;
   PushButtonWidget* m_valveDButtonWidget;
 
-  PushButtonWidget *m_standbyButtonWidget;
+  PushButtonWidget *m_powerupButtonWidget;
 
   // Value A-D button checked state
   bool m_isValueAChecked = false;

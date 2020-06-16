@@ -1,12 +1,20 @@
+#include <QDebug>
 
+#include "MainCtrl.h"
 #include "TreatmentCtrl.h"
 
 namespace
 {
 }
 
-TreatmentCtrl::TreatmentCtrl()
+TreatmentCtrl::TreatmentCtrl(MainCtrl *mainCtrl)
     : m_widget(new TreatmentWidget)
+    , m_mainCtrl(mainCtrl)
+{
+    connect(m_widget, &TreatmentWidget::sigPowerupButtonClicked, this, &TreatmentCtrl::onPowerupButtonClicked);
+}
+
+TreatmentCtrl::~TreatmentCtrl()
 {
 }
 
@@ -23,4 +31,12 @@ UserInputData TreatmentCtrl::getUserInputData()
 void TreatmentCtrl::setUserInputData(const UserInputData& input)
 {
     m_widget->setUserInputData(input);
+}
+
+void TreatmentCtrl::onPowerupButtonClicked()
+{
+    qDebug() << "TreatmentCtrl::onPowerupButtonClicked called.";
+
+    // Powerup button clicked. Show the powerup page.
+    m_mainCtrl->showPage(Pages::PagePowerup);
 }
