@@ -20,8 +20,8 @@ public:
     I2cJamsimConfig(unsigned devAddr) :
         I2cSlaveDevice(devAddr),
         _version(1),
-        _simInterval(10),
-        _command(-1) {};
+        _simInterval(10) 
+        {};
 
     /**
      * @brief startTransaction -- this call happens after a start event AND
@@ -80,7 +80,5 @@ public:
 protected:
     unsigned _version;
     unsigned _simInterval;
-    int      _command;
-private:
 };
 #endif

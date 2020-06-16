@@ -22,14 +22,30 @@ void I2cJamsimConfig::start(unsigned _rw) {
  * @param -- _rw -- read/write_
  */
 void I2cJamsimConfig::stop(unsigned _rw) {
-    switch (_command) {
-        case 1:             // sim interval
-            if (_recvData.size() >= 2)
-                _simInterval = (_recvData[0] << 1) + _recvData[0];
+    if (_recvByteCount == 0)
+        return;
+
+    switch (_recvData[0]) {
+        case VERSION:               
+            if (_rw) {
+                _sendByteCount=0;
+                _sendData[_sendByteCount++] = (_version>>8) & 0xFF;
+                _sendData[_sendByteCount++] = _version & 0xFF;
+            }
+            break;
+        case SIMINTERVAL:           
+            if (_rw) {
+                _sendByteCount=0;
+                _sendData[_sendByteCount++] = (_simInterval>>8) & 0xFF;
+                _sendData[_sendByteCount++] = _simInterval & 0xFF;
+            } 
+            else {
+                if (_recvByteCount >= 3)
+                    _simInterval = (_recvData[1] << 8) + _recvData[2];
+            }
             break;        
 
     }
-    _command = -1;
 }
 
 /**
@@ -45,21 +61,10 @@ void I2cJamsimConfig::stop(unsigned _rw) {
  */
 bool I2cJamsimConfig::read(uint8_t &data) {
     bool rc = true;
-    switch (_command) {     // data goes out in network byte order
-        case 0:                     // get version number.
-            if (_byteCount < 2) 
-                data = (_version >> _byteCount) & 0xFF;
-            else
-                data = 0, rc=false;
-            break;
-        case 1:             // sim interval
-            if (_byteCount < 2) 
-                data = (_simInterval >> _byteCount) & 0xFF;
-            else
-                data = 0, rc=false;
-            break;
-    }
-    _byteCount++;
+    if (_sendByteIdx < sizeof(_sendData))
+        data = _sendData[_sendByteIdx++];
+    else
+        data = 0;
     return(rc);
 }
 /**
@@ -68,13 +73,8 @@ bool I2cJamsimConfig::read(uint8_t &data) {
  * @param data -- 1 byte data written to the device
  */
 void I2cJamsimConfig::write(uint8_t data) {
-    if (_byteCount == 0)        // first byte, pick up the command.
-        _command=data;
-    else {
-        if (_byteCount < 2)
-            _recvData.push_back(data);
-    }
-    _byteCount++;
+    if (_recvByteCount < sizeof(_recvData)) 
+        _recvData[_recvByteCount++];
 }
 
 

@@ -17,7 +17,10 @@ public:
     I2cSlaveDevice(unsigned devAddr) :
         //_log(nullptr),
         _devAddr(devAddr),
-        _byteCount(0) {};
+        _recvByteCount(0),
+        _sendByteCount(0),
+        _sendByteIdx(0)    {}     // current index of being sent.
+    virtual ~I2cSlaveDevice() {}
     /**
      * @brief Get the Dev address object
      * 
@@ -43,8 +46,8 @@ public:
      * @param -- rw bit from transaction 1=read, 0 write
      */
     virtual void start(unsigned rw) {
-        _byteCount = 0;
-        _recvData.clear();
+        _recvByteCount=0;
+        _sendByteIdx=0;
     }
 
     /**
@@ -75,8 +78,11 @@ public:
 protected:
     //std::ostream *_log;       // switch to debug object, streams blows our memory budget.
     unsigned _devAddr;
-    unsigned _byteCount;
-    std::vector<uint8_t> _recvData;     // buffer to hold received data
+    unsigned _recvByteCount;
+    unsigned _sendByteCount;
+    unsigned _sendByteIdx;
+    uint8_t _sendData[4];
+    uint8_t _recvData[4];
 private:
 };
 

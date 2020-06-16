@@ -13,8 +13,8 @@
 I2cSlaveCtl::I2cSlaveCtl(int sdlGpio, int sdaGpio) :
     _sclGpio(sdlGpio),
     _sdaGpio(sdaGpio),
-    _dbgPrint(nullptr),
     _i2cLastGpio(0x3),
+    _dbgPrint(nullptr),
     _i2cState(0),
     _currDev(nullptr),
     _rw(1),
@@ -24,7 +24,7 @@ I2cSlaveCtl::I2cSlaveCtl(int sdlGpio, int sdaGpio) :
     _rdValid(false)
 {
     pinMode(sdlGpio, INPUT);
-    setSdaPinMode(INPUT);
+    pinMode(sdaGpio, INPUT);
 }
 I2cSlaveCtl::~I2cSlaveCtl() {
 
@@ -90,6 +90,11 @@ void I2cSlaveCtl::gotoStateAck(unsigned from)
     setSdaPinMode(OUTPUT);
     digitalWrite(_sclGpio, LOW);
 }
+void I2cSlaveCtl::gotoStateStopEnd(unsigned from) 
+{
+        _i2cState = I2C_STATE_STOP_END;     // wait for the final SCL_UP or another start..
+}
+
 
 void I2cSlaveCtl::handleStateReady(unsigned i2cEvent, unsigned sda)
 {
@@ -209,7 +214,7 @@ void I2cSlaveCtl::handleStateAck(unsigned i2cEvent, unsigned sda)
             gotoStateAddr(_i2cState);        // abort current, start again.
             break;
         case I2C_EVENT_STOP:
-            gotoStateReady(_i2cState);               // abort, ready
+            gotoStateStopEnd(_i2cState);               // abort, ready
             break;
         case I2C_EVENT_SCL_DOWN:
             
@@ -226,53 +231,23 @@ void I2cSlaveCtl::handleStateAck(unsigned i2cEvent, unsigned sda)
 
 }
 
-/**
- * @brief perform an i2c sample of the signals
- *        any class calls to the i2c slave devices happen in 
- *        this step function.
- * @param -- now -- time to use to timeout a write state
- *                  that has jamed the lines too long.
- */
-void I2cSlaveCtl::sampleIO(double now) {
-
-    // think about some sort of time out if we stay in
-    // a out enabled state too long...  (need to prevent a run-away write)
-    //  
-    // so we are in the write or ack state and we get no clocks
-    //    or we get way more write bytes than any of our consumers
-    //    could possibly need, don't jam the bus...
-    //
-    unsigned sda = digitalRead(_sdaGpio);
-    unsigned scl = digitalRead(_sclGpio);
-    unsigned i2cGpio = (scl << 1) | sda;
-
-    unsigned i2cEvent=I2C_EVENT_INVAL;
-    unsigned b = ((i2cGpio ^ _i2cLastGpio)<<2) + i2cGpio;  //  bits SDL_CHANGED[3], SDA_CHANGED[2], SDL[1], SDA[0]
-    if (b == 0b0110) 
-        i2cEvent=I2C_EVENT_START;
-    else if (b == 0b0111)
-        i2cEvent=I2C_EVENT_STOP;
-    else if ((b & 0b1110) == 0x1000)
-        i2cEvent=I2C_EVENT_SCL_DOWN;
-    else if ((b & 0b1110) == 0x1010)
-        i2cEvent=I2C_EVENT_SCL_UP;
-
-    // i2c spec says:
-    //The data on the SDA line must be stable during the HIGH period of the clock. The HIGH
-    // or LOW state of the data line can only change when the clock signal on the SCL line is
-    // LOW (see Figure 4). One clock pulse is generated for each data bit transferred.
-
-    if (i2cEvent != I2C_EVENT_INVAL) {
-        switch (_i2cState) {
-            case I2C_STATE_READY:    handleStateReady(i2cEvent,  sda); break;
-            case I2C_STATE_ADDR:     handleStateAddr(i2cEvent,   sda); break;
-            case I2C_STATE_ACK_ADDR: handleStateAckAddr(i2cEvent,sda); break;
-            case I2C_STATE_RD:       handleStateRd(i2cEvent,     sda); break;
-            case I2C_STATE_WR:       handleStateWr(i2cEvent,     sda); break;
-            case I2C_STATE_ACK:      handleStateAck(i2cEvent,    sda); break;
-        }
+void I2cSlaveCtl::handleStateStopEnd(unsigned i2cEvent, unsigned sda) 
+{
+    switch (i2cEvent) {
+        case I2C_EVENT_START:
+            gotoStateAddr(_i2cState);
+            break;
+        case I2C_EVENT_SCL_UP:
+            gotoStateReady(_i2cState);
+            if (_rw)
+                gotoStateRd(_i2cState);
+            else
+                gotoStateWr(_i2cState);
+            break;
+        default:
+            break;              
     }
-    _i2cLastGpio = i2cGpio; // parting shot, remember this.
+
 }
 
 /**
@@ -290,5 +265,82 @@ bool I2cSlaveCtl::registerI2cDevice(I2cSlaveDevice *dev)
     _registeredDevs[dev->getDevAddr()] = dev;
     return(true);
 }
+
+/**
+ * @brief decode an i2c event from the current scl,sda AND the lastGpio seen by this 
+ *        controller.
+ * 
+ * @param lastGpio 
+ * @param scl 
+ * @param sda 
+ * @return unsigned 
+ */
+unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
+{
+    unsigned i2cGpio = (scl << 1) | sda;
+    unsigned b = ((i2cGpio ^ _i2cLastGpio)<<2) + i2cGpio;  //  bits SDL_CHANGED[3], SDA_CHANGED[2], SDL[1], SDA[0]
+    if (_i2cLastGpio == i2cGpio)
+        return(I2C_EVENT_NC);
+
+
+    // b=0x6
+    // decodeEvent e=1,s=0
+    // detected start
+    // b=0x8
+    // b=0x5
+    // b=0xb
+    // b=0x9
+    // b=0xb
+    // b=0x9
+    // b=0x4
+    // b=0xa
+    // b=0x8
+    // b=0xa
+    // b=0x8
+    // b=0xa
+    // b=0x8
+    // b=0xa
+    // b=0x8
+    // b=0xa
+    // b=0x8
+    // b=0x5
+    // b=0xb
+    // b=0x9
+    // b=0xb
+    // b=0x9
+    // b=0x4
+    // b=0xa
+    // b=0x7
+
+    //if (_dbgPrint) _dbgPrint->printf("b=0x%x\n", b);
+    unsigned i2cEvent=I2C_EVENT_INVAL;
+    _i2cLastGpio = i2cGpio;
+    if ((b == 0b0110) || (b == 0b1110))   
+        i2cEvent=I2C_EVENT_START;
+    else if (b == 0b0111)
+        i2cEvent=I2C_EVENT_STOP;
+    else if ((b & 0b1110) == 0b1000)
+        i2cEvent=I2C_EVENT_SCL_DOWN;
+    else if ((b & 0b1110) == 0b1010)
+        i2cEvent=I2C_EVENT_SCL_UP;
+    // i2c spec says:
+    // The data on the SDA line must be stable during the HIGH period of the clock. The HIGH
+    //   or LOW state of the data line can only change when the clock signal on the SCL line is
+    //   LOW (see Figure 4). One clock pulse is generated for each data bit transferred.
+
+    if (i2cEvent != I2C_EVENT_INVAL) {
+        if (_dbgPrint) _dbgPrint->printf("decodeEvent b=0x%x,e=%d,s=%d\n", b,i2cEvent, _i2cState);
+        switch (_i2cState) {
+            case I2C_STATE_READY:    handleStateReady(i2cEvent,  sda); break;
+            case I2C_STATE_ADDR:     handleStateAddr(i2cEvent,   sda); break;
+            case I2C_STATE_ACK_ADDR: handleStateAckAddr(i2cEvent,sda); break;
+            case I2C_STATE_RD:       handleStateRd(i2cEvent,     sda); break;
+            case I2C_STATE_WR:       handleStateWr(i2cEvent,     sda); break;
+            case I2C_STATE_ACK:      handleStateAck(i2cEvent,    sda); break;
+        }
+    }
+    return(i2cEvent);
+}
+
 
 

@@ -22,9 +22,10 @@ void I2cPsysSensor::start(unsigned _rw) {
  * @param -- _rw -- read/write_
  */
 void I2cPsysSensor::stop(unsigned _rw) {
+    #if 0
     switch (_command) {
         case 1:             // sim interval
-            if (_recvData.size() >= 2) {
+            if (_recvByteCount >= 2) {
                 // todo, deal with received data here.
             }
                 
@@ -32,6 +33,7 @@ void I2cPsysSensor::stop(unsigned _rw) {
 
     }
     _command = -1;
+    #endif
 }
 
 /**
@@ -46,6 +48,7 @@ void I2cPsysSensor::stop(unsigned _rw) {
  *                 written.
  */
 bool I2cPsysSensor::read(uint8_t &data) {
+    #if 0
     bool rc = true;
     switch (_command) {     // data goes out in network byte order
         case 0:                    
@@ -54,6 +57,8 @@ bool I2cPsysSensor::read(uint8_t &data) {
     }
     _byteCount++;
     return(rc);
+    #endif
+    return(false);
 }
 /**
  * @brief write data to the device. (one byte at a time.)
@@ -61,12 +66,14 @@ bool I2cPsysSensor::read(uint8_t &data) {
  * @param data -- 1 byte data written to the device
  */
 void I2cPsysSensor::write(uint8_t data) {
+    #if 0
     if (_byteCount == 0)        // first byte, pick up the command.
         _command=data;
     else {
         // todo, deal with  writes here..
     }
     _byteCount++;
+    #endif
 }
 
 
