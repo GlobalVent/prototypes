@@ -7,6 +7,7 @@
 #include "CommMgr.h"
 #include "PowerupCtrl.h"
 #include "TreatmentCtrl.h"
+#include "SerialMgr.h"
 
 class MainWidget;
 
@@ -28,6 +29,7 @@ private:
     PowerupCtrl *m_powerupCtrl = nullptr;
     TreatmentCtrl*  m_treatmentCtrl = nullptr;
 
-    CommMgr m_commMgr;
+    CommMgr m_commMgr; // For now this is connected to jamCtrl
+    SerialMgr m_serialMgr;
 };
 #endif // MAINCTRL_H
