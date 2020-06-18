@@ -7,24 +7,35 @@ namespace
 }
 
 CommMgr::CommMgr()
-    : QObject()
 {
     QObject::connect(&m_timer, &QTimer::timeout, this, &CommMgr::onTimeout);
-    m_timer.setInterval(TimerInterval_ms);
-    m_timer.start();
-
-    m_jamCtrl.setTimeInterval(0.01);
-    m_jamCtrl.init(); // ontime init, after we do any other settings.
-    m_jamCtrl.runThread();
 }
 
 CommMgr::~CommMgr()
 {
+    m_timer.stop();
+    m_jamCtrl.killThread();
+}
+
+void CommMgr::start()
+{
+    m_jamCtrl.setTimeInterval(0.01);
+    m_jamCtrl.init(); // ontime init, after we do any other settings.
+    m_jamCtrl.runThread();
+
+    m_timer.setInterval(TimerInterval_ms);
+    m_timer.start();
+}
+
+void CommMgr::stop()
+{
+    m_timer.stop();
     m_jamCtrl.killThread();
 }
 
 void CommMgr::onFio2Changed(NumType value)
 {
+    // JPW @todo. Send out new value to system.
 }
 
 void CommMgr::onTidalVolChanged(NumType value)

@@ -33,7 +33,7 @@ namespace
 
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Menu");
     //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Standby");
-    constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
+    constexpr const char *PowerupLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
 
     constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve A");
     constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve B");
@@ -130,8 +130,8 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_valveDButtonWidget->setCheckable(true);
     dataGroupLayout->addWidget(m_valveDButtonWidget);
 
-    m_standbyButtonWidget = new PushButtonWidget(tr(StandbyLabelStr));
-    dataGroupLayout->addWidget(m_standbyButtonWidget);
+    m_powerupButtonWidget = new PushButtonWidget(tr(PowerupLabelStr));
+    dataGroupLayout->addWidget(m_powerupButtonWidget);
 #endif
 
 #if 1
@@ -186,6 +186,8 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
     connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
     connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
+
+    connect(m_powerupButtonWidget, &QPushButton::clicked, this, &TreatmentWidget::sigPowerupButtonClicked);
 }
 
 TreatmentWidget::~TreatmentWidget()
