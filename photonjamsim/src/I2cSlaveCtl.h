@@ -78,7 +78,7 @@ public:
      * @brief reset the i2cState -- reset to the ready state.
      * 
      */
-    void resetI2cState() { _i2cState = I2C_STATE_READY;}
+    void resetI2cState();
 
     /**
      * @brief register the i2c device with the controller.
