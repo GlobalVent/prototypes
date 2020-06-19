@@ -13,15 +13,12 @@ class SerialMgr: public CommMgrInterface
     explicit SerialMgr();
     virtual ~SerialMgr();
 
-    void setValueAOpen(bool isOpen);
-    void setValueBOpen(bool isOpen);
-    void setValueCOpen(bool isOpen);
-    void setValueDOpen(bool isOpen);
+    void start();
+    void stop();
 
   signals:
-    // JPW @todo Update to do polling.
+    // JPW @todo Update to do polling.  Remove when switched over to ppolling
     void sigReadLine(QByteArray data);
-    void sigNameValuePair(QString name, QString value);
 
   public slots:
     void onFio2Changed(NumType value) override;
@@ -40,6 +37,7 @@ class SerialMgr: public CommMgrInterface
     void onReadLine(QByteArray data);
 
   private:
+    void onTimeout();
     void toggleValve(const char* valveChar);
 
     bool m_isValueAOpen = false;
@@ -48,7 +46,6 @@ class SerialMgr: public CommMgrInterface
     bool m_isValueDOpen = false;
 
     QSerialPort m_serialPort;
-    void onTimeout();
     QTimer m_timer;       // Timer for polling communication
 };
 #endif /* SERIALMGR_H */

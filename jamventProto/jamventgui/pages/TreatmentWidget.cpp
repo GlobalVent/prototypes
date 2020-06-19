@@ -61,6 +61,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     auto w = new LabeledInputWidget(tr(FiosLabelStr));
     m_fiO2SpinBox = w->getSpinBox();
     m_fiO2SpinBox->setRange(21, 100);
+    m_fiO2SpinBox->setValue(100);
     m_fiO2SpinBox->setSuffix(tr(PercentSuffixStr));
     inputGroupLayout->addWidget(w);
 
@@ -226,6 +227,8 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     {
         CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
         m_urGraph->onAddValue(v);
+
+        // qDebug() << "data.pressRes = " << data.pressRes << ", v = " << v;
     }
 
     // Lower left graph

@@ -14,7 +14,7 @@ class CommMgrInterface : public QObject
     struct DataIn
     {
         // User input settings
-        NumType fi02;
+        NumType fiO2;
         NumType tidalVol;
         NumType respRate;
         NumType ieRatio;
@@ -31,6 +31,11 @@ class CommMgrInterface : public QObject
         NumType pressSys; // psys pressure
         NumType pressO2;  // pO2 sensor reading.
         NumType lungVol;  // lung volume
+
+        DataIn() : fiO2{0.0}, tidalVol{0.0}, respRate{0.0},
+            ieRatio{0.0}, peep{0.0}, isAOpen{false}, isBOpen{false},
+            isCOpen{false}, isDOpen{false}, pressRes{0.0},
+            pressSys{0.0}, pressO2{0.0}, lungVol{0.0} {};
     };
 
     CommMgrInterface() = default;

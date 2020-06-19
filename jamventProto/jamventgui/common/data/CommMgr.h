@@ -17,9 +17,6 @@ class CommMgr : public CommMgrInterface
     void start();
     void stop();
 
-    // JPW @todo. For now expose the controller for convenience.
-    JamCtrlMgr *getJamCtrlMgr() { return &m_jamCtrl; };
-
   public slots:
     void onFio2Changed(NumType value) override;
     void onTidalVolChanged(NumType value) override;

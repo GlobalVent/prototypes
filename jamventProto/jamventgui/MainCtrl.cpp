@@ -26,7 +26,13 @@ MainCtrl::MainCtrl()
 
     if (useSerialInterface)
     {
-        // JPW @todo Fill in
+        connect(treatmentWidget, &TreatmentWidget::sigValueAOpenChanged, &m_serialMgr, &SerialMgr::onValveAOpenChanged);
+        connect(treatmentWidget, &TreatmentWidget::sigValueBOpenChanged, &m_serialMgr, &SerialMgr::onValveCOpenChanged);
+        connect(treatmentWidget, &TreatmentWidget::sigValueCOpenChanged, &m_serialMgr, &SerialMgr::onValveBOpenChanged);
+        connect(treatmentWidget, &TreatmentWidget::sigValueDOpenChanged, &m_serialMgr, &SerialMgr::onValveDOpenChanged);
+        connect(&m_serialMgr, &SerialMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
+
+        m_serialMgr.start();
     }
     else
     {
