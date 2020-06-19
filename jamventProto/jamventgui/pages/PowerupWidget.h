@@ -2,6 +2,7 @@
 #define POWERUPWIDGET_H
 
 #include <QWidget>
+#include <QSpinBox>
 
 #include "PushButtonWidget.h"
 
@@ -28,5 +29,8 @@ public:
     private:
       Ui::PowerupWidget *ui;
       PushButtonWidget *m_treatmentButtonWidget;
+
+      // User Input Data widgets
+      QSpinBox *m_maxPressSpinBox = nullptr;
 };
 #endif // POWERUPWIDGET_H
