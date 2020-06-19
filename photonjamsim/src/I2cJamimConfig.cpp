@@ -24,6 +24,8 @@ void I2cJamsimConfig::start(unsigned _rw) {
 void I2cJamsimConfig::stop(unsigned _rw) {
     if (_recvByteCount == 0)
         return;
+    if (_rw)       // nothing to do on a read cycle...
+        return;
 
     switch (_recvData[0]) {
         case VERSION:               
@@ -43,7 +45,10 @@ void I2cJamsimConfig::stop(unsigned _rw) {
                 if (_recvByteCount >= 3)
                     _simInterval = (_recvData[1] << 8) + _recvData[2];
             }
-            break;        
+            break;
+        default:
+            memset(_sendData, 0xAA, sizeof(_sendData));   // give us a pattern, 
+            break;  
 
     }
 }
@@ -54,18 +59,18 @@ void I2cJamsimConfig::stop(unsigned _rw) {
  *        if this has no more to send then return zeros.
  * 
  * @param data -- place to put next read value.
- * @return bool -- read data valid 
+ * @return uint8_t -- return the read data
  *                 return false when we read more than the device 
  *                 has in the register associated with the command
  *                 written.
  */
-bool I2cJamsimConfig::read(uint8_t &data) {
-    bool rc = true;
+uint8_t I2cJamsimConfig::read() {
+    uint8_t data;
     if (_sendByteIdx < sizeof(_sendData))
         data = _sendData[_sendByteIdx++];
     else
         data = 0;
-    return(rc);
+    return(data);
 }
 /**
  * @brief write data to the device. (one byte at a time.)

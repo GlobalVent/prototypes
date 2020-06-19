@@ -22,8 +22,7 @@ I2cSlaveCtl::I2cSlaveCtl(int sdlGpio, int sdaGpio) :
     _rw(1),
     _bitCount(0),
     _currByte(0),
-    _sdaPinMode(INPUT),
-    _rdValid(false)
+    _sdaPinMode(INPUT)
 {
     pinMode(sdlGpio, INPUT);
     pinMode(sdaGpio, INPUT);
@@ -50,7 +49,7 @@ void I2cSlaveCtl::resetI2cState() {
 }
 
 
-inline void I2cSlaveCtl::gotoStateReady(unsigned from) 
+void I2cSlaveCtl::gotoStateReady(unsigned from) 
 {
     _i2cState = I2C_STATE_READY;
     setSdaPinMode(INPUT);
@@ -58,7 +57,7 @@ inline void I2cSlaveCtl::gotoStateReady(unsigned from)
     _currByte = 0;
     _bitCount = 0;
 }
-inline void I2cSlaveCtl::gotoStateAddr(unsigned from)
+void I2cSlaveCtl::gotoStateAddr(unsigned from)
 {
     _i2cState = I2C_STATE_ADDR;
     _bitCount = 8;         // count down 8 bits
@@ -67,38 +66,49 @@ inline void I2cSlaveCtl::gotoStateAddr(unsigned from)
     setSdaPinMode(INPUT);
 
 }
-inline void I2cSlaveCtl::gotoStateAckAddr(unsigned from)
+void I2cSlaveCtl::gotoStateAckAddr(unsigned from)
 {
     _i2cState = I2C_STATE_ACK_ADDR;
     _currByte = 0;
-    if ((_rw) && (_currDev))
-        _rdValid = _currDev->read(_currByte);   // we output bits until it tells us we have no more...
-
+    setSdaPinMode(INPUT);       // make sure we are listening, we go to turn the line around when sdl drops.
+    if (_currDev) {
+        if (_rw) 
+            _currByte = _currDev->read();   // we output bits until it tells us we have no more...
+        else
+            _currDev->write(_currByte);
+    }
 }
-inline void I2cSlaveCtl::gotoStateWr(unsigned from)
+void I2cSlaveCtl::gotoStateWr(unsigned from)
 {
     _i2cState = I2C_STATE_WR;
     _bitCount = 8;         // count down 8 bits
-
 }
 void I2cSlaveCtl::gotoStateRd(unsigned from)
 {
     _i2cState = I2C_STATE_RD;
     _bitCount = 8;         // count down 8 bits
-
-
 }
-inline void I2cSlaveCtl::gotoStateAck(unsigned from)
+void I2cSlaveCtl::gotoStateAck(unsigned from)
 {
     _i2cState = I2C_STATE_ACK;
     _currByte = 0;
-    if ((_rw) && (_currDev))
-        _rdValid = _currDev->read(_currByte);   // we output bits until it tells us we have no more...
+    if (_currDev) {
+        if (_rw) 
+            _currByte = _currDev->read();   // we output bits until it tells us we have no more...
+        else
+            _currDev->write(_currByte);
+    }
 }
-inline void I2cSlaveCtl::gotoStateStopEnd(unsigned from) 
+void I2cSlaveCtl::gotoStateStopEnd(unsigned from) 
 {
-        _i2cState = I2C_STATE_STOP_END;     // wait for the final SCL_UP or another start..
+    _i2cState = I2C_STATE_STOP_END;     // wait for the final SCL_UP or another start..
 }
+
+void I2cSlaveCtl::gotoStateRdEnd(unsigned from) 
+{
+    _i2cState = I2C_STATE_RD_END;
+}
+
 
 
 void I2cSlaveCtl::handleStateReady(unsigned i2cEvent, unsigned sda)
@@ -110,7 +120,6 @@ void I2cSlaveCtl::handleStateReady(unsigned i2cEvent, unsigned sda)
         default:
             break;          // ignore
     }
-
 }
 void I2cSlaveCtl::handleStateAddr(unsigned i2cEvent, unsigned sda)
 {
@@ -121,26 +130,25 @@ void I2cSlaveCtl::handleStateAddr(unsigned i2cEvent, unsigned sda)
         case I2C_EVENT_STOP:
             gotoStateReady(_i2cState);               // abort, ready
             break;
-        case I2C_EVENT_SCL_UP: {
+        case I2C_EVENT_SCL_UP: 
             if ((_bitCount == 0) || (_bitCount > 8))     // this should NEVER happen, but just in case. 
                 gotoStateReady(_i2cState);          
             _bitCount -= 1;
             if (_bitCount == 0) {                       // last bit...
-                RegisteredDevsIter iter;
-                iter = _registeredDevs.find(_currByte);
+                RegisteredDevsIter iter = _registeredDevs.find(_currByte);
                 if (iter != _registeredDevs.end()) {
                     _rw = sda;
                     _currDev = iter->second;
                     gotoStateAckAddr(_i2cState);
-                }
-                else
+                } else {
                     gotoStateReady(_i2cState);  // nothing registered at this address, ignore...
+                }
                 
-            }
-            else 
+            } else {
                 _currByte = (_currByte<<1) + sda;
+            }
             break;
-        }
+        
         default:
             break;              // don't care about SCL UP..
     }
@@ -205,18 +213,22 @@ void I2cSlaveCtl::handleStateRd(unsigned i2cEvent, unsigned sda)
         case I2C_EVENT_STOP:
             gotoStateReady(_i2cState);               // abort, ready
             break;
-        case I2C_EVENT_SCL_DOWN:            // change data on falling edge of scl
+        case I2C_EVENT_SCL_DOWN: {                   // change data on falling edge of scl
             if ((_bitCount == 0) || (_bitCount > 8))     // this should NEVER happen, but just in case. 
                 gotoStateReady(_i2cState);          
             _bitCount -= 1;
-            if (_rdValid) {
-                setSdaPinMode(OUTPUT);      // we have more to say, 
-                unsigned bit = !!(_currByte & 0x80);
-                digitalWrite(_sdaGpio, bit);
+            unsigned bit = !!(_currByte & 0x80);
+            _currByte <<= 1;
+            if (bit) {
+                setSdaPinMode(INPUT);       // let it float
+            } else {
+                setSdaPinMode(OUTPUT);
+                digitalWriteFast(_sdaGpio, 0);
             }
-            else
-                setSdaPinMode(INPUT);       // we have nothing more to say, get off the bus..
-            if (_bitCount == 0)                        // last bit...
+            break;
+        }
+        case I2C_EVENT_SCL_UP: 
+            if (_bitCount == 0)                       // last bit...
                 gotoStateAck(_i2cState);
             break;
         default:
@@ -234,14 +246,25 @@ void I2cSlaveCtl::handleStateAck(unsigned i2cEvent, unsigned sda)
             gotoStateStopEnd(_i2cState);               // abort, ready
             break;
         case I2C_EVENT_SCL_DOWN:
-            setSdaPinMode(OUTPUT);              // transition can happen only when SCL is low...
-            digitalWrite(_sclGpio, LOW);
+            if (!_rw) {
+                setSdaPinMode(OUTPUT);              // transition can happen only when SCL is low...
+                digitalWrite(_sclGpio, LOW);
+            }
+            else  {
+                setSdaPinMode(INPUT);   // let the master tell us on the SCL up if we are done
+            }
+            
             break;
         case I2C_EVENT_SCL_UP:
-            if (_rw)
-                gotoStateRd(_i2cState);
-            else
+            if (_rw) {
+                if (sda)                // sda high, NAK from host, it is done reading.
+                    gotoStateRdEnd(_i2cState);
+                else
+                    gotoStateRd(_i2cState); // sda low, ther there is  more to read
+            }
+            else {
                 gotoStateWr(_i2cState);
+            }
             break;
         default:
             break;              
@@ -257,10 +280,27 @@ void I2cSlaveCtl::handleStateStopEnd(unsigned i2cEvent, unsigned sda)
             break;
         case I2C_EVENT_SCL_UP:
             gotoStateReady(_i2cState);
-            if (_rw)
-                gotoStateRd(_i2cState);
-            else
-                gotoStateWr(_i2cState);
+            break;
+        case I2C_EVENT_SCL_DOWN:
+            setSdaPinMode(INPUT);               // make sure we are in input mode.
+            break;
+        default:
+            break;              
+    }
+
+}
+
+void I2cSlaveCtl::handleStateRdEnd(unsigned i2cEvent, unsigned sda)
+{
+    switch (i2cEvent) {
+        case I2C_EVENT_START:
+            gotoStateAddr(_i2cState);
+            break;
+        case I2C_EVENT_SCL_UP:
+            gotoStateReady(_i2cState);
+            break;
+        case I2C_EVENT_SCL_DOWN:
+            setSdaPinMode(INPUT);               // make sure we are in input mode.
             break;
         default:
             break;              
@@ -319,7 +359,6 @@ unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
     if (i2cEvent != I2C_EVENT_INVAL) {
         digitalWriteFast(DBG_OUT, 1); 
 
-        if (_dbgPrint) _dbgPrint->printf("decodeEvent b=0x%x,e=%d,s=%d\n", b,i2cEvent, _i2cState);
         switch (_i2cState) {
             case I2C_STATE_READY:    handleStateReady(i2cEvent,  sda); break;
             case I2C_STATE_ADDR:     handleStateAddr(i2cEvent,   sda); break;
@@ -328,6 +367,7 @@ unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
             case I2C_STATE_WR:       handleStateWr(i2cEvent,     sda); break;
             case I2C_STATE_ACK:      handleStateAck(i2cEvent,    sda); break;
         }
+        if (_dbgPrint) _dbgPrint->printf("ev b=0x%x,e=%d,s=%d,d=%d\n", b,i2cEvent, _i2cState, sda);
         digitalWriteFast(DBG_OUT, 0); 
     }
     return(i2cEvent);

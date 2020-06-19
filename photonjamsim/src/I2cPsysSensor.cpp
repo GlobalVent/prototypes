@@ -42,12 +42,12 @@ void I2cPsysSensor::stop(unsigned _rw) {
  *        if this has no more to send then return zeros.
  * 
  * @param data -- place to put next read value.
- * @return bool -- read data valid 
+ * @return uint8_t -- return the read data
  *                 return false when we read more than the device 
  *                 has in the register associated with the command
  *                 written.
  */
-bool I2cPsysSensor::read(uint8_t &data) {
+uint8_t I2cPsysSensor::read() {
     #if 0
     bool rc = true;
     switch (_command) {     // data goes out in network byte order
@@ -58,7 +58,7 @@ bool I2cPsysSensor::read(uint8_t &data) {
     _byteCount++;
     return(rc);
     #endif
-    return(false);
+    return(0);
 }
 /**
  * @brief write data to the device. (one byte at a time.)

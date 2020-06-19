@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <stdint.h>
-//#include <sstream>
+#include <string.h>
 
 class I2cSlaveDevice
 {
@@ -19,7 +19,10 @@ public:
         _devAddr(devAddr),
         _recvByteCount(0),
         _sendByteCount(0),
-        _sendByteIdx(0)    {}     // current index of being sent.
+        _sendByteIdx(0)    {
+            memset(_sendData, 0xFF, sizeof(_sendData));
+            memset(_recvData, 0xFF, sizeof(_recvData));
+        }     // current index of being sent.
     virtual ~I2cSlaveDevice() {}
     /**
      * @brief Get the Dev address object
@@ -63,12 +66,12 @@ public:
      *        if this has no more to send then return zeros.
      * 
      * @param data -- place to put next read value.
-     * @return bool -- read data valid 
+     * @return uint8_t -- return the read data
      *                 return false when we read more than the device 
      *                 has in the register associated with the command
      *                 written.
      */
-    virtual bool read(uint8_t &data) = 0;
+    virtual uint8_t read() = 0;
     /**
      * @brief write data to the device. (one byte at a time.)
      * 
