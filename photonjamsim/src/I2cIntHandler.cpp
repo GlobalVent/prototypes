@@ -3,7 +3,7 @@
 #include "I2cIntHandler.h"
 
 
-#define DBG_OUT A5
+#define DBG_OUT A2
 // singleton instance only..
 I2cIntHandler *I2cIntHandler::_staticThis = nullptr;
 
@@ -64,12 +64,13 @@ void I2cIntHandler::handleInterrupt()
             break;              // we detected one, so now we are going into poll mode...
         }
     }
+    //digitalWriteFast(DBG_OUT, 0); 
     if (detectedStart) {
         if (_dbgPrint) _dbgPrint->printf("detected start\n");
         uint64_t start = microsNow();       
-        uint64_t end = start + 600*2;   // just something see with a scope...
+        uint64_t end = start + 600*10;   // just something see with a scope...
         detachAllInterrupts();
-        digitalWriteFast(DBG_OUT, 1);  // the loop ends here when both tasks end back at idle
+        //digitalWriteFast(DBG_OUT, 1); 
                                        // 
         while (microsNow() < end) {  
             for (auto ctl: _registeredCtls) {
@@ -77,16 +78,16 @@ void I2cIntHandler::handleInterrupt()
                                                           pinReadFast(ctl.second->getSdaGpio()));
                 if (i2cEvent) {
                     // todo extend the timeout...
-                }                                                          
+                }                           
            }
         }
-        // debug gorp
         for (auto ctl: _registeredCtls) 
-            if (_dbgPrint) _dbgPrint->printf("getLastgpio=0x%x\n", ctl.second->getLastI2cGpio());
+            ctl.second->resetI2cState();
         attachAllInterrupts();
-        digitalWriteFast(DBG_OUT,0);
+        //digitalWriteFast(DBG_OUT,0);
         // make sure pin mode for SDA is set...
         // then attach all interrupts.
+        if (_dbgPrint) _dbgPrint->printf("return isr\n");
 
     }
 }
