@@ -296,7 +296,7 @@ void I2cSlaveCtl::handleStateRdEnd(unsigned i2cEvent, unsigned sda)
         case I2C_EVENT_START:
             gotoStateAddr(_i2cState);
             break;
-        case I2C_EVENT_SCL_UP:
+        case I2C_EVENT_STOP:
             gotoStateReady(_i2cState);
             break;
         case I2C_EVENT_SCL_DOWN:
@@ -366,6 +366,8 @@ unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
             case I2C_STATE_RD:       handleStateRd(i2cEvent,     sda); break;
             case I2C_STATE_WR:       handleStateWr(i2cEvent,     sda); break;
             case I2C_STATE_ACK:      handleStateAck(i2cEvent,    sda); break;
+            case I2C_STATE_STOP_END: handleStateStopEnd(i2cEvent,sda); break;
+            case I2C_STATE_RD_END:   handleStateRdEnd(i2cEvent,  sda); break;
         }
         if (_dbgPrint) _dbgPrint->printf("ev b=0x%x,e=%d,s=%d,d=%d\n", b,i2cEvent, _i2cState, sda);
         digitalWriteFast(DBG_OUT, 0); 
