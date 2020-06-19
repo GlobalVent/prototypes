@@ -34,13 +34,11 @@ public:
         I2C_STATE_WR        = 3,
         I2C_STATE_ACK       = 4,
         I2C_STATE_RD        = 5,
-        I2C_STATE_RD_END    = 6,    // state after final read waiting for a stop.. ignore all data.
-        I2C_STATE_STOP_END  = 7     // wait for the final SCL up after a stop event.
+        I2C_STATE_RD_END    = 6    // state after final read waiting for a stop.. ignore all data.
     };
 
-    void setDbgPrint(JamsimDbgPrint *dbgPrint) {
-        _dbgPrint = dbgPrint;
-    }
+    void setDbgPrint(JamsimDbgPrint *dbgPrint);
+    
     std::string lastError() {
         return(_lastError);
     }
@@ -114,7 +112,6 @@ protected:
     void gotoStateWr(unsigned from);
     void gotoStateRd(unsigned from);
     void gotoStateAck(unsigned from);
-    void gotoStateStopEnd(unsigned from);
     void gotoStateRdEnd(unsigned from);
     void writeSda(unsigned data) { digitalWriteFast(_sdaGpio, data); } 
     unsigned readSda() { return(digitalRead(_sdaGpio)); }
@@ -146,7 +143,6 @@ protected:
     void handleStateWr(unsigned i2cEvent, unsigned sda);
     void handleStateRd(unsigned i2cEvent, unsigned sda);
     void handleStateAck(unsigned i2cEvent, unsigned sda);
-    void handleStateStopEnd(unsigned i2cEvent, unsigned sda);
     void handleStateRdEnd(unsigned i2cEvent, unsigned sda);
 
 private:

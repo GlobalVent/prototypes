@@ -67,7 +67,6 @@ void I2cIntHandler::handleInterrupt()
     //digitalWriteFast(DBG_OUT, 0); 
     if (detectedStart) {
         static uint64_t timeout = 125;       // 125 micro seconds between up/down events before we just give up...
-        if (_dbgPrint) _dbgPrint->printf("detected start\n");
         // refresh this time       
         uint64_t end = microsNow() + timeout;  
         detachAllInterrupts();
@@ -88,9 +87,6 @@ void I2cIntHandler::handleInterrupt()
             ctl.second->resetI2cState();
         attachAllInterrupts();
         //digitalWriteFast(DBG_OUT,0);
-        // make sure pin mode for SDA is set...
-        // then attach all interrupts.
-        if (_dbgPrint) _dbgPrint->printf("return isr\n");
 
     }
 }

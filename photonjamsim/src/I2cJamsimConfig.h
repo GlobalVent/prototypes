@@ -19,7 +19,7 @@ public:
      */
     I2cJamsimConfig(unsigned devAddr) :
         I2cSlaveDevice(devAddr),
-        _version(1),
+        _version(0x100),
         _simInterval(10)  { };
 
     /**
@@ -36,25 +36,6 @@ public:
      * @param -- _rw -- read/write_
      */
     virtual void stop(unsigned _rw);
-
-    /**
-     * @brief read the next byte of data
-     *        the remote computer is asking for more data so deliver it
-     *        if this has no more to send then return zeros.
-     * 
-     * @param data -- place to put next read value.
-     * @return uint8_t -- return the read data
-     *                 return false when we read more than the device 
-     *                 has in the register associated with the command
-     *                 written.
-     */
-    virtual uint8_t read();
-    /**
-     * @brief write data to the device. (one byte at a time.)
-     * 
-     * @param data -- 1 byte data written to the device
-     */
-    virtual void write(uint8_t data);
 
     //
     // now to setup a registers to read and write

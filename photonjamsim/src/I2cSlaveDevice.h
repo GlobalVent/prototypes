@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdint.h>
 #include <string.h>
+#include "JamsimDbgPrint.h"
 
 class I2cSlaveDevice
 {
@@ -15,11 +16,12 @@ public:
      * @param devAddr -- device address for this device.
      */
     I2cSlaveDevice(unsigned devAddr) :
-        //_log(nullptr),
+        _dbgPrint(nullptr),
         _devAddr(devAddr),
         _recvByteCount(0),
         _sendByteCount(0),
-        _sendByteIdx(0)    {
+        _sendByteIdx(0),
+        _regAddr(0xFF)    {
             memset(_sendData, 0xFF, sizeof(_sendData));
             memset(_recvData, 0xFF, sizeof(_recvData));
         }     // current index of being sent.
@@ -31,16 +33,9 @@ public:
      */
     unsigned getDevAddr() { return _devAddr;};
 
-    #if 0
-    /**
-     * @brief Set the Log Stream object
-     * 
-     * @param log -- stream to set log to.
-     */
-    void setLogStream(std::ostringstream *log) {
-        _log=log;
+    void setDbgPrint(JamsimDbgPrint *dbgPrint) {
+        _dbgPrint = dbgPrint;
     }
-    #endif
 
     /**
      * @brief startTransaction -- this call happens after a start event AND
@@ -71,19 +66,30 @@ public:
      *                 has in the register associated with the command
      *                 written.
      */
-    virtual uint8_t read() = 0;
+    virtual uint8_t read(){
+        uint8_t data;
+        if (_sendByteIdx < sizeof(_sendData))
+            data = _sendData[_sendByteIdx++];
+        else
+            data = 0;
+        return(data);
+    }
     /**
      * @brief write data to the device. (one byte at a time.)
      * 
      * @param data -- 1 byte data written to the device
      */
-    virtual void write(uint8_t data) = 0;
+    virtual void write(uint8_t data){
+        if (_recvByteCount < sizeof(_recvData)) 
+            _recvData[_recvByteCount++] = data;
+    }
 protected:
-    //std::ostream *_log;       // switch to debug object, streams blows our memory budget.
+    JamsimDbgPrint *_dbgPrint;
     unsigned _devAddr;
     unsigned _recvByteCount;
     unsigned _sendByteCount;
     unsigned _sendByteIdx;
+    uint8_t  _regAddr;          // last register address received.
     uint8_t _sendData[4];
     uint8_t _recvData[4];
 private:
