@@ -62,13 +62,11 @@ void initialize() {
 	i2cIntHandler = new I2cIntHandler();
 	i2cIntHandler->setDbgPrint(&dbgPrint);
 	i2cRpiSlaveCtl = new I2cSlaveCtl(I2C_RPI_SCL, I2C_RPI_SDA);
-	i2cRpiSlaveCtl->setDbgPrint(&dbgPrint);
 	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CFG_ADDR);
 	// TBD create three more sensors
 
 
 	i2cCpldSlaveCtl = new I2cSlaveCtl(I2C_CPLD_SCL, I2C_CPLD_SDA);
-	i2cCpldSlaveCtl->setDbgPrint(&dbgPrint);
 	// TBD create three cpld sensors...
 
 	// wire it all up.
@@ -77,7 +75,13 @@ void initialize() {
 	i2cIntHandler->registerI2cSlaveCtl(i2cCpldSlaveCtl);
 	#endif
 	i2cRpiSlaveCtl->registerI2cDevice(photonConfig);
+
+	i2cRpiSlaveCtl->setDbgPrint(&dbgPrint);
+	i2cCpldSlaveCtl->setDbgPrint(&dbgPrint);
+
 	i2cIntHandler->attachAllInterrupts();
+
+
 	isInitialized=true;
 
 }

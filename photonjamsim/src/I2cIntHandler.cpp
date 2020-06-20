@@ -66,9 +66,9 @@ void I2cIntHandler::handleInterrupt()
     }
     //digitalWriteFast(DBG_OUT, 0); 
     if (detectedStart) {
-        if (_dbgPrint) _dbgPrint->printf("detected start\n");
-        uint64_t start = microsNow();       
-        uint64_t end = start + 600*10;   // just something see with a scope...
+        static uint64_t timeout = 125;       // 125 micro seconds between up/down events before we just give up...
+        // refresh this time       
+        uint64_t end = microsNow() + timeout;  
         detachAllInterrupts();
         //digitalWriteFast(DBG_OUT, 1); 
                                        // 
@@ -77,7 +77,9 @@ void I2cIntHandler::handleInterrupt()
                 unsigned i2cEvent=ctl.second->decodeEvent(pinReadFast(ctl.second->getSclGpio()),
                                                           pinReadFast(ctl.second->getSdaGpio()));
                 if (i2cEvent) {
-                    // todo extend the timeout...
+                    end = microsNow() + timeout;    // keep extending the timeout as long as we see events
+                    // TODO: getI2cState -- count how many devices are not in ready state.
+                                            // exit if all devices are in ready..
                 }                           
            }
         }
@@ -85,9 +87,6 @@ void I2cIntHandler::handleInterrupt()
             ctl.second->resetI2cState();
         attachAllInterrupts();
         //digitalWriteFast(DBG_OUT,0);
-        // make sure pin mode for SDA is set...
-        // then attach all interrupts.
-        if (_dbgPrint) _dbgPrint->printf("return isr\n");
 
     }
 }
