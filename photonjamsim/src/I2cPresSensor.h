@@ -17,9 +17,7 @@ public:
      * 
      * @param devAddr -- device address for this device.
      */
-    I2cPresSensor(unsigned devAddr) :
-        I2cSlaveDevice(devAddr),
-        _command(-1) {};
+    I2cPresSensor(unsigned devAddr);
 
     /**
      * @brief stop event received AFTER receiving a start event...
@@ -29,8 +27,53 @@ public:
     virtual void stop(unsigned _rw);
 
 
+    
+    /**
+     * @brief Set the Pressure
+     * 
+     * @param pressure 
+     */
+    virtual void setPressure(unsigned pressure) {
+        _pressure = pressure;
+    }
+    /**
+     * @brief Set the Temperature
+     * 
+     * @param temperature 
+     */
+    virtual void setTemperature(unsigned temperature) {
+        _temperature = temperature;
+    }
+
+
 protected:
-    int      _command;
+    void clearSendData();
+
+    enum {
+        CMD_RESET = 0x1E,           // 8 bit commands
+        CMD_ADC_READ = 0x00,
+
+        // 4 bit commands with type
+        CMD_CV_D1 = 0x4,
+        CMD_CV_D2 = 0x5,
+
+        CMD_PROM_RD = 0xA,
+
+        CMD_OSR_256  = 0x00,        // osr type (precisions)
+        CMD_OSR_512  = 0x02,
+        CMD_OSR_1024 = 0x04,
+        CMD_OSR_2048 = 0x06,
+        CMD_OSR_4096 = 0x08,
+        CMD_OSR_8192 = 0x0A,
+
+        // extended commands        // for testing.
+        CMD_SET_TEMP = 0x10,
+        CMD_SET_PRES = 0x11,
+    };
+    uint16_t _prom[8];
+    uint32_t _temperature;
+    uint32_t _pressure;
+
 private:
 };
 #endif
