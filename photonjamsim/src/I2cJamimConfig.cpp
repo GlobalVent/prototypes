@@ -5,18 +5,6 @@
 
 
 /**
- * @brief startTransaction -- this call happens after a start event AND
- *           and the the caller has received an address matching the 
- *           devAddr
- * @param -- _rw -- read/write_
- * 
- */
-void I2cJamsimConfig::start(unsigned _rw) {
-    stop(_rw);                         // if we have a command in progress and get another start it implies a stop.
-    I2cSlaveDevice::start(_rw);
-}
-
-/**
  * @brief stop event received AFTER receiving a start event...
  * 
  * @param -- _rw -- read/write_

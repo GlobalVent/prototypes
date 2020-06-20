@@ -1,0 +1,4 @@
+X:/github/prototypes/LinuxProject2/VisualGDB/Debug/CMakeFiles/LinuxProject2.dir
+X:/github/prototypes/LinuxProject2/VisualGDB/Debug/CMakeFiles/edit_cache.dir
+X:/github/prototypes/LinuxProject2/VisualGDB/Debug/CMakeFiles/rebuild_cache.dir
+X:/github/prototypes/LinuxProject2/VisualGDB/Debug/CMakeFiles/LinuxProject2_autogen.dir

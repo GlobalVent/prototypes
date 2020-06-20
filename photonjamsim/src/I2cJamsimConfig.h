@@ -23,14 +23,6 @@ public:
         _simInterval(10)  { };
 
     /**
-     * @brief startTransaction -- this call happens after a start event AND
-     *           and the the caller has received an address matching the 
-     *           devAddr
-     * @param -- _rw -- read/write_
-     */
-    virtual void start(unsigned _rw);
-
-    /**
      * @brief stop event received AFTER receiving a start event...
      * 
      * @param -- _rw -- read/write_
