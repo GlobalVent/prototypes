@@ -31,19 +31,9 @@ public:
     void onNewInData(CommMgr::DataIn data);
 
 signals:
-    void sigValueAOpenChanged(bool isOpen);
-    void sigValueBOpenChanged(bool isOpen);
-    void sigValueCOpenChanged(bool isOpen);
-    void sigValueDOpenChanged(bool isOpen);
-
     void sigPowerupButtonClicked();
 
 private:
-  void onValveAToggled(bool isChecked);
-  void onValveBToggled(bool isChecked);
-  void onValveCToggled(bool isChecked);
-  void onValveDToggled(bool isChecked);
-
   Ui::TreatmentWidget *ui;
 
   GraphWidget::InitParams m_ulParams;
@@ -66,18 +56,6 @@ private:
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
 
-  // Value A-D button widgets
-  PushButtonWidget* m_valveAButtonWidget;
-  PushButtonWidget* m_valveBButtonWidget;
-  PushButtonWidget* m_valveCButtonWidget;
-  PushButtonWidget* m_valveDButtonWidget;
-
-  PushButtonWidget *m_powerupButtonWidget;
-
-  // Value A-D button checked state
-  bool m_isValueAChecked = false;
-  bool m_isValueBChecked = false;
-  bool m_isValueCChecked = false;
-  bool m_isValueDChecked = false;
+  PushButtonWidget *m_powerupButtonWidget = nullptr;
 };
 #endif // TREATMENTWIDGET_H

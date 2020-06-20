@@ -34,11 +34,6 @@ namespace
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Menu");
     //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Standby");
     constexpr const char *PowerupLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
-
-    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve A");
-    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve B");
-    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve C");
-    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve D");
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
@@ -118,19 +113,6 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
 #else
-    m_valveAButtonWidget = new PushButtonWidget(tr(ValveALabelStr));
-    m_valveAButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveAButtonWidget);
-    m_valveBButtonWidget = new PushButtonWidget(tr(ValveBLabelStr));
-    m_valveBButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveBButtonWidget);
-    m_valveCButtonWidget = new PushButtonWidget(tr(ValveCLabelStr));
-    m_valveCButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveCButtonWidget);
-    m_valveDButtonWidget = new PushButtonWidget(tr(ValveDLabelStr));
-    m_valveDButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveDButtonWidget);
-
     m_powerupButtonWidget = new PushButtonWidget(tr(PowerupLabelStr));
     dataGroupLayout->addWidget(m_powerupButtonWidget);
 #endif
@@ -183,11 +165,6 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 #endif
 
     // Connect signals.
-    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
-    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
-    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
-    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
-
     connect(m_powerupButtonWidget, &QPushButton::clicked, this, &TreatmentWidget::sigPowerupButtonClicked);
 }
 
@@ -243,45 +220,5 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     {
         CommMgr::NumType v = data.lungVol;
         m_lrGraph->onAddValue(v);
-    }
-}
-
-void TreatmentWidget::onValveAToggled(bool isChecked)
-{
-    if (m_isValueAChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveAToggled(" << isChecked << ")";
-        m_isValueAChecked = isChecked;
-        emit sigValueAOpenChanged(isChecked);
-    }
-}
-
-void TreatmentWidget::onValveBToggled(bool isChecked)
-{
-    if (m_isValueBChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveBToggled(" << isChecked << ")";
-        m_isValueBChecked = isChecked;
-        emit sigValueBOpenChanged(isChecked);
-    }
-}
-
-void TreatmentWidget::onValveCToggled(bool isChecked)
-{
-    if (m_isValueCChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveCToggled(" << isChecked << ")";
-        m_isValueCChecked = isChecked;
-        emit sigValueCOpenChanged(isChecked);
-    }
-}
-
-void TreatmentWidget::onValveDToggled(bool isChecked)
-{
-    if (m_isValueDChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveDToggled(" << isChecked << ")";
-        m_isValueDChecked = isChecked;
-        emit sigValueDOpenChanged(isChecked);
     }
 }

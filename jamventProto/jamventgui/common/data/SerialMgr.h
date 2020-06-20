@@ -32,6 +32,12 @@ class SerialMgr: public CommMgrInterface
     void onValveCOpenChanged(bool isOpen) override;
     void onValveDOpenChanged(bool isOpen) override;
 
+    // Temporary for demo phase
+    void onMaxPressChanged(NumType value);
+    void onVaTargetChanged(NumType value);
+    void onVbTargetChanged(NumType value);
+    void onSysTargetChanged(NumType value);
+
   private slots:
     void onReadyRead();
     void onReadLine(QByteArray data);

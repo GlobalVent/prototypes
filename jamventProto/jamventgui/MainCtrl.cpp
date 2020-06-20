@@ -1,3 +1,4 @@
+#include <QDebug>
 
 #include "Pages.h"
 #include "MainCtrl.h"
@@ -7,7 +8,7 @@
 
 namespace
 {
-    constexpr bool useSerialInterface = false;
+   
 }
 
 MainCtrl::MainCtrl()
@@ -24,34 +25,46 @@ MainCtrl::MainCtrl()
     m_widget->addWidget(Pages::PagePowerup, powerupWidget);
     m_widget->addWidget(Pages::PageTreatment, treatmentWidget);
 
-    if (useSerialInterface)
-    {
-        connect(treatmentWidget, &TreatmentWidget::sigValueAOpenChanged, &m_serialMgr, &SerialMgr::onValveAOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueBOpenChanged, &m_serialMgr, &SerialMgr::onValveCOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueCOpenChanged, &m_serialMgr, &SerialMgr::onValveBOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueDOpenChanged, &m_serialMgr, &SerialMgr::onValveDOpenChanged);
-        connect(&m_serialMgr, &SerialMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
+    // Connect powerup page to main controller
+    connect(powerupWidget, &PowerupWidget::sigUseSerialChanged, this, &MainCtrl::onUserSerialChanged);
+    connect(powerupWidget, &PowerupWidget::sigSimOnChanged, this, &MainCtrl::onSimOnChanged);
 
+    // Connect treatment page to serial communication manager.
+    connect(&m_serialMgr, &SerialMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
+
+    // Connect the powerup page to the serial communicaiton manager.
+    connect(powerupWidget, &PowerupWidget::sigValueAOpenChanged, &m_serialMgr, &SerialMgr::onValveAOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueBOpenChanged, &m_serialMgr, &SerialMgr::onValveCOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_serialMgr, &SerialMgr::onValveBOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_serialMgr, &SerialMgr::onValveDOpenChanged);
+    
+
+    // Connect treatment page to I2C communications manager.
+    connect(&m_commMgr, &CommMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
+
+    // Connect the powerup page to the I2C communications manager.
+    connect(powerupWidget, &PowerupWidget::sigValueAOpenChanged, &m_commMgr, &CommMgr::onValveAOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueBOpenChanged, &m_commMgr, &CommMgr::onValveCOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_commMgr, &CommMgr::onValveBOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_commMgr, &CommMgr::onValveDOpenChanged);
+
+    if (m_useSerialInterface)
+    {
         m_serialMgr.start();
     }
     else
     {
         // Default is use the jamvent ctrl I2C interface
-        // Connections
-        // Connect CommMgr to Widgets
-        connect(treatmentWidget, &TreatmentWidget::sigValueAOpenChanged, &m_commMgr, &CommMgr::onValveAOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueBOpenChanged, &m_commMgr, &CommMgr::onValveCOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueCOpenChanged, &m_commMgr, &CommMgr::onValveBOpenChanged);
-        connect(treatmentWidget, &TreatmentWidget::sigValueDOpenChanged, &m_commMgr, &CommMgr::onValveDOpenChanged);
-        connect(&m_commMgr, &CommMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
-
         m_commMgr.start();
     }
-#if 1
+
+#if 0
     // Start by showing the Treatment Page.
     showPage(Pages::PageTreatment);
-#else    // Start by showing the Powerup Page.
-   showPage(Pages::PagePowerup);#endif
+#else
+    // Start by showing the Powerup Page.
+   showPage(Pages::PagePowerup);
+#endif
 }
 
 MainWidget* MainCtrl::getWidget()
@@ -62,4 +75,35 @@ MainWidget* MainCtrl::getWidget()
 void MainCtrl::showPage(Pages::Page_E page)
 {
     m_widget->showPage(page);
+}
+
+void MainCtrl::onUserSerialChanged(bool isChecked)
+{
+    qDebug() << "MainCtrl::onUserSerialChanged(" << isChecked << ")";
+    if (isChecked)
+    {
+        // Stop I2C. Start serial.
+        m_commMgr.stop();
+        m_serialMgr.start();
+    }
+    else
+    {
+        // Stop serial. Start I2C.
+        m_serialMgr.stop();
+        m_commMgr.start();
+    }
+}
+
+void MainCtrl::onSimOnChanged(bool isChecked)
+{
+    qDebug() << "MainCtrl::onSimOnChanged(" << isChecked << ")";
+
+    if (isChecked)
+    {
+        // Simulation started. Send start commands (differs for serail vs I2C)
+    }
+    else
+    {
+        // Simulation stopped. Send stop commands (if any. differs for serail vs I2C)
+    }
 }

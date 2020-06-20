@@ -28,7 +28,7 @@ SerialMgr::SerialMgr()
 
     m_serialPort.setPortName("/dev/ttyACM0");
     bool status = m_serialPort.open(QIODevice::ReadWrite);
-    qDebug() << "open status =" << status;
+    qDebug() << "Serial port open status =" << status;
     m_serialPort.setBaudRate(QSerialPort::Baud9600);
 
     // Connect serial port.
@@ -113,6 +113,26 @@ void SerialMgr::onValveDOpenChanged(bool isOpen)
         m_isValueDOpen = isOpen;
         toggleValve("d");
     }
+}
+
+void SerialMgr::onMaxPressChanged(NumType value)
+{
+    qDebug() << "SerialMgr::onMaxPressChanged(" << value << ")";
+}
+
+void SerialMgr::onVaTargetChanged(NumType value)
+{
+    qDebug() << "SerialMgr::onVaTargetChanged(" << value << ")";
+}
+
+void SerialMgr::onVbTargetChanged(NumType value)
+{
+    qDebug() << "SerialMgr::onVbTargetChanged(" << value << ")";
+}
+
+void SerialMgr::onSysTargetChanged(NumType value)
+{
+    qDebug() << "SerialMgr::onSysTargetChanged(" << value << ")";
 }
 
 // JPW @todo remove when switiched to polling
