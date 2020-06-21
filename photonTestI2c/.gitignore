@@ -1,0 +1,9 @@
+.vs/
+CodeDB/
+VisualGDB/
+VisualGDBCache/
+
+# Ignore so can have individual RPI connection.
+jamventProto.vgdbcmake
+/build/
+*.plt

@@ -30,7 +30,7 @@ public:
 	bool initI2c()
 	{	
 		_handle = i2cOpen(_bus, _address, 0); // NOTE: Assumes Pi with i2cbus 1 (all after model B)
-		return(_handle != 0);
+		return(_handle >= 0);
 	}
 
 	/**
@@ -53,6 +53,32 @@ public:
 		int rc = i2cReadByte(_handle);
 		return(rc);
 	}
+	
+	
+	/**
+	 * @brief reads count bytes from the raw device into buf.
+	 * 
+	 * @param buf -- buffer to read data into
+	 * @param count -- count of data to read
+	 * @return int -- count (>0) if OK, otherwise PI_BAD_HANDLE, PI_BAD_PARAM, or PI_I2C_READ_FAILED.
+	 */ 
+	int readDevice(uint8_t *buf, unsigned count) {
+		int rc = i2cReadDevice(_handle, (char*)buf, count);
+		return(rc);
+	}
+
+
+	/**
+	 * @brief  writes count bytes from buf to the raw device.
+	 * 
+	 * @param buf -- buffer to write data from
+	 * @param count -- byte count to write.
+	 * @return int -- 0 if OK, otherwise PI_BAD_HANDLE, PI_BAD_PARAM, or PI_I2C_WRITE_FAILED.
+	 */ 
+	int writeDevice(uint8_t *buf, unsigned count) {
+		int rc = i2cWriteDevice(_handle, (char*)buf, count);
+	}
+
 
 	/**
 	 * @brief writeByteData
@@ -108,8 +134,8 @@ public:
 	 * @param buf -- buffer to write from.
 	 * @return int 0 if OK, otherwise PI_BAD_HANDLE, PI_BAD_PARAM, or PI_I2C_WRITE_FAILED.
 	 */
-	int writeBlockData(unsigned handle, unsigned i2cReg, char *buf, unsigned count) {
-		int rc = i2cWriteI2CBlockData(_handle, i2cReg, buf, count);
+	int writeBlockData(unsigned i2cReg, uint8_t *buf, unsigned count) {
+		int rc = i2cWriteI2CBlockData(_handle, i2cReg, (char*)buf, count);
 		return(rc);
 	}
 
@@ -120,8 +146,8 @@ public:
 	 * @param buf 
 	 * @return int 
 	 */
-	int readBlockData(unsigned i2cReg, char *buf, unsigned count) {
-		int rc = i2cReadI2CBlockData(_handle, i2cReg, buf, count);
+	int readBlockData(unsigned i2cReg, uint8_t *buf, unsigned count) {
+		int rc = i2cReadI2CBlockData(_handle, i2cReg, (char*)buf, count);
 		return(rc);
 	}
 
@@ -150,13 +176,6 @@ public:
 	I2cPhotonCfgDev() = delete;
 	I2cPhotonCfgDev(unsigned bus, unsigned address)
 		: I2cGenericDev(bus, address) {}
-	;
-protected:
-	enum {
-		VERSION = 0, 
-		        // return with the version number of this simulation (replies with 2 bytes, major and minor)
-		SIMINTERVAL = 1     // set the sim interval in milliseconds.
-	};
 
 	/**
 	 * @brief Get the Version word
@@ -164,7 +183,11 @@ protected:
 	 * @return int -- version word, or error code if error
 	 */
 	int getVersion() {
-		int rc = readWordData(VERSION);
+		uint8_t buf[2];
+		int rc = readBlockData(VERSION, buf, sizeof(buf));
+		if (rc > 0) {
+			rc = (buf[0]<<8) + buf[1];
+		}
 		return (rc);
 	}
 	/**
@@ -173,13 +196,27 @@ protected:
 	 * @return int 
 	 */
 	int getSiminterval() {
-		int rc = readWordData(SIMINTERVAL);
+		uint8_t buf[2];
+		int rc = readBlockData(SIMINTERVAL, buf, sizeof(buf));
+		if (rc > 0) {
+			rc = (buf[0]<<8) + buf[1];
+		}
 		return (rc);
 	}
 	int setSimInterval(unsigned simInterval) {
-		int rc = writeWordData(SIMINTERVAL, simInterval);
+		uint8_t buf[2];
+		buf[0] = (simInterval>>8);
+		buf[1] = simInterval;
+		int rc = writeBlockData(SIMINTERVAL, buf, sizeof(buf));
 		return (rc);
 	}
+
+protected:
+	enum {
+		VERSION = 0, 
+		        // return with the version number of this simulation (replies with 2 bytes, major and minor)
+		SIMINTERVAL = 1     // set the sim interval in milliseconds.
+	};
 
 private:
 };
@@ -187,8 +224,25 @@ private:
 
 int main(int argc, char *argv[])
 {
-	I2cPhotonCfgDev photonCfg(1, PHOTON_CFG_I2C_DEV);
-	char sz[] = "Hello, World!";	//Hover mouse over "sz" while debugging to see its contents
-	cout << sz << endl;	//<================= Put a breakpoint here
+	if (gpioInitialise() < 0)	{
+		cout << "gpioInitialize Failed" << endl;
+		return (1);
+	}
+	cout << "callling initI2c" << endl;
+	 I2cPhotonCfgDev photonCfg(1, PHOTON_CFG_I2C_DEV);
+	if (!photonCfg.initI2c()) 	{
+		cout << "initI2c Failed" << endl;
+		return (1);
+	}
+
+	
+	int version = photonCfg.getVersion();
+	cout << "version=" << (version>>8) << ":" << (version&0xFF) << endl;
+	
+	int siminterval = photonCfg.getSiminterval();
+	cout << "siminterval=" << siminterval << endl;
+	
+	gpioTerminate();
+	
 	return 0;
 }
