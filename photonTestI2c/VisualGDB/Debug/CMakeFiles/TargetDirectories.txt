@@ -1,3 +1,0 @@
-X:/github/prototypes/photonTestI2c/VisualGDB/Debug/CMakeFiles/rebuild_cache.dir
-X:/github/prototypes/photonTestI2c/VisualGDB/Debug/CMakeFiles/photonTestI2c.dir
-X:/github/prototypes/photonTestI2c/VisualGDB/Debug/CMakeFiles/edit_cache.dir
