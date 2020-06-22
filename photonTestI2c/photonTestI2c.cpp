@@ -8,7 +8,8 @@
 using namespace std;
 
 #define PHOTON_CFG_I2C_DEV 0x60
-#define PRES_I2C_DEV       0x61
+#define PRES_I2C_TEST_DEV       0x61
+#define PSYS_I2C_TEST_DEV       0x62
 
 // generic i2c class...
 class I2cGenericDev
@@ -18,21 +19,46 @@ public:
 	I2cGenericDev(unsigned bus, unsigned address) :
 		_bus(bus),
 		_address(address),
-		_handle(0) {}
+		_handle(-1) {}
 	virtual ~I2cGenericDev() {
-		if (_handle)
-			i2cClose(_handle);
+		i2cClose(_handle);
 	}		
+	/**
+	 * @brief Get the Error get the error text associated with an error code.
+	 * 
+	 * @param err -- error code to get error text for
+	 * @return std::string -- error rext...
+	 */
+	std::string getErrorText(int err) 
+	{
+		std::string errStr;
+		// currently this is a partial list.... of the errors
+		//   that are marked in the i2c section for pigpio.
+		switch (err) {
+			case PI_NOT_INITIALISED:  errStr = "function called before gpioInitialise"; break;
+			case PI_BAD_HANDLE:       errStr = "unknown handle"; break;
+			case PI_BAD_PARAM:		  errStr = "bad i2c/spi/ser parameter"; break;
+			case PI_I2C_READ_FAILED:  errStr = "i2c read failed"; break;
+			case PI_I2C_WRITE_FAILED: errStr = "i2c write failed"; break;
+			default:  errStr = "Unknown pigpio error"; break;
+		}
+	}
 	/**
 	 * @brief initialize our connection to the i2c device.
 	 * 
 	 * @return true -- device successfully opened
 	 * @return false  -- device closed.
 	 */
-	bool initI2c()
+	bool open()
 	{	
 		_handle = i2cOpen(_bus, _address, 0); // NOTE: Assumes Pi with i2cbus 1 (all after model B)
 		return(_handle >= 0);
+	}
+	
+	void close() {
+		if (_handle >= 0)
+			i2cClose(_handle);
+		_handle = -1;
 	}
 
 	/**
@@ -177,11 +203,11 @@ private:
  *        pressure devices.
  * 
  * required initialize operations.
- *     initI2c
+ *     open
  *     reset
  *     readProm  -- read the coefficients..
  * 
- * 
+ * close -- when done with object, destructor automatically closes  it.
  * 
  */
 class I2cMSxxx : public I2cGenericDev
@@ -223,7 +249,7 @@ protected:
 	 */
 	virtual int getPrecisionDelay(unsigned precision) = 0;
 
-	uint8_t _prom[8];
+	uint16_t _prom[8];
 	unsigned _lastCv;		// last conversion done.
 	unsigned _pressure_raw;			// current pressure value (raw uncompensated reading)
 	unsigned _temperature_raw;		// current temperature value (last value read)
@@ -257,18 +283,19 @@ public:
 	 * 		  there is a 5ms delay required before any other thing is touched.
 	 * @param delay -- true, do the delay, false don't.
 	 */
-	void reset(bool delay=true)
+	int reset(bool delay=true)
 	// Reset device I2C
 	{
-		writeByte(CMD_RESET);
+		int rc = writeByte(CMD_RESET);
 		if (delay)
 			gpioDelay(5000); //5 ms wait - extended this for r pi to 5ms
+		return(rc);
 	}
 
 	/**
 	 * @brief read the prom coeffecients.
 	 * 
-	 * @return int8_t 
+	 * @return int -- 0 if successful, pigpio error code if not...
 	 */
 	int readProm(void)
 	{
@@ -277,20 +304,21 @@ public:
 		int rc;
 		for(unsigned i = 0; i < 8; i++){
 			rc = readBlockData(CMD_PROM + (i*2), buf, sizeof(buf));
-			_prom[i] = (buf[0] << 8)| buf[1];
+			_prom[i] = ((uint16_t)buf[0] << 8)| buf[1];
 			if (rc < 0)
 				return(rc);
 		}
-		return rc;
+		return (rc < 0 ? rc : 0);
 	}
 	/**
 	 * @brief retrieve the prom data (for debug display)
 	 * 
 	 * @param data 
 	 */
-	void getPromData(std::vector<uint8_t> &data) {
+	void getPromData(std::vector<uint16_t> &data) {
 		data.clear();
-		data.insert(data.end(), _prom, _prom + sizeof(_prom)/sizeof(*_prom));
+		for(unsigned i = 0; i < 8; i++)
+			data.push_back(_prom[i]);
 	}
 
 	/**
@@ -383,7 +411,7 @@ public:
 		uint8_t buf[3];
 		int rc = readBlockData(CMD_ADC_TEST_PRES, buf, sizeof(buf));
 		if (rc > 0) {
-			rc = (buf[0]<<16) + (buf[1]<<8) + buf[2];
+			rc = ((int )buf[0]<<16) + ((int )buf[1]<<8) + buf[2];
 		}
 		return (rc);
 	}
@@ -411,7 +439,7 @@ public:
 		uint8_t buf[3];
 		int rc = readBlockData(CMD_ADC_TEST_TEMP, buf, sizeof(buf));
 		if (rc > 0) {
-			rc = (buf[0]<<16) + (buf[1]<<8) + buf[2];
+			rc = ((int )buf[0]<<16) + ((int )buf[1]<<8) + buf[2];
 		}
 		return (rc);
 	}
@@ -420,11 +448,11 @@ public:
 private:
 };
 
-class I2cMS5837 : public I2cMSxxx
+class I2cMS5803 : public I2cMSxxx
 {
 public:
-	I2cMS5837() = delete;
-	I2cMS5837(unsigned bus, unsigned address)
+	I2cMS5803() = delete;
+	I2cMS5803(unsigned bus, unsigned address)
 		: I2cMSxxx(bus, address) {
 		memset(_prom, 0, sizeof(_prom));
 	}
@@ -455,12 +483,11 @@ protected:
 		int delay;
 		switch (precision)
 		{
-		case ADC_256 : delay =   560; break;
-		case ADC_512 : delay =  1100; break;
-		case ADC_1024: delay =  2170; break;
-		case ADC_2048: delay =  4320; break;
-		case ADC_4096: delay =  8610; break;
-		case ADC_8192: delay = 17200; break;
+		case ADC_256 : delay =   600; break;
+		case ADC_512 : delay =  1170; break;
+		case ADC_1024: delay =  2280; break;
+		case ADC_2048: delay =  4540; break;
+		case ADC_4096: delay =  9040; break;
 		default: delay = -1;		// unknown precision...
 		}
 		return (delay);
@@ -522,25 +549,59 @@ private:
 };
 
 
+int testI2cDevices()
+{
+	int rc;
+	cout << "callling initI2c" << endl;
+	I2cPhotonCfgDev photonCfg(1, PHOTON_CFG_I2C_DEV);
+	I2cMS5803 presSensor(1, PRES_I2C_TEST_DEV);
+	if (!photonCfg.open()) {
+		cout << "photonCfg.initI2c Failed" << endl;
+		return (1);
+	}
+
+	if (!presSensor.open()) {
+		cout << "presSensor.initI2c Failed" << endl;
+		return (1);
+	}
+
+	// do the initialization thing for the sensors.
+	rc = presSensor.reset();
+	if (rc != 0) {
+		cout << "presSensor.reset() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
+
+	rc = presSensor.readProm();
+	if (rc != 0) {
+		cout << "presSensor.readProm() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
+
+	std::vector<uint16_t> promData;
+	presSensor.getPromData(promData);
+	cout << "promData = " << endl;
+	for (auto d : promData) 
+		cout << "  " << d << endl;
+	
+
+#if 0
+	int version = photonCfg.getVersion();
+	cout << "version=" << (version >> 8) << ":" << (version & 0xFF) << endl;
+	
+	int siminterval = photonCfg.getSiminterval();
+	cout << "siminterval=" << siminterval << endl;
+#endif
+	
+}
 int main(int argc, char *argv[])
 {
 	if (gpioInitialise() < 0)	{
 		cout << "gpioInitialize Failed" << endl;
 		return (1);
 	}
-	cout << "callling initI2c" << endl;
-	I2cPhotonCfgDev photonCfg(1, PHOTON_CFG_I2C_DEV);
-	if (!photonCfg.initI2c()) 	{
-		cout << "initI2c Failed" << endl;
-		return (1);
-	}
-
 	
-	int version = photonCfg.getVersion();
-	cout << "version=" << (version>>8) << ":" << (version&0xFF) << endl;
-	
-	int siminterval = photonCfg.getSiminterval();
-	cout << "siminterval=" << siminterval << endl;
+	testI2cDevices();
 	
 	gpioTerminate();
 	

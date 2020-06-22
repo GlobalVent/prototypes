@@ -69,6 +69,7 @@ void I2cPresSensor::stop(unsigned rw) {
                 case CMD_PROM_RD: {
                     unsigned paddr = (_regAddr & 0xf)>>1;
                     uint16_t pd = _prom[paddr];
+                    _sendByteCount = 0;
                     _sendData[_sendByteCount++] = (pd>>8) & 0xFF;
                     _sendData[_sendByteCount++] = pd & 0xFF;
                     break;
