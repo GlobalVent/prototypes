@@ -44,6 +44,7 @@ public:
      * @param -- rw bit from transaction 1=read, 0 write
      */
     virtual void start(unsigned rw) {
+        stop(rw);                         // if we have a command in progress and get another start it implies a stop.
         _recvByteCount=0;
         _sendByteIdx=0;
     }

@@ -1,78 +1,83 @@
 
 
-
+#include <string.h>
 #include "I2cPresSensor.h"
+#include "crc4.h"
 
 
-/**
- * @brief startTransaction -- this call happens after a start event AND
- *           and the the caller has received an address matching the 
- *           devAddr
- * @param -- _rw -- read/write_
- * 
- */
-void I2cPresSensor::start(unsigned _rw) {
-    stop(_rw);                         // if we have a command in progress and get another start it implies a stop.
-    I2cSlaveDevice::start(_rw);
+I2cPresSensor::I2cPresSensor(unsigned devAddr) :
+    I2cSlaveDevice(devAddr),
+    _temperature(293),
+    _pressure(1000) {
+        _prom[0] = 0;
+        _prom[1] = 46372;
+        _prom[2] = 43981;
+        _prom[3] = 29059;
+        _prom[4] = 27842;
+        _prom[5] = 31553;
+        _prom[6] = 28165;
+        _prom[7] = 0;
+        _prom[7] = crc4(_prom);
 }
 
+void I2cPresSensor::clearSendData() 
+{
+    memset(_sendData, 0, sizeof(_sendData));
+}
 /**
  * @brief stop event received AFTER receiving a start event...
  * 
  * @param -- _rw -- read/write_
  */
-void I2cPresSensor::stop(unsigned _rw) {
-    switch (_command) {
-        case 1:             // sim interval
-            if (_recvByteCount >= 2) {
-                // todo, deal with received data here.
-            }
-                
-            break;        
-
-    }
-    _command = -1;
-}
-
-/**
- * @brief read the next byte of data
- *        the remote computer is asking for more data so deliver it
- *        if this has no more to send then return zeros.
- * 
- * @param data -- place to put next read value.
- * @return uint8_t -- return the read data
- *                 return false when we read more than the device 
- *                 has in the register associated with the command
- *                 written.
- */
-uint8_t I2cPresSensor::read() {
-    #if 0
-    bool rc = true;
-    switch (_command) {     // data goes out in network byte order
-        case 0:                    
-            // todo, deal with commands here.
+void I2cPresSensor::stop(unsigned rw) {
+    if (rw)            // nothing to do on a read....
+        return;
+    if (_recvByteCount == 0)
+        return;
+    _regAddr=_recvData[0];   // remember the last write.
+    
+    switch(_regAddr) {
+        case CMD_RESET: 
+            clearSendData();
             break;
-    }
-    _sendByteIdx++;
-    return(rc);
-    #endif
-    return(0);
-}
-/**
- * @brief write data to the device. (one byte at a time.)
- * 
- * @param data -- 1 byte data written to the device
- */
-void I2cPresSensor::write(uint8_t data) {
-    #if 0
-    if (_recvByteCount == 0)        // first byte, pick up the command.
-        _command=data;
-    else {
-        if (_recvByteCount < sizeof(_recvData)) 
-            _recvData[_recvByteCount] = data;
-    }
-    _recvByteCount++;
-    #endif
-}
+        case CMD_ADC_READ:
+            break;
+        case CMD_SET_TEMP:
+            if (_recvByteCount >= 3)
+                _temperature = (_recvData[1] << 8) + _recvData[2];
+            _sendByteCount=0;                                       
+            _sendData[_sendByteCount++] = (_temperature>>16) & 0xFF;
+            _sendData[_sendByteCount++] = (_temperature>>8) & 0xFF;
+            _sendData[_sendByteCount++] = _temperature & 0xFF;
+            break;
+        case CMD_SET_PRES:
+            if (_recvByteCount >= 3)
+                _pressure = (_recvData[1] << 8) + _recvData[2];
+            _sendByteCount=0;                                       
+            _sendData[_sendByteCount++] = (_pressure>>16) & 0xFF;
+            _sendData[_sendByteCount++] = (_pressure>>8) & 0xFF;
+            _sendData[_sendByteCount++] = _pressure & 0xFF;
+            break;
+        default: {
+            switch (_regAddr >> 4) {
+                case CMD_CV_D1:
+                    clearSendData();        // clear now, time delay to get the data.
+                    break;
+                case CMD_CV_D2:
+                    clearSendData();        // clear now, time delay to get the data.
+                    break;
+                case CMD_PROM_RD: {
+                    unsigned paddr = (_regAddr & 0xf)>>1;
+                    uint16_t pd = _prom[paddr];
+                    _sendByteCount = 0;
+                    _sendData[_sendByteCount++] = (pd>>8) & 0xFF;
+                    _sendData[_sendByteCount++] = pd & 0xFF;
+                    break;
+                }
+            }
+            break;
+        }
 
+    }
+}
 

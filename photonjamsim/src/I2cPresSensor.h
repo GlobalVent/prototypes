@@ -17,17 +17,7 @@ public:
      * 
      * @param devAddr -- device address for this device.
      */
-    I2cPresSensor(unsigned devAddr) :
-        I2cSlaveDevice(devAddr),
-        _command(-1) {};
-
-    /**
-     * @brief startTransaction -- this call happens after a start event AND
-     *           and the the caller has received an address matching the 
-     *           devAddr
-     * @param -- _rw -- read/write_
-     */
-    virtual void start(unsigned _rw);
+    I2cPresSensor(unsigned devAddr);
 
     /**
      * @brief stop event received AFTER receiving a start event...
@@ -36,28 +26,54 @@ public:
      */
     virtual void stop(unsigned _rw);
 
+
+    
     /**
-     * @brief read the next byte of data
-     *        the remote computer is asking for more data so deliver it
-     *        if this has no more to send then return zeros.
+     * @brief Set the Pressure
      * 
-     * @param data -- place to put next read value.
-     * @return uint8_t -- return the read data
-     *                 return false when we read more than the device 
-     *                 has in the register associated with the command
-     *                 written.
+     * @param pressure 
      */
-    virtual uint8_t read();
+    virtual void setPressure(unsigned pressure) {
+        _pressure = pressure;
+    }
     /**
-     * @brief write data to the device. (one byte at a time.)
+     * @brief Set the Temperature
      * 
-     * @param data -- 1 byte data written to the device
+     * @param temperature 
      */
-    virtual void write(uint8_t data);
+    virtual void setTemperature(unsigned temperature) {
+        _temperature = temperature;
+    }
 
 
 protected:
-    int      _command;
+    void clearSendData();
+
+    enum {
+        CMD_RESET = 0x1E,           // 8 bit commands
+        CMD_ADC_READ = 0x00,
+
+        // 4 bit commands with type
+        CMD_CV_D1 = 0x4,
+        CMD_CV_D2 = 0x5,
+
+        CMD_PROM_RD = 0xA,
+
+        CMD_OSR_256  = 0x00,        // osr type (precisions)
+        CMD_OSR_512  = 0x02,
+        CMD_OSR_1024 = 0x04,
+        CMD_OSR_2048 = 0x06,
+        CMD_OSR_4096 = 0x08,
+        CMD_OSR_8192 = 0x0A,
+
+        // extended commands        // for testing.
+        CMD_SET_TEMP = 0x10,
+        CMD_SET_PRES = 0x11,
+    };
+    uint16_t _prom[8];
+    uint32_t _temperature;
+    uint32_t _pressure;
+
 private:
 };
 #endif

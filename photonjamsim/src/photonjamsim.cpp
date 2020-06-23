@@ -56,6 +56,9 @@ static I2cIntHandler *i2cIntHandler = nullptr;
 static I2cSlaveCtl *i2cRpiSlaveCtl = nullptr;
 static I2cSlaveCtl *i2cCpldSlaveCtl = nullptr;
 static I2cJamsimConfig *photonConfig;
+static I2cPresSensor *i2cRpiPresSensor;
+static I2cPresSensor *i2cCpldPresSensor;
+
 static double timeToWake = 0;
 static double timeToPrint = 0;
 static JamventTime jamTime;
@@ -73,24 +76,27 @@ void initialize() {
 	i2cIntHandler->setDbgPrint(&dbgPrint);
 	i2cRpiSlaveCtl = new I2cSlaveCtl(I2C_RPI_SCL, I2C_RPI_SDA);
 	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CFG_ADDR);
-	// TBD create three more sensors
+	i2cRpiPresSensor = new I2cPresSensor(I2C_PRES_SIM_ADDR);
+	// TBD create 2 more sensors
 
 
 	i2cCpldSlaveCtl = new I2cSlaveCtl(I2C_CPLD_SCL, I2C_CPLD_SDA);
-	// TBD create three cpld sensors...
+	i2cCpldPresSensor = new I2cPresSensor(I2C_PRES_SIM_ADDR);
+	// TBD create 2 more sensors
 
 	// wire it all up.
-	i2cIntHandler->registerI2cSlaveCtl(i2cRpiSlaveCtl);
-	#if 0
+	i2cIntHandler->registerI2cSlaveCtl(i2cRpiSlaveCtl);		// two slave controllers
 	i2cIntHandler->registerI2cSlaveCtl(i2cCpldSlaveCtl);
-	#endif
-	i2cRpiSlaveCtl->registerI2cDevice(photonConfig);
+
+	i2cRpiSlaveCtl->registerI2cDevice(photonConfig);		// rpi sensors
+	i2cRpiSlaveCtl->registerI2cDevice(i2cRpiPresSensor);
+
+	i2cCpldSlaveCtl->registerI2cDevice(i2cCpldPresSensor);	// cpld sensors
 
 	i2cRpiSlaveCtl->setDbgPrint(&dbgPrint);
 	i2cCpldSlaveCtl->setDbgPrint(&dbgPrint);
 
 	i2cIntHandler->attachAllInterrupts();
-
 
 	isInitialized=true;
 
