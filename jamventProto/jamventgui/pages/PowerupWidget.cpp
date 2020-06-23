@@ -90,15 +90,23 @@ PowerupWidget::PowerupWidget(QWidget *parent)
     buttonGroupLayout->addWidget(m_treatmentButtonWidget);
 
     // Connect signals.
+
+    // Valve buttons on right column
     connect(m_valveAButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveAChanged);
     connect(m_valveBButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveBChanged);
     connect(m_valveCButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveCChanged);
     connect(m_valveDButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveDChanged);
 
+    // Buttons on right column
     connect(m_useSerialButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onUseSerialChanged);
     connect(m_simOnButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onSimOnChanged);
-
     connect(m_treatmentButtonWidget, &QPushButton::clicked, this, &PowerupWidget::sigTreatmentButtonClicked);
+
+    // Inputs for demo phase
+    connect(m_maxPressSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &PowerupWidget::onMaxPressChanged);
+    connect(m_vaTargetSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &PowerupWidget::onVaTargetChanged);
+    connect(m_vbTargetSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &PowerupWidget::onVbTargetChanged);
+    connect(m_sysTargetSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &PowerupWidget::onSysTargetChanged);
 }
 
 PowerupWidget::~PowerupWidget()
@@ -144,6 +152,30 @@ void PowerupWidget::onValveDChanged(bool isChecked)
         m_isValueDChecked = isChecked;
         emit sigValueDOpenChanged(isChecked);
     }
+}
+
+void PowerupWidget::onMaxPressChanged(int value)
+{
+    qDebug() << "PowerupWidget::onMaxPressChanged(" << value << ") called.";
+    emit sigMaxPressChanged(value);
+}
+
+void PowerupWidget::onVaTargetChanged(int value)
+{
+    qDebug() << "PowerupWidget::onVaTargetChanged(" << value << ") called.";
+    emit sigVaTargetChanged(value);
+}
+
+void PowerupWidget::onVbTargetChanged(int value)
+{
+    qDebug() << "PowerupWidget::onVbTargetChanged(" << value << ") called.";
+    emit sigVbTargetChanged(value);
+}
+
+void PowerupWidget::onSysTargetChanged(int value)
+{
+    qDebug() << "PowerupWidget::onSysTargetChanged(" << value << ") called.";
+    emit sigSysTargetChanged(value);
 }
 
 void PowerupWidget::onUseSerialChanged(bool isChecked)

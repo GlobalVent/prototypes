@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QSerialPortInfo>
 #include <QSerialPort>
+#include <cmath>
 
 #include "SerialMgr.h"
 
@@ -56,27 +57,32 @@ void SerialMgr::start()
 
 void SerialMgr::stop()
 {
-    m_timer.start();
+    m_timer.stop();
 }
 
-void SerialMgr::onFio2Changed(NumType value)
+void SerialMgr::onFio2Changed(int value)
 {
+    qDebug() << "SerialMgr::onFio2Changed(" << value << ") called.";
 }
 
-void SerialMgr::onTidalVolChanged(NumType value)
+void SerialMgr::onTidalVolChanged(int value)
 {
+    qDebug() << "SerialMgr::onTidalVolChanged(" << value << ") called.";
 }
 
-void SerialMgr::onRespRateChanged(NumType value)
+void SerialMgr::onRespRateChanged(int value)
 {
+    qDebug() << "SerialMgr::onRespRateChanged(" << value << ") called.";
 }
 
-void SerialMgr::onIeRatioChanged(NumType value)
+void SerialMgr::onIeRatioChanged(int value)
 {
+    qDebug() << "SerialMgr::onIeRatioChanged(" << value << ") called.";
 }
 
-void SerialMgr::onPeepChanged(NumType value)
+void SerialMgr::onPeepChanged(int value)
 {
+    qDebug() << "SerialMgr::onPeepChanged(" << value << ") called.";
 }
 
 void SerialMgr::onValveAOpenChanged(bool isOpen)
@@ -115,24 +121,38 @@ void SerialMgr::onValveDOpenChanged(bool isOpen)
     }
 }
 
-void SerialMgr::onMaxPressChanged(NumType value)
+void SerialMgr::onMaxPressChanged(int value)
 {
     qDebug() << "SerialMgr::onMaxPressChanged(" << value << ")";
 }
 
-void SerialMgr::onVaTargetChanged(NumType value)
+void SerialMgr::onVaTargetChanged(int value)
 {
     qDebug() << "SerialMgr::onVaTargetChanged(" << value << ")";
 }
 
-void SerialMgr::onVbTargetChanged(NumType value)
+void SerialMgr::onVbTargetChanged(int value)
 {
     qDebug() << "SerialMgr::onVbTargetChanged(" << value << ")";
 }
 
-void SerialMgr::onSysTargetChanged(NumType value)
+void SerialMgr::onSysTargetChanged(int value)
 {
     qDebug() << "SerialMgr::onSysTargetChanged(" << value << ")";
+
+    QString qStr = QString::number(value);
+
+    QByteArray ba("STarg=");
+    ba.append(qStr.toUtf8());
+    char *str = ba.data();
+
+    qDebug() << "..write(" << str << ")";
+
+    const qint64 bytesWritten = m_serialPort.write(str);
+    if (bytesWritten < 1)
+    {
+        qDebug() << "m_serialPort.write() failed. Bytes written:" << bytesWritten;
+    }
 }
 
 // JPW @todo remove when switiched to polling
@@ -190,7 +210,7 @@ void SerialMgr::onTimeout()
     {
         constexpr qint64 maxSize = 80;
         QByteArray data = m_serialPort.readLine(maxSize);
-        // qDebug() << "readLine data =" << data;
+        // qDebug() << "SerialMgr::onTimeout(): readLine data =" << data;
         emit sigReadLine(data);
     }
 }

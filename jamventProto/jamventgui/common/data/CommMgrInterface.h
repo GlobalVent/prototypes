@@ -43,11 +43,11 @@ class CommMgrInterface : public QObject
 
     // Data from GUI to System
   public slots:
-    virtual void onFio2Changed(NumType value) = 0;
-    virtual void onTidalVolChanged(NumType value) = 0;
-    virtual void onRespRateChanged(NumType value) = 0;
-    virtual void onIeRatioChanged(NumType value) = 0;
-    virtual void onPeepChanged(NumType value) = 0;
+    virtual void onFio2Changed(int value) = 0;
+    virtual void onTidalVolChanged(int value) = 0;
+    virtual void onRespRateChanged(int value) = 0;
+    virtual void onIeRatioChanged(int value) = 0;
+    virtual void onPeepChanged(int value) = 0;
 
     virtual void onValveAOpenChanged(bool isOpen) = 0;
     virtual void onValveBOpenChanged(bool isOpen) = 0;

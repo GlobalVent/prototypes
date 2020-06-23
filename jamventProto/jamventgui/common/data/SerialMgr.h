@@ -21,11 +21,11 @@ class SerialMgr: public CommMgrInterface
     void sigReadLine(QByteArray data);
 
   public slots:
-    void onFio2Changed(NumType value) override;
-    void onTidalVolChanged(NumType value) override;
-    void onRespRateChanged(NumType value) override;
-    void onIeRatioChanged(NumType value) override;
-    void onPeepChanged(NumType value) override;
+    void onFio2Changed(int value) override;
+    void onTidalVolChanged(int value) override;
+    void onRespRateChanged(int value) override;
+    void onIeRatioChanged(int value) override;
+    void onPeepChanged(int value) override;
 
     void onValveAOpenChanged(bool isOpen) override;
     void onValveBOpenChanged(bool isOpen) override;
@@ -33,10 +33,10 @@ class SerialMgr: public CommMgrInterface
     void onValveDOpenChanged(bool isOpen) override;
 
     // Temporary for demo phase
-    void onMaxPressChanged(NumType value);
-    void onVaTargetChanged(NumType value);
-    void onVbTargetChanged(NumType value);
-    void onSysTargetChanged(NumType value);
+    void onMaxPressChanged(int value);
+    void onVaTargetChanged(int value);
+    void onVbTargetChanged(int value);
+    void onSysTargetChanged(int value);
 
   private slots:
     void onReadyRead();

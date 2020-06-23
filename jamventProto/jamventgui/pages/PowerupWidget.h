@@ -29,6 +29,12 @@ public:
       void sigValueCOpenChanged(bool isOpen);
       void sigValueDOpenChanged(bool isOpen);
 
+      // Temporary.  Added for demo phase
+      void sigMaxPressChanged(int value);
+      void sigVaTargetChanged(int value);
+      void sigVbTargetChanged(int value);
+      void sigSysTargetChanged(int value);
+
       void sigUseSerialChanged(bool isChecked);
       void sigSimOnChanged(bool isChecked);
       void sigTreatmentButtonClicked();
@@ -38,6 +44,12 @@ public:
       void onValveBChanged(bool isChecked);
       void onValveCChanged(bool isChecked);
       void onValveDChanged(bool isChecked);
+
+      // Temporary.  Added for demo phase
+      void onMaxPressChanged(int value);
+      void onVaTargetChanged(int value);
+      void onVbTargetChanged(int value);
+      void onSysTargetChanged(int value);
 
       void onUseSerialChanged(bool isChecked);
       void onSimOnChanged(bool isChecked);

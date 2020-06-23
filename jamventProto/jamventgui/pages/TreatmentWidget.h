@@ -31,9 +31,21 @@ public:
     void onNewInData(CommMgr::DataIn data);
 
 signals:
-    void sigPowerupButtonClicked();
+  void sigFio2Changed(int value);
+  void sigTidalVolChanged(int value);
+  void sigRespRateChanged(int value);
+  void sigIeRatioChanged(int value);
+  void sigPeepChanged(int value);
+
+  void sigPowerupButtonClicked();
 
 private:
+  void onFio2Changed(int value);
+  void onTidalVolChanged(int value);
+  void onRespRateChanged(int value);
+  void onIeRatioChanged(int value);
+  void onPeepChanged(int value);
+
   Ui::TreatmentWidget *ui;
 
   GraphWidget::InitParams m_ulParams;
@@ -49,10 +61,10 @@ private:
   GraphWidget *m_lrGraph = nullptr;
 
   // User Input Data widgets
-  QSpinBox* m_fiO2SpinBox = nullptr;
+  QSpinBox* m_fio2SpinBox = nullptr;
   QSpinBox *m_tidalVolSpinBox = nullptr;
   QSpinBox *m_respRateSpinBox = nullptr;
-  QSpinBox *m_ieSpinBox = nullptr;
+  QSpinBox *m_ieRatioSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
 

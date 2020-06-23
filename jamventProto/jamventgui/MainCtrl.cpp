@@ -30,6 +30,11 @@ MainCtrl::MainCtrl()
     connect(powerupWidget, &PowerupWidget::sigSimOnChanged, this, &MainCtrl::onSimOnChanged);
 
     // Connect treatment page to serial communication manager.
+    connect(treatmentWidget, &TreatmentWidget::sigFio2Changed, &m_serialMgr, &SerialMgr::onFio2Changed);
+    connect(treatmentWidget, &TreatmentWidget::sigTidalVolChanged, &m_serialMgr, &SerialMgr::onTidalVolChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigRespRateChanged, &m_serialMgr, &SerialMgr::onRespRateChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigIeRatioChanged, &m_serialMgr, &SerialMgr::onIeRatioChanged);
+    connect(treatmentWidget, &TreatmentWidget::sigPeepChanged, &m_serialMgr, &SerialMgr::onPeepChanged);
     connect(&m_serialMgr, &SerialMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
 
     // Connect the powerup page to the serial communicaiton manager.
@@ -37,7 +42,11 @@ MainCtrl::MainCtrl()
     connect(powerupWidget, &PowerupWidget::sigValueBOpenChanged, &m_serialMgr, &SerialMgr::onValveCOpenChanged);
     connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_serialMgr, &SerialMgr::onValveBOpenChanged);
     connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_serialMgr, &SerialMgr::onValveDOpenChanged);
-    
+    // Temporary
+    connect(powerupWidget, &PowerupWidget::sigMaxPressChanged, &m_serialMgr, &SerialMgr::onMaxPressChanged);
+    connect(powerupWidget, &PowerupWidget::sigVaTargetChanged, &m_serialMgr, &SerialMgr::onVaTargetChanged);
+    connect(powerupWidget, &PowerupWidget::sigVbTargetChanged, &m_serialMgr, &SerialMgr::onVbTargetChanged);
+    connect(powerupWidget, &PowerupWidget::sigSysTargetChanged, &m_serialMgr, &SerialMgr::onSysTargetChanged);
 
     // Connect treatment page to I2C communications manager.
     connect(&m_commMgr, &CommMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);

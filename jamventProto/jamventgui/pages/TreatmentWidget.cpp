@@ -54,10 +54,10 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     inputGroupLayout->setSpacing(24);
 
     auto w = new LabeledInputWidget(tr(FiosLabelStr));
-    m_fiO2SpinBox = w->getSpinBox();
-    m_fiO2SpinBox->setRange(21, 100);
-    m_fiO2SpinBox->setValue(100);
-    m_fiO2SpinBox->setSuffix(tr(PercentSuffixStr));
+    m_fio2SpinBox = w->getSpinBox();
+    m_fio2SpinBox->setRange(21, 100);
+    m_fio2SpinBox->setValue(100);
+    m_fio2SpinBox->setSuffix(tr(PercentSuffixStr));
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(TidalVolLabelStr));
@@ -73,9 +73,9 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     inputGroupLayout->addWidget(w);
 
     // JPW \todo Need to understand how I:E ratio options
-    m_ieSpinBox = new IeRatioSpinBoxWidget();
-    m_ieSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
-    w = new LabeledInputWidget(tr(IeLabelStr), m_ieSpinBox);
+    m_ieRatioSpinBox = new IeRatioSpinBoxWidget();
+    m_ieRatioSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
+    w = new LabeledInputWidget(tr(IeLabelStr), m_ieRatioSpinBox);
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(PeepLabelStr));
@@ -165,6 +165,14 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 #endif
 
     // Connect signals.
+    // Inputs
+    connect(m_fio2SpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onFio2Changed);
+    connect(m_tidalVolSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onTidalVolChanged);
+    connect(m_respRateSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onRespRateChanged);
+    connect(m_ieRatioSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onIeRatioChanged);
+    connect(m_peepSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onPeepChanged);
+
+    // Buttons
     connect(m_powerupButtonWidget, &QPushButton::clicked, this, &TreatmentWidget::sigPowerupButtonClicked);
 }
 
@@ -176,10 +184,10 @@ TreatmentWidget::~TreatmentWidget()
 UserInputData TreatmentWidget::getUserInputData() {
     UserInputData data;
 
-    data.fiO2 = m_fiO2SpinBox->value();
+    data.fiO2 = m_fio2SpinBox->value();
     data.tidalVol = m_tidalVolSpinBox->value();
     data.respRate = m_respRateSpinBox->value();
-    data.ie = static_cast<IeRatioSpinBoxWidget::IeRatio_E>(m_ieSpinBox->value());
+    data.ie = static_cast<IeRatioSpinBoxWidget::IeRatio_E>(m_ieRatioSpinBox->value());
     data.peep = m_peepSpinBox->value();
 
     return data;
@@ -221,4 +229,34 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
         CommMgr::NumType v = data.lungVol;
         m_lrGraph->onAddValue(v);
     }
+}
+
+void TreatmentWidget::onFio2Changed(int value)
+{
+    qDebug() << "TreatmentWidget::onFio2Changed(" << value << ") called.";
+    emit sigFio2Changed(value);
+}
+
+void TreatmentWidget::onTidalVolChanged(int value)
+{
+    qDebug() << "TreatmentWidget::onTidalVolChanged(" << value << ") called.";
+    emit sigTidalVolChanged(value);
+}
+
+void TreatmentWidget::onRespRateChanged(int value)
+{
+    qDebug() << "TreatmentWidget::onRespRateChanged(" << value << ") called.";
+    emit sigRespRateChanged(value);
+}
+
+void TreatmentWidget::onIeRatioChanged(int value)
+{
+    qDebug() << "TreatmentWidget::onIeRatioChanged(" << value << ") called.";
+    emit sigIeRatioChanged(value);
+}
+
+void TreatmentWidget::onPeepChanged(int value)
+{
+    qDebug() << "TreatmentWidget::onPeepChanged(" << value << ") called.";
+    emit sigPeepChanged(value);
 }
