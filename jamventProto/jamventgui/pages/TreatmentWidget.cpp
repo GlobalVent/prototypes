@@ -123,7 +123,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_ulParams.xAxisMax = 6.0;
     m_ulParams.yAxisMin = 0.0;
     m_ulParams.yAxisMax = 10.0;
-    m_ulParams.yAxisLabel = tr("Press(cmH2O)");
+    m_ulParams.yAxisLabel = tr("Press(cmH2O) L");
 
     m_ulGraph = new GraphWidget(m_ulParams, ui->upperLeftGraphFrame);
 #endif
@@ -135,7 +135,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_urParams.xAxisMax = 6.0;
     m_urParams.yAxisMin = -1.0;
     m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = tr("Flow R(l/min)");
+    m_urParams.yAxisLabel = tr("Flow R(l/min) H");
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
@@ -203,14 +203,16 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     // Upper left graph
     if (nullptr != m_ulGraph)
     {
-        CommMgr::NumType v = std::min(data.pressSys / 3, static_cast<CommMgr ::NumType>(m_ulParams.yAxisMax));
+        //CommMgr::NumType v = std::min(data.pressSys / 3, static_cast<CommMgr ::NumType>(m_ulParams.yAxisMax));
+        CommMgr::NumType v = data.pressSys / 3;  // Should clamp. No need for min();
         m_ulGraph->onAddValue(v);
     }
 
     // Upper right graph
     if (nullptr != m_urGraph)
     {
-        CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
+        //CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
+        CommMgr::NumType v = (data.pressRes / 1000) + m_urParams.yAxisMin; // Should clamp. No need for min();
         m_urGraph->onAddValue(v);
 
         // qDebug() << "data.pressRes = " << data.pressRes << ", v = " << v;

@@ -41,7 +41,7 @@ SerialMgr::SerialMgr()
     connect(&m_timer, &QTimer::timeout, this, &SerialMgr::onTimeout);
 #endif
 
-    connect(this, &SerialMgr::sigReadLine, this, &SerialMgr::onReadLine, Qt::QueuedConnection);  // Queued to queue read requests
+    connect(this, &SerialMgr::sigNewNameValues, this, &SerialMgr::onNewNameValues, Qt::QueuedConnection);  // Queued to queue read requests
 }
 
 SerialMgr::~SerialMgr()
@@ -90,7 +90,8 @@ void SerialMgr::onValveAOpenChanged(bool isOpen)
     if (m_isValueAOpen != isOpen)
     {
         m_isValueAOpen = isOpen;
-        toggleValve("a");
+        const char *s = isOpen ? "A" : "a";
+        writeValveChar(s);
     }
 }
 
@@ -99,7 +100,8 @@ void SerialMgr::onValveBOpenChanged(bool isOpen)
     if (m_isValueBOpen != isOpen)
     {
         m_isValueBOpen = isOpen;
-        toggleValve("b");
+        const char *s = isOpen ? "B" : "b";
+        writeValveChar(s);
     }
 }
 
@@ -108,7 +110,8 @@ void SerialMgr::onValveCOpenChanged(bool isOpen)
     if (m_isValueCOpen != isOpen)
     {
         m_isValueCOpen = isOpen;
-        toggleValve("c");
+        const char *s = isOpen ? "C" : "c";
+        writeValveChar(s);
     }
 }
 
@@ -117,7 +120,8 @@ void SerialMgr::onValveDOpenChanged(bool isOpen)
     if (m_isValueDOpen != isOpen)
     {
         m_isValueDOpen = isOpen;
-        toggleValve("d");
+        const char *s = isOpen ? "D" : "d";
+        writeValveChar(s);
     }
 }
 
@@ -155,67 +159,96 @@ void SerialMgr::onSysTargetChanged(int value)
     }
 }
 
-// JPW @todo remove when switiched to polling
-void SerialMgr::onReadyRead()
+void SerialMgr::onNewNameValues(NameValueMap map)
 {
-    while(m_serialPort.canReadLine())
+    DataIn newInData;
+    bool isDataAdded = false;  // Used to see if have data to emit.
+
+    QMapIterator<QString, QString> i(map);
+    while (i.hasNext())
     {
-        constexpr qint64 maxSize = 80;
-        QByteArray data = m_serialPort.readLine(maxSize);
-        // qDebug() << "readLine data =" << data;
-        emit sigReadLine(data);
-    }
-}
+        i.next();
+        const QString& name = i.key();
+        const QString& value = i.value();
 
-void SerialMgr::onReadLine(QByteArray data)
-{
-    QString str(data);
-    str = str.trimmed();   // Trim whitespace ("\r\n")
-    //qDebug() << "readLine str =" << str;
-
-    QStringList list = str.split("=");
-    //qDebug() << "readLine list =" << list;
-
-    if (list.size() >= 2)
-    {
-        DataIn newInData;
-
-        QString name = list.at(0);
-        QString value = list.at(1);
-
-        if ("H" == name)
+        if ("L" == name)
         {
             bool isOk;
-            int intValue = value.toInt(&isOk, 10);
+            double doubleValue = value.toDouble(&isOk);
             if (isOk)
             {
-                // Convert to a range of 0.0 to 10.0 to 0.0 to 2.0 times 1000.
-                float t = intValue / 10.0;
-                t *= 2.0;
-                t *= 1000;
-                newInData.pressRes = t;
-                emit sigNewInData(newInData);
+                // JPW @todo Clean up this scaling to do 1 place.
+                // Convert to a range of 0.0 to 100.0 to 0.0 to 10.0 times 3.
+                double tmp = doubleValue / 100.0;
+                tmp *= 10.0;
+                tmp *= 3;
+                newInData.pressSys = tmp;
+                isDataAdded = true;
             }
             else
             {
-                qDebug() << "Failed to convert value string to int. value =" << value;
+                qDebug() << "Failed to convert value string to double. value =" << value;
+            }
+        }
+        else if ("H" == name)
+        {
+            bool isOk;
+            double doubleValue = value.toDouble(&isOk);
+            if (isOk)
+            {
+                // JPW @todo Clean up this scaling to do 1 place.
+                // Convert to a range of 0.0 to 1000.0 to 0.0 to 2.0 times 1000.
+                double tmp = doubleValue / 1000.0;
+                tmp *= 2.0;
+                tmp *= 1000;
+                newInData.pressRes = tmp;
+                isDataAdded = true;
+            }
+            else
+            {
+                qDebug() << "Failed to convert value string to double. value =" << value;
             }
         }
     }
+
+    if (isDataAdded)
+    {
+        emit sigNewInData(newInData);
+    }
+
 }
 
 void SerialMgr::onTimeout()
 {
+    qDebug() << "SerialMgr::onTimeout() called.";
+    NameValueMap map;
+
+    // Read each line and add to map.  Retaining the last value for each name.
     while(m_serialPort.canReadLine())
     {
         constexpr qint64 maxSize = 80;
         QByteArray data = m_serialPort.readLine(maxSize);
-        // qDebug() << "SerialMgr::onTimeout(): readLine data =" << data;
-        emit sigReadLine(data);
+
+        QString str(data);
+        //qDebug() << "..str =" << str;
+        str = str.trimmed(); // Trim whitespace ("\r\n")
+
+        QStringList list = str.split("=");
+
+        if (list.size() >= 2)
+        {
+            QString name = list.at(0);
+            QString value = list.at(1);
+            map.insert(name, value);
+            //qDebug() << "Adding name =" << name << ", value =" << value;
+        }
     }
+
+    qDebug() << "..map = " << map;
+    emit sigNewNameValues(map);
 }
 
-void SerialMgr::toggleValve(const char* valveChar)
+void SerialMgr::writeValveChar(const char* valveChar)
 {
     const qint64 bytesWritten = m_serialPort.write(valveChar);
     if (1 != bytesWritten)

@@ -2,6 +2,7 @@
 #define SERIALMGR_H
 
 #include <QTimer>
+#include <QMap>
 #include <QSerialPort>
 
 #include "CommMgrInterface.h"
@@ -10,6 +11,8 @@ class SerialMgr: public CommMgrInterface
 {
     Q_OBJECT
   public:
+    using NameValueMap = QMap<QString, QString>;
+
     explicit SerialMgr();
     virtual ~SerialMgr();
 
@@ -17,8 +20,7 @@ class SerialMgr: public CommMgrInterface
     void stop();
 
   signals:
-    // JPW @todo Update to do polling.  Remove when switched over to ppolling
-    void sigReadLine(QByteArray data);
+    void sigNewNameValues(NameValueMap map);
 
   public slots:
     void onFio2Changed(int value) override;
@@ -39,12 +41,11 @@ class SerialMgr: public CommMgrInterface
     void onSysTargetChanged(int value);
 
   private slots:
-    void onReadyRead();
-    void onReadLine(QByteArray data);
+    void onNewNameValues(NameValueMap map);
 
   private:
     void onTimeout();
-    void toggleValve(const char* valveChar);
+    void writeValveChar(const char* valveChar);
 
     bool m_isValueAOpen = false;
     bool m_isValueBOpen = false;
@@ -54,4 +55,8 @@ class SerialMgr: public CommMgrInterface
     QSerialPort m_serialPort;
     QTimer m_timer;       // Timer for polling communication
 };
+
+// Declare as meta type so can use to pass data in signals/slots.
+Q_DECLARE_METATYPE(SerialMgr::NameValueMap)
+
 #endif /* SERIALMGR_H */
