@@ -34,11 +34,6 @@ namespace
     constexpr const char *MenuLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Menu");
     //constexpr const char *StandbyLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Standby");
     constexpr const char *PowerupLabelStr = QT_TRANSLATE_NOOP("MainWidget", "Powerup");  // For now use to go to Powerup screen.
-
-    constexpr const char *ValveALabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve A");
-    constexpr const char *ValveBLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve B");
-    constexpr const char *ValveCLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve C");
-    constexpr const char *ValveDLabelStr = QT_TRANSLATE_NOOP("TreatmentWidget", "Open Valve D");
 }
 
 TreatmentWidget::TreatmentWidget(QWidget *parent)
@@ -59,10 +54,10 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     inputGroupLayout->setSpacing(24);
 
     auto w = new LabeledInputWidget(tr(FiosLabelStr));
-    m_fiO2SpinBox = w->getSpinBox();
-    m_fiO2SpinBox->setRange(21, 100);
-    m_fiO2SpinBox->setValue(100);
-    m_fiO2SpinBox->setSuffix(tr(PercentSuffixStr));
+    m_fio2SpinBox = w->getSpinBox();
+    m_fio2SpinBox->setRange(21, 100);
+    m_fio2SpinBox->setValue(100);
+    m_fio2SpinBox->setSuffix(tr(PercentSuffixStr));
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(TidalVolLabelStr));
@@ -78,9 +73,9 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     inputGroupLayout->addWidget(w);
 
     // JPW \todo Need to understand how I:E ratio options
-    m_ieSpinBox = new IeRatioSpinBoxWidget();
-    m_ieSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
-    w = new LabeledInputWidget(tr(IeLabelStr), m_ieSpinBox);
+    m_ieRatioSpinBox = new IeRatioSpinBoxWidget();
+    m_ieRatioSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
+    w = new LabeledInputWidget(tr(IeLabelStr), m_ieRatioSpinBox);
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(PeepLabelStr));
@@ -118,19 +113,6 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     dataGroupLayout->addWidget(new PushButtonWidget(tr(MenuLabelStr)));
     dataGroupLayout->addWidget(new PushButtonWidget(tr(StandbyLabelStr)));
 #else
-    m_valveAButtonWidget = new PushButtonWidget(tr(ValveALabelStr));
-    m_valveAButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveAButtonWidget);
-    m_valveBButtonWidget = new PushButtonWidget(tr(ValveBLabelStr));
-    m_valveBButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveBButtonWidget);
-    m_valveCButtonWidget = new PushButtonWidget(tr(ValveCLabelStr));
-    m_valveCButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveCButtonWidget);
-    m_valveDButtonWidget = new PushButtonWidget(tr(ValveDLabelStr));
-    m_valveDButtonWidget->setCheckable(true);
-    dataGroupLayout->addWidget(m_valveDButtonWidget);
-
     m_powerupButtonWidget = new PushButtonWidget(tr(PowerupLabelStr));
     dataGroupLayout->addWidget(m_powerupButtonWidget);
 #endif
@@ -141,7 +123,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_ulParams.xAxisMax = 6.0;
     m_ulParams.yAxisMin = 0.0;
     m_ulParams.yAxisMax = 10.0;
-    m_ulParams.yAxisLabel = tr("Press(cmH2O)");
+    m_ulParams.yAxisLabel = tr("Press(cmH2O) L");
 
     m_ulGraph = new GraphWidget(m_ulParams, ui->upperLeftGraphFrame);
 #endif
@@ -153,7 +135,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_urParams.xAxisMax = 6.0;
     m_urParams.yAxisMin = -1.0;
     m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = tr("Flow R(l/min)");
+    m_urParams.yAxisLabel = tr("Flow R(l/min) H");
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
@@ -183,11 +165,14 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 #endif
 
     // Connect signals.
-    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveAToggled);
-    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveBToggled);
-    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveCToggled);
-    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &TreatmentWidget::onValveDToggled);
+    // Inputs
+    connect(m_fio2SpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onFio2Changed);
+    connect(m_tidalVolSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onTidalVolChanged);
+    connect(m_respRateSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onRespRateChanged);
+    connect(m_ieRatioSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onIeRatioChanged);
+    connect(m_peepSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &TreatmentWidget::onPeepChanged);
 
+    // Buttons
     connect(m_powerupButtonWidget, &QPushButton::clicked, this, &TreatmentWidget::sigPowerupButtonClicked);
 }
 
@@ -199,10 +184,10 @@ TreatmentWidget::~TreatmentWidget()
 UserInputData TreatmentWidget::getUserInputData() {
     UserInputData data;
 
-    data.fiO2 = m_fiO2SpinBox->value();
+    data.fiO2 = m_fio2SpinBox->value();
     data.tidalVol = m_tidalVolSpinBox->value();
     data.respRate = m_respRateSpinBox->value();
-    data.ie = static_cast<IeRatioSpinBoxWidget::IeRatio_E>(m_ieSpinBox->value());
+    data.ie = static_cast<IeRatioSpinBoxWidget::IeRatio_E>(m_ieRatioSpinBox->value());
     data.peep = m_peepSpinBox->value();
 
     return data;
@@ -218,14 +203,16 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     // Upper left graph
     if (nullptr != m_ulGraph)
     {
-        CommMgr::NumType v = std::min(data.pressSys / 3, static_cast<CommMgr ::NumType>(m_ulParams.yAxisMax));
+        //CommMgr::NumType v = std::min(data.pressSys / 3, static_cast<CommMgr ::NumType>(m_ulParams.yAxisMax));
+        CommMgr::NumType v = data.pressSys / 3;  // Should clamp. No need for min();
         m_ulGraph->onAddValue(v);
     }
 
     // Upper right graph
     if (nullptr != m_urGraph)
     {
-        CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
+        //CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
+        CommMgr::NumType v = (data.pressRes / 1000) + m_urParams.yAxisMin; // Should clamp. No need for min();
         m_urGraph->onAddValue(v);
 
         // qDebug() << "data.pressRes = " << data.pressRes << ", v = " << v;
@@ -246,42 +233,32 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     }
 }
 
-void TreatmentWidget::onValveAToggled(bool isChecked)
+void TreatmentWidget::onFio2Changed(int value)
 {
-    if (m_isValueAChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveAToggled(" << isChecked << ")";
-        m_isValueAChecked = isChecked;
-        emit sigValueAOpenChanged(isChecked);
-    }
+    qDebug() << "TreatmentWidget::onFio2Changed(" << value << ") called.";
+    emit sigFio2Changed(value);
 }
 
-void TreatmentWidget::onValveBToggled(bool isChecked)
+void TreatmentWidget::onTidalVolChanged(int value)
 {
-    if (m_isValueBChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveBToggled(" << isChecked << ")";
-        m_isValueBChecked = isChecked;
-        emit sigValueBOpenChanged(isChecked);
-    }
+    qDebug() << "TreatmentWidget::onTidalVolChanged(" << value << ") called.";
+    emit sigTidalVolChanged(value);
 }
 
-void TreatmentWidget::onValveCToggled(bool isChecked)
+void TreatmentWidget::onRespRateChanged(int value)
 {
-    if (m_isValueCChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveCToggled(" << isChecked << ")";
-        m_isValueCChecked = isChecked;
-        emit sigValueCOpenChanged(isChecked);
-    }
+    qDebug() << "TreatmentWidget::onRespRateChanged(" << value << ") called.";
+    emit sigRespRateChanged(value);
 }
 
-void TreatmentWidget::onValveDToggled(bool isChecked)
+void TreatmentWidget::onIeRatioChanged(int value)
 {
-    if (m_isValueDChecked != isChecked)
-    {
-        qDebug() << "TreatmentWidget::onValveDToggled(" << isChecked << ")";
-        m_isValueDChecked = isChecked;
-        emit sigValueDOpenChanged(isChecked);
-    }
+    qDebug() << "TreatmentWidget::onIeRatioChanged(" << value << ") called.";
+    emit sigIeRatioChanged(value);
+}
+
+void TreatmentWidget::onPeepChanged(int value)
+{
+    qDebug() << "TreatmentWidget::onPeepChanged(" << value << ") called.";
+    emit sigPeepChanged(value);
 }

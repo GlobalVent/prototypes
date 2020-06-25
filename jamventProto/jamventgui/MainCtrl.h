@@ -22,7 +22,11 @@ public:
     MainWidget* getWidget();
     void showPage(Pages::Page_E page);
 
-private:
+  public slots:
+    void onUserSerialChanged(bool isChecked);
+    void onSimOnChanged(bool isChecked);
+
+  private:
     MainWidget* m_widget = nullptr;
 
     // Controllers for each page
@@ -31,5 +35,7 @@ private:
 
     CommMgr m_commMgr; // For now this is connected to jamCtrl
     SerialMgr m_serialMgr;
+
+    bool m_useSerialInterface = false;
 };
 #endif // MAINCTRL_H

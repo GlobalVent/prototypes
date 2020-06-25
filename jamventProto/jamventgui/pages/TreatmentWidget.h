@@ -31,18 +31,20 @@ public:
     void onNewInData(CommMgr::DataIn data);
 
 signals:
-    void sigValueAOpenChanged(bool isOpen);
-    void sigValueBOpenChanged(bool isOpen);
-    void sigValueCOpenChanged(bool isOpen);
-    void sigValueDOpenChanged(bool isOpen);
+  void sigFio2Changed(int value);
+  void sigTidalVolChanged(int value);
+  void sigRespRateChanged(int value);
+  void sigIeRatioChanged(int value);
+  void sigPeepChanged(int value);
 
-    void sigPowerupButtonClicked();
+  void sigPowerupButtonClicked();
 
 private:
-  void onValveAToggled(bool isChecked);
-  void onValveBToggled(bool isChecked);
-  void onValveCToggled(bool isChecked);
-  void onValveDToggled(bool isChecked);
+  void onFio2Changed(int value);
+  void onTidalVolChanged(int value);
+  void onRespRateChanged(int value);
+  void onIeRatioChanged(int value);
+  void onPeepChanged(int value);
 
   Ui::TreatmentWidget *ui;
 
@@ -59,25 +61,13 @@ private:
   GraphWidget *m_lrGraph = nullptr;
 
   // User Input Data widgets
-  QSpinBox* m_fiO2SpinBox = nullptr;
+  QSpinBox* m_fio2SpinBox = nullptr;
   QSpinBox *m_tidalVolSpinBox = nullptr;
   QSpinBox *m_respRateSpinBox = nullptr;
-  QSpinBox *m_ieSpinBox = nullptr;
+  QSpinBox *m_ieRatioSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
   // Vent Mode?
 
-  // Value A-D button widgets
-  PushButtonWidget* m_valveAButtonWidget;
-  PushButtonWidget* m_valveBButtonWidget;
-  PushButtonWidget* m_valveCButtonWidget;
-  PushButtonWidget* m_valveDButtonWidget;
-
-  PushButtonWidget *m_powerupButtonWidget;
-
-  // Value A-D button checked state
-  bool m_isValueAChecked = false;
-  bool m_isValueBChecked = false;
-  bool m_isValueCChecked = false;
-  bool m_isValueDChecked = false;
+  PushButtonWidget *m_powerupButtonWidget = nullptr;
 };
 #endif // TREATMENTWIDGET_H

@@ -1,3 +1,4 @@
+#include <QDebug>
 
 #include "CommMgr.h"
 
@@ -33,24 +34,24 @@ void CommMgr::stop()
     m_jamCtrl.killThread();
 }
 
-void CommMgr::onFio2Changed(NumType value)
+void CommMgr::onFio2Changed(int value)
 {
     // JPW @todo. Send out new value to system.
 }
 
-void CommMgr::onTidalVolChanged(NumType value)
+void CommMgr::onTidalVolChanged(int value)
 {
 }
 
-void CommMgr::onRespRateChanged(NumType value)
+void CommMgr::onRespRateChanged(int value)
 {
 }
 
-void CommMgr::onIeRatioChanged(NumType value)
+void CommMgr::onIeRatioChanged(int value)
 {
 }
 
-void CommMgr::onPeepChanged(NumType value)
+void CommMgr::onPeepChanged(int value)
 {
 }
 
@@ -80,11 +81,12 @@ void CommMgr::onTimeout()
 
     cd = m_jamCtrl.getCtrlData();
 
-    // qDebug() << "pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
+    // qDebug() << "CommMgr::onTimeout(): pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
 
     // NOTE: scaling here is really artificial as these are not the data
     //       we are ultimatly graphing, but the data that we are just
     //       using to do a milestone.
+
     // JPW: Above note from Ralph.  New code below just passes on the data from the jamCtrl manager. Scaling happens when
     // data is applied to the graphs.
 

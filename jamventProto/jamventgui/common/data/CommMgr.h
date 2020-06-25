@@ -18,11 +18,11 @@ class CommMgr : public CommMgrInterface
     void stop();
 
   public slots:
-    void onFio2Changed(NumType value) override;
-    void onTidalVolChanged(NumType value) override;
-    void onRespRateChanged(NumType value) override;
-    void onIeRatioChanged(NumType value) override;
-    void onPeepChanged(NumType value) override;
+    void onFio2Changed(int value) override;
+    void onTidalVolChanged(int value) override;
+    void onRespRateChanged(int value) override;
+    void onIeRatioChanged(int value) override;
+    void onPeepChanged(int value) override;
 
     void onValveAOpenChanged(bool isOpen) override;
     void onValveBOpenChanged(bool isOpen) override;
