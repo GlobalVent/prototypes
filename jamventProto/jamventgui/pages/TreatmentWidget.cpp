@@ -203,33 +203,26 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     // Upper left graph
     if (nullptr != m_ulGraph)
     {
-        //CommMgr::NumType v = std::min(data.pressSys / 3, static_cast<CommMgr ::NumType>(m_ulParams.yAxisMax));
-        CommMgr::NumType v = data.pressSys / 3;  // Should clamp. No need for min();
-        m_ulGraph->onAddValue(v);
+        m_ulGraph->onAddValue(data.pressSys);
     }
 
     // Upper right graph
     if (nullptr != m_urGraph)
     {
-        //CommMgr::NumType v = std::min((data.pressRes / 1000) + m_urParams.yAxisMin, static_cast<CommMgr ::NumType>(m_urParams.yAxisMax));
-        CommMgr::NumType v = (data.pressRes / 1000) + m_urParams.yAxisMin; // Should clamp. No need for min();
-        m_urGraph->onAddValue(v);
-
+        m_urGraph->onAddValue(data.pressRes);
         // qDebug() << "data.pressRes = " << data.pressRes << ", v = " << v;
     }
 
     // Lower left graph
     if (nullptr != m_llGraph)
     {
-        CommMgr::NumType v = data.pressO2;
-        m_llGraph->onAddValue(v);
+        m_llGraph->onAddValue(data.pressO2);
     }
 
     // Lower right graph
     if (nullptr != m_lrGraph)
     {
-        CommMgr::NumType v = data.lungVol;
-        m_lrGraph->onAddValue(v);
+        m_lrGraph->onAddValue(data.lungVol);
     }
 }
 

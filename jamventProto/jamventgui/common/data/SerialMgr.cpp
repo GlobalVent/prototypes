@@ -177,11 +177,9 @@ void SerialMgr::onNewNameValues(NameValueMap map)
             double doubleValue = value.toDouble(&isOk);
             if (isOk)
             {
-                // JPW @todo Clean up this scaling to do 1 place.
-                // Convert to a range of 0.0 to 100.0 to 0.0 to 10.0 times 3.
+                // Convert from a range of 0.0 to 100.0 to a range of 0.0 to 10.0.
                 double tmp = doubleValue / 100.0;
-                tmp *= 10.0;
-                tmp *= 3;
+                tmp *= 10.0;  // 0.0 to 10.0
                 newInData.pressSys = tmp;
                 isDataAdded = true;
             }
@@ -196,11 +194,10 @@ void SerialMgr::onNewNameValues(NameValueMap map)
             double doubleValue = value.toDouble(&isOk);
             if (isOk)
             {
-                // JPW @todo Clean up this scaling to do 1 place.
-                // Convert to a range of 0.0 to 1000.0 to 0.0 to 2.0 times 1000.
+                // Convert from a range of 0.0 to 1000.0 to a range of -1.0 to 1.0
                 double tmp = doubleValue / 1000.0;
-                tmp *= 2.0;
-                tmp *= 1000;
+                tmp *= 2.0;  // 0.0 to 2.0
+                tmp -= 1.0;  // -1.0 to 1.0
                 newInData.pressRes = tmp;
                 isDataAdded = true;
             }
