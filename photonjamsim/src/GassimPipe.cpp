@@ -1,0 +1,60 @@
+
+#include <assert.h>
+#include <math.h>
+#include "GassimPipe.h"
+
+
+
+GassimPipe::GassimPipe(const std::string &name, 
+			   double resistance,
+			   bool open) : GassimNode(name, PIPE) {
+	setResistance(resistance);
+	setOpen(open);
+}
+
+/**
+ * @brief pO2 -- retrieve the po2 of the higher pressure leg...
+ * 
+ * @return double 
+ */
+double GassimPipe::pO2() {
+	assert(getNumConnections() == 2);		// todo do something better than assert.
+	ConnectionMap_t::iterator p  = _connections.begin();
+	NodePtr_t pA = p->second; p++;		// extract the first 2 connections...
+	NodePtr_t pB = p->second; p++;
+	double pO2;
+	if (pA->pressure() > pB->pressure())
+		pO2 = pA->pO2();
+	else
+		pO2 = pB->pO2();
+	return(pO2);
+}
+void GassimPipe::step(double dt) {
+	assert(getNumConnections() == 2);		// todo do something better than assert.
+	ConnectionMap_t::iterator p  = _connections.begin();
+	NodePtr_t pA = p->second; p++;		// extract the first 2 connections...
+	NodePtr_t pB = p->second; p++;
+	double pdrop = abs(pA->pressure() - pB->pressure());
+	if (open())
+		setFlow(pdrop / resistance());
+	else
+		setFlow(0);
+}		
+double GassimPipe::getPressureDrop(unsigned reqNodeId) {
+	ConnectionMap_t::iterator p  = _connections.begin();
+	NodePtr_t pA = p->second; p++;		// extract the first 2 connections...
+	NodePtr_t pB = p->second; p++;
+	double pdrop = 0;
+	if (open()) {
+		if (reqNodeId == pA->nodeId())
+			pdrop=pB->pressure() - pA->pressure();
+		else
+			pdrop=pA->pressure() - pB->pressure();		
+	}
+	return(pdrop);
+}
+
+
+
+
+

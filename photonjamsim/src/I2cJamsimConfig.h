@@ -20,7 +20,8 @@ public:
     I2cJamsimConfig(unsigned devAddr) :
         I2cSlaveDevice(devAddr),
         _version(0x100),
-        _simInterval(10)  { };
+        _simInterval(10),
+        _loopBack(0)  { };
 
     /**
      * @brief stop event received AFTER receiving a start event...
@@ -36,7 +37,9 @@ public:
     // this device supports the following commands
     enum {
         VERSION = 0,        // return with the version number of this simulation (replies with 2 bytes, major and minor)
-        SIMINTERVAL = 1     // set the sim interval in milliseconds.
+        SIMINTERVAL = 1,     // set the sim interval in milliseconds.
+        LOOPBACK = 2    // loop back test mode, don't have the simulator run the pressure readings.
+
     };
 
     /** set/getVersion
@@ -49,8 +52,11 @@ public:
     void setSimInterval(unsigned simInterval) { _simInterval=simInterval;}
     unsigned getSimInterval() { return(_simInterval);};
 
+    void setLoopBack(unsigned loopBack) { _loopBack=loopBack; }
+    unsigned getLoopBack() { return(_loopBack);}
 protected:
     unsigned _version;
     unsigned _simInterval;
+    unsigned _loopBack;
 };
 #endif

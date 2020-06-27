@@ -58,6 +58,39 @@ public:
 		return (rc);
 	}
 
+	/**
+	 * @brief Set the Loop Back mode so we can read and write the pressure sensors.
+	 *        loopback mode is a test mode that disables the jamvent simulation for
+	 *        reading pressure and temperature.
+	 * 
+	 * @param loopBack -- 1 set loopback on, 0, set it off
+	 * @return int 
+	 */
+	int setLoopBack(unsigned loopBack) {
+		uint8_t buf[1];
+		buf[0] = loopBack;
+		int rc = writeBlockData(SIMINTERVAL, buf, sizeof(buf));
+		return (rc);
+
+	}
+
+
+	/**
+	 * @brief Get the Loop Back mode
+	 * 
+	 * @return 0 loopBAck off, 1 loopBack on
+	 */
+	int getLoopBack() {
+		uint8_t buf[1];
+		int rc = readBlockData(SIMINTERVAL, buf, sizeof(buf));
+		if (rc > 0) {
+			rc = buf[0];
+		}
+		return (rc);
+
+	}
+
+
 protected:
 	enum {
 		VERSION = 0, 
@@ -84,6 +117,14 @@ int testI2cDevices()
 		cout << "presSensor.initI2c Failed" << endl;
 		return (1);
 	}
+
+	int version = photonCfg.getVersion();
+	cout << "version=" << (version >> 8) << ":" << (version & 0xFF) << endl;
+	
+	int siminterval = photonCfg.getSiminterval();
+	cout << "siminterval=" << siminterval << endl;
+
+
 
 	// do the initialization thing for the sensors.
 	rc = presSensor.reset();
@@ -124,14 +165,7 @@ int testI2cDevices()
 	}
 	cout << "presSensor.getTestPressure() = " << rc << endl;
 	
-
-#if 0
-	int version = photonCfg.getVersion();
-	cout << "version=" << (version >> 8) << ":" << (version & 0xFF) << endl;
-	
-	int siminterval = photonCfg.getSiminterval();
-	cout << "siminterval=" << siminterval << endl;
-#endif
+	return (0);
 	
 }
 int main(int argc, char *argv[])
