@@ -93,8 +93,8 @@ void CommMgr::onTimeout()
     DataIn newInData;
 
     // Graph data
-    newInData.pressSys = cd.pSys;
-    newInData.pressRes = cd.pRes;
+    newInData.pressSys = cd.pSys / 3.0;  // Massage to match simulator.
+    newInData.pressRes = (cd.pRes / 1000) - 1.0; // Massage to match simulator.
     newInData.pressO2 = cd.pO2;
     newInData.lungVol = cd.lvol;
 
