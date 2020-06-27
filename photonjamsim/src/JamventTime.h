@@ -30,6 +30,7 @@ public:
      */
     double now() {
         #if PARTICLE==1
+            noInterrupts();
             // millis rolls over after 49 days, so handle the roll over...
             static unsigned long lastMillis = 0;
             static unsigned long long totalTime = 0;
@@ -41,6 +42,7 @@ public:
                 deltaTime = ((unsigned long long)currMillis+0x100000000ULL)-lastMillis;
             lastMillis=currMillis;      // remember this.
             totalTime+= deltaTime;
+            interrupts();
             return(1e-3*totalTime);
         #else
 

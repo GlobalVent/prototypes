@@ -8,8 +8,8 @@
 #include "I2cIntHandler.h"
 #include "I2cSlaveCtl.h"
 #include "I2cJamsimConfig.h"
-#include "I2cPresSensor.h"
-#include "I2cPsysSensor.h"
+#include "I2cMS5607Sim.h"
+#include "I2cMS5803Sim.h"
 #include "I2cAdcSensor.h"
 #include "JamventTime.h"
 #include "JamsimDbgPrint.h"
@@ -46,8 +46,8 @@ static I2cIntHandler *i2cIntHandler = nullptr;
 static I2cSlaveCtl *i2cRpiSlaveCtl = nullptr;
 static I2cSlaveCtl *i2cCpldSlaveCtl = nullptr;
 static I2cJamsimConfig *photonConfig;
-static I2cPresSensor *i2cRpiPresSensor;
-static I2cPresSensor *i2cCpldPresSensor;
+static I2cMS5803Sim *i2cRpiPresSensor;
+static I2cMS5803Sim *i2cCpldPresSensor;
 
 static double timeToWake = 0;
 static double timeToPrint = 0;
@@ -66,12 +66,12 @@ void initialize() {
 	i2cIntHandler->setDbgPrint(&dbgPrint);
 	i2cRpiSlaveCtl = new I2cSlaveCtl(I2C_RPI_SCL, I2C_RPI_SDA);
 	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CFG_ADDR);
-	i2cRpiPresSensor = new I2cPresSensor(I2C_PRES_SIM_ADDR);
+	i2cRpiPresSensor = new I2cMS5803Sim(I2C_PRES_SIM_ADDR);
 	// TBD create 2 more sensors
 
 
 	i2cCpldSlaveCtl = new I2cSlaveCtl(I2C_CPLD_SCL, I2C_CPLD_SDA);
-	i2cCpldPresSensor = new I2cPresSensor(I2C_PRES_SIM_ADDR);
+	i2cCpldPresSensor = new I2cMS5803Sim(I2C_PRES_SIM_ADDR);
 	// TBD create 2 more sensors
 
 	// wire it all up.
