@@ -1,10 +1,10 @@
 #include <QDebug>
 
+#include "ConfigJson.h"
 #include "CommMgr.h"
 
 namespace
 {
-    const qreal TimerInterval_ms = 100;
 }
 
 CommMgr::CommMgr()
@@ -24,7 +24,8 @@ void CommMgr::start()
     m_jamCtrl.init(); // ontime init, after we do any other settings.
     m_jamCtrl.runThread();
 
-    m_timer.setInterval(TimerInterval_ms);
+    const ConfigJson::ConfigData &configData = ConfigJson::Instance().getConfigData();
+    m_timer.setInterval(configData.pollingTimeout_ms);
     m_timer.start();
 }
 

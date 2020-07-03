@@ -66,7 +66,7 @@ private:
   QSpinBox *m_respRateSpinBox = nullptr;
   QSpinBox *m_ieRatioSpinBox = nullptr;
   QSpinBox *m_peepSpinBox = nullptr;
-  // Vent Mode?
+  // JPW @todo Add Vent Mode when understand and used.
 
   PushButtonWidget *m_powerupButtonWidget = nullptr;
 };

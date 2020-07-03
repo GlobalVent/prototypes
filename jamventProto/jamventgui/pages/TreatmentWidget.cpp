@@ -12,6 +12,7 @@
 #include "GraphWidget.h"
 #include "PushButtonWidget.h"
 #include "IeRatioSpinBoxWidget.h"
+#include "ConfigJson.h"
 
 namespace
 {
@@ -46,6 +47,9 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Configuration data used to setup widgets
+    const ConfigJson::ConfigData& configData = ConfigJson::Instance().getConfigData();
+
     // Add bottom row of input widgets
     auto inputGroupFrame = ui->inputGroupFrame;
     auto inputGroupLayout = new QHBoxLayout{};
@@ -72,7 +76,6 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_respRateSpinBox->setSuffix(PerMinSuffixStr);
     inputGroupLayout->addWidget(w);
 
-    // JPW \todo Need to understand how I:E ratio options
     m_ieRatioSpinBox = new IeRatioSpinBoxWidget();
     m_ieRatioSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
     w = new LabeledInputWidget(tr(IeLabelStr), m_ieRatioSpinBox);
@@ -84,7 +87,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_peepSpinBox->setSuffix(tr(Cmh20MinSuffixStr));
     inputGroupLayout->addWidget(w);
 
-    // JPW \todo Don't know what this is
+    // JPW @todo  Just a placeholder for possible modes PRVS, Support 
     inputGroupLayout->addWidget(new LabeledInputWidget(tr(VentModeLabelStr)));
 
     // Add right column data display widgets
@@ -117,49 +120,50 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     dataGroupLayout->addWidget(m_powerupButtonWidget);
 #endif
 
+    // Configure the 4 graphs
 #if 1
-    m_ulParams.xAxisTickCount = 120;
-    m_ulParams.xAxisMin = 0.0;
-    m_ulParams.xAxisMax = 6.0;
-    m_ulParams.yAxisMin = 0.0;
-    m_ulParams.yAxisMax = 10.0;
-    m_ulParams.yAxisLabel = tr("Press(cmH2O) L");
+    m_ulParams.xAxisTickCount = configData.graphTickCount;
+    m_ulParams.xAxisMin = configData.graphs[ConfigJson::UlIndex].xAxisMin;
+    m_ulParams.xAxisMax = configData.graphs[ConfigJson::UlIndex].xAxisMax;
+    m_ulParams.yAxisMin = configData.graphs[ConfigJson::UlIndex].yAxisMin;
+    m_ulParams.yAxisMax = configData.graphs[ConfigJson::UlIndex].yAxisMax;
+    m_ulParams.yAxisLabel = configData.graphs[ConfigJson::UlIndex].yAxisLabel;
 
     m_ulGraph = new GraphWidget(m_ulParams, ui->upperLeftGraphFrame);
 #endif
 
 #if 1
     // Upper right graph
-    m_urParams.xAxisTickCount = 120;
-    m_urParams.xAxisMin = 0.0;
-    m_urParams.xAxisMax = 6.0;
-    m_urParams.yAxisMin = -1.0;
-    m_urParams.yAxisMax = 1.0;
-    m_urParams.yAxisLabel = tr("Flow R(l/min) H");
+    m_urParams.xAxisTickCount = configData.graphTickCount;
+    m_urParams.xAxisMin = configData.graphs[ConfigJson::UrIndex].xAxisMin;
+    m_urParams.xAxisMax = configData.graphs[ConfigJson::UrIndex].xAxisMax;
+    m_urParams.yAxisMin = configData.graphs[ConfigJson::UrIndex].yAxisMin;
+    m_urParams.yAxisMax = configData.graphs[ConfigJson::UrIndex].yAxisMax;
+    m_urParams.yAxisLabel = configData.graphs[ConfigJson::UrIndex].yAxisLabel;
 
     m_urGraph = new GraphWidget(m_urParams, ui->upperRightGraphFrame);
 #endif
 
 #if 1
     // Lower left graph
-    m_llParams.xAxisTickCount = 120;
-    m_llParams.xAxisMin = 0.0;
-    m_llParams.xAxisMax = 6.0;
-    m_llParams.yAxisMin = -1.0;
-    m_llParams.yAxisMax = 1.0;
-    m_llParams.yAxisLabel = tr("pO2");
+    m_llParams.xAxisTickCount = configData.graphTickCount;
+    m_llParams.xAxisMin = configData.graphs[ConfigJson::LlIndex].xAxisMin;
+    m_llParams.xAxisMax = configData.graphs[ConfigJson::LlIndex].xAxisMax;
+    m_llParams.yAxisMin = configData.graphs[ConfigJson::LlIndex].yAxisMin;
+    m_llParams.yAxisMax = configData.graphs[ConfigJson::LlIndex].yAxisMax;
+    m_llParams.yAxisLabel = configData.graphs[ConfigJson::LlIndex].yAxisLabel;
 
     m_llGraph = new GraphWidget(m_llParams, ui->lowerLeftGraphFrame);
 #endif
 
 #if 1
     // Lower right graph
-    m_lrParams.xAxisTickCount = 120;
-    m_lrParams.xAxisMin = 0.0;
-    m_lrParams.xAxisMax = 6.0;
-    m_lrParams.yAxisMin = 0.0;
-    m_lrParams.yAxisMax = 10.0;
-    m_lrParams.yAxisLabel = tr("Lung Vol");
+    m_lrParams.xAxisTickCount = configData.graphTickCount;
+    m_lrParams.xAxisMin = configData.graphs[ConfigJson::LrIndex].xAxisMin;
+    m_lrParams.xAxisMax = configData.graphs[ConfigJson::LrIndex].xAxisMax;
+    m_lrParams.yAxisMin = configData.graphs[ConfigJson::LrIndex].yAxisMin;
+    m_lrParams.yAxisMax = configData.graphs[ConfigJson::LlIndex].yAxisMax;
+    m_lrParams.yAxisLabel = configData.graphs[ConfigJson::LrIndex].yAxisLabel;
 
     m_lrGraph = new GraphWidget(m_lrParams, ui->lowerRightGraphFrame);
 #endif

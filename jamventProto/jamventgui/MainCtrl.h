@@ -27,15 +27,13 @@ public:
     void onSimOnChanged(bool isChecked);
 
   private:
+    CommMgr m_commMgr;      // For now this is connected to jamCtrl
+    SerialMgr m_serialMgr;
+
     MainWidget* m_widget = nullptr;
 
     // Controllers for each page
     PowerupCtrl *m_powerupCtrl = nullptr;
     TreatmentCtrl*  m_treatmentCtrl = nullptr;
-
-    CommMgr m_commMgr; // For now this is connected to jamCtrl
-    SerialMgr m_serialMgr;
-
-    bool m_useSerialInterface = false;
 };
 #endif // MAINCTRL_H

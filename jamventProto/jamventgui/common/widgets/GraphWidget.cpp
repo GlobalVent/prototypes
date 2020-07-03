@@ -68,7 +68,8 @@ void GraphWidget::onAddValue(float value)
     }
 
      // Convert to range the input range to -1.0 to 1.0
-     norm = (norm - (m_params.yAxisMin)) / inRange * PlotAreaWidget::YRange;
+     // Converts to range of 0.0 to 2.0;
+     norm = (norm - m_params.yAxisMin) / inRange * PlotAreaWidget::YRange;
 
      // Convert from 0.0 to 2.0 to -1.0 to 1.0;
      norm = norm + PlotAreaWidget::YMin;

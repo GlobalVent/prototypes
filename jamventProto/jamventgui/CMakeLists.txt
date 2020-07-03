@@ -10,6 +10,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+
 find_package(Qt5 COMPONENTS Core Widgets SerialPort REQUIRED)
 
 file(GLOB GUI_SOURCES . *.cpp *.h *.ui)
@@ -30,6 +31,10 @@ include_directories(../jamctrllib)
 
 message("GUI_SOURCES = ${GUI_SOURCES}")
 
-add_executable(JamventGui ${GUI_SOURCES})
+add_executable(JamventGui ${GUI_SOURCES} Config.json)
 
 target_link_libraries(JamventGui Qt5::Widgets Qt5::SerialPort jamctrllib jamventsim pthread "${LIBRARIES_FROM_REFERENCES}")
+
+# JPW @todo Is this necessary?
+#install(TARGETS JamventGui DESTINATION /home/pi COMPONENT binaries)
+#install(FILES Config.json DESTINATION /home/pi COMPONENT config)

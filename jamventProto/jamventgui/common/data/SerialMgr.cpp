@@ -3,11 +3,11 @@
 #include <QSerialPort>
 #include <cmath>
 
+#include "ConfigJson.h"
 #include "SerialMgr.h"
 
 namespace
 {
-    const qreal TimerInterval_ms = 100;
 }
 
 SerialMgr::SerialMgr()
@@ -51,7 +51,8 @@ SerialMgr::~SerialMgr()
 
 void SerialMgr::start()
 {
-    m_timer.setInterval(TimerInterval_ms);
+    const ConfigJson::ConfigData &configData = ConfigJson::Instance().getConfigData();
+    m_timer.setInterval(configData.pollingTimeout_ms);
     m_timer.start();
 }
 

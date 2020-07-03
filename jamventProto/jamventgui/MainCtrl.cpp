@@ -5,6 +5,7 @@
 #include "MainWidget.h"
 #include "PowerupCtrl.h"
 #include "TreatmentCtrl.h"
+#include "ConfigJson.h"
 
 namespace
 {
@@ -12,13 +13,22 @@ namespace
 }
 
 MainCtrl::MainCtrl()
-    : m_widget(new MainWidget)
-    , m_powerupCtrl(new PowerupCtrl(this))
-    , m_treatmentCtrl(new TreatmentCtrl(this))
-    , m_commMgr()
+    : m_commMgr()
     , m_serialMgr()
+    , m_widget(nullptr)
+    , m_powerupCtrl(nullptr)
+    , m_treatmentCtrl(nullptr)
 {
-    TreatmentWidget* treatmentWidget = m_treatmentCtrl->getWidget();
+    // First, open and read the config file so available when creating the rest.
+    ConfigJson::Instance().parseConfigFile();
+
+    const ConfigJson::ConfigData& configData = ConfigJson::Instance().getConfigData();
+
+    m_widget = new MainWidget;
+    m_powerupCtrl = new PowerupCtrl(this);
+    m_treatmentCtrl = new TreatmentCtrl(this);
+
+    TreatmentWidget *treatmentWidget = m_treatmentCtrl->getWidget();
     PowerupWidget *powerupWidget = m_powerupCtrl->getWidget();
 
     // Add all the page widgets to the main widget.
@@ -57,7 +67,7 @@ MainCtrl::MainCtrl()
     connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_commMgr, &CommMgr::onValveBOpenChanged);
     connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_commMgr, &CommMgr::onValveDOpenChanged);
 
-    if (m_useSerialInterface)
+    if (configData.commMode == "serial")
     {
         m_serialMgr.start();
     }

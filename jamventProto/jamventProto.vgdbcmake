@@ -8,7 +8,7 @@
       <LocalDirForAbsolutePaths>$(ToolchainDir)</LocalDirForAbsolutePaths>
     </CustomSourceDirectories>
     <DeploymentHost>
-      <HostName>rpi02.local</HostName>
+      <HostName>192.168.1.157</HostName>
       <Transport>SSH</Transport>
       <UserName>pi</UserName>
     </DeploymentHost>
@@ -89,6 +89,9 @@
       <DeploymentDirectory>/home/pi</DeploymentDirectory>
       <SetLDLibraryPathFromDependentArtifacts>true</SetLDLibraryPathFromDependentArtifacts>
       <ProjectGUID>98069c50-a92f-461a-bad3-6a90baa200ff</ProjectGUID>
+      <ExtraFiles>
+        <string>..\..\..\dev\qt5.natvis</string>
+      </ExtraFiles>
       <VirtualFolders />
       <ConfigurationNameCase>Upper</ConfigurationNameCase>
       <DefaultHeaderDiscoveryMode>None</DefaultHeaderDiscoveryMode>
@@ -97,7 +100,23 @@
   </Build>
   <CustomBuild>
     <PreSyncActions />
-    <PreBuildActions />
+    <PreBuildActions>
+      <CustomActionBase xsi:type="FileTransferAction">
+        <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+        <SourceHost>
+          <HostName>BuildMachine</HostName>
+          <Transport>BuiltinShortcut</Transport>
+        </SourceHost>
+        <DestinationHost>
+          <HostName>192.168.1.157</HostName>
+          <Transport>SSH</Transport>
+          <UserName>pi</UserName>
+        </DestinationHost>
+        <SourceFilePath>$(BuildDir)\jamventgui\Config.json</SourceFilePath>
+        <DestinationFilePath>$(DeployDir)/Config.json</DestinationFilePath>
+        <OverwriteTrigger>Always</OverwriteTrigger>
+      </CustomActionBase>
+    </PreBuildActions>
     <PostBuildActions />
     <PreCleanActions />
     <PostCleanActions />

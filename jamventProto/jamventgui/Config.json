@@ -1,0 +1,37 @@
+{
+  "comm-mode": "i2c",
+  "debug-mode": "debug",
+  "graph-tick-count": 60,
+  "polling-timeout-ms": 100.0,
+  "graphs":
+  [
+    {
+      "x-axis-min": 0.0,
+      "x-axis-max": 6.0,
+      "y-axis-min": 0.0,
+      "y-axis-max": 10.0,
+      "y-axis-label": "Press(cmH2O) L"
+    },
+    {
+      "x-axis-min": 0.0,
+      "x-axis-max": 6.0,
+      "y-axis-min": -1.0,
+      "y-axis-max": 1.0,
+      "y-axis-label": "Flow R(l/min) H"
+    },
+    {
+      "x-axis-min": 0.0,
+      "x-axis-max": 6.0,
+      "y-axis-min": -1.0,
+      "y-axis-max": 1.0,
+      "y-axis-label": "pO2"
+    },
+    {
+      "x-axis-min": 0.0,
+      "x-axis-max": 6.0,
+      "y-axis-min": 0.0,
+      "y-axis-max": 10.0,
+      "y-axis-label": "Lung Vol"
+    }
+  ]
+}
