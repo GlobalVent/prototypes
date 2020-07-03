@@ -56,10 +56,11 @@ protected:
 	unsigned _lastCv;		// last conversion done.
 	unsigned _pressure;				// pressure (conpensated)
 	unsigned _temperature;			// temperature (compensated)
-	int64_t _OFF2;					// offsets calculated with temperature
-	int64_t _SENS2;					// needed for pressure.
-	int64_t _OFF;
-	int64_t _SENS; 
+	// int64_t _OFF2;					// offsets calculated with temperature
+	// int64_t _SENS2;					// needed for pressure.
+	int64_t _OFF;                   // offsets calculated with temperature
+	int64_t _SENS; 					// needed for pressure.
+	
 
 public:
 	// Define constants for Conversion precision
@@ -78,8 +79,8 @@ public:
 		_lastCv(0),
 		_pressure(0),
 		_temperature(0),
-		_OFF2(0),
-		_SENS2(0),
+		//_OFF2(0),
+		//_SENS2(0),
 		_OFF(0),
 		_SENS(0)
     {

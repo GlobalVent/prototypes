@@ -13,6 +13,7 @@
 #include "I2cAdcSensor.h"
 #include "JamventTime.h"
 #include "JamsimDbgPrint.h"
+#include "JamventSimModelRt.h"
 
 SYSTEM_THREAD(ENABLED);
 SYSTEM_MODE(MANUAL);
@@ -24,10 +25,10 @@ SYSTEM_MODE(MANUAL);
 #define I2C_CPLD_SCL  D3
 #define I2C_CPLD_SDA  D2
 
-#define GPIO_VALVEA D0
-#define GPIO_VALVEB D1
-#define GPIO_VALVEC D2
-#define GPIO_VALVED D3
+#define GPIO_VALVEA D7
+#define GPIO_VALVEB D6
+#define GPIO_VALVEC D5
+#define GPIO_VALVED D4
 
 // stay away from these addresses
 #define I2C_PRES_ADDR 0x76  // check these against the specs...
@@ -39,20 +40,19 @@ SYSTEM_MODE(MANUAL);
 #define I2C_PSYS_SIM_ADDR   0x62
 #define I2C_ADC_SIM_ADDR    0x63
 
-
-
-
 static I2cIntHandler *i2cIntHandler = nullptr;
 static I2cSlaveCtl *i2cRpiSlaveCtl = nullptr;
 static I2cSlaveCtl *i2cCpldSlaveCtl = nullptr;
 static I2cJamsimConfig *photonConfig;
 static I2cMS5803Sim *i2cRpiPresSensor;
 static I2cMS5803Sim *i2cCpldPresSensor;
+static JamventSimModelRt *gasModel;
 
-static double timeToWake = 0;
+
 static double timeToPrint = 0;
 static JamventTime jamTime;
 static JamsimDbgPrint dbgPrint;
+double lastTime = 0;			// last time we got called
 
 
 int counter = 0;
@@ -61,6 +61,19 @@ void initialize() {
 	static bool isInitialized = false;
 	if (isInitialized)
 		return;
+
+
+	pinMode(GPIO_VALVEA, INPUT);
+	pinMode(GPIO_VALVEB, INPUT);
+	pinMode(GPIO_VALVEC, INPUT);
+	pinMode(GPIO_VALVED, INPUT);
+
+
+	gasModel = new JamventSimModelRt();
+	gasModel->init();				// time zero state.
+	gasModel->setPressDly(0);		// not delay for pressure
+	gasModel->setO2Dly(0);
+	lastTime = jamTime.now();
 
 	i2cIntHandler = new I2cIntHandler();
 	i2cIntHandler->setDbgPrint(&dbgPrint);
@@ -102,11 +115,25 @@ void loop() {
 	if (i2cIntHandler == nullptr)
 		return;
 
+	gasModel->setValveAopen(pinReadFast(GPIO_VALVEA));
+	gasModel->setValveBopen(pinReadFast(GPIO_VALVEB));
+	gasModel->setValveCopen(pinReadFast(GPIO_VALVEC));
+	gasModel->setValveDopen(pinReadFast(GPIO_VALVED));
+
 	i2cIntHandler->microsNow();			// keep this refreshed so we have an accurate micros count...
 	double now = jamTime.now();
 	//i2cSlaveCtl->sampleIO();
-	if (now >= timeToWake) {
-		// tbd... call the jamsim simulation.
+	double dt = now - lastTime;
+	double simInterval = (double)photonConfig->getSimInterval()/1000.0;
+	if (dt >= simInterval) {			// hit the model at 1ms intervals.
+		gasModel->step(dt);
+		// todo, make this a configuration parameter..
+		if (!photonConfig->getLoopBack()) {
+			i2cRpiPresSensor->setPressure(gasModel->getPres());
+			i2cCpldPresSensor->setPressure(gasModel->getPres());
+			// todo, add pres and psys testing..
+		}
+
 	}
 	if (now >= timeToPrint) {
 		if (dbgPrint.hasData()) {

@@ -31,6 +31,12 @@ void I2cJamsimConfig::stop(unsigned rw) {
             _sendData[_sendByteCount++] = (_simInterval>>8) & 0xFF;
             _sendData[_sendByteCount++] = _simInterval & 0xFF;
             break;
+        case LOOPBACK:           
+            if (_recvByteCount >= 1)
+                _loopBack = _recvData[1];
+            _sendByteCount=0;                                       
+            _sendData[_sendByteCount++] = _loopBack & 0xFF;
+            break;
         default:
             memset(_sendData, 0xAA, sizeof(_sendData));   // give us a pattern, 
             break;  
