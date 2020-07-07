@@ -1,3 +1,5 @@
+#include <QDebug>
+#include <QKeyEvent>
 
 #include "Theme.h"
 #include "PushButtonWidget.h"
@@ -29,4 +31,22 @@ PushButtonWidget::PushButtonWidget(const QString& label, QWidget* parent)
     : QPushButton(label, parent)
 {
     setStyleSheet(ButtonStyle);
+}
+
+bool PushButtonWidget::event(QEvent *event)
+{
+    qDebug() << "event(" << event << ") called.";
+
+    QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+
+    if ((event->type() == QEvent::KeyPress) &&
+        ((ke->key() == Qt::Key_Up) || (ke->key() == Qt::Key_Down)))
+    {
+        // Treat up/down arrows as a click.
+        click();
+        // Handle up/down arrow key press manually.
+        return true;
+    }
+
+    return QWidget::event(event);
 }

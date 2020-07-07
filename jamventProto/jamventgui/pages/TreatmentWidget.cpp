@@ -162,7 +162,7 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
     m_lrParams.xAxisMin = configData.graphs[ConfigJson::LrIndex].xAxisMin;
     m_lrParams.xAxisMax = configData.graphs[ConfigJson::LrIndex].xAxisMax;
     m_lrParams.yAxisMin = configData.graphs[ConfigJson::LrIndex].yAxisMin;
-    m_lrParams.yAxisMax = configData.graphs[ConfigJson::LlIndex].yAxisMax;
+    m_lrParams.yAxisMax = configData.graphs[ConfigJson::LrIndex].yAxisMax;
     m_lrParams.yAxisLabel = configData.graphs[ConfigJson::LrIndex].yAxisLabel;
 
     m_lrGraph = new GraphWidget(m_lrParams, ui->lowerRightGraphFrame);

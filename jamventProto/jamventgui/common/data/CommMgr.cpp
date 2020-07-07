@@ -82,7 +82,7 @@ void CommMgr::onTimeout()
 
     cd = m_jamCtrl.getCtrlData();
 
-    // qDebug() << "CommMgr::onTimeout(): pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
+    //qDebug() << "CommMgr::onTimeout(): pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
 
     // NOTE: scaling here is really artificial as these are not the data
     //       we are ultimatly graphing, but the data that we are just

@@ -13,6 +13,9 @@ class PushButtonWidget: public QPushButton
 
     ~PushButtonWidget() = default;
 
+  protected:
+    bool event(QEvent *event) override;
+
   private:
 
 };
