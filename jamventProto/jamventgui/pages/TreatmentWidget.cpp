@@ -66,24 +66,29 @@ TreatmentWidget::TreatmentWidget(QWidget *parent)
 
     w = new LabeledInputWidget(tr(TidalVolLabelStr));
     m_tidalVolSpinBox = w->getSpinBox();
-    // JPW @todo What is the range for this input?
+    m_tidalVolSpinBox->setRange(10, 1500);
+    m_tidalVolSpinBox->setSingleStep(10);
+    m_tidalVolSpinBox->setValue(350);
     m_tidalVolSpinBox->setSuffix(tr(MlSuffixStr));
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(RespRateLabelStr));
     m_respRateSpinBox = w->getSpinBox();
-    m_respRateSpinBox->setRange(1, 35);
+    m_respRateSpinBox->setRange(1, 40);
+    m_respRateSpinBox->setValue(10);
     m_respRateSpinBox->setSuffix(PerMinSuffixStr);
     inputGroupLayout->addWidget(w);
 
     m_ieRatioSpinBox = new IeRatioSpinBoxWidget();
     m_ieRatioSpinBox->setRange(IeRatioSpinBoxWidget::RatioMin, IeRatioSpinBoxWidget::RatioMax);
+    m_ieRatioSpinBox->setValue(IeRatioSpinBoxWidget::Ratio1to1);
     w = new LabeledInputWidget(tr(IeLabelStr), m_ieRatioSpinBox);
     inputGroupLayout->addWidget(w);
 
     w = new LabeledInputWidget(tr(PeepLabelStr));
     m_peepSpinBox = w->getSpinBox();
     m_peepSpinBox->setRange(0, 20);
+    m_peepSpinBox->setValue(5);
     m_peepSpinBox->setSuffix(tr(Cmh20MinSuffixStr));
     inputGroupLayout->addWidget(w);
 
