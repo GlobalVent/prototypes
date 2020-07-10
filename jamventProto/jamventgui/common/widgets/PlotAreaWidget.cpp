@@ -10,8 +10,9 @@ namespace {
     constexpr int BorderWidth_px = 1;
 }
 
-PlotAreaWidget::PlotAreaWidget(const QRect& rectArg, int xAxisTickCount, QWidget* parent)
+PlotAreaWidget::PlotAreaWidget(const QRect &rectArg, int xAxisTickCount, QWidget *parent)
     : QWidget(parent)
+    , m_yZeroLine(PlotAreaWidget::YMin)
     , m_tickCount(xAxisTickCount)
     , m_xStep(0.0)
     , m_tick(0)
@@ -25,8 +26,6 @@ PlotAreaWidget::PlotAreaWidget(const QRect& rectArg, int xAxisTickCount, QWidget
     setAttribute(Qt::WA_OpaquePaintEvent);
 
     m_bgColor = palette().color(QPalette::Window);
-
-    qDebug() << "PlotAreaWidget(" << rectArg << ", " << xAxisTickCount << ")";
 
     // set the geometry. Allow to show the border from the parent.
     setGeometry(rectArg.x(), rectArg.y() + BorderWidth_px, rectArg .width() - BorderWidth_px, rectArg.height() - BorderWidth_px - BorderWidth_px);
@@ -52,9 +51,25 @@ void PlotAreaWidget::paintEvent(QPaintEvent *)
         const int stepWidth = static_cast<int>(m_xStep);
         //painter.fillRect(m_x + 1, 0, stepWidth + stepWidth, height(), Qt::black);
         //painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), Theme::BackgroundColor);
-        painter.fillRect(m_line.x1(), 0, stepWidth + stepWidth + stepWidth, height(), m_bgColor);
+        const int sliceWidth = stepWidth + stepWidth + stepWidth; // line and then 2 blank slices.
+        painter.fillRect(m_line.x1(), 0, sliceWidth, height(), m_bgColor);
 
         painter.drawLine(m_line);
+
+        // Draw zero line
+        if (m_yZeroLine > PlotAreaWidget::YMin)
+        {
+            // Zero line is in the y range. Draw it.
+            painter.setPen(m_zeroLinePen);
+
+            // Convert value to positve and reverse as Qt coordinates go from top to bottom.
+            float yLine = YRange - (m_yZeroLine - YMin);
+            const auto h = height();
+            yLine = yLine / YRange * h;
+            QPointF p1(m_line.x1() + 0, yLine);
+            QPointF p2(m_line.x1() + sliceWidth, yLine);
+            painter.drawLine(p1, p2);
+        }
     }
 
      //qDebug() << "paintEvent(). m_line = " << m_line << ", m_x = " << m_x;
@@ -89,6 +104,11 @@ void PlotAreaWidget::onAddValue(float v)
     update();
 
     //qDebug() << "PlotAreaWidget::onAddValue(" << v << "). norm = " << norm << ", newPoint = " << newPoint << ", m_x = " << m_x;
+}
+
+void PlotAreaWidget::setZeroLine(float y)
+{
+    m_yZeroLine = y;
 }
 
 int PlotAreaWidget::getTick()

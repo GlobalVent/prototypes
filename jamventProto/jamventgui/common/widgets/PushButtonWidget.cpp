@@ -35,7 +35,7 @@ PushButtonWidget::PushButtonWidget(const QString& label, QWidget* parent)
 
 bool PushButtonWidget::event(QEvent *event)
 {
-    qDebug() << "event(" << event << ") called.";
+    //qDebug() << "event(" << event << ") called.";
 
     QKeyEvent *ke = static_cast<QKeyEvent *>(event);
 

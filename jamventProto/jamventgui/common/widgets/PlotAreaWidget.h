@@ -34,6 +34,8 @@ class PlotAreaWidget: public QWidget
     // \param[in] v - Value to plot, -1.0 <= v <= 1.0;
     void onAddValue(float v);
 
+    void setZeroLine(float y);
+
     int getTick();
     int getTickCount();
 
@@ -45,9 +47,12 @@ private:
     QPen m_greenPen{Qt::green, 2};
     QPen* m_pen = &m_redPen;
 
+    QPen m_zeroLinePen{Qt::gray, 1};
+
     QColor m_bgColor;
 
     InitParams m_params;
+    float m_yZeroLine;
 
     int m_tickCount;
     float m_xStep;  // Store as real for precision.

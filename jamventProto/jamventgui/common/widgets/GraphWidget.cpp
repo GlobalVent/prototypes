@@ -27,7 +27,6 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
     m_yAxisMaxLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_yAxisMaxLabel->setText(QString::number(m_params.yAxisMax, 'f', 1));
 
-    //m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px - Indent_px, Indent_px, Indent_px));
     m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px, Indent_px, Indent_px));
     font = m_yAxisMinLabel->font();
     font.setPixelSize(Theme::SmallerFontSize_px);
@@ -36,6 +35,19 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
     m_yAxisMinLabel->setText(QString::number(m_params.yAxisMin, 'f', 1));
 
     m_yAxisLabel->setText(m_params.yAxisLabel);
+
+    // If graph y range contains 0, set the place to draw the zero line.
+    if ((0.0 >= m_params.yAxisMin) && (0.0 <= m_params.yAxisMax))
+    {
+        // Zero (0.0) is in the y range. Set the value to draw the zero line.
+        const float inRange = m_params.yAxisMax - m_params.yAxisMin;
+
+        // Convert from input range to range -1.0 to 1.0.
+        float yZero = (0.0 - m_params.yAxisMin) / inRange * PlotAreaWidget::YRange;
+        yZero = yZero + PlotAreaWidget::YMin;
+
+        m_plotArea->setZeroLine(yZero);
+    }
 
     qDebug() << "GraphWidget().";
     qDebug() << "..width() = " << width() << ", height() = " << height();
