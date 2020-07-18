@@ -1,10 +1,10 @@
 #ifndef IERATIOSPINBOXWIDGET_H
 #define IERATIOSPINBOXWIDGET_H
 
-#include <QSpinBox>
+#include "SpinBoxWidget.h"
 
 
-class IeRatioSpinBoxWidget: public QSpinBox
+class IeRatioSpinBoxWidget: public SpinBoxWidget
 {
   Q_OBJECT
 

@@ -2,8 +2,9 @@
 #define PUSHBUTTONWIDGET_H
 
 #include <QPushButton>
+#include "FocusableWidget.h"
 
-class PushButtonWidget: public QPushButton
+class PushButtonWidget : public QPushButton, public FocusableWidget
 {
   Q_OBJECT
 

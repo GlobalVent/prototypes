@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QVBoxLayout>
 
 #include "Theme.h"
@@ -11,12 +12,12 @@ namespace
 LabeledInputWidget::LabeledInputWidget(const QString& label, QWidget* parent)
     : QWidget(parent)
     , m_label{new QLabel{label}}
-    , m_spinBox{new QSpinBox}
+    , m_spinBox{new SpinBoxWidget}
 {
     init();
 }
 
-LabeledInputWidget::LabeledInputWidget(const QString &label, QSpinBox *spinBox, QWidget *parent)
+LabeledInputWidget::LabeledInputWidget(const QString &label, SpinBoxWidget *spinBox, QWidget *parent)
     : QWidget(parent), m_label{new QLabel{label}}, m_spinBox{spinBox}
 {
     init();

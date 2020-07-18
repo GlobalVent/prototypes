@@ -36,7 +36,7 @@ namespace
 }
 
 IeRatioSpinBoxWidget::IeRatioSpinBoxWidget(QWidget* parent)
-    : QSpinBox(parent)
+    : SpinBoxWidget(parent)
 {
 }
 
