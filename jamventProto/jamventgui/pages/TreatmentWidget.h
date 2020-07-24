@@ -61,11 +61,11 @@ private:
   GraphWidget *m_lrGraph = nullptr;
 
   // User Input Data widgets
-  QSpinBox* m_fio2SpinBox = nullptr;
-  QSpinBox *m_tidalVolSpinBox = nullptr;
-  QSpinBox *m_respRateSpinBox = nullptr;
-  QSpinBox *m_ieRatioSpinBox = nullptr;
-  QSpinBox *m_peepSpinBox = nullptr;
+  SpinBoxWidget *m_fio2SpinBox = nullptr;
+  SpinBoxWidget *m_tidalVolSpinBox = nullptr;
+  SpinBoxWidget *m_respRateSpinBox = nullptr;
+  SpinBoxWidget *m_ieRatioSpinBox = nullptr;
+  SpinBoxWidget *m_peepSpinBox = nullptr;
   // JPW @todo Add Vent Mode when understand and used.
 
   PushButtonWidget *m_powerupButtonWidget = nullptr;

@@ -9,16 +9,16 @@ namespace
     const QString LabelStyle = "QLabel { font-family: 'Roboto'; font-size: 14px; font-weight: 500; color: black; }";
 }
 
-LabeledInputWidget::LabeledInputWidget(const QString& label, QWidget* parent)
-    : QWidget(parent)
+LabeledInputWidget::LabeledInputWidget(const QString& label)
+    : QWidget()
     , m_label{new QLabel{label}}
     , m_spinBox{new SpinBoxWidget}
 {
     init();
 }
 
-LabeledInputWidget::LabeledInputWidget(const QString &label, SpinBoxWidget *spinBox, QWidget *parent)
-    : QWidget(parent), m_label{new QLabel{label}}, m_spinBox{spinBox}
+LabeledInputWidget::LabeledInputWidget(const QString &label, SpinBoxWidget *spinBox)
+    : QWidget(), m_label{new QLabel{label}}, m_spinBox{spinBox}
 {
     init();
 }
@@ -48,7 +48,7 @@ void LabeledInputWidget::init()
     m_label->setFont(Theme::MainFont);
 }
 
-QSpinBox* LabeledInputWidget::getSpinBox()
+SpinBoxWidget* LabeledInputWidget::getSpinBox()
 {
     return m_spinBox;
 }

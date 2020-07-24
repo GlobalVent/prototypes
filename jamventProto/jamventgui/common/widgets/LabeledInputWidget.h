@@ -14,12 +14,12 @@ class LabeledInputWidget: public QWidget, public FocusableWidget
 
   public:
     LabeledInputWidget(QWidget* parent = nullptr) = delete;
-    LabeledInputWidget(const QString& label, QWidget* parent = nullptr);
-    LabeledInputWidget(const QString &label, SpinBoxWidget* spinBox, QWidget* parent = nullptr);
+    LabeledInputWidget(const QString& label);
+    LabeledInputWidget(const QString &label, SpinBoxWidget* spinBox);
 
     ~LabeledInputWidget() = default;
 
-    QSpinBox* getSpinBox();
+    SpinBoxWidget* getSpinBox();
 
   protected:
 
@@ -27,6 +27,6 @@ class LabeledInputWidget: public QWidget, public FocusableWidget
     void init();
 
     QLabel* m_label = nullptr;
-    QSpinBox* m_spinBox = nullptr;
+    SpinBoxWidget* m_spinBox = nullptr;
 };
 #endif /* LABELEDINPUTWIDGET_H */
