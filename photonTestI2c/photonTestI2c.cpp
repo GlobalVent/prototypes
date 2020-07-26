@@ -8,14 +8,16 @@
 #include "I2cGenericDev.h"
 #include "I2cMSxxx.h"
 #include "I2cMS5803.h"
+#include "I2cMS5607.h"
 
 using namespace std;
 
 #define PHOTON_CFG_I2C_DEV 0x60
-#define PRES_I2C_TEST_DEV       0x61
-#define PSYS_I2C_TEST_DEV       0x62
+#define PRES_I2C_SIM_ADDR  0x61
+#define PSYS_I2C_SIM_ADDR  0x62
 
-
+#define PRES_I2C_ADDR      0x76
+#define PSYS_I2C_ADDR      0x77
 
 class I2cPhotonCfgDev : public I2cGenericDev 
 {
@@ -107,7 +109,8 @@ int testI2cDevices()
 	int rc;
 	cout << "callling initI2c" << endl;
 	I2cPhotonCfgDev photonCfg(1, PHOTON_CFG_I2C_DEV);
-	I2cMS5803 presSensor(1, PRES_I2C_TEST_DEV);
+	I2cMS5803 presSensor(1, PRES_I2C_ADDR);
+	I2cMS5607 psysSensor(1, PSYS_I2C_ADDR);
 	if (!photonCfg.open()) {
 		cout << "photonCfg.initI2c Failed" << endl;
 		return (1);
@@ -124,6 +127,11 @@ int testI2cDevices()
 	int siminterval = photonCfg.getSiminterval();
 	cout << "siminterval=" << siminterval << endl;
 
+	rc = photonCfg.setLoopBack(true);
+	if (rc != 0) {
+		cout << "photonCfg.setLoopBack failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
 
 
 	// do the initialization thing for the sensors.

@@ -5,6 +5,25 @@
  * Date:
  */
 
+
+/**
+ * @file photonjamsim.ino
+ * @author 
+ * @brief phonton jamvent simulator.
+ * @version 0.1
+ * @date 2020-07-26
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ * this module simulates the jamvent i2c devices.
+ * specifically it simulates the pressure sensors and O2 sensors for the 
+ * jamven/globalvent design
+ * 
+ * The simulator emulates the actual hardware...
+ * 
+ * 
+ */
+
 #include "I2cIntHandler.h"
 #include "I2cSlaveCtl.h"
 #include "I2cJamsimConfig.h"
@@ -46,6 +65,8 @@ static I2cSlaveCtl *i2cCpldSlaveCtl = nullptr;
 static I2cJamsimConfig *photonConfig;
 static I2cMS5803Sim *i2cRpiPresSensor;
 static I2cMS5803Sim *i2cCpldPresSensor;
+static I2cMS5607Sim *i2cRpiPsysSensor;
+static I2cMS5607Sim *i2cCpldPsysSensor;
 static JamventSimModelRt *gasModel;
 
 
@@ -79,13 +100,13 @@ void initialize() {
 	i2cIntHandler->setDbgPrint(&dbgPrint);
 	i2cRpiSlaveCtl = new I2cSlaveCtl(I2C_RPI_SCL, I2C_RPI_SDA);
 	photonConfig = new I2cJamsimConfig(I2C_PHOTON_CFG_ADDR);
-	i2cRpiPresSensor = new I2cMS5803Sim(I2C_PRES_SIM_ADDR);
-	// TBD create 2 more sensors
+	i2cRpiPresSensor = new I2cMS5803Sim(I2C_PRES_ADDR);
+	i2cRpiPsysSensor = new I2cMS5607Sim(I2C_PSYS_ADDR);
 
 
 	i2cCpldSlaveCtl = new I2cSlaveCtl(I2C_CPLD_SCL, I2C_CPLD_SDA);
-	i2cCpldPresSensor = new I2cMS5803Sim(I2C_PRES_SIM_ADDR);
-	// TBD create 2 more sensors
+	i2cCpldPresSensor = new I2cMS5803Sim(I2C_PRES_ADDR);
+	i2cCpldPsysSensor = new I2cMS5607Sim(I2C_PSYS_ADDR);
 
 	// wire it all up.
 	i2cIntHandler->registerI2cSlaveCtl(i2cRpiSlaveCtl);		// two slave controllers
@@ -112,6 +133,8 @@ void setup() {
 
 void loop() {
 
+	return;		// temporarly bypass all of this...
+
 	if (i2cIntHandler == nullptr)
 		return;
 
@@ -127,13 +150,13 @@ void loop() {
 	double simInterval = (double)photonConfig->getSimInterval()/1000.0;
 	if (dt >= simInterval) {			// hit the model at 1ms intervals.
 		gasModel->step(dt);
-		// todo, make this a configuration parameter..
 		if (!photonConfig->getLoopBack()) {
 			i2cRpiPresSensor->setPressure(gasModel->getPres());
 			i2cCpldPresSensor->setPressure(gasModel->getPres());
-			// todo, add pres and psys testing..
+			i2cRpiPsysSensor->setPressure(gasModel->getPsys());
+			i2cCpldPsysSensor->setPressure(gasModel->getPsys());
+			// todo, add the o2 sensor...
 		}
-
 	}
 	if (now >= timeToPrint) {
 		if (dbgPrint.hasData()) {

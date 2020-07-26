@@ -19,6 +19,8 @@ public:
     I2cMS5607Sim(unsigned devAddr);
 
 protected:
+    virtual uint32_t convTemperature(uint32_t temperature);
+    virtual uint32_t convPressure(uint32_t pressure);
 private:
 };
 #endif

@@ -146,6 +146,7 @@ public:
 
 protected:
 	GassimModel	_model;
+	float _dt;
 	JamsimDbgPrint *_log;	
 
 	GassimNode::NodePtr_t _o2Src;
@@ -158,7 +159,6 @@ protected:
 	GassimNode::NodePtr_t _lungs;
 	GassimNode::NodePtr_t _gasSink;
 
-	float _dt;
 
 
 

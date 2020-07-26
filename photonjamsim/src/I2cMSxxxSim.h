@@ -45,8 +45,8 @@ protected:
     uint16_t crc4(uint16_t n_prom[]);
     void doConversion(unsigned conv); 
     int getPrecisionDelay(unsigned precision);
-    uint32_t convTemperature(uint32_t temperature);
-    uint32_t convPressure(uint32_t pressure);
+    virtual uint32_t convTemperature(uint32_t temperature) = 0;
+    virtual uint32_t convPressure(uint32_t pressure) = 0;
 
 
 
@@ -79,6 +79,8 @@ protected:
     uint32_t _pressure;
     uint32_t _temperature_raw;
     uint32_t _pressure_raw;
+    uint64_t _OFF;           // sensivity state... calculated in temperature
+    uint64_t _SENS;   
 
 
 };
