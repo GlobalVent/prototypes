@@ -48,7 +48,7 @@ void GassimReservoir::step(double dt) {
 
         double R=c->resistance();
         double V=volume();
-	    double tc=1-exp(-dt/(R*V));
+	    //double tc=1-exp(-dt/(R*V));
 	    pDelta += pDrop*(1 - exp(-dt / (R*V)));      //# this is not handling multiple circuits open.
         if (pDrop > 0)                               // our percent Po2 only changes if we are gaining gas
             ppNewO2+=pDelta*(c->pO2());

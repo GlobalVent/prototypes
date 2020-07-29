@@ -12,7 +12,7 @@ public:
 		_address(address),
 		_handle(-1) {}
 	virtual ~I2cGenericDev() {
-		i2cClose(_handle);
+		close();
 	}		
 	/**
 	 * @brief Get the Error get the error text associated with an error code.

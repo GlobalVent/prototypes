@@ -90,9 +90,9 @@ public:
 protected:
 	JamsimDbgPrint *_log;
 	std::string _name;
-	unsigned _stepCount;
 	unsigned  _nodeId;
 	NodeType _nodeType;
+	unsigned _stepCount;
 	ConnectionMap_t _connections;			// node connections.
 
 	GassimVars _out;

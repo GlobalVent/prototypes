@@ -37,9 +37,8 @@ public:
     // this device supports the following commands
     enum {
         VERSION = 0,        // return with the version number of this simulation (replies with 2 bytes, major and minor)
-        SIMINTERVAL = 1,     // set the sim interval in milliseconds.
-        LOOPBACK = 2    // loop back test mode, don't have the simulator run the pressure readings.
-
+        SIMINTERVAL = 1,    // set the sim interval in milliseconds.
+        LOOPBACK = 2        // loop back test mode, don't have the simulator run the pressure readings.
     };
 
     /** set/getVersion

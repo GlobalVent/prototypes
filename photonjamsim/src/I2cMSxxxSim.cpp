@@ -8,7 +8,9 @@ I2cMSxxxSim::I2cMSxxxSim(unsigned devAddr) :
     _temperature(293),
     _pressure(1000),
     _temperature_raw(0),
-    _pressure_raw(0) {
+    _pressure_raw(0),
+    _OFF(0),
+    _SENS(0) {
         _prom[0] = 0;
         _prom[1] = 46372;
         _prom[2] = 43981;
@@ -61,26 +63,6 @@ void I2cMSxxxSim::clearSendData()
     memset(_sendData, 0, sizeof(_sendData));
 }
 
-/**
- * @brief convTemperature
- *      convert the temperature value.
- * @param temperature -- temperature to convert.
- * @return converted temperature
- */
-uint32_t I2cMSxxxSim::convTemperature(uint32_t temperature) {
-    return(temperature);            // TODO: actual conversion here.
-}
-
-/**
- * @brief convPressure 
- *      convert a pressure to a raw value
- * 
- * @param pressure -- pressure to convert
- * @return converted pressure.
- */
-uint32_t I2cMSxxxSim::convPressure(uint32_t pressure) {
-    return(pressure);               // TODO actual conversion here.
-}
 /**
  * @brief doConversion -- perform a temperauture or pressure conversion.
  * 

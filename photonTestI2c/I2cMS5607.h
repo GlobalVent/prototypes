@@ -1,7 +1,7 @@
 #ifndef __I2C_MS5607_H__
 #define __I2C_MS5607_H__
 
-class I2cMS5803 : public I2cMSxxx
+class I2cMS5607 : public I2cMSxxx
 {
 public:
 	I2cMS5607() = delete;
