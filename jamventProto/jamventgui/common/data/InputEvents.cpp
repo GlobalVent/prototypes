@@ -6,10 +6,28 @@ namespace
 {
 }
 
-// Clicked event as a "c" key press event.
-QKeyEvent *InputEvents::ClickedEventCreate()
+// Button Clicked event as a "c" key press event.
+QKeyEvent *InputEvents::ButtonClickedEventCreate()
 {
     return new QKeyEvent{QKeyEvent::KeyPress, Qt::Key_C, Qt::NoModifier, "c"};
+}
+
+// Button pressed event as a "d" key press event.
+QKeyEvent *InputEvents::ButtonPressedEventCreate()
+{
+    return new QKeyEvent{QKeyEvent::KeyPress, Qt::Key_D, Qt::NoModifier, "d"};
+}
+
+// Button released event as a "u" key press event.
+QKeyEvent *InputEvents::ButtonReleasedEventCreate()
+{
+    return new QKeyEvent{QKeyEvent::KeyPress, Qt::Key_U, Qt::NoModifier, "u"};
+}
+
+// Button long press event as a "p" key press event.
+QKeyEvent *InputEvents::ButtonLongPressEventCreate()
+{
+    return new QKeyEvent{QKeyEvent::KeyPress, Qt::Key_P, Qt::NoModifier, "p"};
 }
 
 // Clockwise click event as a "r" key press event.

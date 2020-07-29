@@ -30,10 +30,10 @@ void SpinBoxWidget::keyPressEvent(QKeyEvent *event)
     {
         // Button pressed
         // Ignore for now.
-        QWidget::keyReleaseEvent(event);
+        QWidget::keyPressEvent(event);
     }
     else
     {
-        QWidget::keyReleaseEvent(event);
+        QWidget::keyPressEvent(event);
     }
 }
