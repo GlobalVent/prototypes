@@ -13,10 +13,8 @@ class IeRatioSpinBoxWidget: public SpinBoxWidget
     // Original range was from 1:6 - 6:1.  Now using 1:4 - 4:1.
     enum IeRatio_E
     {
-        Ratio1to6 = 0,
-        Ratio1to5,
-        Ratio1to4,
-        RatioMin = Ratio1to4,
+        RatioMin = 0,
+        Ratio1to4 = RatioMin,
         Ratio1to3,
         Ratio1to2,
         Ratio1to1,
@@ -24,8 +22,6 @@ class IeRatioSpinBoxWidget: public SpinBoxWidget
         Ratio3to1,
         Ratio4to1,
         RatioMax = Ratio4to1,
-        Ratio5to1,
-        Ratio6to1
     };
 
     explicit IeRatioSpinBoxWidget(QWidget* parent = nullptr);

@@ -16,13 +16,16 @@ class MainWidget : public QWidget
 
 public:
     MainWidget(QWidget *parent = nullptr);
-    ~MainWidget();
+    virtual ~MainWidget();
 
     void addWidget(Pages::Page_E page, QWidget *widget);
     void showPage(Pages::Page_E page);
 
+protected:
+  virtual void  keyPressEvent(QKeyEvent *event) override;
+
 private:
-    void keyPressEvent(QKeyEvent *event) override;
+  //void keyPressEvent(QKeyEvent *event) override;
 
     using PageMap = QHash<Pages::Page_E, QWidget *>;
     PageMap m_pageMap;

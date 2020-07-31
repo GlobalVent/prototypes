@@ -53,7 +53,13 @@ void MainWidget::showPage(Pages::Page_E page)
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Escape)
+    if (event->key() == Qt::Key_C)
+    {
+        // Convert "c" key event to a tab keyevent to see if will change focus.
+        QKeyEvent* e =  new QKeyEvent(QEvent::KeyPress, Qt::Key_Tab, Qt::NoModifier, QString(QChar('\t')));
+        QCoreApplication::sendEvent(this, e);
+    }
+    else if (event->key() == Qt::Key_Escape)
     {
         QApplication::instance()->quit();
     }
