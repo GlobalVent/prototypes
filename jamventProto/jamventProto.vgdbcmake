@@ -9,7 +9,7 @@
     <DeploymentHost>
       <HostName>192.168.1.6</HostName>
       <Transport>SSH</Transport>
-      <UserName>pi</UserName>
+      <UserName>root</UserName>
     </DeploymentHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
