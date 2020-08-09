@@ -9,18 +9,22 @@
 
 #include "I2cMS5607.h"
 #include "I2cMS5803.h"
+#include "I2cAdcWithO2.h"
 
 using namespace std;
 
 /* I2C addresses of sensors */
-#define PRES_I2C_DEV       0x77
-#define PSYS_I2C_DEV       0x76
-
+#define PRES_I2C_DEV    0x76
+#define PSYS_I2C_DEV    0x77
+#define ADC_I2C_DEV		0x1D
 
 int testPresDevice() {
-	int rc;
+	int rc; 	// return codes
+	int delay; 	// time we need to wait for pressure/temp reading
 	
 	// test MS5803 / PRES sensor
+	cout << endl << "=== PRES / MS5803 test ===" << endl;
+	
 	I2cMS5803 presSensor(1, PRES_I2C_DEV);
 	rc = presSensor.open();
 	if (rc != 0) {
@@ -46,25 +50,41 @@ int testPresDevice() {
 	for (auto d : promData) 
 		cout << "  " << d << endl;
 
-	rc = presSensor.getTestPressure();
-	if (rc < 0) {
-		cout << "presSensor.getTestPressure() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+	delay = presSensor.startTemperatureCv(I2cMSxxx::ADC_4096);
+	if (delay < 0) {
+		cout << "presSensor.startTemperatureCv() failed, rc=" << delay << "," << presSensor.getErrorText(rc) << endl;
 		return (1);
 	}
-	cout << "presSensor.getTestPressure() = " << rc << endl;
-
-	rc = presSensor.setTestPressure(2000);
-	if (rc < 0) {
-		cout << "presSensor.setTestPressure() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+	cout << "presSensor.startTemperatureCv() = " << delay << endl;
+	
+	rc = presSensor.gpioDelay(delay * 1.5); 	// 50% margin just to be sure
+	cout << "waited " << rc << endl;
+	
+	rc = presSensor.readAdc();
+	if (rc != 0) {
+		cout << "presSensor.readAdc() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
 		return (1);
 	}
 	
-	rc = presSensor.getTestPressure();
-	if (rc < 0) {
-		cout << "presSensor.getTestPressure() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+	cout << "temperature is " << (presSensor.getLastTemperature() / 100) << " C" << endl;
+	
+	delay = presSensor.startPressureCv(I2cMSxxx::ADC_4096);
+	if (delay < 0) {
+		cout << "presSensor.startPressureCv() failed, rc=" << delay << "," << presSensor.getErrorText(rc) << endl;
 		return (1);
 	}
-	cout << "presSensor.getTestPressure() = " << rc << endl;
+	cout << "presSensor.startPressureCv() = " << delay << endl;
+	
+	rc = presSensor.gpioDelay(delay * 1.5); 	// 50% margin just to be sure
+	cout << "waited " << rc << endl;
+	
+	rc = presSensor.readAdc();
+	if (rc != 0) {
+		cout << "presSensor.readAdc() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
+	
+	cout << "pressure is " << (presSensor.getLastPressure() / 10) << " mbar" << endl;
 	
 	return (0);
 }
@@ -74,6 +94,8 @@ int testPsysDevice() {
 	int delay;	// time we need to wait for pressure/temp reading
 	
 	// test MS5607 / PSYS sensor
+	cout << endl << "=== PSYS / MS5507 test ===" << endl;
+	
 	I2cMS5607 psysSensor(1, PSYS_I2C_DEV);
 	rc = psysSensor.open();
 	if (rc != 0) {
@@ -115,7 +137,7 @@ int testPsysDevice() {
 		return (1);
 	}
 	
-	cout << "temperature is " << psysSensor.getLastTemperature() << endl;
+	cout << "temperature is " << (psysSensor.getLastTemperature() / 100) << " C" << endl;
 	
 	delay = psysSensor.startPressureCv(I2cMSxxx::ADC_4096);
 	if (delay < 0) {
@@ -133,9 +155,61 @@ int testPsysDevice() {
 		return (1);
 	}
 	
-	cout << "pressure is " << psysSensor.getLastPressure() << endl;
+	cout << "pressure is " << (psysSensor.getLastPressure() / 100) << " mbar" << endl;
 	
 	return (0);
+}
+
+int testO2(void) {
+	int rc;
+	float o2;
+	int16_t temperature;
+	
+	cout << endl << "=== O2 / ADC128D818 test ===" << endl;
+	
+	I2cAdcWithO2 adc(1, ADC_I2C_DEV, 2.56, 3E-3, 7E-3, 101);
+	rc = adc.open();
+	if (rc != 0) {
+		cout << "adc.open() failed, rc=" << rc << "," << adc.getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	bool enableChannels[8] = { false, false, true, false, false, false, false, true };
+	// have only ADC channel 2 enabled, use internal 2.56V reference, and enable the internal temp sensor instead of ch.7
+	rc = adc.init(false, enableChannels, true);
+	if (rc != 0) {
+		cout << "adc.init() failed, rc=" << rc << "," << adc.getErrorText(rc) << endl;
+		return (1);
+	}
+	
+	// give more than enough time to get a full set of readings
+	adc.gpioDelay(100000);
+	
+	// read both the 'interpreted' O2 level from the sensor, and the raw voltage at the ADC pin
+/*	o2 = adc.readO2(2);
+	if (o2 < 0) {
+		cout << "adc.readO2() failed, rc=" << o2 << "," << adc.getErrorText((int)o2) << endl;
+		return 1;
+	}
+	cout << "O2 level is " << o2 << "%" << endl;
+	*/
+	
+	o2 = adc.readVoltage(2);
+	if (o2 < 0) {
+		cout << "adc.readVoltage() failed, rc=" << o2 << "," << adc.getErrorText((int)o2) << endl;
+		return 1;
+	}
+	cout << "O2 channel voltage is " << o2 << endl;
+	
+	// read off the internal temperature sensor as well
+	rc = adc.readTemp(&temperature);
+	if (rc != 0) {
+		cout << "adc.readTemp() failed, rc=" << rc << "," << adc.getErrorText(rc) << endl;
+		return 1;
+	}
+	cout << "temperature is " << (temperature / 2) << " C" << endl;
+	
+	return 0;
 }
 
 int main(int argc, char *argv[])
@@ -150,8 +224,9 @@ int main(int argc, char *argv[])
 	}
 	cout << "pigpio version " << rc << endl;
 
-//	testPresDevice();
 	testPsysDevice();
+	testPresDevice();
+	testO2();
 	
 	gpioTerminate();
 	

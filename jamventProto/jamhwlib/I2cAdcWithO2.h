@@ -10,7 +10,7 @@
  *     open
  *     init
  */
-class I2cAdcWithO2 : I2cADC128D818 {
+class I2cAdcWithO2 : public I2cADC128D818 {
 public:
 	I2cAdcWithO2() = delete;
 	/**
@@ -39,4 +39,4 @@ private:
 	float _scale;
 };
 
-#endif
+#endif

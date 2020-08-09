@@ -37,21 +37,21 @@ int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 	rc = writeByteData(REG_ADV_CONFIG, (extVref ? BIT_ADV_CONFIG_EXT_VREF : 0) | (enableTemp ? 0 : BIT_ADV_CONFIG_MODE_SEL0));
 	if (rc < 0)
 		return rc;
+	// choose channels to enable: build a bit mask
+	uint8_t reg = 0;
+	for (int i = 0; i < 8; i++) {
+		reg |= (enableChannels[i] ? 0 : 1 << i);
+	}
+	rc = writeByteData(REG_CHAN_DIS, reg);
+	if (rc < 0)
+		return rc;
 	// put into continuous conversion mode
 	rc = writeByteData(REG_CONV_RATE, 0x01);
 	if (rc < 0)
 		return rc;
 	// program REG_LIMIT... here if using
-	// choose channels to enable: build a bit mask
-	uint8_t reg = 0;
-	for (int i = 0 ; i < sizeof(enableChannels) ; i++) {
-		reg |= (1 << ~enableChannels[i]);
-	}
-	rc = writeByteData(REG_CHAN_DIS, reg);
-	if (rc < 0)
-		return rc;
 	// start conversions
-	rc = writeByteData(REG_CONFIG, BIT_CONFIG_INIT);
+	rc = writeByteData(REG_CONFIG, BIT_CONFIG_START);
 	if (rc < 0)
 		return rc;
 	
@@ -67,7 +67,17 @@ int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
  * @return int --result in ADC counts if successful (>= 0), pigpio error code if not
  */
 int I2cADC128D818::readVoltageCounts(uint8_t channel) {
-	return readWordData(REG_CHAN_BASE + channel);
+	int rc;
+
+	uint8_t data[2];
+	rc = readBlockData(REG_CHAN_BASE + channel, data, 2);
+	if (rc < 0)
+		return rc;
+
+	// adjust for left-aligned 12 bits from ADC
+	rc = ((int)data[0] << 4) + ((int)data[1] >> 4);
+
+	return rc;
 }
 
 /**
@@ -80,12 +90,13 @@ int I2cADC128D818::readVoltageCounts(uint8_t channel) {
  */
 float I2cADC128D818::readVoltage(uint8_t channel) {
 	int rc;
-
-	rc = readWordData(REG_CHAN_BASE + channel);
+	
+	rc = readVoltageCounts(channel);
 	if (rc < 0)
 		return rc;
+	
 	// scale by known reference voltage and ADC resolution
-	return ((float )rc - 0.5) * (_vref / (1 << ADC_RES));
+	return ((float )rc + 0.5) * (_vref / (1 << ADC_RES));
 }
 
 /**
@@ -101,13 +112,17 @@ int I2cADC128D818::readTemp(int16_t *temperature) {
 	
 	if (temperature == NULL)
 		return PI_BAD_PARAM;
-	
-	rc = readWordData(REG_CHAN_BASE + 7);	// channel 7 in mode 0 is temperature
+
+	uint8_t data[2];
+	rc = readBlockData(REG_CHAN_BASE + 7, data, 2);
 	if (rc < 0)
 		return rc;
+
+	// data is 9 bits, MSB-first, left-aligned
+	rc = ((int )data[0] << 1) + ((int )data[1] >> 7);
 	
-	// result is 9 bits signed, so convert negative temps for 16-bit signed
-	if(rc >= 256)
+	// result is 9-bit signed, so convert negative temps for 16-bit signed result
+	if (rc >= 256)
 		*temperature = rc - 512;
 	else
 		*temperature = rc;

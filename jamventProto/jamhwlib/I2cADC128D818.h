@@ -10,7 +10,7 @@
  *     open
  *     init
  */
-class I2cADC128D818 : I2cGenericDev {
+class I2cADC128D818 : public I2cGenericDev {
 public:
 	I2cADC128D818() = delete;
 	/**
