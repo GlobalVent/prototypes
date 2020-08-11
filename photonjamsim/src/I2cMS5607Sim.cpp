@@ -27,6 +27,8 @@ uint32_t I2cMS5607Sim::convTemperature(uint32_t temperature_reported)
     // Update offset/sensitivty
     _OFF = ((int64_t)_prom[2] << 17) + ((((int64_t)_prom[4] * (int64_t)dT)) >> 6);
     _SENS = ((int64_t)_prom[1] << 16) + ((((int64_t)_prom[3] * (int64_t)dT)) >> 7);
+    if (_SENS == 0)
+        _SENS = 1;
 
     return rawValue;
 }

@@ -121,15 +121,23 @@ int testI2cDevices()
 		return (1);
 	}
 
-	int version = photonCfg.getVersion();
-	cout << "version=" << (version >> 8) << ":" << (version & 0xFF) << endl;
+	rc = photonCfg.getVersion();
+	if (rc < 0) {
+		cout << "photonCfg.getVersion() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
+	cout << "version=" << (rc >> 8) << ":" << (rc & 0xFF) << endl;
 	
-	int siminterval = photonCfg.getSiminterval();
-	cout << "siminterval=" << siminterval << endl;
+	rc = photonCfg.getSiminterval();
+	if (rc < 0) {
+		cout << "photonCfg.getSiminterval() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		return (1);
+	}
+	cout << "siminterval=" << rc << endl;
 
 	rc = photonCfg.setLoopBack(true);
 	if (rc != 0) {
-		cout << "photonCfg.setLoopBack failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
+		cout << "photonCfg.setLoopBack() failed, rc=" << rc << "," << presSensor.getErrorText(rc) << endl;
 		return (1);
 	}
 

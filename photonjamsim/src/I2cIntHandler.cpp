@@ -54,8 +54,9 @@ void I2cIntHandler::attachAllInterrupts() {
 
 void I2cIntHandler::handleInterrupt() 
 {
+digitalWriteFast(DBG_OUT,1);
+#if 0
     bool detectedStart = false;
-    //digitalWriteFast(DBG_OUT,1);
     for (auto ctl : _registeredCtls) {
         unsigned i2cEvent=ctl.second->decodeEvent(pinReadFast(ctl.second->getSclGpio()),
                                                   pinReadFast(ctl.second->getSdaGpio()));
@@ -64,8 +65,10 @@ void I2cIntHandler::handleInterrupt()
             break;              // we detected one, so now we are going into poll mode...
         }
     }
+#endif    
     //digitalWriteFast(DBG_OUT, 0); 
-    if (detectedStart) {
+    //if (detectedStart) {
+    if (true) {
         static uint64_t timeout = 125;       // 125 micro seconds between up/down events before we just give up...
         // refresh this time       
         uint64_t end = microsNow() + timeout;  
@@ -86,9 +89,8 @@ void I2cIntHandler::handleInterrupt()
         for (auto ctl: _registeredCtls) 
             ctl.second->resetI2cState();
         attachAllInterrupts();
-        //digitalWriteFast(DBG_OUT,0);
-
     }
+digitalWriteFast(DBG_OUT,0);
 }
 
 bool I2cIntHandler::registerI2cSlaveCtl(I2cSlaveCtl *ctl)

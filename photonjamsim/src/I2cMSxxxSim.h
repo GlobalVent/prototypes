@@ -41,7 +41,6 @@ public:
 
 
 protected:
-    void clearSendData();
     uint16_t crc4(uint16_t n_prom[]);
     void doConversion(unsigned conv); 
     int getPrecisionDelay(unsigned precision);

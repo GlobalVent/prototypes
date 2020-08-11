@@ -93,6 +93,12 @@ protected:
     uint8_t  _regAddr;          // last register address received.
     uint8_t _sendData[4];
     uint8_t _recvData[4];
+
+    void clearSendData() 
+    {
+        memset(_sendData, 0, sizeof(_sendData));
+    }
+
 private:
 };
 

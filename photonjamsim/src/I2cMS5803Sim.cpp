@@ -57,6 +57,9 @@ uint32_t I2cMS5803Sim::convTemperature(uint32_t temperature_reported)
     // Update offset/sensitivty
     _OFF = ((int64_t)_prom[2] << 16) + ((((int64_t)_prom[4] * (int64_t)dT)) >> 7) - OFF2;
     _SENS = ((int64_t)_prom[1] << 15) + ((((int64_t)_prom[3] * (int64_t)dT)) >> 8);
+    if (_SENS == 0)
+        _SENS = 1;
+        
 
     return rawValue;
 }
@@ -72,6 +75,7 @@ uint32_t I2cMS5803Sim::convPressure(uint32_t pressure_reported)
 {
   uint32_t rawValue;
   int32_t pressure_calc;
+  return(1000);
 
   pressure_calc = pressure_reported * 10;
 

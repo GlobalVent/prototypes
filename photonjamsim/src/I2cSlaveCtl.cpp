@@ -363,7 +363,7 @@ unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
     //   LOW (see Figure 4). One clock pulse is generated for each data bit transferred.
 
     if (i2cEvent != I2C_EVENT_INVAL) {
-        digitalWriteFast(DBG_OUT, 1); 
+        //digitalWriteFast(DBG_OUT, 1); 
 
         switch (_i2cState) {
             case I2C_STATE_READY:    handleStateReady(i2cEvent,  sda); break;
@@ -374,7 +374,7 @@ unsigned I2cSlaveCtl::decodeEvent(unsigned scl, unsigned sda)
             case I2C_STATE_ACK:      handleStateAck(i2cEvent,    sda); break;
             case I2C_STATE_RD_END:   handleStateRdEnd(i2cEvent,  sda); break;
         }
-        digitalWriteFast(DBG_OUT, 0); 
+        //digitalWriteFast(DBG_OUT, 0); 
     }
     return(i2cEvent);
 }

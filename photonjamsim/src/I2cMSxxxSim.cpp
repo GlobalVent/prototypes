@@ -10,7 +10,7 @@ I2cMSxxxSim::I2cMSxxxSim(unsigned devAddr) :
     _temperature_raw(0),
     _pressure_raw(0),
     _OFF(0),
-    _SENS(0) {
+    _SENS(1) {
         _prom[0] = 0;
         _prom[1] = 46372;
         _prom[2] = 43981;
@@ -56,11 +56,6 @@ uint16_t I2cMSxxxSim::crc4(uint16_t n_prom[])
     n_rem= (0x000F & (n_rem >> 12)); // // final 4-bit reminder is CRC code
     n_prom[7]=crc_read; // restore the crc_read to its original place
     return (n_rem ^ 0x00);
-}
-
-void I2cMSxxxSim::clearSendData() 
-{
-    memset(_sendData, 0, sizeof(_sendData));
 }
 
 /**

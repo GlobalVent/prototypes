@@ -29,7 +29,7 @@
 #include "I2cJamsimConfig.h"
 #include "I2cMS5607Sim.h"
 #include "I2cMS5803Sim.h"
-#include "I2cAdcSensor.h"
+#include "I2cAdc128D818.h"
 #include "JamventTime.h"
 #include "JamsimDbgPrint.h"
 #include "JamventSimModelRt.h"
