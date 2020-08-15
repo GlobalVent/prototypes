@@ -10,10 +10,10 @@
 
 class LabeledInputWidget: public QWidget, public FocusableWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
   public:
-    LabeledInputWidget(QWidget* parent = nullptr) = delete;
+    LabeledInputWidget(QWidget *parent = nullptr) = delete;
     LabeledInputWidget(const QString& label);
     LabeledInputWidget(const QString &label, SpinBoxWidget* spinBox);
 
@@ -21,10 +21,17 @@ class LabeledInputWidget: public QWidget, public FocusableWidget
 
     SpinBoxWidget* getSpinBox();
 
+    virtual void setFocusState(FocusState state) override;
+
   protected:
+    void paintEvent(QPaintEvent *p_event) override;
+    //void focusInEvent(QFocusEvent *event) override;
+    //void focusOutEvent(QFocusEvent *event) override;
 
   private:
     void init();
+
+    void onSpinBoxFocusChanged(bool hasFocus);
 
     QLabel* m_label = nullptr;
     SpinBoxWidget* m_spinBox = nullptr;

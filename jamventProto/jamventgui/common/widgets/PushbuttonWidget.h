@@ -14,8 +14,12 @@ class PushButtonWidget : public QPushButton, public FocusableWidget
 
     ~PushButtonWidget() = default;
 
+    virtual void setFocusState(FocusState state) override;
+
   protected:
     bool event(QEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
 
   private:
 

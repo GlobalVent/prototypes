@@ -37,3 +37,15 @@ void SpinBoxWidget::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
     }
 }
+
+void SpinBoxWidget::focusInEvent(QFocusEvent *event)
+{
+    qDebug() << "SpinBoxWidget::focusInEvent(" << event << ") called.";
+    emit sigFocusChanged(true);
+}
+
+void SpinBoxWidget::focusOutEvent(QFocusEvent *event)
+{
+    qDebug() << "SpinBoxWidget::focusOutEvent(" << event << ") called.";
+    emit sigFocusChanged(false);
+}

@@ -14,8 +14,13 @@ class SpinBoxWidget: public QSpinBox
   public:
     explicit SpinBoxWidget(QWidget *parent = nullptr);
 
+  signals:
+    void sigFocusChanged(bool hasFocus);
+
   protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
 
   private:
 };
