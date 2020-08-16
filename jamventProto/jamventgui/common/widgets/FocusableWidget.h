@@ -6,7 +6,7 @@ class FocusableWidget
   public:
     enum class FocusState
     {
-        None,
+        NoFocus,
         Focus,
         FocusAndSelected
     };
@@ -22,7 +22,7 @@ class FocusableWidget
   protected:
 
   private:
-    FocusState m_focusState = FocusState::None;
+    FocusState m_focusState = FocusState::NoFocus;
 
 };
 #endif /* FOCUSABLEWIDGET_H */

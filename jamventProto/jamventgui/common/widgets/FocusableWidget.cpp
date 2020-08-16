@@ -7,7 +7,7 @@ namespace
 }
 
 FocusableWidget::FocusableWidget()
-    : m_focusState(FocusState::None)
+    : m_focusState(FocusState::NoFocus)
 {
 }
 
