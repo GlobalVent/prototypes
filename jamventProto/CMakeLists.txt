@@ -37,3 +37,5 @@ add_subdirectory(testing)
 
 #add_executable(jamventProtoProj01 jamventProtoProj01.cpp)
 #target_link_libraries(jamventProtoProj01 "${LIBRARIES_FROM_REFERENCES}")
+
+add_subdirectory(i2cTests)
