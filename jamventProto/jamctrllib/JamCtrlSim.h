@@ -10,7 +10,7 @@ public:
     JamCtrlSim();
     virtual ~JamCtrlSim();
 
-	virtual void init();
+	virtual void init() override;
 
 	/**
 	 * @brief manually set the valve state
@@ -18,21 +18,25 @@ public:
 	 * 
 	 * @param open true open the valve, false, close it.
 	 */
-	virtual void setValveAopen(bool open) {_jamModel.setValveAopen(open);}
-	virtual void setValveBopen(bool open) {_jamModel.setValveBopen(open);}
-	virtual void setValveCopen(bool open) {_jamModel.setValveCopen(open);}
-	virtual void setValveDopen(bool open) {_jamModel.setValveDopen(open);}
+	void setValveAopen(bool open) override {_jamModel.setValveAopen(open);}
+	void setValveBopen(bool open) override {_jamModel.setValveBopen(open);}
+	void setValveCopen(bool open) override {_jamModel.setValveCopen(open);}
+	void setValveDopen(bool open) override {_jamModel.setValveDopen(open);}
 
+    void setFio2(InputNumType fiO2_pc) override {};
+    void setTidalVol(InputNumType tidalVol_ml) override {};
+    void setRespRate(InputNumType respRate) override {};
+    void setIeRatio(InputNumType ieRatio) override {};
+    void setPeep(GraphNumType peep_bar) override {};
 
-
-protected:
+  protected:
 	/**
 	 * @brief step the model one time step.
 	 *        there is one implementation for the 
 	 *        simululator and one for real hardware layer...
 	 * @param dt delta time since last time we were called.
 	 */
-	virtual void step(double dt);		// step the model
+	virtual void step(double dt) override;  // step the model
 
 private:
     JamventSimModelRt _jamModel;

@@ -78,11 +78,11 @@ void CommMgr::onValveDOpenChanged(bool isOpen)
 
 void CommMgr::onTimeout()
 {
-    JamCtrlData cd;
+    JamCtrlSim::DataIn cd;
 
     cd = m_jamCtrl.getCtrlData();
 
-    //qDebug() << "CommMgr::onTimeout(): pRes = " << cd.pRes << "pSys = " << cd.pSys << "pO2 = " << cd .pO2 << "lVol = " << cd.lvol;
+    qDebug() << "CommMgr::onTimeout(): pSys_bar = " << cd.pSys_bar << ", pRes_bar = " << cd.pRes_bar  << "o2_pc = " << cd.o2_pc << ", lungVol_ml = " << cd.lungVol_ml;
 
     // NOTE: scaling here is really artificial as these are not the data
     //       we are ultimatly graphing, but the data that we are just
@@ -91,19 +91,20 @@ void CommMgr::onTimeout()
     // JPW: Above note from Ralph.  New code below just passes on the data from the jamCtrl manager. Scaling happens when
     // data is applied to the graphs.
 
-    DataIn newInData;
+    JamCtrlSim::DataIn newInData;
 
     // Graph data
-    newInData.pressSys = cd.pSys / 3.0;  // Massage to match simulator.
-    newInData.pressRes = (cd.pRes / 1000) - 1.0; // Massage to match simulator.
-    newInData.pressO2 = cd.pO2;
-    newInData.lungVol = cd.lvol;
+    // JPW @todo data massaging is to match the simulator. Remove/change when no longer necessary.
+    newInData.pSys_bar = cd.pSys_bar / 3.0;  // Massage to match simulator.
+    newInData.pRes_bar = (cd.pRes_bar / 1000) - 1.0; // Massage to match simulator.
+    newInData.o2_pc = cd.o2_pc;
+    newInData.lungVol_ml = cd.lungVol_ml;
 
     // Valve data
-    newInData.isAOpen = cd.valveAopen;
-    newInData.isBOpen = cd.valveBopen;
-    newInData.isCOpen = cd.valveCopen;
-    newInData.isDOpen = cd.valveCopen;
+    newInData.isAOpen = cd.isAOpen;
+    newInData.isBOpen = cd.isBOpen;
+    newInData.isCOpen = cd.isCOpen;
+    newInData.isDOpen = cd.isCOpen;
 
     emit sigNewInData(newInData);
 }

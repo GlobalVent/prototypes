@@ -10,7 +10,12 @@
 class CommMgr : public CommMgrInterface
 {
     Q_OBJECT
+
   public:
+    using DataIn = JamCtrlSim::DataIn;
+    using InputNumType = JamCtrlSim::InputNumType;
+    using GraphNumType = JamCtrlSim::GraphNumType;
+
     explicit CommMgr();
     virtual ~CommMgr();
 

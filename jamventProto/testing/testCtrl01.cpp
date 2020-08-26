@@ -68,10 +68,10 @@ int main(int argc, const char * argv []) {
 
 	jamCtrlSim.init();		// ontime init, after we do any other settings.
 
-	JamCtrlData cd;
+    JamCtrlSim::DataIn cd;
 	cd = jamCtrlSim.getCtrlData();
-	ts.push_back(0, cd.pRes, cd.pSys, cd.pO2, cd.lvol,
-				 cd.valveAopen, cd.valveBopen, cd.valveCopen, cd.valveDopen);
+	ts.push_back(0, cd.pRes_bar, cd.pSys_bar, cd.o2_pc, cd.lungVol_ml,
+				 cd.isAOpen, cd.isBOpen, cd.isCOpen, cd.isDOpen);
 
 	// finite time...
 	double timeStart = jamTime.now();
@@ -81,8 +81,8 @@ int main(int argc, const char * argv []) {
 	while ((timeNow=jamTime.now()) < timeEnd) {
 		jamTime.waitTime(0.10); // sample us 10 times a second.
 		cd = jamCtrlSim.getCtrlData();
-		ts.push_back(timeNow-timeStart, cd.pRes, cd.pSys, cd.pO2, cd.lvol,
-					cd.valveAopen, cd.valveBopen, cd.valveCopen, cd.valveDopen);
+		ts.push_back(timeNow-timeStart, cd.pRes_bar, cd.pSys_bar, cd.o2_pc, cd.lungVol_ml,
+					cd.isAOpen, cd.isBOpen, cd.isCOpen, cd.isDOpen);
 	}
 	jamCtrlSim.killThread();
 

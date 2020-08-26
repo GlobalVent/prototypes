@@ -78,10 +78,11 @@ public:
 	 * 
 	 * @param open [description]
 	 */
-	virtual void setValveAopen(bool open) = 0;
-	virtual void setValveBopen(bool open) = 0;
-	virtual void setValveCopen(bool open) = 0;
-	virtual void setValveDopen(bool open) = 0;
+	//Now comes from JamCtrMgrInterface.
+	//virtual void setValveAopen(bool open) = 0;
+	//virtual void setValveBopen(bool open) = 0;
+	//virtual void setValveCopen(bool open) = 0;
+	//virtual void setValveDopen(bool open) = 0;
 
 
 	/**
@@ -89,7 +90,8 @@ public:
 	 * @details the contents of the control data in the system.
 	 * @return [description]
 	 */
-	virtual const JamCtrlData getCtrlData() const = 0;	// returns a copy of the control data.
+    // Now comes from JamCtrMgrInterface.
+	//virtual const JamCtrlData getCtrlData() const = 0;	// returns a copy of the control data.
 
 
 protected:
@@ -100,9 +102,6 @@ protected:
 	 * @param dt delta time since last time we were called.
 	 */
 	virtual void step(double dt) = 0;		// step the model
-
-
-
 };
 
 #endif

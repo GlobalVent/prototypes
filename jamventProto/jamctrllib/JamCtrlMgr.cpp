@@ -164,6 +164,9 @@ void JamCtrlMgr::setLogStream(std::ostream *ostr)
     _log = ostr;
 }
 
+
+#if 0
+// JPW @todo  Don't override here.  Override in derived class, JamCtrlSim.
 /**
  * @brief manually set the valve state.
  * @details manullly override the valve state for a given valve.
@@ -172,27 +175,30 @@ void JamCtrlMgr::setLogStream(std::ostream *ostr)
  */
 void JamCtrlMgr::setValveAopen(bool open) 
 {
-
+    // JPW @todo need to send to the HW interface when ready.
 }
+
 void JamCtrlMgr::setValveBopen(bool open)
 {
     
 }
+
 void JamCtrlMgr::setValveCopen(bool open)
 {
     
 }
+
 void JamCtrlMgr::setValveDopen(bool open)
 {
     
 }
-
+#endif
 /**
  * @brief get a copy of the controld data
  * @details the contents of the control data in the system.
  * @return [description]
  */
-const JamCtrlData JamCtrlMgr::getCtrlData()	const 
+const JamCtrlMgr::DataIn JamCtrlMgr::getCtrlData()
 {
     return(_ctrlData);
 }
