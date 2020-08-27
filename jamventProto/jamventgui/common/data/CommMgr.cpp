@@ -82,7 +82,7 @@ void CommMgr::onTimeout()
 
     cd = m_jamCtrl.getCtrlData();
 
-    qDebug() << "CommMgr::onTimeout(): pSys_bar = " << cd.pSys_bar << ", pRes_bar = " << cd.pRes_bar  << "o2_pc = " << cd.o2_pc << ", lungVol_ml = " << cd.lungVol_ml;
+    //qDebug() << "CommMgr::onTimeout(): pSys_bar = " << cd.pSys_bar << ", pRes_bar = " << cd.pRes_bar  << "o2_pc = " << cd.o2_pc << ", lungVol_ml = " << cd.lungVol_ml;
 
     // NOTE: scaling here is really artificial as these are not the data
     //       we are ultimatly graphing, but the data that we are just
@@ -96,7 +96,11 @@ void CommMgr::onTimeout()
     // Graph data
     // JPW @todo data massaging is to match the simulator. Remove/change when no longer necessary.
     newInData.pSys_bar = cd.pSys_bar / 3.0;  // Massage to match simulator.
-    newInData.pRes_bar = (cd.pRes_bar / 1000) - 1.0; // Massage to match simulator.
+
+    //newInData.pRes_bar = (cd.pRes_bar / 1000) - 1.0; // Massage to match simulator.
+    // Convert from 0.0 to 3.0 to 0.0 to 2.0.
+    newInData.pRes_bar = cd.pRes_bar * 0.66; // Massage to match simulator.
+
     newInData.o2_pc = cd.o2_pc;
     newInData.lungVol_ml = cd.lungVol_ml;
 

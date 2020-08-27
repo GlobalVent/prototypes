@@ -214,6 +214,7 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     {
         // Convert from Bar to cmH2O to display.
         JamCtrlMgr::GraphNumType v_cmh2o = JamCtrlMgr::BarToCmh2o(data.pSys_bar);
+        //qDebug() << "data.pSys_bar = " << data.pSys_bar << ", v_cmh2o = " << v_cmh2o;
         m_ulGraph->onAddValue(v_cmh2o);
     }
 
@@ -222,8 +223,9 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     {
         // Convert from Bar to cmH2O to display.
         JamCtrlMgr::GraphNumType v_cmh2o = JamCtrlMgr::BarToCmh2o(data.pRes_bar);
-        m_urGraph->onAddValue(v_cmh2o);
-        // qDebug() << "data.pRes_bar = " << data.pRes_bar << ", v_cmh2o = " << v_cmh2o;
+        //qDebug() << "data.pRes_bar = " << data.pRes_bar << ", v_cmh2o = " << v_cmh2o;
+        // JPW @todo showing in bars as that matches graph range for now.  Change from 0.0 to 2.0 -> -1.0 to 1.0
+        m_urGraph->onAddValue(data.pRes_bar - 1.0);
     }
 
     // Lower left graph
