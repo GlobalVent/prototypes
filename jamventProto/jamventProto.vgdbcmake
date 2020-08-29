@@ -110,7 +110,7 @@
         <DestinationHost>
           <HostName>jpwrpi02</HostName>
           <Transport>SSH</Transport>
-          <UserName>pi</UserName>
+          <UserName>root</UserName>
         </DestinationHost>
         <SourceFilePath>$(BuildDir)\jamventgui\Config.json</SourceFilePath>
         <DestinationFilePath>$(DeployDir)/Config.json</DestinationFilePath>

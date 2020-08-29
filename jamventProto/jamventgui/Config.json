@@ -1,4 +1,5 @@
 {
+  "config-mode": "sw-sim",
   "comm-mode": "i2c",
   "debug-mode": "debug",
   "graph-tick-count": 60,

@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "JamCtrlSim.h"
+#include "JamCtrlMgr.h"
 
 // Base interface on QObject to allow defining signals/slots.
 class CommMgrInterface : public QObject
@@ -28,11 +28,11 @@ class CommMgrInterface : public QObject
 
     // Data from System to GUI
   signals:
-    void sigNewInData(JamCtrlSim::DataIn);
+    void sigNewInData(JamCtrlMgr::DataIn);
 
   private:
 };
 
 // Declare as meta type so can use to pass data in signals/slots.
-Q_DECLARE_METATYPE(JamCtrlSim::DataIn)
+Q_DECLARE_METATYPE(JamCtrlMgr::DataIn)
 #endif /* COMMMGRINTERFACE_H */

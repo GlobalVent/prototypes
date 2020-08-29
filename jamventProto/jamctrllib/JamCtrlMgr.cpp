@@ -165,13 +165,9 @@ void JamCtrlMgr::setLogStream(std::ostream *ostr)
 }
 
 
-#if 0
-// JPW @todo  Don't override here.  Override in derived class, JamCtrlSim.
+// JPW @todo  Fill these in when interface has this functionality.
 /**
- * @brief manually set the valve state.
- * @details manullly override the valve state for a given valve.
- * 
- * @param open [description]
+ * @brief Manually set the valve state.
  */
 void JamCtrlMgr::setValveAopen(bool open) 
 {
@@ -180,21 +176,40 @@ void JamCtrlMgr::setValveAopen(bool open)
 
 void JamCtrlMgr::setValveBopen(bool open)
 {
-    
 }
 
 void JamCtrlMgr::setValveCopen(bool open)
 {
-    
 }
 
 void JamCtrlMgr::setValveDopen(bool open)
 {
-    
+
 }
-#endif
+
+// JPW @todo  Fill these in when interface has this functionality.
+void JamCtrlMgr::setFio2(IntegerNumType fiO2_pc)
+{
+}
+
+void JamCtrlMgr::setTidalVol(IntegerNumType tidalVol_ml)
+{
+}
+
+void JamCtrlMgr::setRespRate(IntegerNumType respRate)
+{
+}
+
+void JamCtrlMgr::setIeRatio(IntegerNumType ieRatio)
+{
+}
+
+void JamCtrlMgr::setPeep(FloatNumType peep_bar)
+{
+}
+
 /**
- * @brief get a copy of the controld data
+ * @brief get a copy of the control data
  * @details the contents of the control data in the system.
  * @return [description]
  */

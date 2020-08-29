@@ -1,6 +1,8 @@
 #include <QDebug>
 
 #include "ConfigJson.h"
+#include "JamCtrlMgr.h"
+#include "JamCtrlSim.h"
 #include "CommMgr.h"
 
 namespace
@@ -8,21 +10,33 @@ namespace
 }
 
 CommMgr::CommMgr()
+    : m_jamCtrlMgr(nullptr)
 {
+    const ConfigJson::ConfigData &configData = ConfigJson::Instance().getConfigData();
+
+    if (configData.configMode == ConfigJson::ConfigModeHw)
+    {
+        m_jamCtrlMgr = new JamCtrlMgr;
+    }
+    else
+    {
+        m_jamCtrlMgr = new JamCtrlSim;
+    }
+
     QObject::connect(&m_timer, &QTimer::timeout, this, &CommMgr::onTimeout);
 }
 
 CommMgr::~CommMgr()
 {
     m_timer.stop();
-    m_jamCtrl.killThread();
+    m_jamCtrlMgr->killThread();
 }
 
 void CommMgr::start()
 {
-    m_jamCtrl.setTimeInterval(0.01);
-    m_jamCtrl.init(); // ontime init, after we do any other settings.
-    m_jamCtrl.runThread();
+    m_jamCtrlMgr->setTimeInterval(0.01);
+    m_jamCtrlMgr->init(); // ontime init, after we do any other settings.
+    m_jamCtrlMgr->runThread();
 
     const ConfigJson::ConfigData &configData = ConfigJson::Instance().getConfigData();
     m_timer.setInterval(configData.pollingTimeout_ms);
@@ -32,7 +46,7 @@ void CommMgr::start()
 void CommMgr::stop()
 {
     m_timer.stop();
-    m_jamCtrl.killThread();
+    m_jamCtrlMgr->killThread();
 }
 
 void CommMgr::onFio2Changed(int value)
@@ -58,29 +72,29 @@ void CommMgr::onPeepChanged(int value)
 
 void CommMgr::onValveAOpenChanged(bool isOpen)
 {
-    m_jamCtrl.setValveAopen(isOpen);
+    m_jamCtrlMgr->setValveAopen(isOpen);
 }
 
 void CommMgr::onValveBOpenChanged(bool isOpen)
 {
-    m_jamCtrl.setValveBopen(isOpen);
+    m_jamCtrlMgr->setValveBopen(isOpen);
 }
 
 void CommMgr::onValveCOpenChanged(bool isOpen)
 {
-    m_jamCtrl.setValveCopen(isOpen);
+    m_jamCtrlMgr->setValveCopen(isOpen);
 }
 
 void CommMgr::onValveDOpenChanged(bool isOpen)
 {
-    m_jamCtrl.setValveDopen(isOpen);
+    m_jamCtrlMgr->setValveDopen(isOpen);
 }
 
 void CommMgr::onTimeout()
 {
-    JamCtrlSim::DataIn cd;
+    JamCtrlMgr::DataIn cd;
 
-    cd = m_jamCtrl.getCtrlData();
+    cd = m_jamCtrlMgr->getCtrlData();
 
     //qDebug() << "CommMgr::onTimeout(): pSys_bar = " << cd.pSys_bar << ", pRes_bar = " << cd.pRes_bar  << "o2_pc = " << cd.o2_pc << ", lungVol_ml = " << cd.lungVol_ml;
 
@@ -91,7 +105,7 @@ void CommMgr::onTimeout()
     // JPW: Above note from Ralph.  New code below just passes on the data from the jamCtrl manager. Scaling happens when
     // data is applied to the graphs.
 
-    JamCtrlSim::DataIn newInData;
+    JamCtrlMgr::DataIn newInData;
 
     // Graph data
     // JPW @todo data massaging is to match the simulator. Remove/change when no longer necessary.
@@ -105,10 +119,10 @@ void CommMgr::onTimeout()
     newInData.lungVol_ml = cd.lungVol_ml;
 
     // Valve data
-    newInData.isAOpen = cd.isAOpen;
-    newInData.isBOpen = cd.isBOpen;
-    newInData.isCOpen = cd.isCOpen;
-    newInData.isDOpen = cd.isCOpen;
+    newInData.valveAO2Open = cd.valveAO2Open;
+    newInData.valveBAirOpen = cd.valveBAirOpen;
+    newInData.valveCInhaleOpen = cd.valveCInhaleOpen;
+    newInData.valveDExhaleOpen = cd.valveCInhaleOpen;
 
     emit sigNewInData(newInData);
 }

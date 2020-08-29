@@ -80,12 +80,9 @@ public:
      */
     virtual void setLogStream(std::ostream *ostr) override; // set a log os stream device.  some place to send log info.
 
-#if 0
-    // JPW @todo  Don't override here.  Override in derived class, JamCtrlSim.
-
     /**
      * @brief manually set the valve state
-     * @details manullly override the valve state for a given valve.
+     * @details manually override the valve state for a given valve.
      * 
      * @param open [description]
      */
@@ -93,7 +90,15 @@ public:
     virtual void setValveBopen(bool open) override;
     virtual void setValveCopen(bool open) override;
     virtual void setValveDopen(bool open) override;
-#endif
+
+    /**
+     * @brief Override the methods to set the inputs from the GUI to the system.
+     */
+    virtual void setFio2(IntegerNumType fiO2_pc) override;
+    virtual void setTidalVol(IntegerNumType tidalVol_ml) override;
+    virtual void setRespRate(IntegerNumType respRate) override;
+    virtual void setIeRatio(IntegerNumType ieRatio) override;
+    virtual void setPeep(FloatNumType peep_bar) override;
 
     /**
      * @brief get a copy of the control data

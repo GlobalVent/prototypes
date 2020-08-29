@@ -23,11 +23,11 @@ public:
 	void setValveCopen(bool open) override {_jamModel.setValveCopen(open);}
 	void setValveDopen(bool open) override {_jamModel.setValveDopen(open);}
 
-    void setFio2(InputNumType fiO2_pc) override {};
-    void setTidalVol(InputNumType tidalVol_ml) override {};
-    void setRespRate(InputNumType respRate) override {};
-    void setIeRatio(InputNumType ieRatio) override {};
-    void setPeep(GraphNumType peep_bar) override {};
+    void setFio2(IntegerNumType fiO2_pc) override {};
+    void setTidalVol(IntegerNumType tidalVol_ml) override {};
+    void setRespRate(IntegerNumType respRate) override {};
+    void setIeRatio(IntegerNumType ieRatio) override {};
+    void setPeep(FloatNumType peep_bar) override {};
 
   protected:
 	/**

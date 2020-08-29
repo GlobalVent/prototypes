@@ -5,16 +5,16 @@
 
 #include "CommMgrInterface.h"
 
-#include "JamCtrlSim.h" // simulated version for now.
+#include "JamCtrlMgr.h"
 
 class CommMgr : public CommMgrInterface
 {
     Q_OBJECT
 
   public:
-    using DataIn = JamCtrlSim::DataIn;
-    using InputNumType = JamCtrlSim::InputNumType;
-    using GraphNumType = JamCtrlSim::GraphNumType;
+    using DataIn = JamCtrlMgr::DataIn;
+    using IntegerNumType = JamCtrlMgr::IntegerNumType;
+    using FloatNumType = JamCtrlMgr::FloatNumType;
 
     explicit CommMgr();
     virtual ~CommMgr();
@@ -37,7 +37,7 @@ class CommMgr : public CommMgrInterface
   private:
     void onTimeout();
 
-    JamCtrlSim m_jamCtrl; // sim setup for now...
-    QTimer m_timer;       // Timer for polling communication
+    JamCtrlMgr* m_jamCtrlMgr; // sim setup for now...
+    QTimer m_timer;          // Timer for polling communication
 };
 #endif /* COMMMGR_H */

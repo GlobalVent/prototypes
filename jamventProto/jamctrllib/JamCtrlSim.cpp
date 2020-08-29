@@ -39,8 +39,8 @@ void JamCtrlSim::step(double dt) {
     _ctrlData.o2_pc  = _jamModel.getPO2();
     _ctrlData.lungVol_ml = _jamModel.getLvol();
 
-    _ctrlData.isAOpen = _jamModel.getValveAopen();
-    _ctrlData.isBOpen = _jamModel.getValveBopen();
-    _ctrlData.isCOpen = _jamModel.getValveCopen();
-    _ctrlData.isDOpen = _jamModel.getValveDopen();
+    _ctrlData.valveAO2Open = _jamModel.getValveAopen();
+    _ctrlData.valveBAirOpen = _jamModel.getValveBopen();
+    _ctrlData.valveCInhaleOpen = _jamModel.getValveCopen();
+    _ctrlData.valveDExhaleOpen = _jamModel.getValveDopen();
 }
