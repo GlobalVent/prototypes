@@ -35,12 +35,6 @@ protected:
 		CMD_ADC_TEST_PRES  = 0x11
 	};
 
-	// error return codes
-	enum {
-		MSxxx_NO_PREV_CMD = -1000,		// no start*Cv() command was called before trying to read the value with readAdc()
-		MSxxx_BAD_PROM_CRC = -1001,		// CRC stored in PROM is incorrect (doesn't match PROM data)
-	};
-	
 	/**
 	 * @brief Get the Precision value
 	 * 
@@ -51,16 +45,20 @@ protected:
 
 	uint16_t _prom[8];
 	unsigned _lastCv;		// last conversion done.
-	unsigned _pressure;				// pressure (compensated)
-	unsigned _temperature;			// temperature (compensated)
-	// int64_t _OFF2;					// offsets calculated with temperature
-	// int64_t _SENS2;					// needed for pressure.
+	float _pressure;				// pressure (compensated)
+	float _temperature;			// temperature (compensated)
 	int64_t _OFF;                   // offsets calculated with temperature
 	int64_t _SENS; 					// needed for pressure.
 	
 
 public:
-	// Define constants for Conversion precision
+	// error return codes
+	enum {
+		MSxxx_NO_PREV_CMD = -1000,		// no start*Cv() command was called before trying to read the value with readAdc()
+		MSxxx_BAD_PROM_CRC = -1001,		// CRC stored in PROM is incorrect (doesn't match PROM data)
+	};
+	
+	// conversion precision register values
 	enum precision
 	{
 		ADC_256  = 0x00,
@@ -95,42 +93,36 @@ public:
 	 * @brief convert the temperature value.
 	 * 
 	 * @param rawValue 
-	 * @return uint32_t -- returns the temperature value, in °C/100
+	 * @return float -- returns the temperature value, in °C
 	 */
-	virtual uint32_t  convertTemperature(uint32_t rawValue) = 0;
+	virtual float convertTemperature(uint32_t rawValue) = 0;
 
 	/**
 	 * @brief convert the pressure value, using the last temperature value read
 	 * 
 	 * @param rawValue -- raw pressure value to convert.
-	 * @return uint32_t -- converted pressure value, in device-specific units (see subclass implementation)
+	 * @return float -- converted pressure value, in bar
 	 */
-	virtual uint32_t convertPressure(uint32_t rawValue) = 0;
+	virtual float convertPressure(uint32_t rawValue) = 0;
 
 
 	/**
 	 * @brief Get the last pressure that a conversion was done for.
 	 * 
-	 * @return int -- pressure units are device-dependent, see convertPressure() for device-specific subclass
+	 * @return float -- last pressure, in bar
 	 */ 
-	virtual int getLastPressure() {
+	virtual float getLastPressure() {
 		return(_pressure);
 	}
 
 	/**
 	 * @brief Get the last temperature value read for this sensor.
 	 * 
-	 * @return int -- temperature, in °C/100
+	 * @return float -- temperature, in °C
 	 */
-	virtual int getLastTemperature() {
+	virtual float getLastTemperature() {
 		return(_temperature);
 	}
-
-	// TEST functions for photon
-	virtual int setTestPressure(unsigned pressure);
-	virtual int getTestPressure();
-	virtual int setTestTemperature(unsigned temperature);
-	virtual int getTestTemperature();
 
 private:
 };

@@ -7,15 +7,19 @@
  * the results when needed;
  * Total conversion time is 12.2 ms per channel + 3.6 ms for temperature,
  * so with all channels enabled, readings will be out of date by ~100 ms max.
+ * After ADC is initialized, need to wait long enough for it to run conversions
+ * on all (enabled) channels before trying to read back the channel values with
+ * readVoltage() etc. - returns this initial wait time to allow proper timing
  * 
  * @param extVref -- false = use internal 2.56V reference, true = use external voltage reference
  *         enableChannels -- true to enable continuous readings from corresponding channel
  *         enableTemp -- true to enable continuous readings from internal temperature sensor;
  *         if this is true then channel 7 voltage will not be available
- * @return int -- 0 if successful, pigpio error code if not
+ * @return int -- time to wait (microseconds) before first set of readings is valid, or pigpio error code if unsuccessful
  */
 int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 	int rc;
+	int readingDelay = 0;
 	
 	/* startup sequence from datasheet */
 	// wait for the device to signal it's ready ("not ready" bit turns off)
@@ -39,9 +43,19 @@ int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 		return rc;
 	// choose channels to enable: build a bit mask
 	uint8_t reg = 0;
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 7; i++) {
 		reg |= (enableChannels[i] ? 0 : 1 << i);
+		readingDelay += enableChannels[i] ? DELAY_CHANNEL : 0;
 	}
+	if (enableTemp) {	// channel 7 is special, as it's the temperature channel when temperature readings are enabled
+	   reg |= (1 << 8);   	// channel 7 is always on if temperature is enabled
+	   readingDelay += DELAY_TEMP;
+	}
+	else {
+		reg |= enableChannels[7] ? 0 : 1 << 7; 	// otherwise, it's configurable like all the others
+		readingDelay += enableChannels[7] ? DELAY_CHANNEL : 0;
+	}
+		
 	rc = writeByteData(REG_CHAN_DIS, reg);
 	if (rc < 0)
 		return rc;
@@ -55,7 +69,7 @@ int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 	if (rc < 0)
 		return rc;
 	
-	return 0;
+	return readingDelay;
 }
 
 /**
@@ -104,7 +118,7 @@ float I2cADC128D818::readVoltage(uint8_t channel) {
  *        if temperature readings were not enabled (enableTemp=false) when init() was
  *        called, the result will be meaningless
  * 
- * @param temperature -- var to store temperature result, in half-°C units (50 = 25°C)
+ * @param temperature -- var to store temperature result, in half-Â°C units (50 = 25Â°C)
  * @return int -- 0 if successful, pigpio error code if not
  */
 int I2cADC128D818::readTemp(int16_t *temperature) {

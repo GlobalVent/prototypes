@@ -12,6 +12,12 @@
  */
 class I2cAdcWithO2 : public I2cADC128D818 {
 public:
+	// error return codes
+	enum {
+		O2_TOO_LOW = -2000,  		// no start*Cv() command was called before trying to read the value with readAdc()
+		O2_TOO_HIGH = -2001,  		// CRC stored in PROM is incorrect (doesn't match PROM data)
+	};
+	
 	I2cAdcWithO2() = delete;
 	/**
 	 * @brief Constructor with required parameters
@@ -31,6 +37,7 @@ public:
 	}
 	
 	float readO2(uint8_t channel);
+	std::string getErrorText(int err);
 
 private:
 	// sensor's 0% offset, in ADC-input volts

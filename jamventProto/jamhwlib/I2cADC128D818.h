@@ -39,6 +39,12 @@ protected:
 		ADC_RES = 12
 	};
 	
+	// ADC acquisition delays for different channel types, in microseconds
+	enum {
+		DELAY_CHANNEL = 12200,	// normal channel (voltage reading)
+		DELAY_TEMP = 3600,		// temperature reading
+	};
+	
 	// I2C registers
 	enum {
 		REG_CONFIG = 0x00,	// configuration

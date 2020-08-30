@@ -11,8 +11,8 @@ public:
 		memset(_prom, 0, sizeof(_prom));
 	}
 
-	uint32_t  convertTemperature(uint32_t rawValue);
-	uint32_t convertPressure(uint32_t rawValue);
+	float convertTemperature(uint32_t rawValue);
+	float convertPressure(uint32_t rawValue);
 
 protected:
 	virtual  int getPrecisionDelay(unsigned precision);

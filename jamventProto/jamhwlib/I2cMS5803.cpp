@@ -4,9 +4,9 @@
 * @brief convert the temperature value.
 * 
 * @param rawValue 
-* @return uint32_t -- returns the temperature value in °C/100
+* @return float -- returns the temperature value in °C
 */
-uint32_t I2cMS5803::convertTemperature(uint32_t rawValue) {
+float I2cMS5803::convertTemperature(uint32_t rawValue) {
 	uint32_t C1 = _prom[1];
 	uint32_t C2 = _prom[2];
 	uint32_t C3 = _prom[3];
@@ -46,7 +46,7 @@ uint32_t I2cMS5803::convertTemperature(uint32_t rawValue) {
 	_OFF  = _OFF - OFF2;
 	_SENS = _SENS - SENS2;
 
-	_temperature = temp_calc;
+	_temperature = (float )temp_calc / 100.0f;
 	return (_temperature);
 }
 
@@ -54,10 +54,10 @@ uint32_t I2cMS5803::convertTemperature(uint32_t rawValue) {
 * @brief convert the pressure value.
 * 
 * @param rawValue -- raw pressure value to convert.
-* @return uint32_t -- converted pressure value, in mbar/10
+* @return float -- converted pressure value, in bar
 */
-uint32_t I2cMS5803::convertPressure(uint32_t rawValue) {
-	_pressure = (((_SENS * rawValue) / 2097152) - _OFF) / 32768;
+float I2cMS5803::convertPressure(uint32_t rawValue) {
+	_pressure = (float )((((_SENS * rawValue) / 2097152) - _OFF) / 32768) / 10.0f / 1000.0f;  // divide by 10 for 10ths-of-mbar units, then 1000 for mbar-to-bar
 	return (_pressure);
 }
 

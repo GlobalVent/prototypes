@@ -10,6 +10,7 @@
 #include "I2cMS5607.h"
 #include "I2cMS5803.h"
 #include "I2cAdcWithO2.h"
+#include "Valves.h"
 
 using namespace std;
 
@@ -66,7 +67,7 @@ int testPresDevice() {
 		return (1);
 	}
 	
-	cout << "temperature is " << (presSensor.getLastTemperature() / 100) << " C" << endl;
+	cout << "temperature is " << presSensor.getLastTemperature() << " C" << endl;
 	
 	delay = presSensor.startPressureCv(I2cMSxxx::ADC_4096);
 	if (delay < 0) {
@@ -84,7 +85,7 @@ int testPresDevice() {
 		return (1);
 	}
 	
-	cout << "pressure is " << (presSensor.getLastPressure() / 10) << " mbar" << endl;
+	cout << "pressure is " << presSensor.getLastPressure() << " bar" << endl;
 	
 	return (0);
 }
@@ -94,7 +95,7 @@ int testPsysDevice() {
 	int delay;	// time we need to wait for pressure/temp reading
 	
 	// test MS5607 / PSYS sensor
-	cout << endl << "=== PSYS / MS5507 test ===" << endl;
+	cout << endl << "=== PSYS / MS5607 test ===" << endl;
 	
 	I2cMS5607 psysSensor(1, PSYS_I2C_DEV);
 	rc = psysSensor.open();
@@ -137,7 +138,7 @@ int testPsysDevice() {
 		return (1);
 	}
 	
-	cout << "temperature is " << (psysSensor.getLastTemperature() / 100) << " C" << endl;
+	cout << "temperature is " << psysSensor.getLastTemperature() << " C" << endl;
 	
 	delay = psysSensor.startPressureCv(I2cMSxxx::ADC_4096);
 	if (delay < 0) {
@@ -155,7 +156,7 @@ int testPsysDevice() {
 		return (1);
 	}
 	
-	cout << "pressure is " << (psysSensor.getLastPressure() / 100) << " mbar" << endl;
+	cout << "pressure is " << psysSensor.getLastPressure() << " bar" << endl;
 	
 	return (0);
 }
@@ -174,25 +175,24 @@ int testO2(void) {
 		return 1;
 	}
 	
-	bool enableChannels[8] = { false, false, true, false, false, false, false, true };
+	bool enableChannels[8] = { false, false, true, false, false, false, false, false };
 	// have only ADC channel 2 enabled, use internal 2.56V reference, and enable the internal temp sensor instead of ch.7
 	rc = adc.init(false, enableChannels, true);
-	if (rc != 0) {
+	if (rc < 0) {
 		cout << "adc.init() failed, rc=" << rc << "," << adc.getErrorText(rc) << endl;
 		return (1);
 	}
 	
-	// give more than enough time to get a full set of readings
-	adc.gpioDelay(100000);
+	// give enough time (plus 50% overhead) to get a full set of readings
+	adc.gpioDelay(rc * 1.5);
 	
 	// read both the 'interpreted' O2 level from the sensor, and the raw voltage at the ADC pin
-/*	o2 = adc.readO2(2);
+	o2 = adc.readO2(2);
 	if (o2 < 0) {
 		cout << "adc.readO2() failed, rc=" << o2 << "," << adc.getErrorText((int)o2) << endl;
 		return 1;
 	}
 	cout << "O2 level is " << o2 << "%" << endl;
-	*/
 	
 	o2 = adc.readVoltage(2);
 	if (o2 < 0) {
@@ -212,6 +212,82 @@ int testO2(void) {
 	return 0;
 }
 
+int testValves(void) {
+	int rc;
+	
+	cout << endl << "=== Valve test ===" << endl;
+	
+	// initialize
+	Valves valves;
+	rc = valves.init();
+	if (rc != 0) {
+		cout << "valves.init() failed, rc=" << rc << endl; //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	// turn on valve A for one second
+	cout << "Valve A open" << endl;
+	rc = valves.setState(Valves::VALVE_A_O2, true);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl; //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	gpioDelay(1E6);
+	cout << "Valve A closed" << endl;
+	rc = valves.setState(Valves::VALVE_A_O2, false);
+	if (rc != 0) {
+		cout << "valves.setstate failed, rc=" << rc << endl;  //"," << valves.geterrortext(rc) << endl;
+		return 1;
+	}
+	
+	// turn on valve B for one second
+	cout << "Valve B open" << endl;
+	rc = valves.setState(Valves::VALVE_B_AIR, true);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	gpioDelay(1E6);
+	cout << "Valve B closed" << endl;
+	rc = valves.setState(Valves::VALVE_B_AIR, false);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	// turn on valve C for one second
+	cout << "Valve C open" << endl;
+	rc = valves.setState(Valves::VALVE_C_INHALE, true);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	gpioDelay(1E6);
+	cout << "Valve C closed" << endl;
+	rc = valves.setState(Valves::VALVE_C_INHALE, false);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	// turn on valve B for one second
+	cout << "Valve D open" << endl;
+	rc = valves.setState(Valves::VALVE_D_EXHALE, true);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	gpioDelay(1E6);
+	cout << "Valve D closed" << endl;
+	rc = valves.setState(Valves::VALVE_D_EXHALE, false);
+	if (rc != 0) {
+		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
 	int rc;
@@ -224,6 +300,7 @@ int main(int argc, char *argv[])
 	}
 	cout << "pigpio version " << rc << endl;
 
+	testValves();
 	testPsysDevice();
 	testPresDevice();
 	testO2();

@@ -7,7 +7,7 @@
       <LocalDirForAbsolutePaths>$(ToolchainDir)</LocalDirForAbsolutePaths>
     </CustomSourceDirectories>
     <DeploymentHost>
-      <HostName>192.168.0.27</HostName>
+      <HostName>192.168.1.6</HostName>
       <Transport>SSH</Transport>
       <UserName>root</UserName>
     </DeploymentHost>
@@ -109,7 +109,7 @@
           <Transport>BuiltinShortcut</Transport>
         </SourceHost>
         <DestinationHost>
-          <HostName>192.168.0.27</HostName>
+          <HostName>192.168.1.6</HostName>
           <Transport>SSH</Transport>
           <UserName>root</UserName>
         </DestinationHost>
