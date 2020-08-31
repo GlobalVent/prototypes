@@ -32,14 +32,15 @@ void JamCtrlSim::step(double dt) {
 
     // read back our basic data from the simulator here...
     
-	_ctrlData.pRes = GassimConv::barToCmH2o(_jamModel.getPres()-1);
-    _ctrlData.pSys = GassimConv::barToCmH2o(_jamModel.getPsys()-1);
-    _ctrlData.pO2  = _jamModel.getPO2();
-    _ctrlData.lvol = _jamModel.getLvol();
+	//_ctrlData.pRes_cmh2o = GassimConv::barToCmH2o(_jamModel.getPres()-1);
+    _ctrlData.pRes_bar = _jamModel.getPres() - 1;
+    //_ctrlData.pSys_cmh2o = GassimConv::barToCmH2o(_jamModel.getPsys()-1);
+    _ctrlData.pSys_bar = _jamModel.getPsys() - 1;
+    _ctrlData.o2_pc  = _jamModel.getPO2();
+    _ctrlData.lungVol_ml = _jamModel.getLvol();
 
-    _ctrlData.valveAopen = _jamModel.getValveAopen();
-    _ctrlData.valveBopen = _jamModel.getValveBopen();
-    _ctrlData.valveCopen = _jamModel.getValveCopen();
-    _ctrlData.valveDopen = _jamModel.getValveDopen();
-
+    _ctrlData.valveAO2Open = _jamModel.getValveAopen();
+    _ctrlData.valveBAirOpen = _jamModel.getValveBopen();
+    _ctrlData.valveCInhaleOpen = _jamModel.getValveCopen();
+    _ctrlData.valveDExhaleOpen = _jamModel.getValveDopen();
 }

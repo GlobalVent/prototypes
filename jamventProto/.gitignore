@@ -4,6 +4,7 @@ VisualGDB/
 VisualGDBCache/
 
 # Ignore so can have individual RPI connection.
-jamventProto.vgdbcmake
+/jamventProto.vgdbcmake
 /build/
 *.plt
+

@@ -10,6 +10,12 @@ class ConfigJson
     static constexpr size_t LrIndex = 3;    // Lower right grapn
     static constexpr size_t GraphCount = 4; // 4 graphs
 
+    static constexpr const char *ConfigModeSwSim = "sw-sim";
+    static constexpr const char *ConfigModeHw = "hw";
+
+    static constexpr const char *CommModeSwSim = "i2c";
+    static constexpr const char *CommModeHw = "serial";
+
     struct GraphConfigData
     {
       bool isSet = false;  // true when values are set. Empty otherwise.
@@ -22,10 +28,11 @@ class ConfigJson
 
     struct ConfigData
     {
-        QString commMode = "";
-        QString debugMode = "";
+        QString configMode = ""; ///< Allowed values: "sw-sim", "hw"
+        QString commMode = "";   ///< Allowed values: "i2c", "serial". Not used
+        QString debugMode = "";  ///< Allowed values: "debug". Not used
         int graphTickCount = 0;
-        qreal pollingTimeout_ms = 0.0;  
+        qreal pollingTimeout_ms = 0.0;
         GraphConfigData graphs[GraphCount];
     };
 

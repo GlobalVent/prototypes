@@ -212,26 +212,32 @@ void TreatmentWidget::onNewInData(CommMgr::DataIn data)
     // Upper left graph
     if (nullptr != m_ulGraph)
     {
-        m_ulGraph->onAddValue(data.pressSys);
+        // Convert from Bar to cmH2O to display.
+        JamCtrlMgr::FloatNumType v_cmh2o = JamCtrlMgr::BarToCmh2o(data.pSys_bar);
+        //qDebug() << "data.pSys_bar = " << data.pSys_bar << ", v_cmh2o = " << v_cmh2o;
+        m_ulGraph->onAddValue(v_cmh2o);
     }
 
     // Upper right graph
     if (nullptr != m_urGraph)
     {
-        m_urGraph->onAddValue(data.pressRes);
-        // qDebug() << "data.pressRes = " << data.pressRes << ", v = " << v;
+        // Convert from Bar to cmH2O to display.
+        JamCtrlMgr::FloatNumType v_cmh2o = JamCtrlMgr::BarToCmh2o(data.pRes_bar);
+        //qDebug() << "data.pRes_bar = " << data.pRes_bar << ", v_cmh2o = " << v_cmh2o;
+        // JPW @todo showing in bars as that matches graph range for now.  Change from 0.0 to 2.0 -> -1.0 to 1.0
+        m_urGraph->onAddValue(data.pRes_bar - 1.0);
     }
 
     // Lower left graph
     if (nullptr != m_llGraph)
     {
-        m_llGraph->onAddValue(data.pressO2);
+        m_llGraph->onAddValue(data.o2_pc);
     }
 
     // Lower right graph
     if (nullptr != m_lrGraph)
     {
-        m_lrGraph->onAddValue(data.lungVol);
+        m_lrGraph->onAddValue(data.lungVol_ml);
     }
 }
 

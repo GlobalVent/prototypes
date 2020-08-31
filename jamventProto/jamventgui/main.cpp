@@ -4,8 +4,6 @@
 #include "Theme.h"
 #include "MainCtrl.h"
 
-//#include "JamCtrlSim.h"  // simulated version for now.
-
 void loadFonts()
 {
     QFontDatabase::addApplicationFont(":/font/Roboto-Black.ttf");
@@ -28,7 +26,8 @@ int main(int argc, char *argv[])
 
     // loadFonts();
 
-    MainCtrl ctl;   // Instantiate the main controller to controll the GUI pages.
+    MainCtrl ctl;   // Instantiate the main controller to controll the GUI pages.
+
     int rc;
     rc=a.exec();
 

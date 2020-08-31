@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <VisualGDBProjectSettings2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ConfigurationName>Debug</ConfigurationName>
   <Project xsi:type="com.visualgdb.project.linux">
     <CustomSourceDirectories>
       <Directories />
@@ -7,7 +8,7 @@
       <LocalDirForAbsolutePaths>$(ToolchainDir)</LocalDirForAbsolutePaths>
     </CustomSourceDirectories>
     <DeploymentHost>
-      <HostName>192.168.0.27</HostName>
+      <HostName>jpwrpi02</HostName>
       <Transport>SSH</Transport>
       <UserName>root</UserName>
     </DeploymentHost>
@@ -42,7 +43,7 @@
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
     <BinaryDirectory>VisualGDB/$(ConfigurationName)</BinaryDirectory>
-    <MainCMakeTarget>I2cTests</MainCMakeTarget>
+    <MainCMakeTarget>JamventGui</MainCMakeTarget>
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
@@ -78,7 +79,6 @@
         <GroupSourcesByPaths>true</GroupSourcesByPaths>
         <GroupTargetsByPaths>true</GroupTargetsByPaths>
         <AutoRefreshProject>true</AutoRefreshProject>
-        <AlwaysConsiderOutdated>false</AlwaysConsiderOutdated>
         <SortTargetsByName>true</SortTargetsByName>
         <RedundantTargetMode>HideOuterProjectTargets</RedundantTargetMode>
         <SortSourcesByName>true</SortSourcesByName>
@@ -96,7 +96,6 @@
       <ConfigurationNameCase>Upper</ConfigurationNameCase>
       <DefaultHeaderDiscoveryMode>None</DefaultHeaderDiscoveryMode>
       <EnableFastUpToDateCheck>true</EnableFastUpToDateCheck>
-      <StartupTarget>I2cTests</StartupTarget>
     </ProjectModeSettings>
   </Build>
   <CustomBuild>
@@ -109,7 +108,7 @@
           <Transport>BuiltinShortcut</Transport>
         </SourceHost>
         <DestinationHost>
-          <HostName>192.168.0.27</HostName>
+          <HostName>jpwrpi02</HostName>
           <Transport>SSH</Transport>
           <UserName>root</UserName>
         </DestinationHost>

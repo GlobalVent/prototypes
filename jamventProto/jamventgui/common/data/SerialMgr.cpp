@@ -5,6 +5,7 @@
 
 #include "ConfigJson.h"
 #include "SerialMgr.h"
+#include "JamCtrlMgrInterface.h"
 
 namespace
 {
@@ -162,7 +163,8 @@ void SerialMgr::onSysTargetChanged(int value)
 
 void SerialMgr::onNewNameValues(NameValueMap map)
 {
-    DataIn newInData;
+    JamCtrlMgrInterface::DataIn newInData;
+
     bool isDataAdded = false;  // Used to see if have data to emit.
 
     QMapIterator<QString, QString> i(map);
@@ -181,7 +183,7 @@ void SerialMgr::onNewNameValues(NameValueMap map)
                 // Convert from a range of 0.0 to 100.0 to a range of 0.0 to 10.0.
                 double tmp = doubleValue / 100.0;
                 tmp *= 10.0;  // 0.0 to 10.0
-                newInData.pressSys = tmp;
+                newInData.pSys_bar = tmp;  // JPW @todo This may not be right,.but not used currently
                 isDataAdded = true;
             }
             else
@@ -199,7 +201,7 @@ void SerialMgr::onNewNameValues(NameValueMap map)
                 double tmp = doubleValue / 1000.0;
                 tmp *= 2.0;  // 0.0 to 2.0
                 tmp -= 1.0;  // -1.0 to 1.0
-                newInData.pressRes = tmp;
+                newInData.pRes_bar = tmp; // JPW @todo This may not be right,.but not used currently
                 isDataAdded = true;
             }
             else
