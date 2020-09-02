@@ -21,10 +21,10 @@ class CommMgrInterface : public QObject
     virtual void onIeRatioChanged(int value) = 0;
     virtual void onPeepChanged(int value) = 0;
 
-    virtual void onValveAOpenChanged(bool isOpen) = 0;
-    virtual void onValveBOpenChanged(bool isOpen) = 0;
-    virtual void onValveCOpenChanged(bool isOpen) = 0;
-    virtual void onValveDOpenChanged(bool isOpen) = 0;
+    virtual void onValveAO2OpenChanged(bool isOpen) = 0;
+    virtual void onValveBAirOpenChanged(bool isOpen) = 0;
+    virtual void onValveCInhaleOpenChanged(bool isOpen) = 0;
+    virtual void onValveDExhaleOpenChanged(bool isOpen) = 0;
 
     // Data from System to GUI
   signals:

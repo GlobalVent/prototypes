@@ -99,28 +99,28 @@ class JamCtrlMgrInterface
 
     // Data out to the system.
     /**
-    * @brief Set valve A open or closed
+    * @brief Set valve A (O2) to open or closed
     * @param open True to open the valve. False to close.
     */
-    virtual void setValveAopen(bool open) = 0;
+    virtual void setValveAO2Open(bool open) = 0;
 
     /**
-    * @brief Set valve B open or closed
+    * @brief Set valve B (air) to open or closed
     * @param open True to open the valve. False to close.
     */
-    virtual void setValveBopen(bool open) = 0;
+    virtual void setValveBAirOpen(bool open) = 0;
 
     /**
-    * @brief Set valve C open or closed
+    * @brief Set valve C (inhale) to open or closed
     * @param open True to open the valve. False to close.
     */
-    virtual void setValveCopen(bool open) = 0;
+    virtual void setValveCInhaleOpen(bool open) = 0;
 
     /**
-    * @brief Set valve D open or closed
+    * @brief Set valve D (exhale) to open or closed
     * @param open True to open the valve. False to close.
     */
-    virtual void setValveDopen(bool open) = 0;
+    virtual void setValveDExhaleOpen(bool open) = 0;
 
     // Input elements. From GUI to the system.
     /**

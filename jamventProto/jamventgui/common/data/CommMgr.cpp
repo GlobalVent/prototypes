@@ -70,24 +70,24 @@ void CommMgr::onPeepChanged(int value)
 {
 }
 
-void CommMgr::onValveAOpenChanged(bool isOpen)
+void CommMgr::onValveAO2OpenChanged(bool isOpen)
 {
-    m_jamCtrlMgr->setValveAopen(isOpen);
+    m_jamCtrlMgr->setValveAO2Open(isOpen);
 }
 
-void CommMgr::onValveBOpenChanged(bool isOpen)
+void CommMgr::onValveBAirOpenChanged(bool isOpen)
 {
-    m_jamCtrlMgr->setValveBopen(isOpen);
+    m_jamCtrlMgr->setValveBAirOpen(isOpen);
 }
 
-void CommMgr::onValveCOpenChanged(bool isOpen)
+void CommMgr::onValveCInhaleOpenChanged(bool isOpen)
 {
-    m_jamCtrlMgr->setValveCopen(isOpen);
+    m_jamCtrlMgr->setValveCInhaleOpen(isOpen);
 }
 
-void CommMgr::onValveDOpenChanged(bool isOpen)
+void CommMgr::onValveDExhaleOpenChanged(bool isOpen)
 {
-    m_jamCtrlMgr->setValveDopen(isOpen);
+    m_jamCtrlMgr->setValveDExhaleOpen(isOpen);
 }
 
 void CommMgr::onTimeout()

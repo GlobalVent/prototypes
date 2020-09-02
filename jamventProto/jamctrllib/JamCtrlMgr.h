@@ -86,10 +86,10 @@ public:
      * 
      * @param open [description]
      */
-    virtual void setValveAopen(bool open) override;
-    virtual void setValveBopen(bool open) override;
-    virtual void setValveCopen(bool open) override;
-    virtual void setValveDopen(bool open) override;
+    virtual void setValveAO2Open(bool open) override;
+    virtual void setValveBAirOpen(bool open) override;
+    virtual void setValveCInhaleOpen(bool open) override;
+    virtual void setValveDExhaleOpen(bool open) override;
 
     /**
      * @brief Override the methods to set the inputs from the GUI to the system.

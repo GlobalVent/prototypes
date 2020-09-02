@@ -58,17 +58,18 @@ void JamCtrlMgr::step(double dt)
     auto t = testSequence + _testSeqIdx;
     double timeNow=_simTime.now();
     if ((_nextSeqTime==0) || (_nextSeqTime <= timeNow)) {
-        setValveAopen(t->valveA);
-		setValveBopen(t->valveB);
-		setValveCopen(t->valveC);
-		setValveDopen(t->valveD);
-if (_log) *_log 
-    << "setValves: " << timeNow << " " 
-    << t->valveA << ", "
-    << t->valveB << ", "
-    << t->valveC << ", "
-    << t->valveD 
-    << endl;
+        setValveAO2Open(t->valveA);
+        setValveBAirOpen(t->valveB);
+        setValveCInhaleOpen(t->valveC);
+        setValveDExhaleOpen(t->valveD);
+
+        if (_log) *_log 
+            << "setValves: " << timeNow << " " 
+            << t->valveA << ", "
+            << t->valveB << ", "
+            << t->valveC << ", "
+            << t->valveD 
+            << endl;
         _nextSeqTime = timeNow + t->runTime;
         _testSeqIdx++;
         if (_testSeqIdx >= sizeof(testSequence)/sizeof(*testSequence))
@@ -169,20 +170,20 @@ void JamCtrlMgr::setLogStream(std::ostream *ostr)
 /**
  * @brief Manually set the valve state.
  */
-void JamCtrlMgr::setValveAopen(bool open) 
+void JamCtrlMgr::setValveAO2Open(bool open)
 {
     // JPW @todo need to send to the HW interface when ready.
 }
 
-void JamCtrlMgr::setValveBopen(bool open)
+void JamCtrlMgr::setValveBAirOpen(bool open)
 {
 }
 
-void JamCtrlMgr::setValveCopen(bool open)
+void JamCtrlMgr::setValveCInhaleOpen(bool open)
 {
 }
 
-void JamCtrlMgr::setValveDopen(bool open)
+void JamCtrlMgr::setValveDExhaleOpen(bool open)
 {
 
 }

@@ -29,10 +29,10 @@ class SerialMgr: public CommMgrInterface
     void onIeRatioChanged(int value) override;
     void onPeepChanged(int value) override;
 
-    void onValveAOpenChanged(bool isOpen) override;
-    void onValveBOpenChanged(bool isOpen) override;
-    void onValveCOpenChanged(bool isOpen) override;
-    void onValveDOpenChanged(bool isOpen) override;
+    void onValveAO2OpenChanged(bool isOpen) override;
+    void onValveBAirOpenChanged(bool isOpen) override;
+    void onValveCInhaleOpenChanged(bool isOpen) override;
+    void onValveDExhaleOpenChanged(bool isOpen) override;
 
     // Temporary for demo phase
     void onMaxPressChanged(int value);

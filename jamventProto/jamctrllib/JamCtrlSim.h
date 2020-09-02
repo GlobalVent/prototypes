@@ -18,10 +18,10 @@ public:
 	 * 
 	 * @param open true open the valve, false, close it.
 	 */
-	void setValveAopen(bool open) override {_jamModel.setValveAopen(open);}
-	void setValveBopen(bool open) override {_jamModel.setValveBopen(open);}
-	void setValveCopen(bool open) override {_jamModel.setValveCopen(open);}
-	void setValveDopen(bool open) override {_jamModel.setValveDopen(open);}
+	void setValveAO2Open(bool open) override {_jamModel.setValveAopen(open);}
+	void setValveBAirOpen(bool open) override {_jamModel.setValveBopen(open);}
+	void setValveCInhaleOpen(bool open) override {_jamModel.setValveCopen(open);}
+	void setValveDExhaleOpen(bool open) override {_jamModel.setValveDopen(open);}
 
     void setFio2(IntegerNumType fiO2_pc) override {};
     void setTidalVol(IntegerNumType tidalVol_ml) override {};

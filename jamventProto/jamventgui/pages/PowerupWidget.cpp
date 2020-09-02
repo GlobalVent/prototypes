@@ -92,10 +92,10 @@ PowerupWidget::PowerupWidget(QWidget *parent)
     // Connect signals.
 
     // Valve buttons on right column
-    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveAChanged);
-    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveBChanged);
-    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveCChanged);
-    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveDChanged);
+    connect(m_valveAButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveAO2Changed);
+    connect(m_valveBButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveBAirChanged);
+    connect(m_valveCButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveCInhaleChanged);
+    connect(m_valveDButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onValveDExhaleChanged);
 
     // Buttons on right column
     connect(m_useSerialButtonWidget, &QPushButton::toggled, this, &PowerupWidget::onUseSerialChanged);
@@ -114,43 +114,43 @@ PowerupWidget::~PowerupWidget()
     delete ui;
 }
 
-void PowerupWidget::onValveAChanged(bool isChecked)
+void PowerupWidget::onValveAO2Changed(bool isChecked)
 {
     if (m_isValueAChecked != isChecked)
     {
-        qDebug() << "TreatmentWidget::onValveAToggled(" << isChecked << ")";
+        qDebug() << "PowerupWidget::onValveAO2Changed(" << isChecked << ")";
         m_isValueAChecked = isChecked;
-        emit sigValueAOpenChanged(isChecked);
+        emit sigValueAO2OpenChanged(isChecked);
     }
 }
 
-void PowerupWidget::onValveBChanged(bool isChecked)
+void PowerupWidget::onValveBAirChanged(bool isChecked)
 {
     if (m_isValueBChecked != isChecked)
     {
-        qDebug() << "TreatmentWidget::onValveBToggled(" << isChecked << ")";
+        qDebug() << "PowerupWidget::onValveBAirChanged(" << isChecked << ")";
         m_isValueBChecked = isChecked;
-        emit sigValueBOpenChanged(isChecked);
+        emit sigValueBAirOpenChanged(isChecked);
     }
 }
 
-void PowerupWidget::onValveCChanged(bool isChecked)
+void PowerupWidget::onValveCInhaleChanged(bool isChecked)
 {
     if (m_isValueCChecked != isChecked)
     {
-        qDebug() << "TreatmentWidget::onValveCToggled(" << isChecked << ")";
+        qDebug() << "PowerupWidget::onValveCInhaleChanged(" << isChecked << ")";
         m_isValueCChecked = isChecked;
-        emit sigValueCOpenChanged(isChecked);
+        emit sigValueCInhaleOpenChanged(isChecked);
     }
 }
 
-void PowerupWidget::onValveDChanged(bool isChecked)
+void PowerupWidget::onValveDExhaleChanged(bool isChecked)
 {
     if (m_isValueDChecked != isChecked)
     {
-        qDebug() << "TreatmentWidget::onValveDToggled(" << isChecked << ")";
+        qDebug() << "PowerupWidget::onValveDExhaleChanged(" << isChecked << ")";
         m_isValueDChecked = isChecked;
-        emit sigValueDOpenChanged(isChecked);
+        emit sigValueDExhaleOpenChanged(isChecked);
     }
 }
 
