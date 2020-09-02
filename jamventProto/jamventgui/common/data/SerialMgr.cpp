@@ -87,7 +87,7 @@ void SerialMgr::onPeepChanged(int value)
     qDebug() << "SerialMgr::onPeepChanged(" << value << ") called.";
 }
 
-void SerialMgr::onValveAOpenChanged(bool isOpen)
+void SerialMgr::onValveAO2OpenChanged(bool isOpen)
 {
     if (m_isValueAOpen != isOpen)
     {
@@ -97,7 +97,7 @@ void SerialMgr::onValveAOpenChanged(bool isOpen)
     }
 }
 
-void SerialMgr::onValveBOpenChanged(bool isOpen)
+void SerialMgr::onValveBAirOpenChanged(bool isOpen)
 {
     if (m_isValueBOpen != isOpen)
     {
@@ -107,7 +107,7 @@ void SerialMgr::onValveBOpenChanged(bool isOpen)
     }
 }
 
-void SerialMgr::onValveCOpenChanged(bool isOpen)
+void SerialMgr::onValveCInhaleOpenChanged(bool isOpen)
 {
     if (m_isValueCOpen != isOpen)
     {
@@ -117,7 +117,7 @@ void SerialMgr::onValveCOpenChanged(bool isOpen)
     }
 }
 
-void SerialMgr::onValveDOpenChanged(bool isOpen)
+void SerialMgr::onValveDExhaleOpenChanged(bool isOpen)
 {
     if (m_isValueDOpen != isOpen)
     {

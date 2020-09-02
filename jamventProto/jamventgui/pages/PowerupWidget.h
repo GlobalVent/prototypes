@@ -24,10 +24,10 @@ public:
     PowerupWidget *getWidget();
 
     signals:
-      void sigValueAOpenChanged(bool isOpen);
-      void sigValueBOpenChanged(bool isOpen);
-      void sigValueCOpenChanged(bool isOpen);
-      void sigValueDOpenChanged(bool isOpen);
+      void sigValueAO2OpenChanged(bool isOpen);
+      void sigValueBAirOpenChanged(bool isOpen);
+      void sigValueCInhaleOpenChanged(bool isOpen);
+      void sigValueDExhaleOpenChanged(bool isOpen);
 
       // Temporary.  Added for demo phase
       void sigMaxPressChanged(int value);
@@ -40,10 +40,10 @@ public:
       void sigTreatmentButtonClicked();
 
     private:
-      void onValveAChanged(bool isChecked);
-      void onValveBChanged(bool isChecked);
-      void onValveCChanged(bool isChecked);
-      void onValveDChanged(bool isChecked);
+      void onValveAO2Changed(bool isChecked);
+      void onValveBAirChanged(bool isChecked);
+      void onValveCInhaleChanged(bool isChecked);
+      void onValveDExhaleChanged(bool isChecked);
 
       // Temporary.  Added for demo phase
       void onMaxPressChanged(int value);

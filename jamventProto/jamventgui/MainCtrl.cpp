@@ -48,10 +48,10 @@ MainCtrl::MainCtrl()
     connect(&m_serialMgr, &SerialMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
 
     // Connect the powerup page to the serial communicaiton manager.
-    connect(powerupWidget, &PowerupWidget::sigValueAOpenChanged, &m_serialMgr, &SerialMgr::onValveAOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueBOpenChanged, &m_serialMgr, &SerialMgr::onValveCOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_serialMgr, &SerialMgr::onValveBOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_serialMgr, &SerialMgr::onValveDOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueAO2OpenChanged, &m_serialMgr, &SerialMgr::onValveAO2OpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueBAirOpenChanged, &m_serialMgr, &SerialMgr::onValveBAirOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueCInhaleOpenChanged, &m_serialMgr, &SerialMgr::onValveCInhaleOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueDExhaleOpenChanged, &m_serialMgr, &SerialMgr::onValveDExhaleOpenChanged);
     // Temporary
     connect(powerupWidget, &PowerupWidget::sigMaxPressChanged, &m_serialMgr, &SerialMgr::onMaxPressChanged);
     connect(powerupWidget, &PowerupWidget::sigVaTargetChanged, &m_serialMgr, &SerialMgr::onVaTargetChanged);
@@ -62,10 +62,10 @@ MainCtrl::MainCtrl()
     connect(&m_commMgr, &CommMgr::sigNewInData, treatmentWidget, &TreatmentWidget::onNewInData);
 
     // Connect the powerup page to the I2C communications manager.
-    connect(powerupWidget, &PowerupWidget::sigValueAOpenChanged, &m_commMgr, &CommMgr::onValveAOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueBOpenChanged, &m_commMgr, &CommMgr::onValveCOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueCOpenChanged, &m_commMgr, &CommMgr::onValveBOpenChanged);
-    connect(powerupWidget, &PowerupWidget::sigValueDOpenChanged, &m_commMgr, &CommMgr::onValveDOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueAO2OpenChanged, &m_commMgr, &CommMgr::onValveAO2OpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueBAirOpenChanged, &m_commMgr, &CommMgr::onValveBAirOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueCInhaleOpenChanged, &m_commMgr, &CommMgr::onValveCInhaleOpenChanged);
+    connect(powerupWidget, &PowerupWidget::sigValueDExhaleOpenChanged, &m_commMgr, &CommMgr::onValveDExhaleOpenChanged);
 
     if (configData.commMode == "serial")
     {
