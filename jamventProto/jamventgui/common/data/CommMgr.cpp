@@ -14,6 +14,8 @@ CommMgr::CommMgr()
 {
     const ConfigJson::ConfigData &configData = ConfigJson::Instance().getConfigData();
 
+    //qDebug() << "configData.configMode = " << configData.configMode;
+
     if (configData.configMode == ConfigJson::ConfigModeHw)
     {
         m_jamCtrlMgr = new JamCtrlMgr;

@@ -2,6 +2,7 @@
 #include <QFontDatabase>
 
 #include "Theme.h"
+#include "ConfigJson.h"
 #include "MainCtrl.h"
 
 void loadFonts()
@@ -25,6 +26,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     // loadFonts();
+
+    // Read/process the configuration file 1st here, so available for initializing the rest of the system.
+    ConfigJson::Instance().parseConfigFile();
 
     MainCtrl ctl;   // Instantiate the main controller to controll the GUI pages.
 

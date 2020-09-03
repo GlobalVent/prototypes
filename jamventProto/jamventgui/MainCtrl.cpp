@@ -19,9 +19,6 @@ MainCtrl::MainCtrl()
     , m_powerupCtrl(nullptr)
     , m_treatmentCtrl(nullptr)
 {
-    // First, open and read the config file so available when creating the rest.
-    ConfigJson::Instance().parseConfigFile();
-
     const ConfigJson::ConfigData& configData = ConfigJson::Instance().getConfigData();
 
     m_widget = new MainWidget;

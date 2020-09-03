@@ -61,10 +61,18 @@ void ConfigJson::parseConfigFile()
       return;
   }
 
-  QJsonValue val = topObj.value("comm-mode");
+  QJsonValue val = topObj.value("config-mode");
+  if ((!val.isUndefined()) && val.isString())
+  {
+      m_data.configMode = val.toString();
+      //qDebug() << "m_data.configMode = " << m_data.configMode;
+  }
+
+  val = topObj.value("comm-mode");
   if ((! val.isUndefined()) && val.isString())
   {
       m_data.commMode = val.toString();
+      //qDebug() << "m_data.commMode = " << m_data.commMode;
   }
 
   val = topObj.value("debug-mode");
