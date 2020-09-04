@@ -1,7 +1,7 @@
 #include "Valves.h"
 
 // mapping from valve names to GPIO pins
-const std::map<unsigned, unsigned> Valves::VALVE_GPIOS = { { VALVE_A_O2, 21 }, { VALVE_B_AIR, 20 }, { VALVE_C_INHALE, 16 }, { VALVE_D_EXHALE, 12 } };
+const Valves::GpioMap_t Valves::VALVE_GPIOS = { { VALVE_A_O2, 21 }, { VALVE_B_AIR, 20 }, { VALVE_C_INHALE, 16 }, { VALVE_D_EXHALE, 12 } };
 
 /**
  * @brief Initializes GPIOs for valve outputs, with all valves off by default
@@ -12,7 +12,7 @@ int Valves::init() {
 	int rc;
 	
 	// set GPIO pins as outputs
-	std::map<unsigned, unsigned>::const_iterator it = VALVE_GPIOS.begin();
+	GpioMap_t::const_iterator it = VALVE_GPIOS.begin();
 	for(std::pair<unsigned, unsigned> it : VALVE_GPIOS) {
 		rc = gpioSetMode(it.second, PI_OUTPUT);
 		if (rc != 0) return rc;

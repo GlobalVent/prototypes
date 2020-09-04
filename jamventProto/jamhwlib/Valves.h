@@ -7,8 +7,6 @@
 
 class Valves {
 public:
-	Valves() {};
-
 	// individual valves to control
 	enum Valve_t {
 		VALVE_A_O2,
@@ -17,12 +15,13 @@ public:
 		VALVE_D_EXHALE,
 	};
 	
-	int init();
-	int setState(Valve_t valve, bool state);
+	static int init();
+	static int setState(Valve_t valve, bool state);
 	
 protected:
 	// GPIO pins that control each valve
-	static const std::map<unsigned, unsigned> VALVE_GPIOS;
+	using GpioMap_t = std::map<Valve_t, unsigned>;
+	static const GpioMap_t VALVE_GPIOS;
 };
 
 #endif

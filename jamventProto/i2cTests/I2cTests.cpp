@@ -11,6 +11,7 @@
 #include "I2cMS5803.h"
 #include "I2cAdcWithO2.h"
 #include "Valves.h"
+#include "Speaker.h"
 
 using namespace std;
 
@@ -218,72 +219,105 @@ int testValves(void) {
 	cout << endl << "=== Valve test ===" << endl;
 	
 	// initialize
-	Valves valves;
-	rc = valves.init();
+	rc = Valves::init();
 	if (rc != 0) {
-		cout << "valves.init() failed, rc=" << rc << endl; //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::init() failed, rc=" << rc << endl; //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	
 	// turn on valve A for one second
 	cout << "Valve A open" << endl;
-	rc = valves.setState(Valves::VALVE_A_O2, true);
+	rc = Valves::setState(Valves::VALVE_A_O2, true);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl; //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl; //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	gpioDelay(1E6);
 	cout << "Valve A closed" << endl;
-	rc = valves.setState(Valves::VALVE_A_O2, false);
+	rc = Valves::setState(Valves::VALVE_A_O2, false);
 	if (rc != 0) {
-		cout << "valves.setstate failed, rc=" << rc << endl;  //"," << valves.geterrortext(rc) << endl;
+		cout << "Valves::setstate failed, rc=" << rc << endl;  //"," << Valves::geterrortext(rc) << endl;
 		return 1;
 	}
 	
 	// turn on valve B for one second
 	cout << "Valve B open" << endl;
-	rc = valves.setState(Valves::VALVE_B_AIR, true);
+	rc = Valves::setState(Valves::VALVE_B_AIR, true);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	gpioDelay(1E6);
 	cout << "Valve B closed" << endl;
-	rc = valves.setState(Valves::VALVE_B_AIR, false);
+	rc = Valves::setState(Valves::VALVE_B_AIR, false);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	
 	// turn on valve C for one second
 	cout << "Valve C open" << endl;
-	rc = valves.setState(Valves::VALVE_C_INHALE, true);
+	rc = Valves::setState(Valves::VALVE_C_INHALE, true);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	gpioDelay(1E6);
 	cout << "Valve C closed" << endl;
-	rc = valves.setState(Valves::VALVE_C_INHALE, false);
+	rc = Valves::setState(Valves::VALVE_C_INHALE, false);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	
 	// turn on valve B for one second
 	cout << "Valve D open" << endl;
-	rc = valves.setState(Valves::VALVE_D_EXHALE, true);
+	rc = Valves::setState(Valves::VALVE_D_EXHALE, true);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
 	gpioDelay(1E6);
 	cout << "Valve D closed" << endl;
-	rc = valves.setState(Valves::VALVE_D_EXHALE, false);
+	rc = Valves::setState(Valves::VALVE_D_EXHALE, false);
 	if (rc != 0) {
-		cout << "valves.setState failed, rc=" << rc << endl;  //"," << valves.getErrorText(rc) << endl;
+		cout << "Valves::setState failed, rc=" << rc << endl;  //"," << Valves::getErrorText(rc) << endl;
 		return 1;
 	}
+	
+	return 0;
+}
+
+int testSpeaker(void) {
+	int rc;
+	
+	cout << endl << "=== Speaker test ===" << endl;
+	
+	// initialize
+	rc = Speaker::init();
+	if (rc != 0) {
+		cout << "speaker::init() failed, rc=" << rc << endl;  //"," << speaker::getErrorText(rc) << endl;
+		return 1;
+	}
+	
+	// play the IEC 60601-1-8 general med-priority C4-C4-C4 alarm
+	cout << "C4-C4-C4" << endl;
+	for(int i = 0 ; i < 3 ; i++) {
+		Speaker::playNote(262);
+		gpioDelay(500E3);
+		Speaker::stopNote();
+		gpioDelay(500E3);
+	}
+	
+	// play the IEC 60601-1-8 "ventilate" med-priority C4-A4-F4 alarm
+	cout << "C4-A4-F4" << endl;
+	Speaker::playNote(262);
+	gpioDelay(1E6);
+	Speaker::playNote(440);
+	gpioDelay(1E6);
+	Speaker::playNote(349);
+	gpioDelay(1E6);
+	Speaker::stopNote();
 	
 	return 0;
 }
@@ -300,6 +334,7 @@ int main(int argc, char *argv[])
 	}
 	cout << "pigpio version " << rc << endl;
 
+	testSpeaker();
 	testValves();
 	testPsysDevice();
 	testPresDevice();
