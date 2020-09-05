@@ -1,7 +1,7 @@
 #include <QDebug>
 
 #include "ConfigJson.h"
-#include "JamCtrlMgr.h"
+#include "JamCtrlHw.h"
 #include "JamCtrlSim.h"
 #include "CommMgr.h"
 
@@ -18,7 +18,7 @@ CommMgr::CommMgr()
 
     if (configData.configMode == ConfigJson::ConfigModeHw)
     {
-        m_jamCtrlMgr = new JamCtrlMgr;
+        m_jamCtrlMgr = new JamCtrlHw;
     }
     else
     {
