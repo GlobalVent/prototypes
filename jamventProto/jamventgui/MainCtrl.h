@@ -25,6 +25,7 @@ public:
   public slots:
     void onUserSerialChanged(bool isChecked);
     void onSimOnChanged(bool isChecked);
+    void onShowAlertDialog(QString title, int errStatus, QString errMessage);
 
   private:
     CommMgr m_commMgr;      // For now this is connected to jamCtrl

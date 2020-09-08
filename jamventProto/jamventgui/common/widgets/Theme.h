@@ -8,11 +8,13 @@
 namespace Theme
 {
     // Fonts
-    static constexpr int SmallerFontSize_px = 11;
-    static constexpr int SmallerFontSize_point = 11;
-    static constexpr int MediumFontSize_px = 14;
-    static constexpr int MediumFontSize_point = 14;
-    static const QFont MainFont = QFont("Roboto", MediumFontSize_point);
+    static constexpr int FontSizeSmaller_px = 11;
+    static constexpr int FontSizeSmaller_point = 11;
+    static constexpr int FontSizeMedium_px = 14;
+    static constexpr int FontSizeMedium_point = 14;
+    static constexpr int FontSizeLarger_px = 16;
+    static constexpr int FontSizeLarger_point = 16;
+    static const QFont MainFont = QFont("Roboto", FontSizeMedium_point);
 
     // Colors
     static const QColor BackgroundColor = QColor(Qt::white);

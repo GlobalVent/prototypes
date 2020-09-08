@@ -22,14 +22,14 @@ GraphWidget::GraphWidget(const InitParams &params, QWidget *parent)
 
     m_yAxisMaxLabel->setGeometry(QRect(0, 0, Indent_px, Indent_px));
     QFont font = m_yAxisMaxLabel->font();
-    font.setPixelSize(Theme::SmallerFontSize_px);
+    font.setPixelSize(Theme::FontSizeSmaller_px);
     m_yAxisMaxLabel->setFont(font);
     m_yAxisMaxLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_yAxisMaxLabel->setText(QString::number(m_params.yAxisMax, 'f', 1));
 
     m_yAxisMinLabel->setGeometry(QRect(0, height() - Indent_px, Indent_px, Indent_px));
     font = m_yAxisMinLabel->font();
-    font.setPixelSize(Theme::SmallerFontSize_px);
+    font.setPixelSize(Theme::FontSizeSmaller_px);
     m_yAxisMinLabel->setFont(font);
     m_yAxisMinLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     m_yAxisMinLabel->setText(QString::number(m_params.yAxisMin, 'f', 1));

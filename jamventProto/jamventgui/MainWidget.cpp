@@ -53,6 +53,8 @@ void MainWidget::showPage(Pages::Page_E page)
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
+    qDebug() << "MainWidget::keyPressEvent(" << event << ")";
+
     if (event->key() == Qt::Key_C)
     {
         // Convert "c" key event to a tab keyevent to see if will change focus.
