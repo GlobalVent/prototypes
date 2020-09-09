@@ -21,7 +21,7 @@ void VLabelWidget::paintEvent(QPaintEvent *)
     //qDebug() << "width =" << width() << "height =" << height() << ", text =" << text();
 
     QFont font = painter.font();
-    font.setPointSize(Theme::SmallerFontSize_point);
+    font.setPointSize(Theme::FontSizeSmaller_point);
     painter.setFont(font);
     const QRect textRect(0, 0, height(), width());
 

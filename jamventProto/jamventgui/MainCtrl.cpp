@@ -6,6 +6,7 @@
 #include "PowerupCtrl.h"
 #include "TreatmentCtrl.h"
 #include "ConfigJson.h"
+#include "AlertDialogWidget.h"
 
 namespace
 {
@@ -117,9 +118,18 @@ void MainCtrl::onSimOnChanged(bool isChecked)
     if (isChecked)
     {
         // Simulation started. Send start commands (differs for serail vs I2C)
+        // JPW @todo Temporary for testing
+        onShowAlertDialog("Emergency, Emergency", -123, "Everybody to get from street.");
     }
     else
     {
         // Simulation stopped. Send stop commands (if any. differs for serail vs I2C)
     }
+}
+
+void MainCtrl::onShowAlertDialog(QString title, int errStatus, QString errMessage)
+{
+    qDebug() << "MainCtrl::onShowAlertDialog(" << title  << ", " << errStatus << ", " << errMessage << ")";
+    AlertDialogWidget dialog{title, errStatus, errMessage, m_widget};
+    dialog.exec();
 }
