@@ -25,10 +25,16 @@ public:
 		  _vref(vref) {
 	}
 	
+	// error return codes
+	enum {
+		I2C_ADC_BAD_INIT = -2000,	// timed out waiting for ADC to say it was ready
+	};
+	
 	int init(bool extVref, bool enableChannels[8], bool enableTemp);
 	int readVoltageCounts(uint8_t channel);
 	float readVoltage(uint8_t channel);
 	int readTemp(int16_t *temperature);
+	std::string getErrorText(int err);
 	
 protected:
 	// voltage reference value

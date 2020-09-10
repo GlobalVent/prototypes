@@ -1,32 +1,6 @@
 #include "I2cGenericDev.h"
 
 /**
-* @brief Get the Error get the error text associated with an error code.
-* 
-* @param err -- error code to get error text for
-* @return std::string -- error rext...
-*/
-std::string I2cGenericDev::getErrorText(int err) {
-	std::string errStr;
-	// currently this is a partial list of the errors
-	// that are marked in the i2c section for pigpio.
-	switch(err) {
-	case PI_NOT_INITIALISED:  errStr = "function called before gpioInitialise"; break;
-	case PI_BAD_HANDLE:       errStr = "unknown handle"; break;
-	case PI_BAD_PARAM:		  errStr = "bad i2c/spi/ser parameter"; break;
-	case PI_I2C_OPEN_FAILED:  errStr = "i2c open failed"; break;
-	case PI_I2C_READ_FAILED:  errStr = "i2c read failed"; break;
-	case PI_I2C_WRITE_FAILED: errStr = "i2c write failed"; break;
-	case PI_BAD_I2C_ADDR:	  errStr = "bad i2c address"; break;
-	case PI_BAD_FLAGS:		  errStr = "bad flags"; break;
-	case PI_BAD_I2C_BUS:	  errStr = "bad i2c bus"; break;
-	case PI_NO_HANDLE:		  errStr = "no handle available"; break;
-	default:  errStr = "Unknown pigpio error"; break;
-	}
-	return (errStr);
-}
-	
-/**
 * @brief initialize our connection to the i2c device.
 * 
 * @return int -- 0 if OK, otherwise PI_BAD_I2C_BUS, PI_BAD_I2C_ADDR, PI_BAD_FLAGS, PI_NO_HANDLE, or PI_I2C_OPEN_FAILED

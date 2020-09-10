@@ -2,8 +2,9 @@
 #define __SPEAKER_H__
 
 #include <pigpio.h>
+#include "JamHwErrors.h"
 
-class Speaker {
+class Speaker : public JamHwErrors {
 public:
 	static int init();
 	static int playNote(unsigned freq);

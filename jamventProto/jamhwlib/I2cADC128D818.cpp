@@ -20,6 +20,7 @@
 int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 	int rc;
 	int readingDelay = 0;
+	int startupWaitCount = 0;
 	
 	/* startup sequence from datasheet */
 	// wait for the device to signal it's ready ("not ready" bit turns off)
@@ -28,6 +29,12 @@ int I2cADC128D818::init(bool extVref, bool enableChannels[8], bool enableTemp) {
 		rc = readByteData(REG_BUSY_STATUS);
 		if (rc < 0)
 			return rc;
+		
+		// count the number of times we've had to wait for the "not ready" bit
+		// (this is always at least 1 for the first time checking)
+		startupWaitCount++;
+		if (startupWaitCount >= 100)
+			return I2C_ADC_BAD_INIT;
 	} while (rc & BIT_BUSY_STATUS_NR);
 	
 	// reset the registers just in case we're re-initializing, and can't depend on the power-on reset
@@ -142,4 +149,20 @@ int I2cADC128D818::readTemp(int16_t *temperature) {
 		*temperature = rc;
 	
 	return 0;
+}
+
+
+/**
+* @brief Get description associated with an error code.
+* 
+* @param err -- error code to get error text for
+* @return std::string -- error text
+*/
+std::string I2cADC128D818::getErrorText(int err) {
+	std::string errStr;
+	switch (err) {
+		case I2C_ADC_BAD_INIT:  errStr = "Timed out waiting for 'not ready' bit"; break;
+		default:		  errStr = I2cGenericDev::getErrorText(err); break;
+	}
+	return (errStr);
 }

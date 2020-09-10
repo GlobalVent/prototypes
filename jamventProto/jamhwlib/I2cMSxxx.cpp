@@ -85,7 +85,7 @@ void I2cMSxxx::getPromData(std::vector<uint16_t> &data) {
 }
 
 /**
-* @brief startTemperatureCv -- start the temperature conversion.
+* @brief start the temperature conversion
 * 
 * @param precision -- precision required (one of ADC_xxx above)
 * @return int -- returns the number of microseconds (us) required to 

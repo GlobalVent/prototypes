@@ -28,7 +28,7 @@ int Valves::init() {
 /**
  * @brief Sets the state of a valve
  *        
- * @param valve -- valve to control (one of VALVE_A, VALVE_B, VALVE_C, or VALVE_D)
+ * @param valve -- valve to control (one of VALVE_*)
  * @param state -- true to activate, false to de-activate (close a normally-closed valve, or open a normally-open valve)
  * @return int -- 0 on success, pigpio error code on error
  */
@@ -39,4 +39,23 @@ int Valves::setState(Valve_t valve, bool state) {
 
 	unsigned const gpioPin = VALVE_GPIOS.at(valve);
 	return gpioWrite(gpioPin, (unsigned int)state);
+}
+
+
+/**
+ * @brief Gets the state of a valve
+ * This only returns the state of the valve output command from the
+ * Raspberry Pi's GPIO: it does NOT check in any way that the valve
+ * itself is actually open or closed!
+ *        
+ * @param valve -- valve to control (one of VALVE_*)
+ * @return int -- 0 if de-activated, 1 if activated, pigpio error code on error
+ */
+int Valves::getState(Valve_t valve) {
+	// check valve number
+	if(VALVE_GPIOS.count(valve) == 0)
+		return PI_BAD_PARAM;
+
+	unsigned const gpioPin = VALVE_GPIOS.at(valve);
+	return gpioRead(gpioPin);
 }

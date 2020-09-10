@@ -4,8 +4,9 @@
 #include <string>
 #include <map>
 #include <pigpio.h>
+#include "JamHwErrors.h"
 
-class Valves {
+class Valves : public JamHwErrors {
 public:
 	// individual valves to control
 	enum Valve_t {
@@ -17,6 +18,7 @@ public:
 	
 	static int init();
 	static int setState(Valve_t valve, bool state);
+	static int getState(Valve_t valve);
 	
 protected:
 	// GPIO pins that control each valve

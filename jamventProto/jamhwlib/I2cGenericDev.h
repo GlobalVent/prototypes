@@ -1,11 +1,11 @@
 #ifndef __I2C_GENERIC_DEV_H__
 #define __I2C_GENERIC_DEV_H__
 
-#include <string>
+#include "JamHwErrors.h"
 #include <pigpio.h>
 
 // generic i2c class
-class I2cGenericDev
+class I2cGenericDev : public JamHwErrors
 {
 public:
 	I2cGenericDev() = delete;
@@ -17,7 +17,6 @@ public:
 		i2cClose(_handle);
 	}		
 
-	std::string getErrorText(int err);
 	int open();
 	void close();
 	int writeByte(uint8_t data);

@@ -33,7 +33,7 @@ public:
 
 			// calculate internal scale factors
 			_offset = zeroPointVoltage * (float )ampGain;
-			_scale = 100.0 / ((float )ampGain * (fullScaleVoltage - zeroPointVoltage));
+			_scale = 1.0 / ((float )ampGain * (fullScaleVoltage - zeroPointVoltage));
 	}
 	
 	float readO2(uint8_t channel);
@@ -42,7 +42,7 @@ public:
 private:
 	// sensor's 0% offset, in ADC-input volts
 	float _offset;
-	// sensor's scale factor, in (O2 %) per ADC-input volt
+	// sensor's scale factor, in O2-fraction per ADC-input volt
 	float _scale;
 };
 
